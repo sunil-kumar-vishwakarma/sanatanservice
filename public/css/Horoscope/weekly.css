@@ -1,0 +1,105 @@
+/* public/css/Horoscope/weekly.css */
+
+/* Main Container */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 95px;
+    margin-top: 40px;
+}
+
+.main-content h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Date Selector */
+.date-selector {
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+.date-selector label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.date-selector input[type="date"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.date-selector input[type="date"]:focus {
+    outline: none;
+    border-color: #24007a;
+    box-shadow: 0 0 5px rgba(36, 0, 122, 0.5);
+}
+
+/* Horoscope List */
+.horoscope-list {
+    width: 110%;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: hidden; /* Disable vertical scrolling */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Horoscope Table */
+.horoscope-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    min-width: 1200px; /* Ensure the table is wide enough to trigger horizontal scrolling */
+}
+
+.horoscope-table th,
+.horoscope-table td {
+    padding: 16px;
+    text-align: center;
+}
+
+.horoscope-table th {
+    background-color: #24007a;
+    color: white;
+    font-weight: bold;
+}
+
+.horoscope-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .horoscope-table th,
+    .horoscope-table td {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .horoscope-table th,
+    .horoscope-table td {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .horoscope-table th,
+    .horoscope-table td {
+        padding: 8px;
+    }
+}

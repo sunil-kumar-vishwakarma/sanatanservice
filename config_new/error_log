@@ -1,0 +1,8 @@
+[17-Feb-2025 01:01:33 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/edudoig2/astromirror.nativetechnology.in/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/edudoig2/astromirror.nativetechnology.in/config/database.php on line 18
+[25-Feb-2025 07:16:17 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/edudoig2/jdresearchcenter.com/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/edudoig2/jdresearchcenter.com/config/cache.php on line 18

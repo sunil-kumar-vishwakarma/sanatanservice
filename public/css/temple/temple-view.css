@@ -1,0 +1,80 @@
+  /* public/css/temple-view.css */
+
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 100%;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+.temple-details {
+    /* display: flex; */
+    align-items: flex-start;
+    margin-top: 50px;
+    margin-left: 305px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.image-meta {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.temple-image {
+    max-width: 300px;
+    height: auto;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.meta {
+    color: #676565;
+    font-size: 15px;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.meta span {
+    margin-bottom: 5px;
+}
+
+.description {
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.meta h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    .temple-details {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .image-meta {
+        margin-bottom: 20px;
+    }
+
+    .temple-image {
+        margin-bottom: 20px;
+        margin-right: 0;
+    }
+}

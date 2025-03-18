@@ -1,0 +1,233 @@
+/* Categories Page */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.main-content {
+    margin-left: 90px;
+    margin-top: 35px;
+    padding: 10px;
+
+}
+
+/* Add Button Container */
+.add-button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.search-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    background-color: #24007a;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.search-button:hover {
+    background-color: #25007ae1;
+    transform: scale(1.05);
+
+}
+
+.add-button {
+    display: inline-block;
+    background-color: #24007a;
+    color: white;
+    padding: 15px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.add-button:hover {
+    background-color: #25007ae1;
+    transform: scale(1.05);
+}
+
+
+.category-list {
+    width: 110%; /* Ensure the list takes the full width */
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+}
+
+.category-table th,
+.category-table td {
+    padding: 12px;
+    text-align: center;
+    /* border-bottom: 1px solid #ddd; */
+}
+
+.category-table th {
+    background-color: #24007a;
+    color: white;
+    font-weight: bold;
+}
+
+.category-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.category-table tbody td img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px; /* Add space between buttons */
+    justify-content: center; /* Center the buttons */
+}
+
+.action-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 5px; /* Reduced padding for smaller size */
+    font-size: 14px; /* Reduced font size */
+    font-weight: bold;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+    width: 70px; /* Reduced width */
+    text-align: center;
+}
+
+.action-button.view {
+    background-color: #007bff;
+}
+
+.action-button.view:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+    box-shadow: 0px 5px 10px rgba(0, 123, 255, 0.3);
+}
+
+.action-button.edit {
+    background-color: #ff6702;
+}
+
+.action-button.edit:hover {
+    background-color: #e96b00;
+    transform: scale(1.05);
+    box-shadow: 0px 5px 10px rgba(253, 126, 20, 0.3);
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-switch .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.toggle-switch .toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background-color: #28a745; /* Green for Active */
+}
+
+.toggle-switch input:not(:checked) + .toggle-slider {
+    background-color: #dc3545; /* Red for Inactive */
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+    transform: translateX(20px);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .category-table th,
+    .category-table td {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .category-table th,
+    .category-table td {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .category-table th,
+    .category-table td {
+        padding: 8px;
+    }
+
+    .action-button {
+        display: block;
+        margin: 5px auto;
+        width: 70px;
+        text-align: center;
+    }
+}

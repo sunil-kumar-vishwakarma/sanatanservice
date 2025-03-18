@@ -1,0 +1,59 @@
+/* dark mode */
+
+.custom-background-color {
+    background: #193091;
+  }
+
+  .custom-background-color h2 {
+    color: #ffffff;
+  }
+
+  .custom-background-color p {
+    color: #ffffff;
+  }
+
+  .custom-background-color .client .card {
+    background-color: #ff5a2c;
+  }
+
+  .footer-background {
+    /* background: linear-gradient(#193091, #); */
+    background: radial-gradient(
+      95.02% 94.89% at 48.86% 20.39%,
+      #e6dbd5 -5.41%,
+      #324498 30.63%,
+      #193091 100%
+    );
+  }
+
+  .footer-background ul li h2 {
+    color: #ff5a2c;
+  }
+
+  .footer-background ul li i {
+    color: #ffffff;
+  }
+
+  .footer-background .address ul li {
+    color: #ffffff;
+  }
+
+  .footer-background p {
+    color: #ffffff;
+  }
+
+  .footer-background .footer-service h2 {
+    color: #ff5a2c;
+  }
+
+  .footer-background .footer-service ul li {
+    color: #ffffff;
+  }
+
+  .footer-background .address ul li input{
+      background-color: #ffffff;
+  }
+
+  .footer-background .social-icon ul li i{
+      color: #193091;
+  }

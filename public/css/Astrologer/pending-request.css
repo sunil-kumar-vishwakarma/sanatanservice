@@ -1,0 +1,27 @@
+.main-content {
+    margin-top: 35px;
+    padding: 10px;
+}
+
+.astrologer-table th,
+.astrologer-table td {
+    border-bottom: none;
+}
+
+.status-button {
+    padding: 10px 15px;
+    margin: 2px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+.status-button.pending {
+    background-color: #ff6702; /* Yellow */
+}
+
+.status-button.approved {
+    background-color: #28a745; /* Green */
+}

@@ -55,7 +55,8 @@ class TempleController extends Controller
         ]);
 
         $temp_list = Temple::all();
-        return view('admin.Temple.list', compact('temp_list'));
+        return redirect('admin.temple.list');
+        // return view('admin.Temple.list', compact('temp_list'));
 
         // return response()->json([
         //     'success' => true,

@@ -41,6 +41,7 @@ class UserController extends Controller
                     'forgotPassword',
                     'loginAppUser',
                     'verifyOTP',
+                    'signUp',
                 ],
             ]
         );
@@ -139,6 +140,67 @@ class UserController extends Controller
         }
     }
 
+
+    public function signUp(Request $request)
+    {
+        // print_r($request->all());die;
+        try {
+            $data = $request->only(
+                'name',
+                'email',
+                'password',
+                'password_confirmation',
+            );
+
+            //Validate the data
+            $validator = Validator::make($data, [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:6|confirmed', // `confirmed` checks for `password_confirmation`
+
+            ]);
+
+            //Send failed response if request is not valid
+            if ($validator->fails()) {
+                DB::rollback();
+                return response()->json(['error' => $validator->messages(), 'status' => 400], 400);
+            }
+
+            //Image
+
+            //Create a new user
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password)
+            ]);
+            
+            $user->update();
+            UserRole::create([
+                'userId' => $user->id,
+                'roleId' => 3,
+            ]);
+
+            //Create token
+            $id = ['id' => $user->id];
+            DB::commit();
+            //Json response
+            return response()->json([
+                'success' => true,
+                'token_type' => 'Bearer',
+                'status' => 200,
+                'message' => 'User add sucessfully',
+                'recordList' => $user,
+            ], 200);
+        } catch (\Exception$e) {
+            DB::rollback();
+            return response()->json([
+                'error' => false,
+                'message' => $e->getMessage(),
+                'status' => 500,
+            ], 500);
+        }
+    }
     //Get user details
     public function getUsers(Request $req)
     {
@@ -186,15 +248,23 @@ class UserController extends Controller
     }
 
     //Update user
-    public function updateUser(Request $req, $id)
+    public function updateUser(Request $req)
     {
+      
         try {
 
             $req->validate = ([
                 'contactNo' => 'required',
             ]);
+            $user = Auth::guard('api')->user();
+            if (!$user) {
+                return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
+            }
+    
+            $id = $user->id;
 
-            $user = User::find($id);
+            
+            // $user = User::find($id);
             if ($user) {
                 $time = Carbon::now()->timestamp;
                 if ($req->profile) {
@@ -234,7 +304,7 @@ class UserController extends Controller
                 $user->profile = $path;
                 $user->pincode = $req->pincode;
                 $user->gender = $req->gender;
-                $user->email = $req->email;
+                // $user->email = $req->email;
                 $user->countryCode = $req->countryCode;
                 $user->update();
                 return response()->json(['message' => 'User update sucessfully', 'status' => 200], 200);

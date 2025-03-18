@@ -226,3 +226,15 @@
         text-align: center;
     }
 }
+
+.description-data {
+    display: block;
+  display: -webkit-box;
+  max-width: 100%;
+  margin: 0 auto;
+  line-height: 1;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

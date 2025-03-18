@@ -33,9 +33,9 @@
                             <td>
                                 <img src="{{ asset('storage/' .  $value->photo) }}" alt="Temple Image" class="temple-image">
                             </td>
-                            <td class="description">
+                            <td class="description description-data" style="width: 300px; padding-bottom: initial;">
                             {{ $value->description }}</td>
-                            <td class="action-buttons">
+                            <td class="">
                             <a href="{{ route('admin.temple.view', $value->id) }}" class="action-button view">View</a>
 
                                 <a href="#" class="action-button edit">Edit</a>

@@ -20,7 +20,7 @@ class TempleController extends Controller
     public function view($id)
     {
         $temple = Temple::findOrFail($id);
-        return view('admin.temple.view', compact('temple'));
+        return view('admin.Temple.view', compact('temple'));
     }
     public function add()
     {

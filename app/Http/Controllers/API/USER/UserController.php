@@ -267,31 +267,44 @@ class UserController extends Controller
             // $user = User::find($id);
             if ($user) {
                 $time = Carbon::now()->timestamp;
-                if ($req->profile) {
-                    if (Str::contains($req->profile, 'storage')) {
-                        $path = $req->profile;
-                    } else {
-                        $imageName = 'user_' . $req->id . $time;
-                        $path = DESTINATIONPATH . $imageName . '.png';
-                        File::delete($user->profile);
-                        file_put_contents($path, base64_decode($req->profile));
-                    }
-                } else {
-                    $path = null;
-                }
-
+            
                 // For Web view
-                if ($req->hasFile('profilepic')) {
-                    $file = $req->file('profilepic');
-                    $imageName = 'user_' . $req->id . $time . '.' . $file->getClientOriginalExtension();
-                    $path = DESTINATIONPATH . $imageName;
+              
 
-                    // Write the file contents to the specified path
-                    if (file_put_contents($path, file_get_contents($file))) {
-                        $user->profile = $path;
-                    }
-                }
+
                 //
+
+                // Ensure storage directory exists
+        $storagePath = storage_path('app/public/images');
+        if (!file_exists($storagePath)) {
+            mkdir($storagePath, 0777, true);
+        }
+
+        $path = null;
+        
+        if ($req->profile) {
+            if (Str::contains($req->profile, 'storage')) {
+                $path = $req->profile; // Keep existing image if already stored
+            } else {
+                // Generate a new file name
+                $time = Carbon::now()->timestamp;
+                $imageName = 'profile_' . $id . '_' . $time . '.png';
+                $path = 'images/' . $imageName;
+
+                // Delete old profile image
+                if ($user->profile) {
+                    File::delete(storage_path('app/public/' . str_replace('storage/', '', $user->profile)));
+                }
+
+                // Save the new profile image
+                Storage::disk('public')->put($path, base64_decode($req->profile));
+
+                // Convert to accessible URL
+                $path = Storage::url($path);
+                
+            }
+        }
+
 
                 $user->name = $req->name;
                 $user->contactNo = $req->contactNo;
@@ -307,7 +320,7 @@ class UserController extends Controller
                 // $user->email = $req->email;
                 $user->countryCode = $req->countryCode;
                 $user->update();
-                return response()->json(['message' => 'User update sucessfully', 'status' => 200], 200);
+                return response()->json(['message' => 'User update sucessfully', 'status' => 200, 'data'=>$user], 200);
             } else {
                 return response()->json(['message' => 'No user is found', 'status' => 404], 404);
             }
@@ -415,7 +428,7 @@ class UserController extends Controller
             // }
             $systemFlag = DB::Table('systemflag')
                 ->get();
-            $user->systemFlag = $systemFlag;
+            // $user->systemFlag = $systemFlag;
             return response()->json([
                 'success' => true,
                 'data' => $user,
@@ -1052,6 +1065,7 @@ class UserController extends Controller
 
                 // Convert to accessible URL
                 $path = Storage::url($path);
+
             }
         }
 

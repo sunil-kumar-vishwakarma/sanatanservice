@@ -308,7 +308,7 @@ class UserController extends Controller
 
                 $user->name = $req->name;
                 $user->contactNo = $req->contactNo;
-                $user->password = Hash::make($req->password);
+                // $user->password = Hash::make($req->password);
                 $user->birthDate = $req->birthDate;
                 $user->birthTime = $req->birthTime;
                 $user->birthPlace = $req->birthPlace;
@@ -339,7 +339,7 @@ class UserController extends Controller
 
         try {
             $data = $req->only('email', 'password');
-
+            // print_r($data);die;
             //Valid credential
             $validator = Validator::make($data, [
                 'email' => 'required',
@@ -353,7 +353,13 @@ class UserController extends Controller
 
             //Create token
             try {
-                if (!$token = Auth::guard('api')->attempt($data)) {
+                $token = Auth::guard('api')->attempt($data);
+                // print_r($token);die;
+
+                if (!$token ) {
+
+                    // print_r($token);die;
+
                     return response()->json([
                         'success' => false,
                         'message' => 'Login credentials are invalid.',
@@ -388,6 +394,46 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+
+//     public function loginUser(Request $req)
+// {
+//     try {
+//         // Validate request
+//         $validator = Validator::make($req->all(), [
+//             'email' => 'required|email',
+//             'password' => 'required|string|min:6|max:50',
+//         ]);
+
+//         if ($validator->fails()) {
+//             return response()->json(['error' => $validator->errors(), 'status' => 400], 400);
+//         }
+
+//         // Attempt to authenticate
+//         if (!$token = Auth::attempt($req->only('email', 'password'))) {
+//             return response()->json([
+//                 'success' => false,
+//                 'message' => 'Invalid login credentials.',
+//             ], 401);
+//         }
+
+//         // Return response with token
+//         return response()->json([
+//             'success' => true,
+//             'token' => $token,
+//             'token_type' => 'Bearer',
+//             'expires_in' => auth()->factory()->getTTL() * 60, // Token expiration time in seconds
+//             'status' => 200,
+//         ], 200);
+
+//     } catch (\Exception $e) {
+//         return response()->json([
+//             'success' => false,
+//             'message' => $e->getMessage(),
+//             'status' => 500,
+//         ], 500);
+//     }
+// }
 
     //Generate token
     protected function respondWithToken($token)

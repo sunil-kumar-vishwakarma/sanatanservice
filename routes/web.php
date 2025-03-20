@@ -16,11 +16,13 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\VideosController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\SupportController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PageManagementController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\frontend\HomeController;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\GeneralSettingController;
 
 // frontent route
 
@@ -84,6 +86,23 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/yearly-horoscope', [HoroscopeController::class, 'yearly'])->name('admin.horoscope.yearly');
     Route::get('/admin/feedback-horoscope', [HoroscopeController::class, 'feedback'])->name('admin.horoscope.feedback');
 
+
+    Route::get('/admin/g-setting', [GeneralSettingController::class, 'general'])->name('admin.g-setting.general');
+   Route::get('/admin/g-setting/payments', [GeneralSettingController::class, 'payments'])->name('admin.g-setting.payments');
+   Route::get('/admin/g-setting/social_link', [GeneralSettingController::class, 'social_link'])->name('admin.g-setting.social_link');
+//    Route::post('/admin/g-setting/third_party_package', [GeneralSettingController::class, 'third_party_package'])->name('admin.g-setting.third_party_package');
+   
+Route::any('/admin/g-setting/third_party_package', [GeneralSettingController::class, 'third_party_package'])->name('admin.g-setting.third_party_package');
+
+// Route::get('setting', [SystemFlagController::class, 'getSystemFlag'])->name('setting');
+        Route::post('editSystemFlag', [GeneralSettingController::class, 'editSystemFlag'])->name('editSystemFlag');
+       
+
+
+   Route::get('/admin/g-setting/master_image', [GeneralSettingController::class, 'master_image'])->name('admin.g-setting.master_image');
+   Route::get('/admin/g-setting/website_config', [GeneralSettingController::class, 'website_config'])->name('admin.g-setting.website_config');
+
+
     // Arti
 
     Route::prefix('admin/arti')->group(function () {
@@ -116,6 +135,8 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/video', [VideosController::class, 'index'])->name('admin.video.video');
     Route::get('/admin/banner', [BannerController::class, 'index'])->name('admin.banner.banner');
     Route::get('/admin/notifications', [NotificationsController::class, 'index'])->name('admin.notifications.index');
+    Route::get('/admin/support-management', [SupportController::class, 'index'])->name('admin.support-management.FAQs');
+
 
     Route::get('/admin/feedback', [FeedbackController::class, 'index'])->name('admin.feedback');
     Route::get('/admin/contact', [ContactController::class, 'index'])->name('admin.contact.index');

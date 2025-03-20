@@ -156,10 +156,17 @@
                 <li><a href="#"><i class="fas fa-users"></i> Team List</a></li>
             </ul>
         </li>
-
+<!-- 
         <li class="{{ request()->routeIs('admin.userlist') ? 'active' : '' }}">
             <a href="#"><i class="fas fa-sliders-h"></i> General Settings</a>
+        </li> -->
+        <!-- <li class="{{ request()->routeIs('admin.g-setting.general') ? 'active' : '' }}">
+            <a href="{{ route('admin.g-setting.general') }}"><i class="fas fa-sliders-h"></i> General Settings</a>
+        </li> -->
+        <li class="{{ request()->routeIs('admin.g-setting.third_party_package') ? 'active' : '' }}">
+            <a href="{{ route('admin.g-setting.third_party_package') }}"><i class="fas fa-sliders-h"></i> General Settings</a>
         </li>
+        
         <li class="{{ request()->routeIs('admin.feedback') ? 'active' : '' }}">
             <a href="{{ route('admin.feedback') }}"><i class="fas fa-comment-dots"></i> Feedback</a>
         </li>

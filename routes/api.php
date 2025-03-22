@@ -47,6 +47,8 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('validateSession', [AstrologerController::class, 'validateSession']);
     Route::post('validateSessionForAstrologer', [AstrologerController::class, 'validateSessionForAstrologer']);
     Route::post('live-arti', [LiveVideoController::class, 'liveArti']);
+    Route::post('live-darshan', [LiveVideoController::class, 'liveDarshan']);
+    
     Route::post('arti-song', [LiveVideoController::class, 'artiSong']);
     Route::post('temple-list', [ApiTempleController::class, 'templeList']);
     Route::post('sign-up', [UserController::class, 'signUp']);

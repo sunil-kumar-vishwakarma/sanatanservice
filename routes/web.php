@@ -23,6 +23,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\frontend\HomeController;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\GeneralSettingController;
+use App\Http\Controllers\LiveDarsanController;
 
 // frontent route
 
@@ -120,8 +121,13 @@ Route::any('/admin/g-setting/third_party_package', [GeneralSettingController::cl
         Route::get('/video', [ArtiController::class, 'index'])->name('admin.live.arti');
         Route::post('/video', [ArtiController::class, 'store'])->name('admin.live.arti.store');
         Route::delete('/video/{id}', [ArtiController::class, 'destroy'])->name('admin.live.arti.destroy');
+  
+        Route::get('/darshan', [LiveDarsanController::class, 'index'])->name('admin.live.darshan');
+        Route::post('/darshan', [LiveDarsanController::class, 'store'])->name('admin.live.darshan.store');
+        Route::delete('/darshan/{id}', [LiveDarsanController::class, 'destroy'])->name('admin.live.darshan.destroy');
     });
 
+    
 
 
 

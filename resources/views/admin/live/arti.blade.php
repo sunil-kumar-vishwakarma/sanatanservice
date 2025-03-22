@@ -6,7 +6,7 @@
     <div class="container">
         <main class="main-content">
             <section class="pdf-management">
-                <h2>Add New video</h2>
+                <h2>Add New Live Arti video</h2>
                 <form id="videoForm" action="{{ route('admin.live.arti.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">

@@ -6,8 +6,8 @@
     <div class="container">
         <main class="main-content">
             <section class="pdf-management">
-                <h2>Add New video</h2>
-                <form id="videoForm" action="{{ route('admin.live.arti.store') }}" method="POST" enctype="multipart/form-data">
+                <h2>Add New live darshan video</h2>
+                <form id="videoForm" action="{{ route('admin.live.darshan.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="video_name">video Name:</label>
@@ -18,11 +18,32 @@
                         <input type="file" id="thumbnail" name="thumbnail" class="form-control" accept="image/*"
                             required>
                     </div>
+
                     <div class="form-group">
+                            <label for="video_option">Select Video Option:</label>
+                            <select id="video_option" name="video_option" class="form-control" onchange="toggleVideoInput()">
+                                <option value="file">Upload Video</option>
+                                <option value="url">Video URL</option>
+                            </select>
+                        </div>
+
+                        <!-- Video File Input -->
+                        <div class="form-group" id="video_file_div">
+                            <label for="video_file">Video File:</label>
+                            <input type="file" id="video_file" name="video_file" class="form-control" accept="video/*">
+                        </div>
+
+                        <!-- Video URL Input -->
+                        <div class="form-group" id="video_url_div" style="display: none;">
+                            <label for="video_url">Video URL:</label>
+                            <input type="url" id="video_url" name="video_url" class="form-control" placeholder="Enter video URL">
+                        </div>
+
+                    <!-- <div class="form-group">
                         <label for="video_file">video File:</label>
                         <input type="file" id="video_file" name="video_file" class="form-control"
                             accept="application/video" required>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <button type="submit" class="action-button add">Add video</button>
                     </div>
@@ -45,7 +66,21 @@
                                 <td>{{ $video->id }}</td>
                                 <td><img src="{{ Storage::url($video->thumbnail_path) }}" alt="{{ $video->video_name }}"
                                         class="audio-thumbnail"></td>
-                                <td>{{ $video->video_name }}</td>
+                                <td>
+
+                                @if ($video->video_path)
+        <video width="320" height="240" controls>
+            <source src="{{ asset('storage/' . $video->video_path) }}" type="video/mp4">
+            {{ $video->video_name }}
+        </video>
+    @elseif ($video->video_url)
+    <iframe width="320" height="240" src="{{ str_replace('watch?v=', 'embed/', $video->video_url) }}" 
+    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+    
+        <!-- <iframe width="320" height="240" src="{{ $video->video_url }}" frameborder="0" allowfullscreen>{{ $video->video_name }}</iframe> -->
+    @endif
+    </td>
                                 <td class="action-buttons">
                                     <form action="{{ route('admin.live.arti.destroy', $video->id) }}" method="POST"
                                         onsubmit="return confirm('Are you sure?');">
@@ -61,10 +96,11 @@
                     </tbody>
                 </table>
             </section>
+   
         </main>
     </div>
 
-    <script>
+    <!-- <script>
         document.getElementById('videoForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
@@ -113,7 +149,7 @@
                     alert('Something went wrong.');
                 });
         });
-    </script>
+    </script> -->
     <script>
         document.getElementById('videoForm').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -140,4 +176,18 @@
 });
 
     </script>
+
+<script>
+function toggleVideoInput() {
+    var option = document.getElementById("video_option").value;
+    
+    if (option === "file") {
+        document.getElementById("video_file_div").style.display = "block";
+        document.getElementById("video_url_div").style.display = "none";
+    } else {
+        document.getElementById("video_file_div").style.display = "none";
+        document.getElementById("video_url_div").style.display = "block";
+    }
+}
+</script>
 @endsection

@@ -93,7 +93,7 @@
                 <li class="{{ request()->routeIs('admin.live.arti') ? 'active' : '' }}">
                    <a href="{{ route('admin.live.arti') }}"><i class="fas fa-video"></i> Live Arti</a></li>
                 </li>
-                <li><a href="#"><i class="fas fa-video"></i> Live Darshans</a></li>
+                <li class="{{ request()->routeIs('admin.live.darshan') ? 'active' : '' }}"><a href="{{route('admin.live.darshan')}}"><i class="fas fa-video"></i> Live Darshans</a></li>
             </ul>
         </li>
         <li class="{{ request()->routeIs('admin.blog.list') ? 'active' : '' }}">

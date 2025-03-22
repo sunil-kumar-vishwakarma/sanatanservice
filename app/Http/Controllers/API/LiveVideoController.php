@@ -11,6 +11,7 @@ use App\Models\AdminModel\DefaultProfile;
 use App\Models\UserModel\User;
 use App\Models\Video;
 use App\Models\Audio;
+use App\Models\LiveDarshan;
 class LiveVideoController extends Controller
 {
     /**
@@ -84,6 +85,44 @@ class LiveVideoController extends Controller
         }
     }
 
+
+    public function liveDarshan()
+    {
+        //
+        $videos = LiveDarshan::all();
+
+        try {
+            if (!Auth::guard('api')->user()) {
+                return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
+            } else {
+                $id = Auth::guard('api')->user()->id;
+            }
+            $user = User::find($id);
+            // $userWallet = UserWallet::query()
+            //     ->where('userId', '=', $id)
+            //     ->get();
+            // if ($userWallet && count($userWallet) > 0) {
+            //     $user->totalWalletAmount = $userWallet[0]->amount;
+            // } else {
+            //     $user->totalWalletAmount = 0;
+            // }
+            $systemFlag = DB::Table('systemflag')
+                ->get();
+            $user->systemFlag = $systemFlag;
+            return response()->json([
+                'success' => true,
+                'data' => $videos,
+                'status' => 200,
+            ], 200);
+        } catch (\Exception$e) {
+            return response()->json([
+                'error' => false,
+                'message' => $e->getMessage(),
+                'status' => 500,
+            ], 500);
+        }
+    }
+    
     /**
      * Store a newly created resource in storage.
      *

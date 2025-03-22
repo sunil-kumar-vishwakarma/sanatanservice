@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('horoscopes', function (Blueprint $table) {
+        Schema::create('horoscopess', function (Blueprint $table) {
             $table->id();
             $table->string('zodiac');
             $table->integer('total_score');

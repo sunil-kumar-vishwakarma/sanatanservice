@@ -51,7 +51,7 @@
                         @foreach ($audios as $audio)
                             <tr>
                                 <td>{{ $audio->id }}</td>
-                                <td><img src="{{ Storage::url($audio->thumbnail_path) }}" alt="{{ $audio->audio_name }}"
+                                <td><img src="{{ asset('storage/' .$audio->thumbnail_path) }}" alt="{{ $audio->audio_name }}"
                                         class="audio-thumbnail"></td>
                                 <td>@if(!empty($audio->audio_path))
                                         
@@ -64,7 +64,7 @@
                                     @endif</td>
                                 <td>
                                     @if(!empty($audio->pdf_path))
-                                        <a href="{{ Storage::url($audio->pdf_path) }}" target="_blank">
+                                        <a href="{{ asset('storage/' .$audio->pdf_path) }}" target="_blank">
                                         <i class="fa-solid fa-file-pdf" style="color: red;"></i>
                                         </a>
                                     @else

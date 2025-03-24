@@ -59,7 +59,7 @@
                         @foreach ($videos as $video)
                             <tr>
                                 <td>{{ $video->id }}</td>
-                                <td><img src="{{ Storage::url($video->thumbnail_path) }}" alt="{{ $video->video_name }}"
+                                <td><img src="{{ asset('storage/' .$video->thumbnail_path) }}" alt="{{ $video->video_name }}"
                                         class="audio-thumbnail"></td>
                                 <td>
 

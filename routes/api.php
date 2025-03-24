@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\API\FeedbackController;
 use App\Http\Controllers\API\LiveVideoController;
 use App\Http\Controllers\API\ApiTempleController;
+use App\Http\Controllers\API\ApiController;
 
 use App\Http\Controllers\API\User\DailyHoroscopeController;
 use App\Http\Controllers\API\User\HoroController;
@@ -77,7 +78,12 @@ Route::post('kundali/removeFromTrackPlanet', [KundaliController::class, 'removeF
 Route::post('kundali/addForTrackPlanet', [KundaliController::class, 'addForTrackPlanet']);
 Route::post('kundali/getForTrackPlanet', [KundaliController::class, 'getForTrackPlanet']);
 Route::post('get/panchang', [KundaliController::class, 'getPanchang']);
+
+// banner list
+
+
 });
+Route::get('banner_list', [ApiController::class, 'bannerList']);
 
 Route::post('privacy-policy', [DashboardController::class, 'privacyPolicy'])->name('privacyPolicy');
 Route::post('tnc', [DashboardController::class, 'termscond'])->name('termscond');

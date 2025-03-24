@@ -7,17 +7,23 @@
         <main class="main-content">
             <section class="videos-list">
                 <div class="add-button-container">
-                    <a href="#" class="add-button">+ Add Video</a>
+                    <a href="{{route('admin.video.create')}}" class="add-button">+ Add Video</a>
                 </div>
                 <div class="videos-container">
+
+                @foreach($videos  as $rows)
                     <div class="video-item">
-                        <img src="{{ asset('https://s7ap1.scene7.com/is/image/incredibleindia/konark-temple-puri-odisha-2-attr-hero?qlt=82&ts=1726674676369') }}"
-                            alt="Thumbnail" class="video-thumbnail">
+                        <!-- <img src="{{ asset('https://s7ap1.scene7.com/is/image/incredibleindia/konark-temple-puri-odisha-2-attr-hero?qlt=82&ts=1726674676369') }}"
+                            alt="Thumbnail" class="video-thumbnail"> -->
+
+                            <img src="{{ asset('storage/' .  $rows->cover_image) }}"
+                                    alt="Thumbnail" class="video-thumbnail">
+
                         <div class="video-details">
-                            <a href="https://www.youtube.com/watch?v=Z-Bpli0y-Ak" target="_blank" class="video-link" data-full-link="https://www.youtube.com/watch?v=Z-Bpli0y-Ak">
-                                https://www.youtube.com/watch?v=Z-Bpli0y-Ak
+                            <a href="{{$rows->video_url}}" target="_blank" class="video-link" data-full-link="{{$rows->video_url}}">
+                            {{$rows->video_url}}
                             </a>
-                            <p class="video-title">Daily Horoscope</p>
+                            <p class="video-title">{{$rows->video_title}}</p>
                         </div>
                         <div class="video-actions-container">
                             <div class="video-actions">
@@ -28,13 +34,22 @@
                                     </label>
                                 </div>
                                 <div class="action-buttons">
-                                    <a href="#" class="action-button edit">Edit</a>
-                                    <a href="#" class="action-button delete">Delete</a>
+                                    <a href="{{route('admin.video.edit',$rows->id)}}" class="action-button edit">Edit</a>
+                                    <!-- <a href="#" class="action-button delete">Delete</a> -->
+                                    <form action="{{ route('admin.video.destroy', $rows->id) }}" method="POST"
+                                        onsubmit="return confirm('Are you sure?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="action-button delete">Delete</button>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="video-item">
+
+                @endforeach
+                    <!-- <div class="video-item">
                         <img src="{{ asset('https://s7ap1.scene7.com/is/image/incredibleindia/konark-temple-puri-odisha-2-attr-hero?qlt=82&ts=1726674676369') }}"
                             alt="Thumbnail" class="video-thumbnail">
                         <div class="video-details">
@@ -81,7 +96,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </section>
         </main>

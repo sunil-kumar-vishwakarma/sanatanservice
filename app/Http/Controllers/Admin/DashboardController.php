@@ -270,6 +270,7 @@ class DashboardController extends Controller
                     array_push($reportData, $report['totalReport']);
                 }
                 $result = $dashboardData;
+                // print_r($result);die;
                 return view('pages.dashboard-overview-1', compact('result', 'labels', 'data', 'callData', 'chatData', 'reportData'));
             } else {
                 return redirect('admin/login');

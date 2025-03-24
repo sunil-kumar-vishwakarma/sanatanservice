@@ -12,7 +12,7 @@
                         <input type="text" name="search" placeholder="Search blogs..." class="search-input">
                         <button type="submit" class="search-button">Search</button>
                     </form>
-                    <a href="#" class="add-button">+ Add Blog</a>
+                    <a href="{{route('admin.blog.create')}}" class="add-button">+ Add Blog</a>
                 </div>
                 <table class="blog-table">
                     <thead>
@@ -26,7 +26,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <!-- <tr>
                             <td>1</td>
                             <td>Zodiac Signs Men Clingy in Romance</td>
                             <td>
@@ -46,7 +46,37 @@
                                 <a href="#" class="action-button edit">Edit</a>
                                 <a href="#" class="action-button delete">Delete</a>
                             </td>
+                        </tr> -->
+                    @foreach($blogs as $rows)
+                        <tr>
+                            <td>{{$rows->id}}</td>
+                            <td>{{$rows->blog_title}}</td>
+                            <td>
+                                <img src="{{ asset('storage/' .  $rows->blog_image) }}"
+                                    alt="Blog Image" class="blog-image">
+                            </td>
+                            <td class="description description-data" style="width: 300px; padding-bottom: initial;">
+                            {{$rows->description}}
+                            </td>
+                            <td class="status">
+                                <button onclick="toggleStatus(this)" class="status-button" data-status="draft"
+                                    style="background-color: #d90000;">{{$rows->status}}</button>
+                            </td>
+                            <td class="action-buttons">
+                                <a href="{{route('admin.blog.view',$rows->id)}}" class="action-button view">View</a>
+                                <a href="{{route('admin.blog.edit',$rows->id )}}" class="action-button edit">Edit</a>
+                                <!-- <a href="#" class="action-button delete">Delete</a> -->
+
+                                <form action="{{ route('admin.blog.destroy', $rows->id) }}" method="POST"
+                                        onsubmit="return confirm('Are you sure?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="action-button delete">Delete</button>
+                                    </form>
+
+                            </td>
                         </tr>
+                        @endforeach
                         <!-- Add more blog entries as needed -->
                     </tbody>
                 </table>
@@ -62,6 +92,16 @@
         }
     </script>
     <style>
-
+.description-data {
+    display: block;
+  display: -webkit-box;
+  max-width: 100%;
+  margin: 0 auto;
+  line-height: 1;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
     </style>
 @endsection

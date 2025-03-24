@@ -69,6 +69,7 @@ Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.lo
 // Admin Dashboard
 Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    // Route::get('/admin/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
 
     Route::get('/admin/customers', [CustomerController::class, 'index'])->name('admin.customers');
 
@@ -138,8 +139,24 @@ Route::any('/admin/g-setting/third_party_package', [GeneralSettingController::cl
     Route::post('/admin/temple-store', [TempleController::class, 'store'])->name('admin.temple.store');
 
     Route::get('/admin/blog', [BlogController::class, 'index'])->name('admin.blog.list');
+    Route::get('/admin/blog/create', [BlogController::class, 'create'])->name('admin.blog.create');
+    Route::post('/admin/blog/store', [BlogController::class, 'store'])->name('admin.blog.store');
+    Route::get('/admin/blog/edit/{id}', [BlogController::class, 'edit'])->name('admin.blog.edit');
+    Route::post('/admin/blog/update/{id}', [BlogController::class, 'update'])->name('admin.blog.update');
+    Route::get('/admin/blog/view/{id}', [BlogController::class, 'view'])->name('admin.blog.view');
+    Route::delete('/admin/blog/destroy/{id}', [BlogController::class, 'destroy'])->name('admin.blog.destroy');
     Route::get('/admin/video', [VideosController::class, 'index'])->name('admin.video.video');
+    Route::get('/admin/video/create', [VideosController::class, 'create'])->name('admin.video.create');
+    Route::post('/admin/video/store', [VideosController::class, 'store'])->name('admin.video.store');
+    Route::get('/admin/video/edit/{id}', [VideosController::class, 'edit'])->name('admin.video.edit');
+    Route::post('/admin/video/update/{id}', [VideosController::class, 'update'])->name('admin.video.update');
+    Route::delete('/admin/video/destroy/{id}', [VideosController::class, 'destroy'])->name('admin.video.destroy');
     Route::get('/admin/banner', [BannerController::class, 'index'])->name('admin.banner.banner');
+    Route::get('/admin/banner/create', [BannerController::class, 'create'])->name('admin.banner.create');
+    Route::post('/admin/banner/store', [BannerController::class, 'store'])->name('admin.banner.store');
+    Route::post('/admin/banner/update', [BannerController::class, 'update'])->name('admin.banner.update');
+    Route::post('/admin/banner/update-status', [BannerController::class, 'updateStatus']);
+
     Route::get('/admin/notifications', [NotificationsController::class, 'index'])->name('admin.notifications.index');
     Route::get('/admin/support-management', [SupportController::class, 'index'])->name('admin.support-management.FAQs');
 

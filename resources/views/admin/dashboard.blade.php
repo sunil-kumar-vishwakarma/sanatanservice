@@ -7,7 +7,7 @@
             <h1>Admin Dashboard</h1>
             {{-- 1st section --}}
             <section class="stats">
-                <a href="#" class="stat-card"><i class="fas fa-users"></i> Total Users: 1200</a>
+                <a href="#" class="stat-card"><i class="fas fa-users"></i> Total Users: {{$totalUsers}}</a>
                 <a href="#" class="stat-card"><i class="fas fa-chart-line"></i> Daily Visits: 800</a>
                 <a href="#" class="stat-card"><i class="fas fa-star"></i> Active Horoscopes: 50</a>
                 <a href="#" class="stat-card"><i class="fas fa-dollar-sign"></i> Monthly Revenue: $5000</a>
@@ -54,15 +54,17 @@
                     <div class="user-list-column">Registered Date</div>
                 </div>
                 <ul>
+                    @foreach($userdata as $rows)
                     <li>
                         <div class="user-list-item">
-                            <div class="user-list-column">John Doe</div>
-                            <div class="user-list-column">john.doe@example.com</div>
-                            <div class="user-list-column">User</div>
-                            <div class="user-list-column">2023-10-01</div>
+                            <div class="user-list-column">{{$rows->name}}</div>
+                            <div class="user-list-column">{{$rows->email}}</div>
+                            <div class="user-list-column">{{$rows->role_namess}}</div>
+                            <div class="user-list-column">{{$rows->created_at}}</div>
                         </div>
                     </li>
-                    <li>
+                    @endforeach
+                    <!-- <li>
                         <div class="user-list-item">
                             <div class="user-list-column">Jane Smith</div>
                             <div class="user-list-column">jane.smith@example.com</div>
@@ -93,7 +95,7 @@
                             <div class="user-list-column">Admin</div>
                             <div class="user-list-column">2023-10-05</div>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
             </section>
         </main>

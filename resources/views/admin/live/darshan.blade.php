@@ -82,7 +82,7 @@
     @endif
     </td>
                                 <td class="action-buttons">
-                                    <form action="{{ route('admin.live.arti.destroy', $video->id) }}" method="POST"
+                                <form action="{{ route('admin.live.darshan.destroy', $video->id) }}" method="POST"
                                         onsubmit="return confirm('Are you sure?');">
                                         @csrf
                                         @method('DELETE')

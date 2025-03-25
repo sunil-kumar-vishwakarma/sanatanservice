@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Contactus;
+use App\Models\UserFeedback;
 
 class FeedbackController extends Controller
 {
@@ -20,9 +21,11 @@ class FeedbackController extends Controller
                 $page = $request->page ? $request->page : 1;
                 $paginationStart = ($page - 1) * $this->limit;
 
-                $feedback = AppReview::select('app_reviews.*', 'users.name', 'users.contactNo', 'users.profile')
-                ->join('users', 'users.id', '=', 'app_reviews.userId')
-                ->orderBy('app_reviews.id', 'DESC');
+                // $feedback = AppReview::select('app_reviews.*', 'users.name', 'users.contactNo', 'users.profile')
+                // ->join('users', 'users.id', '=', 'app_reviews.userId')
+                // ->orderBy('app_reviews.id', 'DESC');
+
+                $feedback = UserFeedback::with('user')->get();
 
                 $totalRecords = $feedback->count();
 
@@ -31,11 +34,12 @@ class FeedbackController extends Controller
                 $page = min($page, $totalPages);
 
                 // Retrieve feedback for the current page
-                $feedback = $feedback->skip($paginationStart)
-                    ->take($this->limit)
-                    ->orderBy('app_reviews.id', 'DESC')
-                    ->get();
 
+                // $feedback = $feedback->skip($paginationStart)
+                //     ->take($this->limit)
+                //     ->orderBy('app_reviews.id', 'DESC')
+                //     ->get();
+                $feedback = UserFeedback::with('user')->get();
                 // Calculate start and end records for the current page
                 $start = ($this->limit * ($page - 1)) + 1;
                 $end = min($this->limit * $page, $totalRecords);

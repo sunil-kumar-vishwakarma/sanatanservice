@@ -13,17 +13,26 @@
                             <th>#</th>
                             {{-- <th>Astrologer</th> --}}
                             <th>User</th>
+                            <th>Rating</th>
                             <th>Feedback</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($feedback as $rows)
                         <tr>
                             <td>1</td>
                             {{-- <td>John Doe</td> --}}
-                            <td>Jane Smith</td>
-                            <td>Excellent service, very accurate predictions!</td>
+                            <td>{{$rows->user['name']}}</td>
+                            <td>
+                            @for ($i = 0; $i < $rows->rating; $i++)
+                            ⭐
+                            @endfor
+                                <!-- {{$rows->rating}} -->
+                            </td>
+                            <td>{{$rows->feedback}}</td>
                         </tr>
-                        <tr>
+                        @endforeach
+                        <!-- <tr>
                             <td>2</td>
                             {{-- <td>Jane Doe</td> --}}
                             <td>John Smith</td>
@@ -40,7 +49,7 @@
                             {{-- <td>Robert Lee</td> --}}
                             <td>Sarah Connor</td>
                            <td>Not very accurate.</td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </section>

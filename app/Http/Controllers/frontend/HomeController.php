@@ -10,15 +10,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpFoundation\Session\Session;
+use App\Models\BannerManagement;
 
 class HomeController extends Controller
 {
   
     public function home(Request $request)
     {
-        
-        
-        return view('frontend.pages.index');
+        $banners = BannerManagement::all();
+        // print_r($banners);die;
+        return view('frontend.pages.index', compact('banners'));
     }
     public function talkastrologer(Request $request)
     {

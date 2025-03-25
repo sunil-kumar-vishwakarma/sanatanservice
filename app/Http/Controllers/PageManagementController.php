@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class PageManagementController extends Controller
 {
@@ -13,9 +15,44 @@ class PageManagementController extends Controller
     {
 
         $pages=DB::table('pages')->get();
-                // return view('pages.pages', compact('pages'));
-        // You can fetch customer data from the database here and pass it to the view
+        
         return view('admin.page-management.index', compact('pages'));
+    }
+
+    public function update(Request $request){
+
+        try {
+               $affectedRows = DB::table('pages')
+                    ->where('id', $request->bannerId)
+                    ->update([
+                        'title' => $request->title,
+                        'type' => $request->type,
+                        'description' => $request->description,
+                    ]);
+                    
+              
+                    return redirect('admin/page-management')->with('success', 'Page updated successfully!');
+            
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', '', $e->getMessage());
+        }
+
+    }
+
+    public function updateStatus(Request $request) {
+        // $banner = BannerManagement::find($request->id);
+        
+        DB::table('pages')
+                    ->where('id', $request->id)
+                    ->update([
+                        'isActive' => $request->status,
+                    ]);
+
+       
+            return response()->json(['success' => true, 'message' => 'Status updated successfully']);
+        // }
+    
+        // return response()->json(['success' => false, 'message' => 'Banner not found'], 404);
     }
 
     public function getPage(Request $request)

@@ -164,4 +164,6 @@ Route::any('/admin/g-setting/third_party_package', [GeneralSettingController::cl
     Route::get('/admin/feedback', [FeedbackController::class, 'index'])->name('admin.feedback');
     Route::get('/admin/contact', [ContactController::class, 'index'])->name('admin.contact.index');
     Route::get('/admin/page-management', [PageManagementController::class, 'index'])->name('admin.page-management.index');
+    Route::post('/admin/pagemanagement/update', [PageManagementController::class, 'update'])->name('admin.page-management.update');
+    Route::post('/admin/pagemanagement/updateStatus', [PageManagementController::class, 'updateStatus'])->name('admin.page-management.updateStatus');
 });

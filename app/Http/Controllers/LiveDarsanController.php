@@ -68,4 +68,23 @@ class LiveDarsanController extends Controller
             'video_url' => Storage::url($videoPath)
         ]);
     }
+
+    public function destroy($id)
+    {
+        $video = LiveDarshan::find($id);
+
+        if (!$video) {
+            return redirect()->route('admin.live.darshan')->with('error', 'Blog not found.');
+        }
+
+        // Delete the blog image if it exists
+        if ($video->cover_image) {
+            Storage::delete('public/' . $video->cover_image);
+        }
+
+        // Delete the blog entry
+        $video->delete();
+
+        return redirect()->route('admin.live.darshan')->with('success', 'Video deleted successfully.');
+    }
 }

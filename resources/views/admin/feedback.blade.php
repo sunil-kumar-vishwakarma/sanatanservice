@@ -3,8 +3,8 @@
 @extends('admin.layout')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('css/astrologer/review.css') }}">
-    <div class="container"><br>
+    <!-- <link rel="stylesheet" href="{{ asset('css/astrologer/review.css') }}"> -->
+    <div class="container">
         <main class="main-content">
             <section class="review-list">
                 <table class="review-table">

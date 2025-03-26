@@ -170,19 +170,20 @@ margin-top: 10px;
         <div class="underline" style="margin-left: 43%;"></div>
         <div class="contact-container">
             <div class="contact-info">
-                <h3>Mirror Of Life</h3>
+                <h3>Sanatan</h3>
                 <p>Consult Online Astrologers Anytime</p>
                 <p>Dr rajmohalla, University Area, Delhi 3098715</p>
-                <p>&#128222; Customer Support: 9669952714</p>
-                <p>&#9993; mirroroflife@gmail.com</p>
+                <p>&#128222; Customer Support: 8358055777</p>
+                <p>&#9993; sanatan@gmail.com</p>
             </div>
             <div class="contact-form">
                 <h3>Have any questions?</h3>
                 <p>We are happy to help. Tell us your issue and we will get back to you at the earliest.</p>
-                <form>
-                    <input type="text" placeholder="Name" required>
-                    <input type="email" placeholder="Email Address" required>
-                    <textarea placeholder="Write your message here" required></textarea>
+                <form action="{{ route('add') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="text" name="name" placeholder="Name" required>
+                    <input type="email" name="email" placeholder="Email Address" required>
+                    <textarea placeholder="Write your message here" required name="message"></textarea>
                     <button type="submit">Submit</button>
                 </form>
             </div>

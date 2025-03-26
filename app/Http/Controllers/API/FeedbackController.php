@@ -91,10 +91,13 @@ class FeedbackController extends Controller
             'status'=>'1'
         ]);
 
+
         return response()->json([
+            'success' => true,
             'message' => 'Feedback submitted successfully!',
-            'feedback' => $feedback
-        ], 201);
+            'feedback' => $feedback,
+            'status' => 200,
+        ], 200);
 
     } catch (\Exception$e) {
         return response()->json([

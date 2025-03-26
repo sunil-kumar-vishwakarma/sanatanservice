@@ -48,6 +48,8 @@ Route::get('/astrologer-chat-list', [HomeController::class, 'astrologerChatList'
 Route::get('/astrologer-chat', [HomeController::class, 'astrologerChat'])->name('astrologer.chat');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::post('/contact/add', [ContactController::class, 'store'])->name('add');
+
 Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
 Route::get('/privacy', [HomeController::class, 'privacy'])->name('privacy');
 Route::get('/term', [HomeController::class, 'term'])->name('term');

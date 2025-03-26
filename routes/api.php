@@ -93,3 +93,4 @@ Route::post('tnc', [DashboardController::class, 'termscond'])->name('termscond')
 Route::post('forgot-password', [UserController::class, 'forgotPassword']);
 Route::post('verify-otp', [UserController::class, 'verifyOTP']);
 Route::get('feedback', [FeedbackController::class, 'getAppFeedback'])->name('feedback');
+Route::post('/feedback/add', [FeedbackController::class, 'store']);

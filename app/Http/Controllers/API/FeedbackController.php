@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Contactus;
 use App\Models\UserFeedback;
 
+use Illuminate\Support\Facades\Validator;
+
 class FeedbackController extends Controller
 {
     public $path;
@@ -57,6 +59,50 @@ class FeedbackController extends Controller
                     'status' => 500,
                 ], 500);
             }
+    }
+
+    public function store(Request $request)
+    {
+        try {
+        // Validate the input
+            if (!Auth::guard('api')->user()) {
+                return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
+            } else {
+                $id = Auth::guard('api')->user()->id;
+            }
+
+        $validator = Validator::make($request->all(), [
+            // 'email' => 'required|email',
+            'rating' => 'required|integer|min:1|max:5',
+            'message' => 'required|string|max:1000',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+        
+        $user = Auth::guard('api')->user();
+        // print_r($user->id);die;
+        // Store the feedback
+        $feedback = UserFeedback::create([
+            'user_id' => $user->id,
+            'rating' => $request->rating,
+            'feedback' => $request->message,
+            'status'=>'1'
+        ]);
+
+        return response()->json([
+            'message' => 'Feedback submitted successfully!',
+            'feedback' => $feedback
+        ], 201);
+
+    } catch (\Exception$e) {
+        return response()->json([
+            'error' => false,
+            'message' => $e->getMessage(),
+            'status' => 500,
+        ], 500);
+    }
     }
 
 

@@ -25,7 +25,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Passport::routes();
+        // Passport::routes();
     
         // Set token expiration (1 day)
         // Passport::tokensExpireIn(Carbon::now()->addDays(1));
@@ -34,7 +34,7 @@ class AuthServiceProvider extends ServiceProvider
         // Passport::refreshTokensExpireIn(Carbon::now()->addDays(7));
     
         // Set personal access token expiration (1 year)
-        Passport::personalAccessTokensExpireIn(Carbon::now()->addYear(1));
+        // Passport::personalAccessTokensExpireIn(Carbon::now()->addYear(1));
 
         //
     }

@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let bannerId = this.getAttribute("data-id");
             let newStatus = this.checked ? "1" : "0"; // Toggle between Active and Deactive
 
-            fetch("/admin/pagemanagement/updateStatus", {
+            fetch("/public/admin/pagemanagement/updateStatus", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

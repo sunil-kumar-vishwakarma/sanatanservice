@@ -20,7 +20,7 @@
                     <tbody>
                         @foreach($feedback as $rows)
                         <tr>
-                            <td>1</td>
+                            <td>{{$rows->id}}</td>
                             
                             <td>{{$rows->user['name']}}</td>
                             <td>

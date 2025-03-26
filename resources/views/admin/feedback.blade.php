@@ -4,7 +4,7 @@
 
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/astrologer/review.css') }}">
-    <div class="container">
+    <div class="container"><br>
         <main class="main-content">
             <section class="review-list">
                 <table class="review-table">
@@ -50,6 +50,7 @@
                             <td>Sarah Connor</td>
                            <td>Not very accurate.</td>
                         </tr> -->
+
                     </tbody>
                 </table>
             </section>

@@ -1,6 +1,6 @@
 
         <div class="logo">
-            <a href="{{url('/')}}"><img src="{{asset('assets/images/WhatsApp Image 2025-03-06 at 11.22.52 AM.png')}}" alt="JD Research Center Logo"></a>
+            <a href="{{url('/')}}"><img src="{{asset('assets/images/WhatsApp Image 2025-03-06 at 11.22.52 AM.png')}}" alt="Sanatan Logo"></a>
             <span><a href="{{url('/')}}" style="color: white;">SANATAN</span></a>
             <p> Consult Online Astrologers Anytime </p>
         </div>
@@ -18,8 +18,8 @@
             </div>
     </div>
 
-        <a href="#" class="signup-btn">Sign Up</a>
-        <a href="#" class="login">Login</a>
+        <a href="{{route('user.register')}}" class="signup-btn">Sign Up</a>
+        <a href="{{route('user.login')}}" class="login">Login</a>
 
          <!-- toogle menu bar -->
 

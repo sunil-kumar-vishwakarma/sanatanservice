@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API\User;
+namespace App\Http\Controllers\API\USER;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserModel\Kundali;
@@ -225,6 +225,134 @@ public function addKundali(Request $req)
     }
 }
 
+
+// public function addKundali(Request $req)
+// {
+//     DB::beginTransaction();
+
+//     try {
+//         // Authenticate user
+//         if (!Auth::guard('api')->user()) {
+//             return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
+//         } 
+//         $id = Auth::guard('api')->user()->id;
+
+//         // Validate request data
+//         $data = $req->only('kundali', 'amount', 'is_match');
+//         $validator = Validator::make($data, [
+//             'kundali' => 'required|array',
+//             'amount' => 'required|numeric',
+//         ]);
+
+//         if ($validator->fails()) {
+//             return response()->json(['error' => $validator->messages(), 'status' => 400], 400);
+//         }
+
+//         $kundaliRecords = [];
+//         $isMatch = $req->is_match == "false" ? 0 : 1;
+
+//         foreach ($req->kundali as $kundali) {
+//             if (isset($kundali['id'])) {
+//                 // Update existing Kundali
+//                 $existingKundali = Kundali::find($kundali['id']);
+
+//                 if ($existingKundali) {
+//                     $kundaliData = $this->fetchKundaliData($kundali);
+//                     if (!$kundaliData) {
+//                         return response()->json([
+//                             'error' => true,
+//                             'message' => 'Failed to fetch Kundali details. API issue.',
+//                             'status' => 500,
+//                         ], 500);
+//                     }
+
+//                     // Update data
+//                     $existingKundali->update(array_merge($kundali, ['pdf_link' => $kundaliData]));
+//                     $kundaliRecords[] = $existingKundali;
+//                 }
+//             } else {
+//                 // New Kundali: Check wallet balance
+//                 $kundaliCount = Kundali::where('createdBy', '=', $id)->count();
+//                 $wallet = DB::table('user_wallets')->where('userId', '=', $id)->first();
+//                 $requiredAmount = $req->amount;
+
+//                 if (!$isMatch && $kundaliCount > 0 && (!$wallet || $wallet->amount < $requiredAmount)) {
+//                     return response()->json([
+//                         'error' => true,
+//                         'message' => 'Insufficient funds in the wallet.',
+//                         'status' => 400,
+//                     ], 400);
+//                 }
+
+//                 // Deduct wallet amount if required
+//                 if (!$isMatch && $kundaliCount > 0) {
+//                     DB::table('user_wallets')->where('userId', $id)->update(['amount' => $wallet->amount - $requiredAmount]);
+//                     DB::table('wallettransaction')->insert([
+//                         'userId' => $id,
+//                         'amount' => $requiredAmount,
+//                         'isCredit' => false,
+//                         'transactionType' => 'KundliView',
+//                         'created_at' => now(),
+//                         'updated_at' => now(),
+//                     ]);
+//                 }
+
+//                 // Fetch Kundali details from API
+//                 $kundaliData = $this->fetchKundaliData($kundali);
+//                 if (!$kundaliData) {
+//                     return response()->json([
+//                         'error' => true,
+//                         'message' => 'Failed to generate Kundali. API issue.',
+//                         'status' => 500,
+//                     ], 500);
+//                 }
+
+//                 // Create new Kundali entry
+//                 $newKundali = Kundali::create(array_merge($kundali, [
+//                     'createdBy' => $id,
+//                     'modifiedBy' => $id,
+//                     'pdf_link' => $kundaliData,
+//                 ]));
+                
+//                 $kundaliRecords[] = $newKundali;
+//             }
+//         }
+
+//         DB::commit();
+//         return response()->json([
+//             'message' => 'Kundali added successfully',
+//             'recordList' => $kundaliRecords,
+//             'status' => 200,
+//         ], 200);
+//     } catch (\Exception $e) {
+//         DB::rollback();
+//         return response()->json([
+//             'error' => true,
+//             'message' => $e->getMessage(),
+//             'status' => 500,
+//         ], 500);
+//     }
+// }
+
+private function fetchKundaliData($kundali)
+{
+    try {
+        return $this->getKundliViaVedic(
+            $kundali['lang'],
+            $kundali['name'],
+            $kundali['latitude'],
+            $kundali['longitude'],
+            $kundali['birthDate'],
+            $kundali['birthTime'],
+            $kundali['timezone'] ?? 5.5,
+            $kundali['birthPlace'],
+            $kundali['pdf_type']
+        );
+    } catch (\Exception $e) {
+        \Log::error('Kundali API call failed: ' . $e->getMessage());
+        return null;
+    }
+}
 
  public function getPanchang(Request $req)
     {

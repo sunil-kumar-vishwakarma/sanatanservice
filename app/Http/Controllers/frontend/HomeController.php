@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpFoundation\Session\Session;
 use App\Models\BannerManagement;
+use App\Models\Blog;
 
 class HomeController extends Controller
 {
@@ -38,7 +39,9 @@ class HomeController extends Controller
 
     public function about(Request $request)
     {
-        return view('frontend.pages.about');
+        $pages=DB::table('pages')->where('type','aboutus')->first();
+
+        return view('frontend.pages.about', compact('pages'));
     }
     public function contact(Request $request)
     {
@@ -47,18 +50,26 @@ class HomeController extends Controller
 
     public function blog(Request $request)
     {
-        return view('frontend.pages.blog');
+        $blogs =  Blog::all();
+      
+        // You can fetch astrologer data from the database here and pass it to the view
+        return view('frontend.pages.blog', compact('blogs'));
+       
     }
 
 
     public function privacy(Request $request)
     {
-        return view('frontend.pages.privacy');
+        $pages=DB::table('pages')->where('type','privacy')->first();
+
+        return view('frontend.pages.privacy', compact('pages'));
     }
 
     public function term(Request $request)
     {
-        return view('frontend.pages.term');
+        $pages=DB::table('pages')->where('type','terms')->first();
+
+        return view('frontend.pages.term', compact('pages'));
     }
 
     // public function getAstrologerStories($id)

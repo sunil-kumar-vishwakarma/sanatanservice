@@ -10,11 +10,11 @@ use App\Http\Controllers\API\FeedbackController;
 use App\Http\Controllers\API\LiveVideoController;
 use App\Http\Controllers\API\ApiTempleController;
 use App\Http\Controllers\API\ApiController;
-
-use App\Http\Controllers\API\User\DailyHoroscopeController;
-use App\Http\Controllers\API\User\HoroController;
-use App\Http\Controllers\API\User\KundaliController;
-use App\Http\Controllers\API\User\KundaliMatchingController;
+use App\Http\Controllers\API\USER\DailyHoroscopeController;
+// use App\Http\Controllers\API\User\DailyHoroscopeController;
+use App\Http\Controllers\API\USER\HoroController;
+use App\Http\Controllers\API\USER\KundaliController;
+use App\Http\Controllers\API\USER\KundaliMatchingController;
 
 /*
 |--------------------------------------------------------------------------

@@ -178,19 +178,25 @@ margin-top: 10px;
     <section class="blog-content">
         <h2>Recent Posts</h2>
         <div class="posts">
+            @foreach($blogs as $rows)
             <div class="post">
-                <img src="assets/images/blog_1.jpg" alt="Post 1">
-                <p style="color: black;">Zodiac Signs Men Clingy in Romance</p>
+            <img src="{{ asset('storage/' . $rows->blog_image) }}" 
+             alt="Banner Image" height="250px;">
+
+                <!-- <img src="assets/images/blog_1.jpg" alt="Post 1"> -->
+                <p style="color: black;">{{$rows->blog_title}}</p>
             </div>
-            <div class="post">
+            @endforeach
+            <!-- <div class="post">
                 <img src="assets/images/blog_2.jpg" alt="Post 2">
                 <p style="color: black;">5 Zodiac Signs That Are Born Clever</p>
             </div>
             <div class="post">
                 <img src="assets/images/blog_3.jpg" alt="Post 3">
                 <p style="color: black;">4 Zodiac Signs That Crave Physical Connection</p>
-            </div>
+            </div> -->
         </div>
+
     </section>
     <br><br><br>  <br><br><br>  <br><br><br>  <br><br><br>  <br><br><br>
 

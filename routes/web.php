@@ -24,6 +24,11 @@ use App\Http\Controllers\frontend\HomeController;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\GeneralSettingController;
 use App\Http\Controllers\LiveDarsanController;
+use App\Http\Controllers\frontend\user\UserAuthController;
+
+
+use App\Http\Controllers\frontend\Astrologer\AuthController as AstrologerAuthController;
+
 
 // frontent route
 
@@ -169,3 +174,16 @@ Route::any('/admin/g-setting/third_party_package', [GeneralSettingController::cl
     Route::post('/admin/pagemanagement/update', [PageManagementController::class, 'update'])->name('admin.page-management.update');
     Route::post('/admin/pagemanagement/updateStatus', [PageManagementController::class, 'updateStatus'])->name('admin.page-management.updateStatus');
 });
+
+
+
+    Route::get('/user_login', [UserAuthController::class, 'login'])->name('user.login');
+    Route::get('/user_registration', [UserAuthController::class, 'userRegister'])->name('user.register');
+    Route::post('/user_registration', [UserAuthController::class, 'userStore'])->name('user.store');
+
+
+    Route::get('/astro_login', [AstrologerAuthController::class, 'astrologerlogin'])->name('astrologerlogin');
+    Route::get('/astrologer_registration', [AstrologerAuthController::class, 'astrologerregister'])->name('astrologerregister');
+    Route::post('/registration', [AstrologerAuthController::class, 'astrologerstore'])->name('front.astrologerstore');
+    Route::post('/otpless/callback', [AuthController::class, 'otplessCallback']);
+

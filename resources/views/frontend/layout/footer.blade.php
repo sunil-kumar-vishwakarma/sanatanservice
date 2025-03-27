@@ -32,8 +32,8 @@
             </ul>
             <h3>Astrologer Section</h3>
             <ul>
-                <li>Astrologer Login</li>
-                <li>Astrologer Registration</li>
+                <li><a href="{{route('astrologerlogin')}}" style="color: white;">Astrologer Login</a></li>
+                <li><a href="{{route('astrologerregister')}}" style="color: white;">Astrologer Registration </a></li>
             </ul>
         </div>
         <div class="footer-section">

@@ -15,7 +15,7 @@ class AudioController extends Controller
     }
     public function editaudio()
     {
-        return view('admin.arti.edit');
+        return view('admin.Arti.edit');
     }
 
     public function store(Request $request)

@@ -17,11 +17,16 @@ class LiveDarsanController extends Controller
         $videos = LiveDarshan::all();
         return view('admin.live.darshan', compact('videos'));
     }
+    public function editdarshan()
+    {
+        return view('admin.live.editdarshan');
+    }
+
 
     public function store(Request $request)
     {
 
-        
+
         $validator = Validator::make($request->all(), [
             'video_name' => 'required|string|max:255',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -43,7 +48,7 @@ class LiveDarsanController extends Controller
 
         // print_r($request->video_option);die;
             $video_url = null;
-        $videoPath = null; 
+        $videoPath = null;
 
         if ($request->video_option == 'file' && $request->hasFile('video_file')) {
             // Store Video File

@@ -25,6 +25,9 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\GeneralSettingController;
 use App\Http\Controllers\LiveDarsanController;
 use App\Http\Controllers\frontend\user\UserAuthController;
+use App\Http\Controllers\frontend\KundaliController;
+
+use App\Http\Controllers\frontend\HoroscopeController as AstrologerHoroscopeController;
 
 
 use App\Http\Controllers\frontend\Astrologer\AuthController as AstrologerAuthController;
@@ -73,7 +76,7 @@ Route::get('/admin', [AdminController::class, 'showLoginForm'])->name('admin.log
 Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
-// Admin Dashboard
+// Admin Dashboard 
 Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     // Route::get('/admin/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
@@ -101,7 +104,7 @@ Route::middleware(['auth:admin'])->group(function () {
    Route::get('/admin/g-setting/social_link', [GeneralSettingController::class, 'social_link'])->name('admin.g-setting.social_link');
 //    Route::post('/admin/g-setting/third_party_package', [GeneralSettingController::class, 'third_party_package'])->name('admin.g-setting.third_party_package');
    
-Route::any('/admin/g-setting/third_party_package', [GeneralSettingController::class, 'third_party_package'])->name('admin.g-setting.third_party_package');
+    Route::any('/admin/g-setting/third_party_package', [GeneralSettingController::class, 'third_party_package'])->name('admin.g-setting.third_party_package');
 
 // Route::get('setting', [SystemFlagController::class, 'getSystemFlag'])->name('setting');
         Route::post('editSystemFlag', [GeneralSettingController::class, 'editSystemFlag'])->name('editSystemFlag');
@@ -177,6 +180,11 @@ Route::any('/admin/g-setting/third_party_package', [GeneralSettingController::cl
 
 
 
+
+//website routes 
+
+
+
     Route::get('/user_login', [UserAuthController::class, 'login'])->name('user.login');
     Route::get('/user_registration', [UserAuthController::class, 'userRegister'])->name('user.register');
     Route::post('/user_registration', [UserAuthController::class, 'userStore'])->name('user.store');
@@ -187,3 +195,15 @@ Route::any('/admin/g-setting/third_party_package', [GeneralSettingController::cl
     Route::post('/registration', [AstrologerAuthController::class, 'astrologerstore'])->name('front.astrologerstore');
     Route::post('/otpless/callback', [AuthController::class, 'otplessCallback']);
 
+
+    Route::get('/panchang', [KundaliController::class, 'getPanchang'])->name('front.getPanchang');
+    Route::get('/dailyhoroscope', [HoroscopeController::class, 'dailyHoroscope'])->name('front.dailyHoroscope');
+    Route::get('/horoscope', [HoroscopeController::class, 'horoScope'])->name('front.horoScope');
+ 
+    Route::get('/kundali', [KundaliController::class, 'getkundali'])->name('front.getkundali');
+    Route::get('/kundali-matching', [KundaliController::class, 'kundaliMatch'])->name('front.kundaliMatch');
+    Route::get('/kundali-match-report', [KundaliController::class, 'kundaliMatchReport'])->name('front.kundaliMatchReport');
+    
+    Route::get('/dailyhoroscope', [AstrologerHoroscopeController::class, 'dailyHoroscope'])->name('front.astrologers.dailyHoroscope');
+    Route::get('/horoscopes', [AstrologerHoroscopeController::class, 'horoScope'])->name('front.astrologers.horoScope');
+        

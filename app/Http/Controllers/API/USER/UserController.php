@@ -42,6 +42,7 @@ class UserController extends Controller
                     'loginAppUser',
                     'verifyOTP',
                     'signUp',
+                    'resetPassword',
                 ],
             ]
         );
@@ -1180,37 +1181,71 @@ public function forgotPassword(Request $request)
         return response()->json(['error' => 'Invalid OTP'], 400);
     }
 
-    return response()->json(['message' => 'OTP verified successfully'], 200);
+    return response()->json(['email'=>$request->email,'message' => 'OTP verified successfully'], 200);
 }
+
+
 
 public function resetPassword(Request $request)
 {
-    $request->validate([
+    
+    $validator = Validator::make($request->all(), [
         'email' => 'required|email|exists:users,email',
-        'otp' => 'required|numeric|min:6',
-        'password' => 'required|string|min:6|confirmed',
+        'password' => 'required|min:6',
+        'password_confirmation' => 'required|same:password',
+        
     ]);
 
-    // Check OTP
-    $otpData = DB::table('password_resets')
-                 ->where('email', $request->email)
-                 ->where('token', $request->otp)
-                 ->first();
-
-    if (!$otpData) {
-        return response()->json(['error' => 'Invalid OTP'], 400);
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
     }
 
-    // Update password
+
+        
     $user = User::where('email', $request->email)->first();
-    $user->password = bcrypt($request->password);
+    if(!empty($user)){
+    $user->password = Hash::make($request->password);
     $user->save();
 
-    // Delete OTP record
-    DB::table('password_resets')->where('email', $request->email)->delete();
+    return response()->json(['email'=>$request->email, 'message'=>'Password has been reset successfully']);
+    } else {
 
-    return response()->json(['message' => 'Password reset successful'], 200);
+        return response()->json(['email'=>$request->email, 'message'=>'Please enter correct current email.']);
+    }
+
+
+    // return $status === Password::PASSWORD_RESET
+    //     ? response()->json(['message' => 'Password has been reset successfully.'])
+    //     : response()->json(['message' => 'Failed to reset password.'], 500);
 }
+// public function resetPassword(Request $request)
+// {
+//     $request->validate([
+//         'email' => 'required|email|exists:users,email',
+//         'otp' => 'required|numeric|min:6',
+//         'password' => 'required|string|min:6|confirmed',
+//     ]);
+
+//     // Check OTP
+//     $otpData = DB::table('password_resets')
+//                  ->where('email', $request->email)
+//                  ->where('token', $request->otp)
+//                  ->first();
+
+//     if (!$otpData) {
+//         return response()->json(['error' => 'Invalid OTP'], 400);
+//     }
+
+//     // Update password
+//     $user = User::where('email', $request->email)->first();
+//     $user->password = bcrypt($request->password);
+//     $user->save();
+
+//     // Delete OTP record
+//     DB::table('password_resets')->where('email', $request->email)->delete();
+
+//     return response()->json(['message' => 'Password reset successful'], 200);
+// }
 
 
 }

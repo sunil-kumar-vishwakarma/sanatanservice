@@ -526,7 +526,8 @@ p.life {
     color: white;
     padding: 30px 20px;
     border: 2px solid white; /* White border added */
-    margin-top: 20px;
+    /* margin-top: 20px; */
+    background-color: rgb(39, 39, 75) !important;
 }
 
 .footer-container {

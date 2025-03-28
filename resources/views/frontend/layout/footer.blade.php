@@ -15,20 +15,20 @@
         <div class="footer-section">
             <h3>Panchang</h3>
             <ul class="panch">
-                <li>Today's Panchang</li>
+                <li><a href="{{route('front.getPanchang')}}" style="color: white;"> Today's Panchang </a></li>
             </ul>
             <h3>Astrology</h3>
             <ul>
-                <li>Kundali Matching</li>
-                <li>Free Janam Kundali</li>
+                <li><a href="{{route('front.kundaliMatch')}}" style="color: white;"> Kundali Matching</a></li>
+                <!-- <li>Free Janam Kundali</li> -->
             </ul>
         </div>
         <div class="footer-section">
             <h3>Horoscope</h3>
             <ul class="horo">
-                <li>Daily Horoscope</li>
-                <li>Weekly Horoscope</li>
-                <li>Yearly Horoscope</li>
+                <li><a href="{{route('front.astrologers.horoScope')}}" style="color: white;">Daily Horoscope</a> </li>
+                <li><a href="{{route('front.astrologers.horoScope')}}" style="color: white;">Weekly Horoscope</a></li>
+                <li><a href="{{route('front.astrologers.horoScope')}}" style="color: white;">Yearly Horoscope</li>
             </ul>
             <h3>Astrologer Section</h3>
             <ul>

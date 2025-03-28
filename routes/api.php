@@ -35,6 +35,10 @@ use App\Http\Controllers\API\USER\KundaliMatchingController;
 Route::group(['middleware' => 'api'], function () {
     
     Route::post('login', [UserController::class, 'loginUser']);
+    Route::post('forgot-password', [UserController::class, 'forgotPassword']);
+    Route::post('verify-otp', [UserController::class, 'verifyOTP']);
+    Route::post('reset-password', [UserController::class, 'resetPassword']);
+
     Route::post('user/add', [UserController::class, 'addUser']);
     Route::post('getProfile', [UserController::class, 'getProfile']);
     Route::post('refresh', [UserController::class, 'refreshToken']);
@@ -90,7 +94,6 @@ Route::post('tnc', [DashboardController::class, 'termscond'])->name('termscond')
 // Route::get('/privacy-policy-url', function () {
 //     return view('page.privacy-policy');
 // })->name('privacy.policy.url');
-Route::post('forgot-password', [UserController::class, 'forgotPassword']);
-Route::post('verify-otp', [UserController::class, 'verifyOTP']);
+
 Route::get('feedback', [FeedbackController::class, 'getAppFeedback'])->name('feedback');
 Route::post('/feedback/add', [FeedbackController::class, 'store']);

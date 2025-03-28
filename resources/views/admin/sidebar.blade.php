@@ -150,9 +150,16 @@
                 <li class="{{ request()->routeIs('admin.master-setting.customerProfile') ? 'active' : '' }}">
                     <a href="{{ route('admin.master-setting.customerProfile') }}"><i class="fas fa-user"></i> Customer Profile</a>
                 </li>
-                <li><a href="#"><i class="fas fa-star"></i> Horoscope Signs</a></li>
-                <li><a href="#"><i class="fas fa-file-alt"></i> Report Type</a></li>
-                <li><a href="#"><i class="fas fa-coins"></i> Recharge Amount</a></li>
+                <li class="{{ request()->routeIs('admin.master-setting.horoscopeSigns') ? 'active' : '' }}">
+                    <a href="{{ route('admin.master-setting.horoscopeSigns') }}"><i class="fas fa-star"></i> Horoscope Signs</a>
+                </li>
+                <li class="{{ request()->routeIs('admin.master-setting.rechargeAmount') ? 'active' : '' }}">
+                    <a href="{{ route('admin.master-setting.rechargeAmount') }}"><i class="fas fa-coins"></i> Recharge Amount</a>
+                </li>
+                <li class="{{ request()->routeIs('admin.master-setting.reportTypes') ? 'active' : '' }}">
+                    <a href="{{ route('admin.master-setting.reportTypes') }}"><i class="fas fa-file-alt"></i> Report Type</a>
+                </li>
+
             </ul>
         </li>
 

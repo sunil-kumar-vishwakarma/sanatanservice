@@ -34,7 +34,7 @@ use App\Http\Controllers\frontend\Astrologer\AuthController as AstrologerAuthCon
 
 // frontent route
 
-Route::get('/clear-cache', function() {
+Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');
     Artisan::call('route:clear');
     Artisan::call('config:clear');
@@ -99,19 +99,19 @@ Route::middleware(['auth:admin'])->group(function () {
 
 
     Route::get('/admin/g-setting', [GeneralSettingController::class, 'general'])->name('admin.g-setting.general');
-   Route::get('/admin/g-setting/payments', [GeneralSettingController::class, 'payments'])->name('admin.g-setting.payments');
-   Route::get('/admin/g-setting/social_link', [GeneralSettingController::class, 'social_link'])->name('admin.g-setting.social_link');
-//    Route::post('/admin/g-setting/third_party_package', [GeneralSettingController::class, 'third_party_package'])->name('admin.g-setting.third_party_package');
+    Route::get('/admin/g-setting/payments', [GeneralSettingController::class, 'payments'])->name('admin.g-setting.payments');
+    Route::get('/admin/g-setting/social_link', [GeneralSettingController::class, 'social_link'])->name('admin.g-setting.social_link');
+    //    Route::post('/admin/g-setting/third_party_package', [GeneralSettingController::class, 'third_party_package'])->name('admin.g-setting.third_party_package');
 
-Route::any('/admin/g-setting/third_party_package', [GeneralSettingController::class, 'third_party_package'])->name('admin.g-setting.third_party_package');
+    Route::any('/admin/g-setting/third_party_package', [GeneralSettingController::class, 'third_party_package'])->name('admin.g-setting.third_party_package');
 
-// Route::get('setting', [SystemFlagController::class, 'getSystemFlag'])->name('setting');
-        Route::post('editSystemFlag', [GeneralSettingController::class, 'editSystemFlag'])->name('editSystemFlag');
+    // Route::get('setting', [SystemFlagController::class, 'getSystemFlag'])->name('setting');
+    Route::post('editSystemFlag', [GeneralSettingController::class, 'editSystemFlag'])->name('editSystemFlag');
 
 
 
-   Route::get('/admin/g-setting/master_image', [GeneralSettingController::class, 'master_image'])->name('admin.g-setting.master_image');
-   Route::get('/admin/g-setting/website_config', [GeneralSettingController::class, 'website_config'])->name('admin.g-setting.website_config');
+    Route::get('/admin/g-setting/master_image', [GeneralSettingController::class, 'master_image'])->name('admin.g-setting.master_image');
+    Route::get('/admin/g-setting/website_config', [GeneralSettingController::class, 'website_config'])->name('admin.g-setting.website_config');
 
 
     // Arti
@@ -173,6 +173,9 @@ Route::any('/admin/g-setting/third_party_package', [GeneralSettingController::cl
     Route::get('/admin/support-management', [SupportController::class, 'index'])->name('admin.support-management.FAQs');
 
     Route::get('/admin/master-setting/customerProfile', [MasterSettingController::class, 'customerProfile'])->name('admin.master-setting.customerProfile');
+    Route::get('/admin/master-setting/horoscopeSigns', [MasterSettingController::class, 'horoscopeSigns'])->name('admin.master-setting.horoscopeSigns');
+    Route::get('/admin/master-setting/rechargeAmount', [MasterSettingController::class, 'rechargeAmount'])->name('admin.master-setting.rechargeAmount');
+    Route::get('/admin/master-setting/reportTypes', [MasterSettingController::class, 'reportTypes'])->name('admin.master-setting.reportTypes');
 
 
 
@@ -189,13 +192,12 @@ Route::any('/admin/g-setting/third_party_package', [GeneralSettingController::cl
 
 
 
-    Route::get('/user_login', [UserAuthController::class, 'login'])->name('user.login');
-    Route::get('/user_registration', [UserAuthController::class, 'userRegister'])->name('user.register');
-    Route::post('/user_registration', [UserAuthController::class, 'userStore'])->name('user.store');
+Route::get('/user_login', [UserAuthController::class, 'login'])->name('user.login');
+Route::get('/user_registration', [UserAuthController::class, 'userRegister'])->name('user.register');
+Route::post('/user_registration', [UserAuthController::class, 'userStore'])->name('user.store');
 
 
-    Route::get('/astro_login', [AstrologerAuthController::class, 'astrologerlogin'])->name('astrologerlogin');
-    Route::get('/astrologer_registration', [AstrologerAuthController::class, 'astrologerregister'])->name('astrologerregister');
-    Route::post('/registration', [AstrologerAuthController::class, 'astrologerstore'])->name('front.astrologerstore');
-    Route::post('/otpless/callback', [AuthController::class, 'otplessCallback']);
+Route::get('/astro_login', [AstrologerAuthController::class, 'astrologerlogin'])->name('astrologerlogin');
+Route::get('/astrologer_registration', [AstrologerAuthController::class, 'astrologerregister'])->name('astrologerregister');
+Route::post('/registration', [AstrologerAuthController::class, 'astrologerstore'])->name('front.astrologerstore');
 

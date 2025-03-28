@@ -5,13 +5,7 @@
     <link rel="stylesheet" href="{{ asset('css\Astrologer\skills.css') }}">
     <div class="container">
         <main class="main-content">
-            <div class="add-button-container">
-                <form class="search-form" action="#">
-                    <input type="text" name="search" placeholder="Search Profile..." class="search-input">
-                    <button type="submit" class="search-button">Search</button>
-                </form>
-                <a href="#" class="add-button">+ Add Profile</a>
-            </div>
+
             <section class="skill-list">
                 <table class="skill-table">
                     <thead>
@@ -37,7 +31,7 @@
                             </td>
                             <td class="action-buttons">
                                 <a href="#" class="action-button edit">Edit</a>
-                                <a href="#" class="action-button delete">Delete</a>
+                                {{-- <a href="#" class="action-button delete">Delete</a> --}}
                             </td>
                         </tr>
                         <tr>
@@ -53,7 +47,7 @@
                             </td>
                             <td class="action-buttons">
                                 <a href="#" class="action-button edit">Edit</a>
-                                <a href="#" class="action-button delete">Delete</a>
+                                {{-- <a href="#" class="action-button delete">Delete</a> --}}
                             </td>
                         </tr>
 

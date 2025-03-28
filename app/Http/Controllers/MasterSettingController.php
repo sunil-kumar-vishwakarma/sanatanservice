@@ -12,6 +12,18 @@ class MasterSettingController extends Controller
     {
         return view('admin.master-setting.customerProfile');
     }
+    public function horoscopeSigns()
+    {
+        return view('admin.master-setting.horoscopeSigns');
+    }
+    public function rechargeAmount()
+    {
+        return view('admin.master-setting.rechargeAmount');
+    }
+    public function reportTypes()
+    {
+        return view('admin.master-setting.reportTypes');
+    }
 
 
 }

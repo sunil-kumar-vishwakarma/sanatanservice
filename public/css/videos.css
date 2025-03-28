@@ -43,6 +43,12 @@
     gap: 20px;
     justify-content: space-between;
 }
+.report-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
 
 .videos-list {
     width: 110%;
@@ -300,6 +306,73 @@ input:checked+.slider:before {
 
 .close-btn:hover {
     /* background: #c82333; */
+}
+
+
+/* report.css */
+ /* Grid Layout */
+ .report-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.report-item {
+    width: 100%;
+    max-width: 350px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Image container with overlay */
+.image-container {
+    position: relative;
+}
+
+.report-thumbnail {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Love Report text overlay */
+.overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to top, black, transparent);
+    /* text-align: center; */
+}
+
+.video-title1 {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Bottom section with text & buttons */
+.report-bottom {
+    padding: 15px;
+    margin-top: -15px;
+    text-align: start;
+}
+
+.video-title2 {
+    font-size: 15px;
+    font-weight: normal;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.video-actions {
+    border-top: 1px solid #ccc;
+    padding: 10px;
 }
 
 @keyframes fadeIn {

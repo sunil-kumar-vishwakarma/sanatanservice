@@ -72,9 +72,9 @@
                 <li class="{{ request()->routeIs('admin.arti.audio') ? 'active' : '' }}">
                     <a href="{{ route('admin.arti.audio') }}"><i class="fas fa-headphones"></i> Audio</a>
                 </li>
-                <!-- <li class="{{ request()->routeIs('admin.arti.pdf') ? 'active' : '' }}">
+                {{-- <li class="{{ request()->routeIs('admin.arti.pdf') ? 'active' : '' }}">
                     <a href="{{ route('admin.arti.pdf') }}"><i class="fas fa-file-pdf"></i> PDF</a>
-                </li> -->
+                </li> --}}
             </ul>
         </li>
 
@@ -88,14 +88,18 @@
         </li>
 
         <li class="dropdown">
-            <a href="#"><i class="fas fa-eye"></i> Live <i class="fas fa-chevron-down"></i></a>
+            <a href="#"><i class="fas fa-broadcast-tower"></i> Live <i class="fas fa-chevron-down"></i></a>
             <ul class="dropdown-menu">
                 <li class="{{ request()->routeIs('admin.live.arti') ? 'active' : '' }}">
-                   <a href="{{ route('admin.live.arti') }}"><i class="fas fa-video"></i> Live Arti</a></li>
+                    <a href="{{ route('admin.live.arti') }}"><i class="fas fa-praying-hands"></i> Live Arti</a>
                 </li>
-                <li class="{{ request()->routeIs('admin.live.darshan') ? 'active' : '' }}"><a href="{{route('admin.live.darshan')}}"><i class="fas fa-video"></i> Live Darshans</a></li>
+                <li class="{{ request()->routeIs('admin.live.darshan') ? 'active' : '' }}">
+                    <a href="{{ route('admin.live.darshan') }}"><i class="fas fa-place-of-worship"></i> Live Darshan</a>
+                </li>
             </ul>
         </li>
+
+
         <li class="{{ request()->routeIs('admin.blog.list') ? 'active' : '' }}">
             <a href="{{ route('admin.blog.list') }}"><i class="fas fa-blog"></i> Blogs</a>
         </li>
@@ -113,7 +117,9 @@
             <a href="#"><i class="fas fa-headset"></i> Support Management <i class="fas fa-chevron-down"></i></a>
             <ul class="dropdown-menu">
                 <li><a href="#"><i class="fas fa-ticket-alt"></i> Tickets</a></li>
-                <li><a href="#"><i class="fas fa-question-circle"></i> FAQs</a></li>
+                <li class="{{ request()->routeIs('admin.support-management.FAQs') ? 'active' : '' }}">
+                    <a href="{{ route('admin.support-management.FAQs') }}"><i class="fas fa-question-circle"></i> FAQs</a>
+                </li>
             </ul>
         </li>
 
@@ -141,7 +147,9 @@
         <li class="dropdown">
             <a href="#"><i class="fas fa-cogs"></i> Master Settings <i class="fas fa-chevron-down"></i></a>
             <ul class="dropdown-menu">
-                <li><a href="#"><i class="fas fa-user"></i> Customer Profile</a></li>
+                <li class="{{ request()->routeIs('admin.master-setting.customerProfile') ? 'active' : '' }}">
+                    <a href="{{ route('admin.master-setting.customerProfile') }}"><i class="fas fa-user"></i> Customer Profile</a>
+                </li>
                 <li><a href="#"><i class="fas fa-star"></i> Horoscope Signs</a></li>
                 <li><a href="#"><i class="fas fa-file-alt"></i> Report Type</a></li>
                 <li><a href="#"><i class="fas fa-coins"></i> Recharge Amount</a></li>
@@ -152,21 +160,22 @@
             <a href="#"><i class="fas fa-users-cog"></i> Team Management <i
                     class="fas fa-chevron-down"></i></a>
             <ul class="dropdown-menu">
-                <li><a href="#"><i class="fas fa-user-tag"></i> Team Role</a></li>
-                <li><a href="#"><i class="fas fa-users"></i> Team List</a></li>
+                <li class="{{ request()->routeIs('admin.team-management.role') ? 'active' : '' }}">
+                    <a href="{{ route('admin.team-management.role') }}"><i class="fas fa-user-tag"></i> Team Role</a>
+                </li>
+                <li class="{{ request()->routeIs('admin.team-management.list') ? 'active' : '' }}">
+                    <a href="{{ route('admin.team-management.list') }}"><i class="fas fa-users"></i> Team List</a>
+                </li>
+
+
             </ul>
         </li>
-<!-- 
-        <li class="{{ request()->routeIs('admin.userlist') ? 'active' : '' }}">
-            <a href="#"><i class="fas fa-sliders-h"></i> General Settings</a>
-        </li> -->
-        <!-- <li class="{{ request()->routeIs('admin.g-setting.general') ? 'active' : '' }}">
+
+        <li class="{{ request()->routeIs('admin.g-setting.general') ? 'active' : '' }}">
             <a href="{{ route('admin.g-setting.general') }}"><i class="fas fa-sliders-h"></i> General Settings</a>
-        </li> -->
-        <li class="{{ request()->routeIs('admin.g-setting.third_party_package') ? 'active' : '' }}">
-            <a href="{{ route('admin.g-setting.third_party_package') }}"><i class="fas fa-sliders-h"></i> General Settings</a>
         </li>
-        
+
+
         <li class="{{ request()->routeIs('admin.feedback') ? 'active' : '' }}">
             <a href="{{ route('admin.feedback') }}"><i class="fas fa-comment-dots"></i> Feedback</a>
         </li>

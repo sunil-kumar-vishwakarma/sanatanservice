@@ -34,7 +34,7 @@
                     </div>
                 </form>
             </section>
-            
+
             <section class="audio-list">
                 <h2>Audio List</h2>
                 <table class="audio-table">
@@ -54,7 +54,7 @@
                                 <td><img src="{{ asset('storage/' .$audio->thumbnail_path) }}" alt="{{ $audio->audio_name }}"
                                         class="audio-thumbnail"></td>
                                 <td>@if(!empty($audio->audio_path))
-                                        
+
                                         <audio controls>
                                             <source src="{{ asset('storage/' . $audio->audio_path) }}" type="audio/mpeg">
                                         </audio>
@@ -72,6 +72,7 @@
                                     @endif
                                 </td>
                                 <td class="action-buttons">
+                                    <a href="{{ route('admin.arti.edit') }}" class="action-button edit">Edit</a>
                                     <form action="{{ route('admin.arti.audio.destroy', $audio->id) }}" method="POST"
                                         onsubmit="return confirm('Are you sure?');">
                                         @csrf

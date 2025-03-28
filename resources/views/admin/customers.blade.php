@@ -40,7 +40,7 @@
                             <td>{{$users->name}}</td>
                             <td>{{$users->contactNo}}</td>
                             <td>{{$users->email}}</td>
-                            <td>{{ \Carbon\Carbon::parse($users->birthDate)->format('d-m-Y') }}                            </td>
+                            <td>{{ \Carbon\Carbon::parse($users->birthDate)->format('d-m-Y') }}</td>
                             <td>{{ \Carbon\Carbon::parse($users->birthTime)->format('h:i A') }}</td>
                             <td class="action-buttons">
                                 <a href="#" class="action-button edit">Edit</a>
@@ -48,7 +48,7 @@
                             </td>
                         </tr>
                         @endforeach
-                        
+
 
                         <!-- Add more customer items as needed -->
                     </tbody>

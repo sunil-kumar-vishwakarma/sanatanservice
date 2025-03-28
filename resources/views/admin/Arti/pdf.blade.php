@@ -47,6 +47,7 @@
                                         class="audio-thumbnail"></td>
                                 <td>{{ $pdf->pdf_name }}</td>
                                 <td class="action-buttons">
+                                    
                                     <form action="{{ route('admin.arti.pdf.destroy', $pdf->id) }}" method="POST"
                                         onsubmit="return confirm('Are you sure?');">
                                         @csrf

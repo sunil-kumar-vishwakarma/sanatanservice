@@ -1,0 +1,279 @@
+
+/* Responsive Design */
+@media (max-width: 1440px) {
+    .main-content {
+        margin-left: 138px !important;
+    }
+    .customer-list {
+        width: 102% !important;
+    }
+    /* Adjustments for large laptops */
+    .container {
+        padding: 15px;
+        width: 97% !important;
+    }
+    .skill-list {
+        width: 102% !important;
+    }
+    .astrologer-list{
+        width: 102% !important;
+    }
+    .review-list {
+        width: 102% !important;
+    }
+    .category-list {
+        width: 102% !important;
+    }
+    .commission-rate-list  {
+        width: 102% !important;
+    }
+    .horoscope-list {
+        width: 102% !important;
+    }
+    .temple-list{
+        width: 102% !important;
+    }
+
+    .temple-details{
+        margin-top: 37px !important;
+        margin-left: 140px !important;
+    }
+    .blog-list {
+        width: 102% !important;
+    }
+    .videos-list  {
+        width: 102% !important;
+    }
+    .content-wrapper {
+        margin-left: 110px !important;
+    }
+    .main-content-contact {
+        margin-left: 125px !important;
+    }
+    .settings-categories {
+        flex-wrap: nowrap !important;
+        margin-top: -120px !important;
+        margin-left: 20px !important;
+    }
+
+    .container-settings {
+        max-width: 975px !important;
+    }
+    .stat-card {
+        min-width: 172px !important;
+    }
+    .stats{
+        margin-left: 32px !important;
+    }
+    .dashboard-widgets{
+        margin-left: 32px !important;
+        /* flex-wrap: wrap !important;
+        justify-content: space-around !important; */
+    }
+    .user-list{
+        margin-left: 32px !important;
+    }
+    .audio-management,.pdf-management{
+        margin-left: 25px !important;
+        margin-right: 60px !important;
+    }
+    .audio-list,.pdf-list{
+        margin-left: 25px !important;
+        margin-right: 60px !important;
+    }
+    .audio-table{
+        width: 106% !important;
+    }
+}
+
+@media (max-width: 1280px) {
+    .dashboard-widgets{
+        margin-left: 32px !important;
+        flex-wrap: wrap !important;
+        justify-content: space-around !important;
+    }
+    .stat-card {
+        font-size: 15px !important;
+    }
+    /* Adjustments for medium laptops */
+    .main-content {
+        margin-left: 135px !important;
+    }
+    .customer-list {
+        width: 104% !important;
+    }
+    .container {
+        padding: 0px;
+        width: 96% !important;
+    }
+    .skill-list {
+        width: 103% !important;
+    }
+    .astrologer-list{
+        width: 103% !important;
+    }
+    .review-list {
+        width: 103% !important;
+    }
+    .category-list {
+        width: 104% !important;
+    }
+    .commission-rate-list  {
+        width: 104% !important;
+    }
+    .settings-categories {
+        flex-wrap: nowrap !important;
+        margin-top: -35px !important;
+        margin-left: 33px !important;
+    }
+
+    .container-settings {
+        max-width: 850px !important;
+    }
+    .action-buttons{
+        display: grid !important;
+    }
+    .audio-management,.pdf-management{
+        margin-left: 30px !important;
+        margin-right: 40px !important;
+    }
+    .audio-list,.pdf-list{
+        margin-left: 30px !important;
+        margin-right: 40px !important;
+    }
+    .audio-table{
+        width: 108% !important;
+    }
+    th,
+    td {
+       font-size: 13px !important;
+   }
+
+}
+
+@media (max-width: 1024px) {
+    .dashboard-widgets{
+        margin-left: 32px !important;
+        flex-wrap: wrap !important;
+        justify-content: space-around !important;
+    }
+    .stat-card {
+        min-width: 121px !important;
+    }
+    .stats{
+        margin-left: 32px !important;
+    }
+    .stat-card {
+        font-size: 12px !important;
+    }
+    .user-list{
+        margin-left: 32px !important;
+    }
+    /* Adjustments for small laptops */
+    .main-content {
+        margin-left: 129px !important;
+    }
+    .container {
+        padding: 0px;
+        width: 96% !important;
+    }
+    .customer-list {
+        width: 105% !important;
+    }
+
+    .search-form {
+        margin-bottom: 10px;
+    }
+
+     th,
+     td {
+        font-size: 10px !important;
+    }
+    .action-button{
+        margin-top: 8px;
+        font-size: 11px !important;
+        padding: 6px 5px !important;
+    }
+    .status-button{
+        padding: 5px 9px !important;
+        font-size: 12px;
+    }
+    .skill-list {
+        width: 103% !important;
+    }
+    .astrologer-list{
+        width: 105% !important;
+    }
+    .review-list {
+        width: 103% !important;
+    }
+    .category-list {
+        width: 104% !important;
+    }
+    .commission-rate-list  {
+        width: 104% !important;
+    }
+    .settings-categories {
+        flex-wrap: nowrap !important;
+        margin-top: -35px !important;
+        margin-left: 45px !important;
+    }
+
+    .container-settings {
+        max-width: 650px !important;
+    }
+    .audio-management,.pdf-management{
+        margin-left: 30px !important;
+        margin-right: 40px !important;
+    }
+    .audio-list,.pdf-list{
+        margin-left: 30px !important;
+        margin-right: 40px !important;
+    }
+    .audio-table{
+        width: 108% !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Adjustments for tablets */
+    .container {
+        padding: 10px;
+    }
+
+    .customer-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .customer-table th,
+    .customer-table td {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Adjustments for mobile devices */
+    .container {
+        padding: 10px;
+    }
+
+    .add-button-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search-form {
+        margin-bottom: 10px;
+    }
+
+    .customer-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .customer-table th,
+    .customer-table td {
+        padding: 6px;
+    }
+}

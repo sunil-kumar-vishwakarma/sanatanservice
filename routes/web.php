@@ -20,6 +20,8 @@ use App\Http\Controllers\SupportController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PageManagementController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\MasterSettingController;
+use App\Http\Controllers\TeamManageController;
 use App\Http\Controllers\frontend\HomeController;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\GeneralSettingController;
@@ -60,7 +62,7 @@ Route::get('/privacy', [HomeController::class, 'privacy'])->name('privacy');
 Route::get('/term', [HomeController::class, 'term'])->name('term');
 // Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
 
-// Horoscope api 
+// Horoscope api
 
 
 Route::get('generate-daily-horscope', [HoroscopeController::class, 'generateDailyHorscope'])->name('generate-daily-horscope');
@@ -100,12 +102,12 @@ Route::middleware(['auth:admin'])->group(function () {
    Route::get('/admin/g-setting/payments', [GeneralSettingController::class, 'payments'])->name('admin.g-setting.payments');
    Route::get('/admin/g-setting/social_link', [GeneralSettingController::class, 'social_link'])->name('admin.g-setting.social_link');
 //    Route::post('/admin/g-setting/third_party_package', [GeneralSettingController::class, 'third_party_package'])->name('admin.g-setting.third_party_package');
-   
+
 Route::any('/admin/g-setting/third_party_package', [GeneralSettingController::class, 'third_party_package'])->name('admin.g-setting.third_party_package');
 
 // Route::get('setting', [SystemFlagController::class, 'getSystemFlag'])->name('setting');
         Route::post('editSystemFlag', [GeneralSettingController::class, 'editSystemFlag'])->name('editSystemFlag');
-       
+
 
 
    Route::get('/admin/g-setting/master_image', [GeneralSettingController::class, 'master_image'])->name('admin.g-setting.master_image');
@@ -116,6 +118,7 @@ Route::any('/admin/g-setting/third_party_package', [GeneralSettingController::cl
 
     Route::prefix('admin/arti')->group(function () {
         Route::get('/audio', [AudioController::class, 'index'])->name('admin.arti.audio');
+        Route::get('/editaudio', [AudioController::class, 'editaudio'])->name('admin.arti.edit');
         Route::post('/audio', [AudioController::class, 'store']);
         Route::delete('/audio/{id}', [AudioController::class, 'destroy'])->name('admin.arti.audio.destroy');
     });
@@ -127,15 +130,17 @@ Route::any('/admin/g-setting/third_party_package', [GeneralSettingController::cl
 
     Route::prefix('admin/live')->group(function () {
         Route::get('/video', [ArtiController::class, 'index'])->name('admin.live.arti');
+        Route::get('/editarti', [ArtiController::class, 'editarti'])->name('admin.live.editarti');
         Route::post('/video', [ArtiController::class, 'store'])->name('admin.live.arti.store');
         Route::delete('/video/{id}', [ArtiController::class, 'destroy'])->name('admin.live.arti.destroy');
-  
+
         Route::get('/darshan', [LiveDarsanController::class, 'index'])->name('admin.live.darshan');
+        Route::get('/editdarshan', [LiveDarsanController::class, 'editdarshan'])->name('admin.live.editdarshan');
         Route::post('/darshan', [LiveDarsanController::class, 'store'])->name('admin.live.darshan.store');
         Route::delete('/darshan/{id}', [LiveDarsanController::class, 'destroy'])->name('admin.live.darshan.destroy');
     });
 
-    
+
 
 
 
@@ -166,6 +171,13 @@ Route::any('/admin/g-setting/third_party_package', [GeneralSettingController::cl
 
     Route::get('/admin/notifications', [NotificationsController::class, 'index'])->name('admin.notifications.index');
     Route::get('/admin/support-management', [SupportController::class, 'index'])->name('admin.support-management.FAQs');
+
+    Route::get('/admin/master-setting/customerProfile', [MasterSettingController::class, 'customerProfile'])->name('admin.master-setting.customerProfile');
+
+
+
+    Route::get('/admin/team-management/role', [TeamManageController::class, 'role'])->name('admin.team-management.role');
+    Route::get('/admin/team-management/list', [TeamManageController::class, 'list'])->name('admin.team-management.list');
 
 
     Route::get('/admin/feedback', [FeedbackController::class, 'index'])->name('admin.feedback');

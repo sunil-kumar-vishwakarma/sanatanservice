@@ -7,7 +7,8 @@
         <main class="main-content">
             <section class="pdf-management">
                 <h2>Add New live darshan video</h2>
-                <form id="videoForm" action="{{ route('admin.live.darshan.store') }}" method="POST" enctype="multipart/form-data">
+                <form id="videoForm" action="{{ route('admin.live.darshan.store') }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="video_name">video Name:</label>
@@ -20,30 +21,31 @@
                     </div>
 
                     <div class="form-group">
-                            <label for="video_option">Select Video Option:</label>
-                            <select id="video_option" name="video_option" class="form-control" onchange="toggleVideoInput()">
-                                <option value="file">Upload Video</option>
-                                <option value="url">Video URL</option>
-                            </select>
-                        </div>
+                        <label for="video_option">Select Video Option:</label>
+                        <select id="video_option" name="video_option" class="form-control" onchange="toggleVideoInput()">
+                            <option value="file">Upload Video</option>
+                            <option value="url">Video URL</option>
+                        </select>
+                    </div>
 
-                        <!-- Video File Input -->
-                        <div class="form-group" id="video_file_div">
-                            <label for="video_file">Video File:</label>
-                            <input type="file" id="video_file" name="video_file" class="form-control" accept="video/*">
-                        </div>
+                    <!-- Video File Input -->
+                    <div class="form-group" id="video_file_div">
+                        <label for="video_file">Video File:</label>
+                        <input type="file" id="video_file" name="video_file" class="form-control" accept="video/*">
+                    </div>
 
-                        <!-- Video URL Input -->
-                        <div class="form-group" id="video_url_div" style="display: none;">
-                            <label for="video_url">Video URL:</label>
-                            <input type="url" id="video_url" name="video_url" class="form-control" placeholder="Enter video URL">
-                        </div>
+                    <!-- Video URL Input -->
+                    <div class="form-group" id="video_url_div" style="display: none;">
+                        <label for="video_url">Video URL:</label>
+                        <input type="url" id="video_url" name="video_url" class="form-control"
+                            placeholder="Enter video URL">
+                    </div>
 
                     <!-- <div class="form-group">
-                        <label for="video_file">video File:</label>
-                        <input type="file" id="video_file" name="video_file" class="form-control"
-                            accept="application/video" required>
-                    </div> -->
+                            <label for="video_file">video File:</label>
+                            <input type="file" id="video_file" name="video_file" class="form-control"
+                                accept="application/video" required>
+                        </div> -->
                     <div class="form-group">
                         <button type="submit" class="action-button add">Add video</button>
                     </div>
@@ -64,25 +66,27 @@
                         @foreach ($videos as $video)
                             <tr>
                                 <td>{{ $video->id }}</td>
-                                <td><img src="{{ asset('storage/' .$video->thumbnail_path) }}" alt="{{ $video->video_name }}"
-                                        class="audio-thumbnail"></td>
+                                <td><img src="{{ asset('storage/' . $video->thumbnail_path) }}"
+                                        alt="{{ $video->video_name }}" class="audio-thumbnail"></td>
                                 <td>
 
-                                @if ($video->video_path)
-        <video width="320" height="240" controls>
-            <source src="{{ asset('storage/' . $video->video_path) }}" type="video/mp4">
-            {{ $video->video_name }}
-        </video>
-    @elseif ($video->video_url)
-    <iframe width="320" height="240" src="{{ str_replace('watch?v=', 'embed/', $video->video_url) }}" 
-    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-</iframe>
-    
-        <!-- <iframe width="320" height="240" src="{{ $video->video_url }}" frameborder="0" allowfullscreen>{{ $video->video_name }}</iframe> -->
-    @endif
-    </td>
+                                    @if ($video->video_path)
+                                        <video width="320" height="240" controls>
+                                            <source src="{{ asset('storage/' . $video->video_path) }}" type="video/mp4">
+                                            {{ $video->video_name }}
+                                        </video>
+                                    @elseif ($video->video_url)
+                                        <iframe width="320" height="240"
+                                            src="{{ str_replace('watch?v=', 'embed/', $video->video_url) }}" frameborder="0"
+                                            allow="autoplay; encrypted-media" allowfullscreen>
+                                        </iframe>
+
+                                        <!-- <iframe width="320" height="240" src="{{ $video->video_url }}" frameborder="0" allowfullscreen>{{ $video->video_name }}</iframe> -->
+                                    @endif
+                                </td>
                                 <td class="action-buttons">
-                                <form action="{{ route('admin.live.darshan.destroy', $video->id) }}" method="POST"
+                                    <a href="{{ route('admin.live.editdarshan') }}" class="action-button edit">Edit</a>
+                                    <form action="{{ route('admin.live.darshan.destroy', $video->id) }}" method="POST"
                                         onsubmit="return confirm('Are you sure?');">
                                         @csrf
                                         @method('DELETE')
@@ -96,7 +100,7 @@
                     </tbody>
                 </table>
             </section>
-   
+
         </main>
     </div>
 
@@ -152,42 +156,41 @@
     </script> -->
     <script>
         document.getElementById('videoForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const formData = new FormData(this);
+            event.preventDefault();
+            const formData = new FormData(this);
 
-    fetch(this.action, {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Video added successfully!');
-            location.reload();
-        } else if (data.errors) {
-            let errorMessages = "";
-            for (const [key, value] of Object.entries(data.errors)) {
-                errorMessages += `${key}: ${value.join(', ')}\n`;
-            }
-            alert(`Failed to add video:\n${errorMessages}`);
-        }
-    })
-    .catch(error => console.error('Error:', error));
-});
-
+            fetch(this.action, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Video added successfully!');
+                        location.reload();
+                    } else if (data.errors) {
+                        let errorMessages = "";
+                        for (const [key, value] of Object.entries(data.errors)) {
+                            errorMessages += `${key}: ${value.join(', ')}\n`;
+                        }
+                        alert(`Failed to add video:\n${errorMessages}`);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
     </script>
 
-<script>
-function toggleVideoInput() {
-    var option = document.getElementById("video_option").value;
-    
-    if (option === "file") {
-        document.getElementById("video_file_div").style.display = "block";
-        document.getElementById("video_url_div").style.display = "none";
-    } else {
-        document.getElementById("video_file_div").style.display = "none";
-        document.getElementById("video_url_div").style.display = "block";
-    }
-}
-</script>
+    <script>
+        function toggleVideoInput() {
+            var option = document.getElementById("video_option").value;
+
+            if (option === "file") {
+                document.getElementById("video_file_div").style.display = "block";
+                document.getElementById("video_url_div").style.display = "none";
+            } else {
+                document.getElementById("video_file_div").style.display = "none";
+                document.getElementById("video_url_div").style.display = "block";
+            }
+        }
+    </script>
 @endsection

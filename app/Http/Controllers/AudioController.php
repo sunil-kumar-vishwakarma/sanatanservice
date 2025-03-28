@@ -13,10 +13,14 @@ class AudioController extends Controller
         $audios = Audio::all();
         return view('admin.Arti.audio', compact('audios'));
     }
+    public function editaudio()
+    {
+        return view('admin.arti.edit');
+    }
 
     public function store(Request $request)
     {
-        
+
         try {
             $request->validate([
                 'audio_name' => 'required|string|max:255',
@@ -28,7 +32,7 @@ class AudioController extends Controller
             $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
             $audioPath = $request->file('audio_file')->store('audios', 'public');
             $pdfPath = $request->file('pdf_file')->store('pdfs', 'public');
-            
+
             $audio = Audio::create([
                 'audio_name' => $request->audio_name,
                 'thumbnail_path' => $thumbnailPath,

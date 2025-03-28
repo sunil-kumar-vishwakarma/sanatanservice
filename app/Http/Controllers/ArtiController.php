@@ -14,11 +14,15 @@ class ArtiController extends Controller
         $videos = Video::all();
         return view('admin.live.arti', compact('videos'));
     }
+    public function editarti()
+    {
+        return view('admin.live.editarti');
+    }
 
     public function store(Request $request)
     {
 
-        
+
         $validator = Validator::make($request->all(), [
             'video_name' => 'required|string|max:255',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -40,7 +44,7 @@ class ArtiController extends Controller
 
         // print_r($request->video_option);die;
             $video_url = null;
-        $videoPath = null; 
+        $videoPath = null;
 
         if ($request->video_option == 'file' && $request->hasFile('video_file')) {
             // Store Video File
@@ -74,35 +78,35 @@ class ArtiController extends Controller
     //         'video_file' => 'nullable|mimes:mp4,mov,avi|max:20480', // Max 20MB
     //         'video_url' => 'nullable|url'
     //     ]);
-    
+
     //     if ($validator->fails()) {
     //         return response()->json([
     //             'success' => false,
     //             'errors' => $validator->errors()
     //         ], 422);
     //     }
-    
+
     //     $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
-    
+
     //     // Initialize the variables
     //     $filePath = null;
     //     $video_url = null;
-    //     $videoPath = null; 
-    
+    //     $videoPath = null;
+
     //     if ($request->video_option == 'file' && $request->hasFile('video_file')) {
     //         $filePath = $request->file('video_file')->store('videos', 'public');
     //         $videoPath = $filePath;
     //     } elseif ($request->video_option == 'url') {
     //         $video_url = $request->video_url;
     //     }
-    
+
     //     $video = Video::create([
     //         'video_name' => $request->video_name,
     //         'thumbnail_path' => $thumbnailPath,
     //         'video_path' => $filePath, // This will be NULL if no file was uploaded
     //         'video_url' => $video_url, // This will be NULL if no URL was provided
     //     ]);
-    
+
     //     return response()->json([
     //         'success' => true,
     //         'video' => $video,
@@ -110,7 +114,7 @@ class ArtiController extends Controller
     //         'video_url' => $videoPath ? Storage::url($videoPath) : null
     //     ]);
     // }
-    
+
     public function destroy($id)
     {
         try {

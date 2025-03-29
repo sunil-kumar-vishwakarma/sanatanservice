@@ -80,6 +80,155 @@ class KundaliMatchingController extends Controller
         }
     }
 
+
+    public function kundaliMatchingData(Request $req)
+    {
+        try {
+            //Get a id of user
+            if (!Auth::guard('api')->user()) {
+                return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
+            } else {
+                $id = Auth::guard('api')->user()->id;
+            }
+
+            $data = $req->only(
+                'boyName',
+                'boy_dob',
+                'boy_tob',
+                'boyBirthPlace',
+                'girlName',
+                'girl_dob',
+                'girl_tob',
+                'girlBirthPlace',
+            );
+
+            //Validate the data
+            $validator = Validator::make($data, [
+                'boyName' => 'required',
+                'boy_dob' => 'required',
+                'boy_tob' => 'required',
+                'boyBirthPlace' => 'required',
+                'girlName' => 'required',
+                'girl_dob' => 'required',
+                'girl_tob' => 'required',
+                'girlBirthPlace' => 'required',
+            ]);
+
+            //Send failed response if request is not valid
+            if ($validator->fails()) {
+                return response()->json(['error' => $validator->messages(), 'status' => 400], 400);
+            }
+
+            //Create kundali
+            $kundaliMatching = KundaliMatching::create([
+                'boyName' => $req->boyName,
+                'boyBirthDate' => $req->boy_dob,
+                'boyBirthTime' => $req->boy_tob,
+                'boyBirthPlace' => $req->boyBirthPlace,
+                'girlName' => $req->girlName,
+                'girlBirthDate' => $req->girl_dob,
+                'girlBirthTime' => $req->girl_tob,
+                'girlBirthPlace' => $req->girlBirthPlace,
+                'createdBy' => $id,
+                'modifiedBy' => $id,
+            ]);
+
+
+
+            try {
+
+
+                $data = $req->only(
+                    'male_kundli_id',
+                    'female_kundli_id'
+                );
+    
+                $api_key=DB::table('systemflag')->where('name','vedicAstroAPI')->first();
+    
+                $maleKundliId = $req->male_kundli_id;
+                $femaleKundliId = $req->female_kundli_id;
+                $maleRcd = Kundali::where('id', $maleKundliId)->first();
+                $femaleRcd = Kundali::where('id', $femaleKundliId)->first();
+
+
+                $girlMangalikRpt = Http::get('https://api.vedicastroapi.com/v3-json/dosha/manglik-dosh', [
+                    'dob' => date('d/m/Y',strtotime($req->girl_dob)),
+                    'tob' => $req->girl_tob,
+                    'tz' => $req->girl_tz,
+                    'lat' => $req->girl_lat,
+                    'lon' => $req->girl_lon,
+                    'api_key' => $api_key->value,
+                    'lang' => $req->lang
+                ]);
+                $boyManaglikRpt = Http::get('https://api.vedicastroapi.com/v3-json/dosha/manglik-dosh', [
+                    'dob' => date('d/m/Y',strtotime($req->boy_dob)),
+                    'tob' => $req->boy_tob,
+                    'tz' => $req->boy_tz,
+                    'lat' => $req->boy_lat,
+                    'lon' => $req->boy_lon,
+                    'api_key' => $api_key->value,
+                    'lang' => $req->lang
+                ]);
+                if(strtolower($req->match_type) == strtolower('North')){
+                    //
+                    $dailyHorscope = Http::get('https://api.vedicastroapi.com/v3-json/matching/ashtakoot', [
+                        'boy_dob' => date('d/m/Y',strtotime($req->boy_dob)),
+                        'boy_tob' => $req->boy_tob,
+                        'boy_tz' => $req->boy_tz,
+                        'boy_lat' => $req->boy_lat,
+                        'boy_lon' => $req->boy_lon,
+                        'girl_dob' => date('d/m/Y',strtotime($req->girl_dob)),
+                        'girl_tob' => $req->girl_tob,
+                        'girl_tz' => $req->girl_tz,
+                        'girl_lat' => $req->girl_lat,
+                        'girl_lon' => $req->girl_lon,
+                        'api_key' => $api_key->value,
+                        'lang' => $req->lang
+                    ]);
+                }else{
+                    //
+                    $dailyHorscope = Http::get('https://api.vedicastroapi.com/v3-json/matching/dashakoot', [
+                        'boy_dob' => date('d/m/Y',strtotime($req->boy_dob)),
+                        'boy_tob' => $req->boy_tob,
+                        'boy_tz' => $req->boy_tz,
+                        'boy_lat' => $req->boy_lat,
+                        'boy_lon' => $req->boy_lon,
+                        'girl_dob' => date('d/m/Y',strtotime($req->girl_dob)),
+                        'girl_tob' => $req->girl_tob,
+                        'girl_tz' => $req->girl_tz,
+                        'girl_lat' => $req->girl_lat,
+                        'girl_lon' => $req->girl_lon,
+                        'api_key' => $api_key->value,
+                        'lang' => $req->lang
+                    ]);
+                }
+                $data = $dailyHorscope->json();
+    
+                return response()->json([
+                    'message' => 'Boys and girls matching details fetched sucessfully',
+                    'data' => $req->all(),
+                    'recordList' => $data,
+                    'girlMangalikRpt' => $girlMangalikRpt->json(),
+                    'boyManaglikRpt' => $boyManaglikRpt->json(),
+                    'status' => 200,
+                ], 200);
+            } catch (\Exception$e) {
+                return response()->json([
+                    'error' => false,
+                    'message' => $e->getMessage(),
+                    'status' => 500,
+                ], 500);
+            }
+
+        } catch (\Exception$e) {
+            return response()->json([
+                'error' => false,
+                'message' => $e->getMessage(),
+                'status' => 500,
+            ], 500);
+        }
+    }
+
     public function getMatchReport(Request $req)
     {
         try {

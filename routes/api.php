@@ -16,6 +16,7 @@ use App\Http\Controllers\API\USER\HoroController;
 use App\Http\Controllers\API\USER\KundaliController;
 use App\Http\Controllers\API\USER\KundaliMatchingController;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -97,3 +98,9 @@ Route::post('tnc', [DashboardController::class, 'termscond'])->name('termscond')
 
 Route::get('feedback', [FeedbackController::class, 'getAppFeedback'])->name('feedback');
 Route::post('/feedback/add', [FeedbackController::class, 'store']);
+
+//Kundali matching
+Route::post('KundaliMatching/add', [KundaliMatchingController::class, 'addKundaliMatching']);
+Route::post('KundaliMatchinglist', [KundaliMatchingController::class, 'kundaliMatchingData']);
+Route::post('KundaliMatching/report', [KundaliMatchingController::class, 'getMatchReport']);
+Route::post('getKundaliReportById', [KundaliController::class, 'getKundaliReportById'])->name('api.getKundaliReportById');

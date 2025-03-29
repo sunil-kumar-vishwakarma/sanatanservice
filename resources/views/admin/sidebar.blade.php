@@ -116,31 +116,56 @@
         <li class="dropdown">
             <a href="#"><i class="fas fa-headset"></i> Support Management <i class="fas fa-chevron-down"></i></a>
             <ul class="dropdown-menu">
-                <li><a href="#"><i class="fas fa-ticket-alt"></i> Tickets</a></li>
+                <li class="{{ request()->routeIs('admin.support-management.tickets') ? 'active' : '' }}">
+                    <a href="{{ route('admin.support-management.tickets') }}"><i class="fas fa-ticket-alt"></i> Tickets</a>
+                </li>
                 <li class="{{ request()->routeIs('admin.support-management.FAQs') ? 'active' : '' }}">
                     <a href="{{ route('admin.support-management.FAQs') }}"><i class="fas fa-question-circle"></i> FAQs</a>
                 </li>
+
             </ul>
         </li>
 
         <li class="dropdown">
-            <a href="#"><i class="fas fa-wallet"></i> Earning <i class="fas fa-chevron-down"></i></a>
+            <a href="#"><i class="fas fa-wallet"></i> Earnings <i class="fas fa-chevron-down"></i></a>
             <ul class="dropdown-menu">
-                <li><a href="#"><i class="fas fa-hand-holding-usd"></i> Withdrawal Requests</a></li>
-                <li><a href="#"><i class="fas fa-credit-card"></i> Withdrawal Methods</a></li>
-                <li><a href="#"><i class="fas fa-history"></i> Wallet History</a></li>
+
+                <li class="{{ request()->routeIs('admin.earnings.withdrawalRequests') ? 'active' : '' }}">
+                    <a href="{{ route('admin.earnings.withdrawalRequests') }}"><i class="fas fa-hand-holding-usd"></i> Withdrawal Requests</a>
+                </li>
+
+                <li class="{{ request()->routeIs('admin.earnings.withdrawalmethods') ? 'active' : '' }}">
+                    <a href="{{ route('admin.earnings.withdrawalmethods') }}"><i class="fas fa-credit-card"></i> Withdrawal Methods</a>
+                </li>
+
+                <li class="{{ request()->routeIs('admin.earnings.walletHistory') ? 'active' : '' }}">
+                    <a href="{{ route('admin.earnings.walletHistory') }}"><i class="fas fa-history"></i> Wallet History</a>
+                </li>
+
             </ul>
         </li>
 
         <li class="dropdown">
             <a href="#"><i class="fas fa-chart-line"></i> Reports <i class="fas fa-chevron-down"></i></a>
             <ul class="dropdown-menu">
-                <li><a href="#"><i class="fas fa-phone-alt"></i> Call History</a></li>
-                <li><a href="#"><i class="fas fa-comments"></i> Chat History</a></li>
-                <li><a href="#"><i class="fas fa-money-bill-wave"></i> PartnerWise Earning</a></li>
-                <li><a href="#"><i class="fas fa-list-alt"></i> Order Request</a></li>
-                <li><a href="#"><i class="fas fa-flag"></i> Report Request</a></li>
-                <li><a href="#"><i class="fas fa-hand-holding-heart"></i> Kundali Earnings</a></li>
+                <li class="{{ request()->routeIs('admin.reports.callHistory') ? 'active' : '' }}">
+                    <a href="{{ route('admin.reports.callHistory') }}"><i class="fas fa-phone-alt"></i> Call History</a>
+                </li>
+                <li class="{{ request()->routeIs('admin.reports.chatHistory') ? 'active' : '' }}">
+                    <a href="{{ route('admin.reports.chatHistory') }}"><i class="fas fa-comments"></i> Chat History</a>
+                </li>
+                <li class="{{ request()->routeIs('admin.reports.partnerWiseEarning') ? 'active' : '' }}">
+                    <a href="{{ route('admin.reports.partnerWiseEarning') }}"><i class="fas fa-money-bill-wave"></i> PartnerWise Earning</a>
+                </li>
+                <li class="{{ request()->routeIs('admin.reports.orderrequest') ? 'active' : '' }}">
+                    <a href="{{ route('admin.reports.orderrequest') }}"><i class="fas fa-list-alt"></i> Order Request</a>
+                </li>
+                <li class="{{ request()->routeIs('admin.reports.reportrequest') ? 'active' : '' }}">
+                    <a href="{{ route('admin.reports.reportrequest') }}"><i class="fas fa-flag"></i> Report Request</a>
+                </li>
+                <li class="{{ request()->routeIs('admin.reports.kundaliearning') ? 'active' : '' }}">
+                    <a href="{{ route('admin.reports.kundaliearning') }}"><i class="fas fa-hand-holding-heart"></i> Kundali Earnings</a>
+                </li>
             </ul>
         </li>
 

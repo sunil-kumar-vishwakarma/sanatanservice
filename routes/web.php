@@ -240,5 +240,5 @@ Route::get('/kundali', [KundaliController::class, 'getkundali'])->name('front.ge
 Route::get('/kundali-matching', [KundaliController::class, 'kundaliMatch'])->name('front.kundaliMatch');
 Route::get('/kundali-match-report', [KundaliController::class, 'kundaliMatchReport'])->name('front.kundaliMatchReport');
 
-Route::get('/dailyhoroscope', [AstrologerHoroscopeController::class, 'dailyHoroscope'])->name('front.astrologers.dailyHoroscope');
+Route::get('/dailyhoroscope', [AstrologerHoroscopeController::class, 'dailyHoroscope'])->name('front.dailyHoroscope');
 Route::get('/horoscopes', [AstrologerHoroscopeController::class, 'horoScope'])->name('front.astrologers.horoScope');

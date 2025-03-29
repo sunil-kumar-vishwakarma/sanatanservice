@@ -17,6 +17,8 @@ use App\Http\Controllers\VideosController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\SupportController;
+use App\Http\Controllers\EarningsController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PageManagementController;
 use App\Http\Controllers\ContactController;
@@ -78,7 +80,7 @@ Route::get('/admin', [AdminController::class, 'showLoginForm'])->name('admin.log
 Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
-// Admin Dashboard 
+// Admin Dashboard
 Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     // Route::get('/admin/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
@@ -173,7 +175,21 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::post('/admin/banner/update-status', [BannerController::class, 'updateStatus']);
 
     Route::get('/admin/notifications', [NotificationsController::class, 'index'])->name('admin.notifications.index');
+
     Route::get('/admin/support-management', [SupportController::class, 'index'])->name('admin.support-management.FAQs');
+    Route::get('/admin/support-management/tickets', [SupportController::class, 'tickets'])->name('admin.support-management.tickets');
+
+    Route::get('/admin/earnings/withdrawalmethods', [EarningsController::class, 'withdrawalmethods'])->name('admin.earnings.withdrawalmethods');
+    Route::get('/admin/earnings/withdrawalRequests', [EarningsController::class, 'withdrawalRequests'])->name('admin.earnings.withdrawalRequests');
+    Route::get('/admin/earnings/walletHistory', [EarningsController::class, 'walletHistory'])->name('admin.earnings.walletHistory');
+
+    Route::get('/admin/reports/callHistory', [ReportsController::class, 'callHistory'])->name('admin.reports.callHistory');
+    Route::get('/admin/reports/chatHistory', [ReportsController::class, 'chatHistory'])->name('admin.reports.chatHistory');
+    Route::get('/admin/reports/partnerWiseEarning', [ReportsController::class, 'partnerWiseEarning'])->name('admin.reports.partnerWiseEarning');
+    Route::get('/admin/reports/orderrequest', [ReportsController::class, 'orderrequest'])->name('admin.reports.orderrequest');
+    Route::get('/admin/reports/reportrequest', [ReportsController::class, 'reportrequest'])->name('admin.reports.reportrequest');
+    Route::get('/admin/reports/kundaliearning', [ReportsController::class, 'kundaliearning'])->name('admin.reports.kundaliearning');
+
 
     Route::get('/admin/master-setting/customerProfile', [MasterSettingController::class, 'customerProfile'])->name('admin.master-setting.customerProfile');
     Route::get('/admin/master-setting/horoscopeSigns', [MasterSettingController::class, 'horoscopeSigns'])->name('admin.master-setting.horoscopeSigns');
@@ -195,24 +211,34 @@ Route::middleware(['auth:admin'])->group(function () {
 
 
 
-    Route::get('/user_login', [UserAuthController::class, 'login'])->name('user.login');
-    Route::get('/user_registration', [UserAuthController::class, 'userRegister'])->name('user.register');
-    Route::post('/user_registration', [UserAuthController::class, 'userStore'])->name('user.store');
+Route::get('/user_login', [UserAuthController::class, 'login'])->name('user.login');
+Route::get('/user_registration', [UserAuthController::class, 'userRegister'])->name('user.register');
+Route::post('/user_registration', [UserAuthController::class, 'userStore'])->name('user.store');
 
 
-    Route::get('/astro_login', [AstrologerAuthController::class, 'astrologerlogin'])->name('astrologerlogin');
-    Route::get('/astrologer_registration', [AstrologerAuthController::class, 'astrologerregister'])->name('astrologerregister');
-    Route::post('/registration', [AstrologerAuthController::class, 'astrologerstore'])->name('front.astrologerstore');
+Route::get('/astro_login', [AstrologerAuthController::class, 'astrologerlogin'])->name('astrologerlogin');
+Route::get('/astrologer_registration', [AstrologerAuthController::class, 'astrologerregister'])->name('astrologerregister');
+Route::post('/registration', [AstrologerAuthController::class, 'astrologerstore'])->name('front.astrologerstore');
 
 
-    Route::get('/panchang', [KundaliController::class, 'getPanchang'])->name('front.getPanchang');
-    Route::get('/dailyhoroscope', [HoroscopeController::class, 'dailyHoroscope'])->name('front.dailyHoroscope');
-    Route::get('/horoscope', [HoroscopeController::class, 'horoScope'])->name('front.horoScope');
+    // Route::get('/panchang', [KundaliController::class, 'getPanchang'])->name('front.getPanchang');
+    // Route::get('/dailyhoroscope', [HoroscopeController::class, 'dailyHoroscope'])->name('front.dailyHoroscope');
+    // Route::get('/horoscope', [HoroscopeController::class, 'horoScope'])->name('front.horoScope');
  
-    Route::get('/kundali', [KundaliController::class, 'getkundali'])->name('front.getkundali');
-    Route::get('/kundali-matching', [KundaliController::class, 'kundaliMatch'])->name('front.kundaliMatch');
-    Route::get('/kundali-match-report', [KundaliController::class, 'kundaliMatchReport'])->name('front.kundaliMatchReport');
+    // Route::get('/kundali', [KundaliController::class, 'getkundali'])->name('front.getkundali');
+    // Route::get('/kundali-matching', [KundaliController::class, 'kundaliMatch'])->name('front.kundaliMatch');
+    // Route::get('/kundali-match-report', [KundaliController::class, 'kundaliMatchReport'])->name('front.kundaliMatchReport');
     
-    Route::get('/dailyhoroscope', [AstrologerHoroscopeController::class, 'dailyHoroscope'])->name('front.dailyHoroscope');
-    Route::get('/horoscopes', [AstrologerHoroscopeController::class, 'horoScope'])->name('front.astrologers.horoScope');
+    // Route::get('/dailyhoroscope', [AstrologerHoroscopeController::class, 'dailyHoroscope'])->name('front.dailyHoroscope');
+    // Route::get('/horoscopes', [AstrologerHoroscopeController::class, 'horoScope'])->name('front.astrologers.horoScope');
         
+Route::get('/panchang', [KundaliController::class, 'getPanchang'])->name('front.getPanchang');
+Route::get('/dailyhoroscope', [HoroscopeController::class, 'dailyHoroscope'])->name('front.dailyHoroscope');
+Route::get('/horoscope', [HoroscopeController::class, 'horoScope'])->name('front.horoScope');
+
+Route::get('/kundali', [KundaliController::class, 'getkundali'])->name('front.getkundali');
+Route::get('/kundali-matching', [KundaliController::class, 'kundaliMatch'])->name('front.kundaliMatch');
+Route::get('/kundali-match-report', [KundaliController::class, 'kundaliMatchReport'])->name('front.kundaliMatchReport');
+
+Route::get('/dailyhoroscope', [AstrologerHoroscopeController::class, 'dailyHoroscope'])->name('front.astrologers.dailyHoroscope');
+Route::get('/horoscopes', [AstrologerHoroscopeController::class, 'horoScope'])->name('front.astrologers.horoScope');

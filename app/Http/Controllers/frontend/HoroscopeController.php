@@ -38,7 +38,9 @@ class HoroscopeController extends Controller
             //     'status' => 200,
             //     'totalRecords' => $hororscopeSignCount,
             // ], 200);
-            $gethoroscopesign['recordList']= $hororscopeSign;
+            
+            $gethoroscopesign['recordList']= $hororscopeSign->get();
+            // print_r($hororscopeSign);die;
             $gethoroscopesign['totalRecords']= $hororscopeSignCount;
             return view('frontend.pages.horoscopesign', [
                 'gethoroscopesign' => $gethoroscopesign,

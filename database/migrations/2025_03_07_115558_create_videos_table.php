@@ -10,6 +10,7 @@ return new class extends Migration {
             $table->id();
             $table->string('video_name');
             $table->string('thumbnail_path');
+            $table->string('video_option');
             $table->string('video_path')->nullable();
             $table->string('video_url')->nullable();
             $table->timestamps();

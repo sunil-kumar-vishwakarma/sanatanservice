@@ -31,11 +31,9 @@ use App\Http\Controllers\GeneralSettingController;
 use App\Http\Controllers\LiveDarsanController;
 use App\Http\Controllers\frontend\user\UserAuthController;
 use App\Http\Controllers\frontend\KundaliController;
-
 use App\Http\Controllers\frontend\HoroscopeController as AstrologerHoroscopeController;
-
-
 use App\Http\Controllers\frontend\Astrologer\AuthController as AstrologerAuthController;
+use App\Http\Controllers\Admin\HororScopeSignController;
 
 
 // frontent route
@@ -124,7 +122,8 @@ Route::middleware(['auth:admin'])->group(function () {
 
     Route::prefix('admin/arti')->group(function () {
         Route::get('/audio', [AudioController::class, 'index'])->name('admin.arti.audio');
-        Route::get('/editaudio', [AudioController::class, 'editaudio'])->name('admin.arti.edit');
+        Route::get('/editaudio/{id}', [AudioController::class, 'editaudio'])->name('admin.arti.edit');
+        Route::post('/admin/arti/audio/{id}/update', [AudioController::class, 'update'])->name('admin.arti.audio.update');
         Route::post('/audio', [AudioController::class, 'store']);
         Route::delete('/audio/{id}', [AudioController::class, 'destroy'])->name('admin.arti.audio.destroy');
     });
@@ -136,13 +135,16 @@ Route::middleware(['auth:admin'])->group(function () {
 
     Route::prefix('admin/live')->group(function () {
         Route::get('/video', [ArtiController::class, 'index'])->name('admin.live.arti');
-        Route::get('/editarti', [ArtiController::class, 'editarti'])->name('admin.live.editarti');
+        Route::get('/editarti/{id}', [ArtiController::class, 'editarti'])->name('admin.live.editarti');
         Route::post('/video', [ArtiController::class, 'store'])->name('admin.live.arti.store');
+        Route::post('/update/{id}', [ArtiController::class, 'update'])->name('admin.live.arti.update');
+    
         Route::delete('/video/{id}', [ArtiController::class, 'destroy'])->name('admin.live.arti.destroy');
 
         Route::get('/darshan', [LiveDarsanController::class, 'index'])->name('admin.live.darshan');
-        Route::get('/editdarshan', [LiveDarsanController::class, 'editdarshan'])->name('admin.live.editdarshan');
+        Route::get('/editdarshan/{id}', [LiveDarsanController::class, 'editdarshan'])->name('admin.live.editdarshan');
         Route::post('/darshan', [LiveDarsanController::class, 'store'])->name('admin.live.darshan.store');
+        Route::post('/update/{id}', [LiveDarsanController::class, 'update'])->name('admin.live.darshan.update');
         Route::delete('/darshan/{id}', [LiveDarsanController::class, 'destroy'])->name('admin.live.darshan.destroy');
     });
 
@@ -213,8 +215,12 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/page-management', [PageManagementController::class, 'index'])->name('admin.page-management.index');
     Route::post('/admin/pagemanagement/update', [PageManagementController::class, 'update'])->name('admin.page-management.update');
     Route::post('/admin/pagemanagement/updateStatus', [PageManagementController::class, 'updateStatus'])->name('admin.page-management.updateStatus');
+    // Route::get('horoscopeSigns', [HororScopeSignController::class, 'addHororScopeSign'])->name('admin.horoscopeSigns');
+    Route::get('horoscopeSigns', [HororScopeSignController::class, 'getHororScopeSign'])->name('admin.horoscopeSigns');
+
 });
 
+// end admin route
 
 
 Route::get('/user_login', [UserAuthController::class, 'login'])->name('user.login');

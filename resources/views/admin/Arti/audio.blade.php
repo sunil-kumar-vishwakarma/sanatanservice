@@ -25,10 +25,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="pdf_file">PDF File:</label>
-                        <input type="file" id="pdf_file" name="pdf_file" class="form-control" accept="application/pdf"
-                            required>
-                    </div>
+                        <label for="pdf_file">Description:</label>
+                        <!-- <input type="file" id="pdf_file" name="pdf_file" class="form-control" accept="application/pdf"
+                            required> -->
+                            <textarea name="description" id="description" rows="15" cols="170"></textarea>
+                      </div>
                     <div class="form-group">
                         <button type="submit" class="action-button add">Add Audio</button>
                     </div>
@@ -44,7 +45,7 @@
                             <th>Placing</th>
                             <th>Thumbnail</th>
                             <th>Audio Name</th>
-                            <th>PDF</th>
+                            <th>description</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -72,16 +73,17 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if (!empty($audio->pdf_path))
-                                        <a href="{{ asset('storage/' . $audio->pdf_path) }}" target="_blank">
-                                            <i class="fa-solid fa-file-pdf" style="color: red;"></i>
-                                        </a>
+                                    @if(!empty($audio->description))
+                                    <p>{{$audio->description}}</p>
+                                        <!-- <a href="{{ asset('storage/' .$audio->pdf_path) }}" target="_blank">
+                                        <i class="fa-solid fa-file-pdf" style="color: red;"></i>
+                                        </a> -->
                                     @else
                                         N/A
                                     @endif
                                 </td>
                                 <td class="action-buttons">
-                                    <a href="{{ route('admin.arti.edit') }}" class="action-button edit">Edit</a>
+                                    <a href="{{ route('admin.arti.edit',$audio->id) }}" class="action-button edit">Edit</a>
                                     <form action="{{ route('admin.arti.audio.destroy', $audio->id) }}" method="POST"
                                         onsubmit="return confirm('Are you sure?');">
                                         @csrf
@@ -151,6 +153,14 @@
                 });
         });
     </script>
+    @if(session('success'))
+    <script>
+        // alert("{{ session('message') }}"); // Show success message
+        setTimeout(() => {
+            window.location.href = "{{ route('admin.arti.audio') }}";
+        }, 2000); // Redirect after 2 seconds
+    </script>
+@endif
     <style>
         .audio-action-buttons {
             display: flex;

@@ -15,6 +15,6 @@ class Audio extends Model
         'audio_name',
         'thumbnail_path',
         'audio_path',
-        'pdf_path',
+        'description',
     ];
 }

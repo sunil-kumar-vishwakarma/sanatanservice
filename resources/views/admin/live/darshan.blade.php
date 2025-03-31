@@ -92,7 +92,7 @@
                                     @endif
                                 </td>
                                 <td class="action-buttons">
-                                    <a href="{{ route('admin.live.editdarshan') }}" class="action-button edit">Edit</a>
+                                    <a href="{{ route('admin.live.editdarshan', $video->id) }}" class="action-button edit">Edit</a>
                                     <form action="{{ route('admin.live.darshan.destroy', $video->id) }}" method="POST"
                                         onsubmit="return confirm('Are you sure?');">
                                         @csrf

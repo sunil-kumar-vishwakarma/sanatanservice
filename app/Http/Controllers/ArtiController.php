@@ -14,9 +14,11 @@ class ArtiController extends Controller
         $videos = Video::all();
         return view('admin.live.arti', compact('videos'));
     }
-    public function editarti()
+    public function editarti($id)
     {
-        return view('admin.live.editarti');
+        $video = Video::findOrFail($id);
+
+        return view('admin.live.editarti', compact('video'));
     }
 
     public function store(Request $request)
@@ -27,7 +29,7 @@ class ArtiController extends Controller
             'video_name' => 'required|string|max:255',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             // 'video_file' => 'required|mimes:mp3,mp4,avi,mov|max:102400',
-            // 'video_option' => 'required',
+            'video_option' => 'required',
             'video_file' => 'nullable|mimes:mp4,mov,avi|max:20480', // Max 20MB
             'video_url' => 'nullable|url'
         ]);
@@ -58,6 +60,7 @@ class ArtiController extends Controller
         $video = Video::create([
             'video_name' => $request->video_name,
             'thumbnail_path' => $thumbnailPath,
+            'video_option' => $request->video_option,
             'video_path' => $videoPath,
             'video_url'=> $video_url,
         ]);
@@ -70,50 +73,63 @@ class ArtiController extends Controller
         ]);
     }
 
-    // public function store(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'video_name' => 'required|string|max:255',
-    //         'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //         'video_file' => 'nullable|mimes:mp4,mov,avi|max:20480', // Max 20MB
-    //         'video_url' => 'nullable|url'
-    //     ]);
+   
+    public function update(Request $request, $id)
+{
+//    print_r($request->all());die;
+  
 
-    //     if ($validator->fails()) {
-    //         return response()->json([
-    //             'success' => false,
-    //             'errors' => $validator->errors()
-    //         ], 422);
-    //     }
+    $validator = Validator::make($request->all(), [
+        'video_name' => 'required|string|max:255',
+        // 'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        // 'video_file' => 'required|mimes:mp3,mp4,avi,mov|max:102400',
+        'video_option' => 'required',
+        'video_file' => 'nullable|mimes:mp4,mov,avi|max:20480', // Max 20MB
+        'video_url' => 'nullable|url'
+    ]);
 
-    //     $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
+    if ($validator->fails()) {
+        return response()->json([
+            'success' => false,
+            'errors' => $validator->errors()
+        ], 422);
+    }
 
-    //     // Initialize the variables
-    //     $filePath = null;
-    //     $video_url = null;
-    //     $videoPath = null;
+    // $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
+    // $videoPath = $request->file('video_file')->store('videos', 'public');
 
-    //     if ($request->video_option == 'file' && $request->hasFile('video_file')) {
-    //         $filePath = $request->file('video_file')->store('videos', 'public');
-    //         $videoPath = $filePath;
-    //     } elseif ($request->video_option == 'url') {
-    //         $video_url = $request->video_url;
-    //     }
+    // print_r($request->video_option);die;
+        
 
-    //     $video = Video::create([
-    //         'video_name' => $request->video_name,
-    //         'thumbnail_path' => $thumbnailPath,
-    //         'video_path' => $filePath, // This will be NULL if no file was uploaded
-    //         'video_url' => $video_url, // This will be NULL if no URL was provided
-    //     ]);
 
-    //     return response()->json([
-    //         'success' => true,
-    //         'video' => $video,
-    //         'thumbnail_url' => Storage::url($thumbnailPath),
-    //         'video_url' => $videoPath ? Storage::url($videoPath) : null
-    //     ]);
-    // }
+    $video = Video::findOrFail($id);
+    $video->video_name = $request->video_name;
+    $video->video_option = $request->video_option;
+
+    // Handle Thumbnail Upload
+    if ($request->hasFile('thumbnail')) {
+        $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
+        $video->thumbnail_path = $thumbnailPath;
+    }
+
+    // Handle Video File Upload
+    if ($request->video_option === 'file' && $request->hasFile('video_file')) {
+        $videoPath = $request->file('video_file')->store('videos', 'public');
+        $video->video_path = $videoPath;
+        $video->video_url = null; // Clear any existing URL
+    }
+
+    // Handle Video URL
+    if ($request->video_option === 'url') {
+        $video->video_url = $request->video_url;
+        $video->video_path = null; // Clear any existing file path
+    }
+
+    $video->save();
+
+    return redirect()->route('admin.live.arti')->with('success', 'Video updated successfully.');
+    }
+
 
     public function destroy($id)
     {

@@ -14,35 +14,52 @@
         <main class="main-content">
             <section class="audio-management">
                 <h2>Edit</h2>
-                <form id="audioForm" action="{{ route('admin.live.darshan') }}" method="POST" enctype="multipart/form-data">
+                <form id="audioForm" action="{{ route('admin.live.darshan.update',$livedarshan->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="video_name">Video Name:</label>
-                        <input type="text" id="video_name" name="video_name" class="form-control" required>
+                        <input type="text" id="video_name" name="video_name" value="{{$livedarshan->video_name}}" class="form-control" required>
                     </div>
+                    
+
                     <div class="form-group">
                         <label for="thumbnail">Thumbnail:</label>
-                        <input type="file" id="thumbnail" name="thumbnail" class="form-control" accept="image/*"
-                            required>
+                        <input type="file" id="thumbnail" name="thumbnail" class="form-control" accept="image/*">
+                    <img src="{{ asset('storage/' .$livedarshan->thumbnail_path) }}" alt="{{ $livedarshan->video_name }}"
+                                        class="video-thumbnail" width="300px;">
                     </div>
 
                     <div class="form-group">
-                        <label for="video_option"> Video Option:</label>
-                        <input type="text" id="video_name" name="video_name" class="form-control" required>
+                        <label for="video_option">Select Video Option:</label>
+                        <select id="video_option" name="video_option" class="form-control" onchange="toggleVideoInput()">
+                            <option value="file" {{ ($livedarshan->video_option ?? '') == 'file' ? 'selected' : '' }}>Upload Video</option>
+                            <option value="url" {{ ($livedarshan->video_option ?? '') == 'url' ? 'selected' : '' }}>Video URL</option>
+                        </select>
                     </div>
 
-                    <!-- Video File Input -->
-                    <div class="form-group" id="video_file_div">
-                        <label for="video_file">Video File:</label>
-                        <input type="file" id="video_file" name="video_file" class="form-control" accept="video/*">
-                    </div>
+                        <!-- Video File Input -->
+                        <div class="form-group" id="video_file_div" style="display: none;">
+                            <label for="video_file">Video File:</label>
+                            <input type="file" id="video_file" name="video_file" class="form-control" accept="video/*">
+                            <video width="320" height="240" controls>
+                                                                    <source src="{{ asset('storage/' . $livedarshan->video_path) }}" type="video/mp4">
+                                                                    {{ $livedarshan->video_name }}
+                                                                </video>
+                        </div>
 
-                    <!-- Video URL Input -->
+                <!-- Video URL Input -->
                     <div class="form-group" id="video_url_div" style="display: none;">
                         <label for="video_url">Video URL:</label>
                         <input type="url" id="video_url" name="video_url" class="form-control"
-                            placeholder="Enter video URL">
+                            placeholder="Enter video URL" value="{{ $livedarshan->video_url ?? '' }}">
+                        @if (!empty($livedarshan->video_url))
+                            <iframe width="320" height="240"
+                                src="{{ str_replace('watch?v=', 'embed/', $livedarshan->video_url) }}"
+                                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+                            </iframe>
+                        @endif
                     </div>
+
                     <div class="form-group">
                         <button type="submit" class="action-button add">Update</button>
                     </div>
@@ -50,7 +67,43 @@
             </section>
         </main>
     </div>
+    <script>
+    function toggleVideoInput() {
+        var option = document.getElementById('video_option').value;
+        var fileDiv = document.getElementById('video_file_div');
+        var urlDiv = document.getElementById('video_url_div');
 
+        if (option === 'file') {
+            fileDiv.style.display = 'block';
+            urlDiv.style.display = 'none';
+        } else if (option === 'url') {
+            fileDiv.style.display = 'none';
+            urlDiv.style.display = 'block';
+        } else {
+            fileDiv.style.display = 'none';
+            urlDiv.style.display = 'none';
+        }
+    }
+
+    // Run function on page load to set the correct visibility
+    document.addEventListener("DOMContentLoaded", function() {
+        toggleVideoInput();
+    });
+</script>
+
+    <script>
+        function toggleVideoInput() {
+            var option = document.getElementById("video_option").value;
+
+            if (option === "file") {
+                document.getElementById("video_file_div").style.display = "block";
+                document.getElementById("video_url_div").style.display = "none";
+            } else {
+                document.getElementById("video_file_div").style.display = "none";
+                document.getElementById("video_url_div").style.display = "block";
+            }
+        }
+    </script>
 <style>
     .main-content {
     margin-top: 80px;

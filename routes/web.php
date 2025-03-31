@@ -134,13 +134,16 @@ Route::middleware(['auth:admin'])->group(function () {
 
     Route::prefix('admin/live')->group(function () {
         Route::get('/video', [ArtiController::class, 'index'])->name('admin.live.arti');
-        Route::get('/editarti', [ArtiController::class, 'editarti'])->name('admin.live.editarti');
+        Route::get('/editarti/{id}', [ArtiController::class, 'editarti'])->name('admin.live.editarti');
         Route::post('/video', [ArtiController::class, 'store'])->name('admin.live.arti.store');
+        Route::post('/update/{id}', [ArtiController::class, 'update'])->name('admin.live.arti.update');
+    
         Route::delete('/video/{id}', [ArtiController::class, 'destroy'])->name('admin.live.arti.destroy');
 
         Route::get('/darshan', [LiveDarsanController::class, 'index'])->name('admin.live.darshan');
-        Route::get('/editdarshan', [LiveDarsanController::class, 'editdarshan'])->name('admin.live.editdarshan');
+        Route::get('/editdarshan/{id}', [LiveDarsanController::class, 'editdarshan'])->name('admin.live.editdarshan');
         Route::post('/darshan', [LiveDarsanController::class, 'store'])->name('admin.live.darshan.store');
+        Route::post('/update/{id}', [LiveDarsanController::class, 'update'])->name('admin.live.darshan.update');
         Route::delete('/darshan/{id}', [LiveDarsanController::class, 'destroy'])->name('admin.live.darshan.destroy');
     });
 

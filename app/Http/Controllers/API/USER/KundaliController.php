@@ -363,8 +363,13 @@ private function fetchKundaliData($kundali)
         try {
             $curl = curl_init();
             $date = date('d/m/Y',strtotime($req->panchangDate));
+            $lat = $req->lat;
+            $lon = $req->lon;
+            $tz = $req->tz;
+            $lang = $req->lang;
+            // print_r($date);die;
             curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.vedicastroapi.com/v3-json/panchang/panchang?api_key='.$api_key->value.'&date='.$date.'&tz=5.5&lat=11.2&lon=77.00&time=05%3A20&lang=en',
+            CURLOPT_URL => 'https://api.vedicastroapi.com/v3-json/panchang/panchang?api_key='.$api_key->value.'&date='.$date.'&tz='.$tz.'&lat='.$lat.'&lon='.$lon.'&time=05%3A20&lang='.$lang.'',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,

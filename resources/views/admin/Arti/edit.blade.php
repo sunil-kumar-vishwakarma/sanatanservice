@@ -12,13 +12,13 @@
             <br>
         </div>
         <main class="main-content">
-            <section class="audio-management">
+            <!-- <section class="audio-management">
                 <h2>Edit </h2>
                 <form id="audioForm" action="{{ route('admin.arti.audio') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="audio_name">Audio Name:</label>
-                        <input type="text" id="audio_name" name="audio_name" class="form-control" required>
+                        <input type="text" id="audio_name" name="audio_name" class="form-control" value="{{$audio->audio_name}}" required>
                     </div>
                     <div class="form-group">
                         <label for="thumbnail">Thumbnail:</label>
@@ -40,7 +40,46 @@
                         <button type="submit" class="action-button add">Update</button>
                     </div>
                 </form>
-            </section>
+            </section> -->
+
+            <form id="audioForm" action="{{ route('admin.arti.audio.update', $audio->id) }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <div class="form-group">
+        <label for="audio_name">Audio Name:</label>
+        <input type="text" id="audio_name" name="audio_name" class="form-control" value="{{ $audio->audio_name }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="thumbnail">Thumbnail:</label>
+        <input type="file" id="thumbnail" name="thumbnail" class="form-control" accept="image/*">
+        <img src="{{ asset('storage/' .$audio->thumbnail_path) }}" alt="{{ $audio->audio_name }}"
+                                        class="audio-thumbnail">
+        <!-- <img src="{{ asset('storage/'.$audio->thumbnail) }}" width="100" alt="Current Thumbnail"> -->
+    </div>
+    
+    <div class="form-group">
+        <label for="audio_file">Audio File:</label>
+        <input type="file" id="audio_file" name="audio_file" class="form-control" accept="audio/*">
+        <!-- <audio controls>
+            <source src="{{ asset('storage/'.$audio->audio_file) }}" type="audio/mpeg">
+        </audio> -->
+        <audio controls>
+            <source src="{{ asset('storage/' . $audio->audio_path) }}" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <div class="form-group">
+        <label for="pdf_file">Description:</label>
+        <textarea name="description" id="description" rows="15" cols="170">{{$audio->description}}</textarea>
+        <!-- <input type="file" id="pdf_file" name="pdf_file" class="form-control" accept="application/pdf">
+        <a href="{{ asset('storage/'.$audio->pdf_path) }}" target="_blank">View PDF</a> -->
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="action-button add">Update</button>
+    </div>
+</form>
+
         </main>
     </div>
 

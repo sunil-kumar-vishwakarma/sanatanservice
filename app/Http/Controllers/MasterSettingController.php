@@ -14,7 +14,8 @@ class MasterSettingController extends Controller
     }
     public function horoscopeSigns()
     {
-        return view('admin.master-setting.horoscopeSigns');
+        return view('admin.master-setting.horoscopesign');
+        // return view('admin.master-setting.horoscopeSigns');
     }
     public function rechargeAmount()
     {

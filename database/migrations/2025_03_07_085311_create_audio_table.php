@@ -13,7 +13,7 @@ class CreateAudioTable extends Migration
             $table->string('audio_name');
             $table->string('thumbnail_path');
             $table->string('audio_path');
-            $table->string('pdf_path');
+            $table->text('description');
             $table->timestamps();
         });
     }

@@ -70,7 +70,7 @@
             <a href="#"><i class="fas fa-praying-hands"></i> Arti <i class="fas fa-chevron-down"></i></a>
             <ul class="dropdown-menu">
                 <li class="{{ request()->routeIs('admin.arti.audio') ? 'active' : '' }}">
-                    <a href="{{ route('admin.arti.audio') }}"><i class="fas fa-headphones"></i> Audio</a>
+                    <a href="{{ route('admin.arti.audio') }}"><i class="fas fa-headphones"></i> Radio</a>
                 </li>
                 {{-- <li class="{{ request()->routeIs('admin.arti.pdf') ? 'active' : '' }}">
                     <a href="{{ route('admin.arti.pdf') }}"><i class="fas fa-file-pdf"></i> PDF</a>
@@ -88,13 +88,14 @@
         </li>
 
         <li class="dropdown">
-            <a href="#"><i class="fas fa-broadcast-tower"></i> Live <i class="fas fa-chevron-down"></i></a>
+            <a href="#"><i class="fa-solid fa-tv"></i> TV <i class="fas fa-chevron-down"></i></a>
             <ul class="dropdown-menu">
                 <li class="{{ request()->routeIs('admin.live.arti') ? 'active' : '' }}">
-                    <a href="{{ route('admin.live.arti') }}"><i class="fas fa-praying-hands"></i> Live Arti</a>
+                    <a href="{{ route('admin.live.arti') }}"><i class="fa-solid fa-broadcast-tower"></i>
+                        Live </a>
                 </li>
                 <li class="{{ request()->routeIs('admin.live.darshan') ? 'active' : '' }}">
-                    <a href="{{ route('admin.live.darshan') }}"><i class="fas fa-place-of-worship"></i> Live Darshan</a>
+                    <a href="{{ route('admin.live.darshan') }}"><i class="fas fa-video"></i> Videos</a>
                 </li>
             </ul>
         </li>

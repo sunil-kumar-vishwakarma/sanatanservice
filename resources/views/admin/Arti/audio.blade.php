@@ -42,6 +42,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Placing</th>
                             <th>Thumbnail</th>
                             <th>Audio Name</th>
                             <th>description</th>
@@ -52,17 +53,25 @@
                         @foreach ($audios as $audio)
                             <tr>
                                 <td>{{ $audio->id }}</td>
-                                <td><img src="{{ asset('storage/' .$audio->thumbnail_path) }}" alt="{{ $audio->audio_name }}"
-                                        class="audio-thumbnail"></td>
-                                <td>@if(!empty($audio->audio_path))
+                                <td class="audio-action-buttons">
+                                    <button class="audio-move-up"><i class="fa-solid fa-arrow-up"
+                                            style="margin-left: 7px;"></i></button>
+                                    <button class="audio-move-down"><i class="fa-solid fa-arrow-down"
+                                            style="margin-left: 7px;"></i></button>
+                                </td>
 
+                                <td><img src="{{ asset('storage/' . $audio->thumbnail_path) }}"
+                                        alt="{{ $audio->audio_name }}" class="audio-thumbnail"></td>
+                                <td>
+                                    @if (!empty($audio->audio_path))
                                         <audio controls>
                                             <source src="{{ asset('storage/' . $audio->audio_path) }}" type="audio/mpeg">
                                         </audio>
                                         <p>{{ $audio->audio_name }}</p>
                                     @else
                                         N/A
-                                    @endif</td>
+                                    @endif
+                                </td>
                                 <td>
                                     @if(!empty($audio->description))
                                     <p>{{$audio->description}}</p>
@@ -152,4 +161,38 @@
         }, 2000); // Redirect after 2 seconds
     </script>
 @endif
+    <style>
+        .audio-action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 23px;
+            align-items: center;
+            /* justify-content: center; */
+        }
+
+        .audio-action-buttons button {
+            display: inline-block;
+            border: none;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            color: black;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .audio-action-buttons button:hover {
+            background-color: #24007a;
+            transform: scale(1.05);
+            /* color: #11003a; */
+            color: white;
+        }
+
+        .audio-table th,
+        .audio-table td {
+            margin: 15%;
+        }
+    </style>
 @endsection

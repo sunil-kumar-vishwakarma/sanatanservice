@@ -84,6 +84,9 @@
     .audio-table{
         width: 106% !important;
     }
+    .audio-table th, .audio-table td {
+        margin-top: 68px !important;
+       }
 }
 
 @media (max-width: 1280px) {
@@ -147,6 +150,9 @@
     th,
     td {
        font-size: 13px !important;
+   }
+   .audio-table th, .audio-table td {
+    margin-top: 70px !important;
    }
 
 }

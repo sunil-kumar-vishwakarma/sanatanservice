@@ -11,7 +11,7 @@
                     enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="video_name">video Name:</label>
+                        <label for="video_name">Video Name:</label>
                         <input type="text" id="video_name" name="video_name" class="form-control" required>
                     </div>
                     <div class="form-group">
@@ -52,13 +52,14 @@
                 </form>
             </section>
             <section class="pdf-list">
-                <h2>video List</h2>
+                <h2>Video List</h2>
                 <table class="audio-table">
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Placing</th>
                             <th>Thumbnail</th>
-                            <th>video Name</th>
+                            <th>Video Name</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -66,6 +67,12 @@
                         @foreach ($videos as $video)
                             <tr>
                                 <td>{{ $video->id }}</td>
+                                <td class="audio-action-buttons">
+                                    <button class="audio-move-up"><i class="fa-solid fa-arrow-up"
+                                            style="margin-left: 7px;"></i></button>
+                                    <button class="audio-move-down"><i class="fa-solid fa-arrow-down"
+                                            style="margin-left: 7px;"></i></button>
+                                </td>
                                 <td><img src="{{ asset('storage/' . $video->thumbnail_path) }}"
                                         alt="{{ $video->video_name }}" class="audio-thumbnail"></td>
                                 <td>
@@ -193,4 +200,38 @@
             }
         }
     </script>
+     <style>
+        .audio-action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 23px;
+            align-items: center;
+            /* justify-content: center; */
+        }
+
+        .audio-action-buttons button {
+            display: inline-block;
+            border: none;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            color: black;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .audio-action-buttons button:hover {
+            background-color: #24007a;
+            transform: scale(1.05);
+            /* color: #11003a; */
+            color: white;
+        }
+
+        .audio-table th,
+        .audio-table td {
+            margin: 30%;
+        }
+    </style>
 @endsection

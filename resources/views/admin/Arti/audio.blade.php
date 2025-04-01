@@ -59,6 +59,7 @@
                                     <button class="audio-move-down"><i class="fa-solid fa-arrow-down"
                                             style="margin-left: 7px;"></i></button>
                                 </td>
+                                
 
                                 <td><img src="{{ asset('storage/' . $audio->thumbnail_path) }}"
                                         alt="{{ $audio->audio_name }}" class="audio-thumbnail"></td>

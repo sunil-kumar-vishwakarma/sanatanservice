@@ -320,6 +320,7 @@ class HoroscopeController extends Controller
     {
         $api_key=DB::table('systemflag')->where('name','vedicAstroAPI')->first();
         $currDate = date('Y-m-d');
+
         for ($i=1; $i <= 12 ; $i++) {
             foreach (['en','ta','ka','te','hi','ml','fr','sp'] as $langkey => $langvalue)
             {

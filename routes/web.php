@@ -85,9 +85,14 @@ Route::middleware(['auth:admin'])->group(function () {
     // Route::get('/admin/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
 
     Route::get('/admin/customers', [CustomerController::class, 'index'])->name('admin.customers');
+    Route::get('/admin/addcustomer', [CustomerController::class, 'addcustomer'])->name('admin.addcustomer');
+    Route::get('/admin/editcustomer', [CustomerController::class, 'editcustomer'])->name('admin.editcustomer');
 
     // Astrologer
     Route::get('/admin/astrologers', [AstrologerController::class, 'index'])->name('admin.astrologers');
+    Route::get('/admin/addastrologer', [AstrologerController::class, 'addastrologer'])->name('admin.Astrologer.addastrologer');
+    Route::get('/admin/editastrologer', [AstrologerController::class, 'editastrologer'])->name('admin.Astrologer.editastrologer');
+
     Route::get('/admin/review', [AstrologerController::class, 'review'])->name('admin.review');
     Route::get('/admin/skills', [AstrologerController::class, 'skills'])->name('admin.skills');
     Route::get('/admin/categories', [AstrologerController::class, 'category'])->name('admin.categories');
@@ -138,7 +143,7 @@ Route::middleware(['auth:admin'])->group(function () {
         Route::get('/editarti/{id}', [ArtiController::class, 'editarti'])->name('admin.live.editarti');
         Route::post('/video', [ArtiController::class, 'store'])->name('admin.live.arti.store');
         Route::post('/update/{id}', [ArtiController::class, 'update'])->name('admin.live.arti.update');
-    
+
         Route::delete('/video/{id}', [ArtiController::class, 'destroy'])->name('admin.live.arti.destroy');
 
         Route::get('/darshan', [LiveDarsanController::class, 'index'])->name('admin.live.darshan');

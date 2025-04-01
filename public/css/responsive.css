@@ -1,5 +1,188 @@
 
 /* Responsive Design */
+
+@media (min-width: 1920px) {
+ .main-content {
+        margin-left: 38px !important;
+    }
+    .customer-list {
+        width: 118% !important;
+    }
+    /* Adjustments for large laptops */
+    .container {
+        padding: 15px;
+        width: 97% !important;
+    }
+    .skill-list {
+        width: 118% !important;
+    }
+    .astrologer-list{
+        width: 118% !important;
+    }
+    .review-list {
+        width: 118% !important;
+    }
+    .category-list {
+        width: 118% !important;
+    }
+    .commission-rate-list  {
+        width: 118% !important;
+    }
+    .horoscope-list {
+        width: 118% !important;
+    }
+    .temple-list{
+        width: 118% !important;
+    }
+
+    .temple-details{
+        margin-top: 37px !important;
+        margin-left: 243px !important;
+    }
+    .blog-list {
+        width: 118% !important;
+    }
+    .videos-list  {
+        width: 118% !important;
+    }
+    .content-wrapper {
+        margin-left: 215px !important;
+    }
+    .main-content-contact {
+        margin-left: 35px !important;
+    }
+    .settings-categories {
+        flex-wrap: nowrap !important;
+        margin-top: -120px !important;
+        margin-left: 300px !important;
+    }
+
+    .container-settings {
+        max-width: 1090px !important;
+        margin-left: 332px !important;
+    }
+    .stat-card {
+        min-width: 172px !important;
+    }
+    .stats{
+        margin-left: 32px !important;
+    }
+    .dashboard-widgets{
+        margin-left: 32px !important;
+        /* flex-wrap: wrap !important;
+        justify-content: space-around !important; */
+    }
+    .user-list{
+        margin-left: 32px !important;
+    }
+    .audio-management,.pdf-management{
+        margin-left: 25px !important;
+
+    }
+    .audio-list,.pdf-list{
+        margin-left: 25px !important;
+
+    }
+    .audio-table{
+        width: 118% !important;
+    }
+    .audio-table th, .audio-table td {
+        margin-top: 68px !important;
+       }
+
+}
+
+@media (min-width: 1600px) {
+    .main-content {
+        margin-left: 38px !important;
+    }
+    .customer-list {
+        width: 118% !important;
+    }
+    /* Adjustments for large laptops */
+    .container {
+        padding: 15px;
+        width: 97% !important;
+    }
+    .skill-list {
+        width: 118% !important;
+    }
+    .astrologer-list{
+        width: 118% !important;
+    }
+    .review-list {
+        width: 118% !important;
+    }
+    .category-list {
+        width: 118% !important;
+    }
+    .commission-rate-list  {
+        width: 118% !important;
+    }
+    .horoscope-list {
+        width: 118% !important;
+    }
+    .temple-list{
+        width: 118% !important;
+    }
+
+    .temple-details{
+        margin-top: 37px !important;
+        margin-left: 243px !important;
+    }
+    .blog-list {
+        width: 118% !important;
+    }
+    .videos-list  {
+        width: 118% !important;
+    }
+    .content-wrapper {
+        margin-left: 215px !important;
+    }
+    .main-content-contact {
+        margin-left: 35px !important;
+    }
+    .settings-categories {
+        flex-wrap: nowrap !important;
+        margin-top: -120px !important;
+        margin-left: 300px !important;
+    }
+
+    .container-settings {
+        max-width: 1090px !important;
+        margin-left: 332px !important;
+    }
+    .stat-card {
+        min-width: 172px !important;
+    }
+    .stats{
+        margin-left: 32px !important;
+    }
+    .dashboard-widgets{
+        margin-left: 32px !important;
+        /* flex-wrap: wrap !important;
+        justify-content: space-around !important; */
+    }
+    .user-list{
+        margin-left: 32px !important;
+    }
+    .audio-management,.pdf-management{
+        margin-left: 25px !important;
+
+    }
+    .audio-list,.pdf-list{
+        margin-left: 25px !important;
+
+    }
+    .audio-table{
+        width: 118% !important;
+    }
+    .audio-table th, .audio-table td {
+        margin-top: 68px !important;
+       }
+
+}
+
 @media (max-width: 1440px) {
     .main-content {
         margin-left: 138px !important;

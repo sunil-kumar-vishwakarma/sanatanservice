@@ -1,0 +1,118 @@
+.add-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 100px;
+}
+
+.add-content {
+    margin-left: 115px;
+    margin-top: 50px;
+}
+
+.back-button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    float: right;
+}
+
+.back-button {
+    display: inline-block;
+    background-color: #24007a;
+    color: white;
+    padding: 12px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.back-button:hover {
+    background-color: #25007ae1;
+    transform: scale(1.05);
+}
+
+/* Responsive CSS */
+@media (max-width: 1600px) {
+    .add-container {
+        max-width: 1200px !important;
+
+    }
+
+    .add-content {
+        margin-left: 115px !important;
+    }
+}
+
+@media (max-width: 1440px) {
+    .add-container {
+
+        max-width: 1040px !important;
+
+    }
+
+    .add-content {
+        margin-left: 85px !important;
+    }
+}
+
+@media (max-width: 1280px) {
+    .add-container {
+
+        max-width: 935px !important;
+
+    }
+
+    .add-content {
+        margin-left: 120px !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    .add-container {
+        max-width: 740px !important;
+
+    }
+
+    .add-content {
+        margin-left: 125px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .add-container {
+        padding: 15px !important;
+        margin-top: 80px !important;
+    }
+
+    .add-content {
+        margin-left: 30px !important;
+        margin-top: 60px !important;
+    }
+
+    .back-button {
+        padding: 10px 12px !important;
+        font-size: 14px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .add-container {
+        padding: 10px !important;
+        margin-top: 60px !important;
+    }
+
+    .add-content {
+        margin-left: 15px !important;
+        margin-top: 40px !important;
+    }
+
+    .back-button {
+        padding: 8px 10px !important;
+        font-size: 12px !important;
+    }
+}

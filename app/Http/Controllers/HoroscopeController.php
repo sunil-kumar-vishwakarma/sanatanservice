@@ -372,8 +372,8 @@ class HoroscopeController extends Controller
                     if($langvalue=='en')
                         list($startDate, $endDate) = explode(" to ", $value['period']);
 
-                    $startDate = date('Y-m-d', strtotime($startDate));
-                    $endDate = date('Y-m-d', strtotime($endDate));
+                    $startDate = date('Y-m-d');
+                    $endDate = date('Y-m-d');
                     Horoscope::create([
                         'zodiac' => $zodiac,
                         'total_score' => isset($value['score']) ? substr($value['score'], 0 ,-1) : 0,

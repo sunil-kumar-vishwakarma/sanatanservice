@@ -91,11 +91,11 @@
             <a href="#"><i class="fa-solid fa-tv"></i> TV <i class="fas fa-chevron-down"></i></a>
             <ul class="dropdown-menu">
                 <li class="{{ request()->routeIs('admin.live.arti') ? 'active' : '' }}">
-                    <a href="{{ route('admin.live.arti') }}"><i class="fa-solid fa-broadcast-tower"></i>
-                        Live </a>
+                    <a href="{{ route('admin.live.arti') }}"><i class="fas fa-video"></i> 
+                        Videos </a>
                 </li>
                 <li class="{{ request()->routeIs('admin.live.darshan') ? 'active' : '' }}">
-                    <a href="{{ route('admin.live.darshan') }}"><i class="fas fa-video"></i> Videos</a>
+                    <a href="{{ route('admin.live.darshan') }}"><i class="fa-solid fa-broadcast-tower"></i> Live</a>
                 </li>
             </ul>
         </li>
@@ -160,15 +160,15 @@
                 <li class="{{ request()->routeIs('admin.reports.chatHistory') ? 'active' : '' }}">
                     <a href="{{ route('admin.reports.chatHistory') }}"><i class="fas fa-comments"></i> Chat History</a>
                 </li>
-                <li class="{{ request()->routeIs('admin.reports.partnerWiseEarning') ? 'active' : '' }}">
+                {{-- <li class="{{ request()->routeIs('admin.reports.partnerWiseEarning') ? 'active' : '' }}">
                     <a href="{{ route('admin.reports.partnerWiseEarning') }}"><i class="fas fa-money-bill-wave"></i> PartnerWise Earning</a>
-                </li>
-                <li class="{{ request()->routeIs('admin.reports.orderrequest') ? 'active' : '' }}">
+                </li> --}}
+                {{-- <li class="{{ request()->routeIs('admin.reports.orderrequest') ? 'active' : '' }}">
                     <a href="{{ route('admin.reports.orderrequest') }}"><i class="fas fa-list-alt"></i> Order Request</a>
-                </li>
-                <li class="{{ request()->routeIs('admin.reports.reportrequest') ? 'active' : '' }}">
+                </li> --}}
+                {{-- <li class="{{ request()->routeIs('admin.reports.reportrequest') ? 'active' : '' }}">
                     <a href="{{ route('admin.reports.reportrequest') }}"><i class="fas fa-flag"></i> Report Request</a>
-                </li>
+                </li> --}}
                 <li class="{{ request()->routeIs('admin.reports.kundaliearning') ? 'active' : '' }}">
                     <a href="{{ route('admin.reports.kundaliearning') }}"><i class="fas fa-hand-holding-heart"></i> Kundali Earnings</a>
                 </li>
@@ -181,8 +181,8 @@
                 <li class="{{ request()->routeIs('admin.master-setting.customerProfile') ? 'active' : '' }}">
                     <a href="{{ route('admin.master-setting.customerProfile') }}"><i class="fas fa-user"></i> Customer Profile</a>
                 </li>
-                <li class="{{ request()->routeIs('admin.horoscopeSigns') ? 'active' : '' }}">
-                    <a href="{{ route('admin.horoscopeSigns') }}"><i class="fas fa-star"></i> Horoscope Signs</a>
+                <li class="{{ request()->routeIs('admin.master-setting.horoscopeSigns') ? 'active' : '' }}">
+                    <a href="{{ route('admin.master-setting.horoscopeSigns') }}"><i class="fas fa-star"></i> Horoscope Signs</a>
                 </li>
                 <li class="{{ request()->routeIs('admin.master-setting.rechargeAmount') ? 'active' : '' }}">
                     <a href="{{ route('admin.master-setting.rechargeAmount') }}"><i class="fas fa-coins"></i> Recharge Amount</a>

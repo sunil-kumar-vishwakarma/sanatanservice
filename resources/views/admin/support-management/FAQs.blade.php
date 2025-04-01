@@ -3,10 +3,10 @@
     <link rel="stylesheet" href="{{ asset('css\Astrologer\astrologers.css') }}">
     <link rel="stylesheet" href="{{ asset('css\page-managment.css') }}">
     <link rel="stylesheet" href="{{ asset('css\popus.css') }}">
+    <script src="{{ asset('js\popupform.js') }}" defer></script>
     <script src="{{ asset('js/statusbutton.js') }}" defer></script>
     <!-- CKEditor Script -->
     <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
-    <script src="{{ asset('js\popupform.js') }}" defer></script>
 
 
     <div class="container">
@@ -100,7 +100,7 @@
 
     <!-- Delete button Popup -->
     <div id="popupForm-delete" class="popup-overlay" style="display:none;">
-        <div class="popup-box1">
+        <div class="popup-box-delete">
             <span class="close-btn" onclick="closePopup3()">&times;</span>
             <h2>Do you want to delete this item ?</h2>
             <form>

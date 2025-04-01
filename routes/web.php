@@ -224,7 +224,10 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::post('/admin/pagemanagement/update', [PageManagementController::class, 'update'])->name('admin.page-management.update');
     Route::post('/admin/pagemanagement/updateStatus', [PageManagementController::class, 'updateStatus'])->name('admin.page-management.updateStatus');
     // Route::get('horoscopeSigns', [HororScopeSignController::class, 'addHororScopeSign'])->name('admin.horoscopeSigns');
-    Route::get('horoscopeSigns', [HororScopeSignController::class, 'getHororScopeSign'])->name('admin.horoscopeSigns');
+    Route::get('admin/horoscopeSigns', [HororScopeSignController::class, 'getHororScopeSign'])->name('horoscopeSigns');
+    Route::post('editHororScopeSignApi', [HororScopeSignController::class, 'editHororScopeSignApi'])->name('editHororScopeSignApi');
+    Route::post('horoScopeStatusApi', [HororScopeSignController::class, 'horoScopeStatusApi'])->name('horoScopeStatusApi');
+    Route::post('addHororScopeSignApi', [HororScopeSignController::class, 'addHororScopeSignApi'])->name('addHororScopeSignApi');
 
 });
 

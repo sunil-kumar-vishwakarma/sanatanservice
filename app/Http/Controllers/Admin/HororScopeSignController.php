@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class HororScopeSignController extends Controller
 {
@@ -77,7 +78,7 @@ class HororScopeSignController extends Controller
     public function getHororScopeSign(Request $request)
     {
         try {
-            if (Auth::guard('web')->check()) {
+            // if (Auth::guard('web')->check()) {
                 $page = $request->page ? $request->page : 1;
                 $paginationStart = ($page - 1) * $this->limit;
                 $signs = Horosign::query();
@@ -86,14 +87,15 @@ class HororScopeSignController extends Controller
                 $signs->skip($paginationStart);
                 $signs->take($this->limit);
                 $signs = $signs->get();
+                
                 $totalPages = ceil($hororscopeSignCount / $this->limit);
                 $totalRecords = $hororscopeSignCount;
                 $start = ($this->limit * ($page - 1)) + 1;
                 $end = ($this->limit * ($page - 1)) + $this->limit < $totalRecords ? ($this->limit * ($page - 1)) + $this->limit : $totalRecords;
                 return view('page.horor-scope-sign-list', compact('signs', 'totalPages', 'totalRecords', 'start', 'end', 'page'));
-            } else {
+            // } else {
                 
-            }
+            // }
         } catch (Exception $e) {
             return dd($e->getMessage());
         }
@@ -108,40 +110,49 @@ class HororScopeSignController extends Controller
     {
         try {
             // return back()->with('error', 'This Option is disabled for Demo!');
-            if (Auth::guard('web')->check()) {
+            // if (Auth::guard('web')->check()) {
                 $hororScopeSign = Horosign::find($req->filed_id);
-                if (request('image')) {
-                    $image = base64_encode(file_get_contents($req->file('image')));
-                } elseif ($hororScopeSign->image) {
-                    $image = $hororScopeSign->image;
-                } else {
-                    $image = null;
-                }
-                if ($hororScopeSign) {
-                    if ($image) {
-                        if (Str::contains($image, 'storage')) {
-                            $path = $image;
-                        } else {
-                            $time = Carbon::now()->timestamp;
-                            $destinationpath = 'public/storage/images/';
-                            $imageName = 'sign_' . $req->filed_id;
-                            $path = $destinationpath . $imageName . $time . '.png';
-                            File::delete($hororScopeSign->image);
-                            file_put_contents($path, base64_decode($image));
-                        }
-                    } else {
-                        $path = null;
+                // if (request('image')) {
+                //     $image = base64_encode(file_get_contents($req->file('image')));
+                // } elseif ($hororScopeSign->image) {
+                //     $image = $hororScopeSign->image;
+                // } else {
+                //     $image = null;
+                // }
+                // if ($hororScopeSign) {
+                //     if ($image) {
+                //         if (Str::contains($image, 'storage')) {
+                //             $path = $image;
+                //         } else {
+                //             $time = Carbon::now()->timestamp;
+                //             $destinationpath = 'public/storage/images/';
+                //             $imageName = 'sign_' . $req->filed_id;
+                //             $path = $destinationpath . $imageName . $time . '.png';
+                //             File::delete($hororScopeSign->image);
+                //             file_put_contents($path, base64_decode($image));
+                //         }
+                //     } else {
+                //         $path = null;
+                //     }
+
+                if ($req->hasFile('image')) {
+                    // Delete old thumbnail
+                    if ($hororScopeSign->image) {
+                        Storage::disk('public')->delete($hororScopeSign->thumbnail_path);
                     }
+                    $thumbnailPath = $req->file('image')->store('thumbnails', 'public');
+                    $hororScopeSign->image = $thumbnailPath;
+                }
                     $hororScopeSign->name = $req->name;
                     $hororScopeSign->displayOrder = null;
-                    $hororScopeSign->image = $path;
+                    // $hororScopeSign->image = $path;
                     $hororScopeSign->update();
                     return redirect()->route('horoscopeSigns');
-                }
+                // }
 
-            } else {
+            // } else {
                
-            }
+            // }
         } catch (Exception $e) {
             return dd($e->getMessage());
         }

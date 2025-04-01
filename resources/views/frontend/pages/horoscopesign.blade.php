@@ -226,7 +226,7 @@ h2.cat-heading {
                                 <a href="{{route('front.dailyHoroscope',['horoscopeSignId' => $horoscopesign['id']])}}"
                                     title="{{$horoscopesign['name']}}" class="text-decoration-none text-dark">
                                     <div>
-                                        <img style="height: 110px;width:110px" src="/{{$horoscopesign['image']}}"
+                                        <img style="height: 110px;width:110px" src="{{ asset('storage/' .$horoscopesign['image'])}}"
                                             alt="{{$horoscopesign['name']}}">
 
                                     </div>

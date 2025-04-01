@@ -1,161 +1,97 @@
-@extends('../layout/' . $layout)
+ @extends('admin.layout')
 
-@section('subhead')
-    <title>HoroScope Sign</title>
-@endsection
+@section('content')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
-@section('subcontent')
-    <div class="loader"></div>
-    <h2 class="d-inline intro-y text-lg font-medium mt-10">HoroScope Signs</h2>
-    <div class="grid grid-cols-12 gap-6">
-        <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-        </div>
-    </div>
-    <!-- BEGIN: Data List -->
-    @if ($totalRecords > 0)
-        <div class="intro-y col-span-12 overflow-auto lg:overflow-visible withoutsearch">
-            <table class="table table-report -mt-2" aria-label="horor-scope-sign">
-                <thead class="sticky-top">
-                    <tr>
-                        <th class="whitespace-nowrap">#</th>
-                        <th class="whitespace-nowrap">NAME</th>
-                        <th class="whitespace-nowrap">IMAGE</th>
-                        <th class="text-center whitespace-nowrap">STATUS</th>
-                        <th class="text-center whitespace-nowrap">ACTIONS</th>
+
+    <link rel="stylesheet" href="{{ asset('css\Astrologer\skills.css') }}">
+    <div class="container">
+        <main class="main-content">
+
+            <section class="skill-list">
+                
+            <table id="horoscopeTable" class="skill-table table-auto min-w-full border-collapse border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="border px-4 py-2">#</th>
+                        <th class="border px-4 py-2">NAME</th>
+                        <th class="border px-4 py-2">IMAGE</th>
+                        <th class="border px-4 py-2">STATUS</th>
+                        <th class="border px-4 py-2">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @php
-                        $no = 0;
-                    @endphp
+                    @php $no = 0; @endphp
                     @foreach ($signs as $horoScope)
-                        <tr class="intro-x">
-                            <td>{{ ($page - 1) * 15 + ++$no }}</td>
-                            <td>
-                                <div class="flex">
-                                    <div class="w-10 h-10 image-fit zoom-in">
-                                        <img class="rounded-full" src="/{{ $horoScope['image'] }}"
-                                            onerror="this.onerror=null;this.src='/build/assets/images/default.jpg';"
-                                            alt="Astrologer image" />
-                                    </div>
-                                </div>
+                        <tr>
+                            <td class="border px-4 py-2">{{ ($page - 1) * 15 + ++$no }}</td>
+                            <td class="border px-4 py-2">{{ $horoScope['name'] }}</td>
+                            <td class="border px-4 py-2 text-center">
+                                <img class="h-12 w-12 rounded-full mx-auto" src="{{ asset('storage/' . $horoScope['image']) }}"
+                                    onerror="this.onerror=null;this.src='/build/assets/images/default.jpg';" alt="Astrologer" />
                             </td>
-                            <td>
-                                <div class="font-medium whitespace-nowrap">{{ $horoScope['name'] }}</div>
-
+                            <td class="border px-4 py-2 text-center">
+                                <input class="form-check-input toggle-status" type="checkbox"
+                                    data-id="{{ $horoScope['id'] }}" {{ $horoScope['isActive'] ? 'checked' : '' }}>
                             </td>
-
-                            <td class="w-40">
-                                <div
-                                    class="form-check form-switch justify-center w-full sm:w-auto sm:ml-auto
-                                 mt-3 sm:mt-0">
-                                    <input class="toggle-class show-code form-check-input mr-0 ml-3" type="checkbox"
-                                        href="javascript:;" data-tw-toggle="modal" data-onstyle="success"
-                                        data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive"
-                                        {{ $horoScope['isActive'] ? 'checked' : '' }}
-                                        onclick="editHoroScope({{ $horoScope['id'] }},'{{ $horoScope['name'] }}',{{ $horoScope['isActive'] }})"
-                                        href="$horoScope['id']" data-tw-target="#verified">
-                                </div>
-                            </td>
-                            <td class="table-report__action w-56">
-                                <div class="flex justify-center items-center">
-                                    <a id="editbtn" href="javascript:;"
-                                        onclick="editbtn({{ $horoScope['id'] }} , '{{ $horoScope['name'] }}','{{ $horoScope['image'] }}')"
-                                        class="flex items-center mr-3 " data-tw-target="#edit-modal"
-                                        data-tw-toggle="modal"><i data-lucide="check-square"
-                                            class="editbtn w-4 h-4 mr-1"></i>Edit</a>
-                                </div>
+                            <td class="border px-4 py-2 text-center">
+                                <!-- <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"
+                                        onclick="editbtn({{ $horoScope['id'] }}, '{{ $horoScope['name'] }}', '{{ $horoScope['image'] }}')">
+                                    Edit
+                                </button> -->
+                                <!-- <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"
+                                    onclick="editbtn({{ $horoScope['id'] }}, '{{ $horoScope['name'] }}', '{{ $horoScope['image'] }}')"
+                                    data-tw-toggle="modal" data-tw-target="#edit-modal">
+                                    Edit
+                                </button> -->
+                                <a href="#" class="btn btn-info btn-sm edit-button" data-id="{{ $horoScope['id'] }}" data-name="{{ $horoScope['name'] }}" data-name="{{ $horoScope['image'] }}">Update</a></td>
+                   
+                                <!-- <a href="#myModal" data-toggle="modal" id="edit-modal" data-target="#edit-modal">Edit 1</a> -->
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-        </div>
-        @if ($totalRecords > 0)
-            <div class="d-inline text-slate-500 pagecount">Showing {{ $start }} to {{ $end }} of
-                {{ $totalRecords }} entries</div>
-        @endif
-        <div class="d-inline addbtn intro-y col-span-12">
-            <nav class="w-full sm:w-auto sm:mr-auto" aria-label="horo-scope-sign">
-                <ul class="pagination">
-                    <li class="page-item {{ $page == 1 ? 'disabled' : '' }}">
-                        <a class="page-link" href="{{ route('horoscopeSigns', ['page' => $page - 1]) }}">
-                            <i class="w-4 h-4" data-lucide="chevron-left"></i>
-                        </a>
-                    </li>
-                    @for ($i = 0; $i < $totalPages; $i++)
-                        <li class="page-item {{ $page == $i + 1 ? 'active' : '' }} ">
-                            <a class="page-link"
-                                href="{{ route('horoscopeSigns', ['page' => $i + 1]) }}">{{ $i + 1 }}</a>
-                        </li>
-                    @endfor
-                    <li class="page-item {{ $page == $totalPages ? 'disabled' : '' }}">
-                        <a class="page-link" href="{{ route('horoscopeSigns', ['page' => $page + 1]) }}">
-                            <i class="w-4 h-4" data-lucide="chevron-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    @else
-        <div class="intro-y mt-5" style="height:100%">
-            <div style="display:flex;align-items:center;height:100%;">
-                <div style="margin:auto">
-                    <img src="/build/assets/images/nodata.png" style="height:290px" alt="noData">
-                    <h3 class="text-center">No Data Available</h3>
-                </div>
-            </div>
-        </div>
-    @endif
-    <!-- END: Data List -->
-    <div id="add-gift" class="modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="font-medium text-base mr-auto">Add HoroScope</h2>
-                </div>
-                <form id="add-data" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div id="input" class="p-5">
-                        <div class="preview">
-                            <div class="mt-3">
-                                <div class="sm:grid grid-cols gap-2">
-                                    <div class="input">
-                                        <div>
-                                            <label for="name" class="form-label">Name</label>
-                                            <input type="text" name="name" id="name" class="form-control"
-                                                placeholder="Name" onkeypress="return Validate(event);" required>
-                                            <div class="text-danger print-name-error-msg mb-2" style="display:none">
-                                                <ul></ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-12 gap-6 py-4">
-                                    <div class="intro-y col-span-12">
-                                        <div>
-                                            <img id="thumb" width="150px" alt="signImage" style="display:none" />
-                                            <input type="file" class="mt-2" name="image" id="image"
-                                                onchange="preview()" accept="image/*">
-                                            <div class="text-danger print-image-error-msg mb-2" style="display:none">
-                                                <ul></ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                            </div>
-                            <div class="mt-5"><button type="submit" class="btn btn-primary shadow-md mr-2">Add Horor
-                                    Scope</button>
-                            </div>
-                        </div>
+           
+       
+   
+
+   
+
+        <!-- <div id="add-gift" class="modal fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+            <div class="modal-dialog bg-white rounded-lg shadow-lg w-96">
+                <div class="modal-content p-5">
+                    <div class="modal-header flex justify-between items-center border-b pb-2">
+                        <h2 class="text-lg font-semibold">Add Horoscope</h2>
+                        <button class="text-gray-500 hover:text-gray-700" onclick="closeModal('add-gift')">&times;</button>
                     </div>
-                </form>
+                    <form id="add-data" method="POST" enctype="multipart/form-data" class="mt-4">
+                        @csrf
+                        <div class="mb-4">
+                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                            <input type="text" name="name" id="name" class="form-input mt-1 block w-full border rounded-md p-2" placeholder="Enter Name" required>
+                            <div class="text-red-500 text-sm mt-1 hidden" id="name-error"></div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700">Image</label>
+                            <input type="file" class="mt-1 block w-full border rounded-md p-2" name="image" id="image" accept="image/*" onchange="previewImage()">
+                            <img id="thumb" class="mt-2 hidden w-32 h-32 object-cover rounded-md" alt="Preview" />
+                            <div class="text-red-500 text-sm mt-1 hidden" id="image-error"></div>
+                        </div>
+                        <div class="mt-4 flex justify-end">
+                            <button type="button" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md mr-2" onclick="closeModal('add-gift')">Cancel</button>
+                            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md shadow-md">Add Horoscope</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-    </div>
+        </div> -->
 
-    <div id="edit-modal" class="modal" tabindex="-1" aria-hidden="true">
+
+    <!-- <div id="edit-modal" class="modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -194,9 +130,51 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
+    <!-- Edit Horoscope Modal -->
+
+<!-- <div id="edit-modal" class="modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="font-medium text-base mr-auto">Edit Horoscope Sign</h2>
+                <button class="close" onclick="closeModal()">×</button>
+            </div>
+            <form action="{{ route('editHororScopeSignApi') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div id="input" class="p-5">
+                    <div class="preview">
+                        <div class="mt-3">
+                            <div class="sm:grid grid-cols gap-2 py-4">
+                                <div class="input">
+                                    <input type="hidden" id="filed_id" name="filed_id">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" name="name" id="name" class="form-control"
+                                        placeholder="Name" required>
+                                </div>
+                                <div class="grid grid-cols-12 gap-6">
+                                    <div class="intro-y col-span-12">
+                                        <img id="thumbs" width="150px" alt="Sign Image" style="display:none;" />
+                                        <input type="file" class="mt-2" name="image" id="imageInput" 
+                                            onchange="previews()" accept="image/*">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <button type="submit" class="btn btn-primary shadow-md mr-2">Save</button>
+                            <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> -->
+
+
+    <!-- <div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body p-0">
@@ -239,31 +217,103 @@
                 </form>
             </div>
         </div>
+    </div> -->
+
+    
+    </section>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="font-medium text-base mr-auto">Edit HororScope Sign</h2>
+                </div>
+                <form action="{{ route('editHororScopeSignApi') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div id="input" class="p-5">
+                        <div class="preview">
+                            <div class="mt-3">
+                                <div class="sm:grid grid-cols gap-2 py-4">
+                                    <div class="input">
+                                        <div>
+                                            <input type="hidden" id="filed_id" name="filed_id">
+                                            <label for="name" class="form-label">Name</label>
+                                            <input type="text" name="name" id="name" class="form-control"
+                                                placeholder="Name" required onkeypress="return Validate(event);" required>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-12 gap-6">
+                                        <div class="intro-y col-span-12">
+                                            <div>
+                                                <img id="thumbs" width="150px" alt="signImage"
+                                                    onerror="this.style.display='none';" />
+                                                <input type="file" class="mt-2" name="image"
+                                                    onchange="previews()" accept="image/*">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-5"><button class="btn btn-primary shadow-md mr-2">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+
+    </main>
+    </div>
+    <script>
+    $(document).ready(function () {
+        $('#horoscopeTable').DataTable({
+            responsive: true,
+            paging: true,
+            searching: true,
+            ordering: true,
+            info: true
+        });
+    });
+</script>
+    
+
     <!-- END: Delete Confirmation Modal -->
-@endsection
 
-@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <script type="text/javascript">
-        @if (Session::has('error'))
-            toastr.options = {
-                "closeButton": true,
-                "progressBar": true
-            }
-            toastr.warning("{{ session('error') }}");
-        @endif
-        function editbtn($id, $name, $image) {
 
-            var id = $id;
-            var gid = $id;
+$(document).on('click', '.edit-button', function () {
+        var categoryId = $(this).data('id');
+        var categoryName = $(this).data('name');
 
-            $cid = id;
+        $('#filed_id').val(categoryId);
+        $('#name').val(categoryName);
 
-            $('#filed_id').val($cid);
-            $('#id').val($name);
-            $('#gid').val($image);
-            document.getElementById("thumbs").src = "/" + $image;
+        // $('#categoryForm').attr('action', '{{ route("editHororScopeSignApi") }}');
+        $('#edit-modal').modal('show');
+    });
+
+    function previewImage() {
+        const file = document.getElementById('image').files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('thumb').src = e.target.result;
+                document.getElementById('thumb').classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
         }
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).classList.add('hidden');
+    }
+</script>
+
+
+    <script type="text/javascript">
+       
+   
 
         function editHoroScope($id, $name, $isActive) {
             var id = $id;
@@ -340,9 +390,6 @@
             });
         }
     </script>
-    <script>
-        $(window).on('load', function() {
-            $('.loader').hide();
-        })
-    </script>
-@endsection
+    
+    
+    @endsection

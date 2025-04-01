@@ -339,33 +339,33 @@ class HoroscopeController extends Controller
                     continue;
                 }
 
-                foreach ($data['response'] as $key => $value) {
-                    $zodiac = "";
-                    if($i == 1){
-                        $zodiac = "Aries";
-                    }else if($i == 2){
-                        $zodiac = "Taurus";
-                    }else if($i == 3){
-                        $zodiac = "Gemini";
-                    }else if($i == 4){
-                        $zodiac = "Cancer";
-                    }else if($i == 5){
-                        $zodiac = "Leo";
-                    }else if($i == 6){
-                        $zodiac = "Virgo";
-                    }else if($i == 7){
-                        $zodiac = "Libra";
-                    }else if($i == 8){
-                        $zodiac = "Scorpio";
-                    }else if($i == 9){
-                        $zodiac = "Sagittarius";
-                    }else if($i == 10){
-                        $zodiac = "Capricorn";
-                    }else if($i == 11){
-                        $zodiac = "Aquarius";
-                    }else if($i == 12){
-                        $zodiac = "Pisces";
-                    }
+                // foreach ($data['response'] as $key => $value) {
+                //     $zodiac = "";
+                //     if($i == 1){
+                //         $zodiac = "Aries";
+                //     }else if($i == 2){
+                //         $zodiac = "Taurus";
+                //     }else if($i == 3){
+                //         $zodiac = "Gemini";
+                //     }else if($i == 4){
+                //         $zodiac = "Cancer";
+                //     }else if($i == 5){
+                //         $zodiac = "Leo";
+                //     }else if($i == 6){
+                //         $zodiac = "Virgo";
+                //     }else if($i == 7){
+                //         $zodiac = "Libra";
+                //     }else if($i == 8){
+                //         $zodiac = "Scorpio";
+                //     }else if($i == 9){
+                //         $zodiac = "Sagittarius";
+                //     }else if($i == 10){
+                //         $zodiac = "Capricorn";
+                //     }else if($i == 11){
+                //         $zodiac = "Aquarius";
+                //     }else if($i == 12){
+                //         $zodiac = "Pisces";
+                //     }
 
 
 
@@ -403,7 +403,7 @@ class HoroscopeController extends Controller
                         'status_remark' => isset($value['status']['prediction']) ? $value['status']['prediction'] : "",
                         'langcode' => $langvalue,
                     ]);
-                }
+                // }
             }
 
         }

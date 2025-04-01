@@ -89,6 +89,7 @@ Route::post('get/panchang', [KundaliController::class, 'getPanchang']);
 
 });
 Route::get('banner_list', [ApiController::class, 'bannerList']);
+Route::get('wisdom_list', [ApiController::class, 'wisdomList']);
 
 Route::post('privacy-policy', [DashboardController::class, 'privacyPolicy'])->name('privacyPolicy');
 Route::post('tnc', [DashboardController::class, 'termscond'])->name('termscond');

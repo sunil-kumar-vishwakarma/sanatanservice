@@ -288,7 +288,7 @@ class HoroscopeController extends Controller
                 ]);
 
                 $data = $dailyHorscope->json();
-                // dd($data);
+                // print_r($data);die;
                 Horoscope::create([
                     'zodiac' => $data['response']['zodiac'],
                     'total_score' => $data['response']['total_score'],
@@ -317,97 +317,75 @@ class HoroscopeController extends Controller
     }
 
     public function generateYearlyHorscope()
-    {
-        $api_key=DB::table('systemflag')->where('name','vedicAstroAPI')->first();
-        $currDate = date('Y-m-d');
+{
+    set_time_limit(300);
+    $api_key = DB::table('systemflag')->where('name', 'vedicAstroAPI')->first();
+    $currDate = date('Y-m-d');
 
-        for ($i=1; $i <= 12 ; $i++) {
-            foreach (['en','ta','ka','te','hi','ml','fr','sp'] as $langkey => $langvalue)
-            {
-                $dailyHorscope = Http::get('https://api.vedicastroapi.com/v3-json/prediction/yearly', [
-                    'zodiac' => $i,
-                    'year' => date('Y'),
-                    'show_same' => true,
-                    'api_key' => $api_key->value,
-                    'lang' => $langvalue,
-                ]);
+    for ($i = 1; $i <= 12; $i++) {
+        foreach (['en', 'ta', 'ka', 'te', 'hi', 'ml', 'fr', 'sp'] as $langvalue) {
+            $dailyHorscope = Http::get('https://api.vedicastroapi.com/v3-json/prediction/yearly', [
+                'zodiac' => $i,
+                'year' => date('Y'),
+                'show_same' => true,
+                'api_key' => $api_key->value,
+                'lang' => $langvalue,
+            ]);
 
-                $data = $dailyHorscope->json();
-
-
-                if (!isset($data['response'])) {
-                    continue;
-                }
-
-                foreach ($data['response'] as $key => $value) {
-                    $zodiac = "";
-                    if($i == 1){
-                        $zodiac = "Aries";
-                    }else if($i == 2){
-                        $zodiac = "Taurus";
-                    }else if($i == 3){
-                        $zodiac = "Gemini";
-                    }else if($i == 4){
-                        $zodiac = "Cancer";
-                    }else if($i == 5){
-                        $zodiac = "Leo";
-                    }else if($i == 6){
-                        $zodiac = "Virgo";
-                    }else if($i == 7){
-                        $zodiac = "Libra";
-                    }else if($i == 8){
-                        $zodiac = "Scorpio";
-                    }else if($i == 9){
-                        $zodiac = "Sagittarius";
-                    }else if($i == 10){
-                        $zodiac = "Capricorn";
-                    }else if($i == 11){
-                        $zodiac = "Aquarius";
-                    }else if($i == 12){
-                        $zodiac = "Pisces";
-                    }
-
-
-
-                    if($langvalue=='en')
-                        list($startDate, $endDate) = explode(" to ", $value['period']);
-
-                    $startDate = date('Y-m-d');
-                    $endDate = date('Y-m-d');
-                    Horoscope::create([
-                        'zodiac' => $zodiac,
-                        'total_score' => isset($value['score']) ? substr($value['score'], 0 ,-1) : 0,
-                        'lucky_color' => isset($value['lucky_color']) ? $value['lucky_color'] : 0,
-                        'lucky_color_code' => isset($value['lucky_color_code']) ? $value['lucky_color_code'] : '',
-                        'lucky_number' => isset($value['lucky_number']) ? $value['lucky_number'] : 0,
-                        'physique' => isset($value['physique']) ? $value['physique'] : 0,
-                        'status' => isset($value['status']['score']) ? substr($value['status']['score'],0,-1) : 0,
-                        'finances' => isset($value['finances']['score']) ? substr($value['finances']['score'],0,-1) : 0,
-                        'relationship' => isset($value['relationship']['score']) ? substr($value['relationship']['score'],0,-1) : 0,
-                        'career' => isset($value['career']['score']) ? substr($value['career']['score'],0,-1) : 0,
-                        'travel' => isset($value['travel']['score']) ? substr($value['travel']['score'],0,-1) : 0,
-                        'family' => isset($value['family']['score']) ? substr($value['family']['score'],0,-1) : 0,
-                        'friends' => isset($value['friends']['score']) ? substr($value['friends']['score'],0,-1) : 0,
-                        'health' => isset($value['health']['score']) ? substr($value['health']['score'],0,-1) : 0,
-                        'bot_response' => is_array($value['prediction']) ? json_encode($value['prediction']) : str_replace("'", "", $value['prediction']),
-                        'date' => $currDate,
-                        'type' => config('constants.YEARLY_HORSCOPE'),
-                        'start_date' => $startDate,
-                        'end_date' => $endDate,
-                        'health_remark' => isset($value['career']['prediction']) ? (is_array($value['career']['prediction']) ? json_encode($value['career']['prediction']) : $value['career']['prediction']) : "",
-                        'relationship_remark' => isset($value['relationship']['prediction']) ? (is_array($value['relationship']['prediction']) ? json_encode($value['relationship']['prediction']) : $value['relationship']['prediction']) : "",
-                        'travel_remark' => isset($value['travel']['prediction']) ? (is_array($value['travel']['prediction']) ? json_encode($value['travel']['prediction']) : $value['travel']['prediction']) : "",
-                        'family_remark' => isset($value['family']['prediction']) ? (is_array($value['family']['prediction']) ? json_encode($value['family']['prediction']) : $value['family']['prediction']) : "",
-                        'friends_remark' => isset($value['friends']['prediction']) ? (is_array($value['friends']['prediction']) ? json_encode($value['friends']['prediction']) : $value['friends']['prediction']) : "",
-                        'finances_remark' => isset($value['finances']['prediction']) ? (is_array($value['finances']['prediction']) ? json_encode($value['finances']['prediction']) : $value['finances']['prediction']) : "",
-                        'status_remark' => isset($value['status']['prediction']) ? (is_array($value['status']['prediction']) ? json_encode($value['status']['prediction']) : $value['status']['prediction']) : "",
-                        'langcode' => $langvalue,
-                    ]);
-                }
+            $data = $dailyHorscope->json();
+            if (!isset($data['response'])) {
+                continue;
             }
 
+            $zodiacs = [
+                1 => "Aries", 2 => "Taurus", 3 => "Gemini", 4 => "Cancer",
+                5 => "Leo", 6 => "Virgo", 7 => "Libra", 8 => "Scorpio",
+                9 => "Sagittarius", 10 => "Capricorn", 11 => "Aquarius", 12 => "Pisces"
+            ];
+            $zodiac = $zodiacs[$i] ?? '';
+
+            foreach ($data['response'] as $value) {
+                $startDate = $endDate = null;
+                if ($langvalue == 'en' && isset($value['period'])) {
+                    list($startDate, $endDate) = explode(" to ", $value['period']);
+                    $startDate = date('Y-m-d', strtotime($startDate));
+                    $endDate = date('Y-m-d', strtotime($endDate));
+                }
+
+                Horoscope::create([
+                    'zodiac' => $zodiac,
+                    'total_score' => isset($value['score']) ? substr($value['score'], 0, -1) : 0,
+                    'lucky_color' => $value['lucky_color'] ?? '',
+                    'lucky_color_code' => $value['lucky_color_code'] ?? '',
+                    'lucky_number' => $value['lucky_number'] ?? 0,
+                    'physique' => isset($value['physique']) ? json_encode($value['physique']) : '',
+                    'status' => isset($value['status']) ? json_encode($value['status']) : '',
+                    'finances' => isset($value['finances']) ? json_encode($value['finances']) : '',
+                    'relationship' => isset($value['relationship']) ? json_encode($value['relationship']) : '',
+                    'career' => isset($value['career']) ? json_encode($value['career']) : '',
+                    'travel' => isset($value['travel']) ? json_encode($value['travel']) : '',
+                    'family' => isset($value['family']) ? json_encode($value['family']) : '',
+                    'friends' => isset($value['friends']) ? json_encode($value['friends']) : '',
+                    'health' => isset($value['health']) ? json_encode($value['health']) : '',
+                    'bot_response' => isset($value['prediction']) ? (is_array($value['prediction']) ? json_encode($value['prediction']) : str_replace("'", "", $value['prediction'])) : '',
+                    'date' => $currDate,
+                    'type' => config('constants.YEARLY_HORSCOPE'),
+                    'start_date' => $startDate,
+                    'end_date' => $endDate,
+                    'health_remark' => isset($value['health']['prediction']) ? (is_array($value['health']['prediction']) ? json_encode($value['health']['prediction']) : $value['health']['prediction']) : "",
+                    'relationship_remark' => isset($value['relationship']['prediction']) ? (is_array($value['relationship']['prediction']) ? json_encode($value['relationship']['prediction']) : $value['relationship']['prediction']) : "",
+                    'travel_remark' => isset($value['travel']['prediction']) ? (is_array($value['travel']['prediction']) ? json_encode($value['travel']['prediction']) : $value['travel']['prediction']) : "",
+                    'family_remark' => isset($value['family']['prediction']) ? (is_array($value['family']['prediction']) ? json_encode($value['family']['prediction']) : $value['family']['prediction']) : "",
+                    'friends_remark' => isset($value['friends']['prediction']) ? (is_array($value['friends']['prediction']) ? json_encode($value['friends']['prediction']) : $value['friends']['prediction']) : "",
+                    'finances_remark' => isset($value['finances']['prediction']) ? (is_array($value['finances']['prediction']) ? json_encode($value['finances']['prediction']) : $value['finances']['prediction']) : "",
+                    'status_remark' => isset($value['status']['prediction']) ? (is_array($value['status']['prediction']) ? json_encode($value['status']['prediction']) : $value['status']['prediction']) : "",
+                    'langcode' => $langvalue,
+                ]);
+            }
         }
-        return response()->json(['message' => 'Horoscope stored successfully']);
     }
+    return response()->json(['message' => 'Horoscope stored successfully']);
+}
+
 
 }

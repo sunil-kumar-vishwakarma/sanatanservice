@@ -9,5 +9,5 @@ class LiveDarshan extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['video_name', 'thumbnail_path', 'video_path','video_url'];
+    protected $fillable = ['video_name', 'thumbnail_path', 'video_path', 'video_option','video_url'];
 }

@@ -81,7 +81,7 @@
             <span class="close-btn" onclick="closePopup2()">&times;</span>
             <h2>Edit</h2>
             <form>
-                <label for="title">Title:</label>
+                <label for="title">Method Name:</label>
                 <input type="text" id="title" name="title" placeholder="Title">
 
                 <button type="submit" class="save-btn">Save</button>

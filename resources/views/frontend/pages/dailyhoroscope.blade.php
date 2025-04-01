@@ -335,7 +335,7 @@
                                 <span class="d-block font-30 heading-line">WILL YOU BE <span class="color-red">RICH</span>
                                     AND <span class="color-red">SUCCESSFUL</span> IN FUTURE?</span>
                                 <span class="d-none d-md-block font-22 mt-3 pt-1">Know what’s written in your stars!</span>
-                                <a href="{{ route('front.chatList') }}"
+                                <a href="#"
                                     class="btn btn-chat px-3 px-sm-4 font-20 font-weight-semi-bold font-small-ms mt-3">Ask
                                     An Astrologer Now</a>
                             </div>

@@ -221,6 +221,7 @@ class HoroscopeController extends Controller
     
     public function generateDailyHorscope()
     {
+        set_time_limit(300);
 
         $api_key=DB::table('systemflag')->where('name','vedicAstroAPI')->first();
 
@@ -271,14 +272,70 @@ class HoroscopeController extends Controller
         return response()->json(['message' => 'Horoscope stored successfully']);
     }
 
+    // public function generateWeeklyHorscope()
+    // {
+    //     set_time_limit(300);
+
+    //     $api_key=DB::table('systemflag')->where('name','vedicAstroAPI')->first();
+    //     $currDate = date('d/m/Y');
+    //     for ($i=1; $i <= 12 ; $i++) {
+
+    //         foreach (['en','ta','ka','te','hi','ml','sp','fr'] as $langkey => $langvalue)
+    //         {
+    //             $dailyHorscope = Http::get('https://api.vedicastroapi.com/v3-json/prediction/weekly-moon', [
+    //                 'zodiac' => $i,
+    //                 'week' => "thisweek",
+    //                 'show_same' => true,
+    //                 'api_key' => $api_key->value,
+    //                 'lang' => $langvalue,
+    //             ]);
+
+    //             $data = $dailyHorscope->json();
+    //             $start_date = Carbon::now()->startOfDay()->toDateTimeString();
+    //             $end_date = Carbon::now()->endOfDay()->toDateTimeString();
+
+    //             // print_r($data);die;
+    //             Horoscope::create([
+    //                 'zodiac' => $data['response']['zodiac'],
+    //                 'total_score' => $data['response']['total_score'],
+    //                 'lucky_color' => $data['response']['lucky_color'],
+    //                 'lucky_color_code' => $data['response']['lucky_color_code'],
+    //                 'lucky_number' => json_encode($data['response']['lucky_number']),
+    //                 'physique' => isset($data['response']['physique']) ? $data['response']['physique'] : 0,
+    //                 'status' => $data['response']['status'],
+    //                 'finances' => $data['response']['finances'],
+    //                 'relationship' => $data['response']['relationship'],
+    //                 'career' => $data['response']['career'],
+    //                 'travel' => $data['response']['travel'],
+    //                 'family' => $data['response']['family'],
+    //                 'friends' => $data['response']['friends'],
+    //                 'health' => $data['response']['health'],
+    //                 'bot_response' => $data['response']['bot_response'],
+    //                 'date' => $currDate,
+    //                 'type' => config('constants.WEEKLY_HORSCOPE'),
+    //                 'start_date' => $start_date,
+    //                 'end_date' => $end_date,
+    //                 'langcode' => $langvalue,
+    //             ]);
+    //         }
+    //     }
+    //     return response()->json(['message' => 'Horoscope stored successfully']);
+    // }
+
     public function generateWeeklyHorscope()
     {
-        $api_key=DB::table('systemflag')->where('name','vedicAstroAPI')->first();
+        set_time_limit(300);
+    
+        $api_key = DB::table('systemflag')->where('name', 'vedicAstroAPI')->first();
         $currDate = date('Y-m-d');
-        for ($i=1; $i <= 12 ; $i++) {
-
-            foreach (['en','ta','ka','te','hi','ml','sp','fr'] as $langkey => $langvalue)
-            {
+        
+        // Get the current date and calculate start and end of the week dynamically
+        // $currentDate = Carbon::now();
+        // $startDate = $currentDate->startOfWeek()->format('YY-m-d'); // Start of the week (Monday)
+        // $endDate = $currentDate->endOfWeek()->format('Y-m-d'); // End of the week (Sunday)
+    
+        for ($i = 1; $i <= 12; $i++) {
+            foreach (['en', 'ta', 'ka', 'te', 'hi', 'ml', 'sp', 'fr'] as $langkey => $langvalue) {
                 $dailyHorscope = Http::get('https://api.vedicastroapi.com/v3-json/prediction/weekly-moon', [
                     'zodiac' => $i,
                     'week' => "thisweek",
@@ -286,9 +343,18 @@ class HoroscopeController extends Controller
                     'api_key' => $api_key->value,
                     'lang' => $langvalue,
                 ]);
-
+    
                 $data = $dailyHorscope->json();
                 // print_r($data);die;
+    
+                $currentDate = Carbon::now(); // Get the current date
+$startDate = $currentDate->startOfWeek()->format('Y-m-d'); // Start of the week (Monday)
+$endDate = $currentDate->endOfWeek()->format('Y-m-d'); // End of the week (Sunday)
+
+// $data = $dailyHorscope->json();  // Assuming $dailyHorscope is your API response
+// $startDate = Carbon::createFromFormat('d/m/Y', $data['response']['start_date'])->format('Y-m-d');
+// $endDate = Carbon::createFromFormat('d/m/Y', $data['response']['end_date'])->format('Y-m-d');
+
                 Horoscope::create([
                     'zodiac' => $data['response']['zodiac'],
                     'total_score' => $data['response']['total_score'],
@@ -307,14 +373,16 @@ class HoroscopeController extends Controller
                     'bot_response' => $data['response']['bot_response'],
                     'date' => $currDate,
                     'type' => config('constants.WEEKLY_HORSCOPE'),
-                    'start_date' => $this->aDate['startdate'],
-                    'end_date' => $this->aDate['enddate'],
+                    'start_date' => $startDate, // Dynamically set start date
+                    'end_date' => $endDate, // Dynamically set end date
                     'langcode' => $langvalue,
                 ]);
             }
         }
         return response()->json(['message' => 'Horoscope stored successfully']);
     }
+    
+
 
     public function generateYearlyHorscope()
 {

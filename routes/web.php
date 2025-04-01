@@ -137,7 +137,7 @@ Route::middleware(['auth:admin'])->group(function () {
         Route::get('/video', [ArtiController::class, 'index'])->name('admin.live.arti');
         Route::get('/editarti/{id}', [ArtiController::class, 'editarti'])->name('admin.live.editarti');
         Route::post('/video', [ArtiController::class, 'store'])->name('admin.live.arti.store');
-        Route::post('/update/{id}', [ArtiController::class, 'update'])->name('admin.live.arti.update');
+        Route::post('/updates/{id}', [ArtiController::class, 'update'])->name('admin.live.artis.update');
     
         Route::delete('/video/{id}', [ArtiController::class, 'destroy'])->name('admin.live.arti.destroy');
 

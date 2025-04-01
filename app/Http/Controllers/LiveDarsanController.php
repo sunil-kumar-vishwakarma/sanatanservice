@@ -96,6 +96,7 @@ class LiveDarsanController extends Controller
 
     // Update video details
     $video->video_name = $request->video_name;
+    $video->video_option = $request->video_option;
 
     // Update Thumbnail if provided
     if ($request->hasFile('thumbnail')) {

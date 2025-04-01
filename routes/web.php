@@ -12,6 +12,7 @@ use App\Http\Controllers\ArtiController;
 use App\Http\Controllers\AudioController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\TempleController;
+use App\Http\Controllers\WisdomController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\VideosController;
 use App\Http\Controllers\BannerController;
@@ -157,6 +158,11 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/temple-add', [TempleController::class, 'add'])->name('admin.temple.add');
     Route::post('/admin/temple-store', [TempleController::class, 'store'])->name('admin.temple.store');
 
+
+    Route::get('/admin/wisdom', [WisdomController::class, 'wisdom'])->name('admin.Wisdom.wisdom');
+    Route::get('/admin/wisdom/edit', [WisdomController::class, 'edit'])->name('admin.Wisdom.edit');
+
+
     Route::get('/admin/blog', [BlogController::class, 'index'])->name('admin.blog.list');
     Route::get('/admin/blog/create', [BlogController::class, 'create'])->name('admin.blog.create');
     Route::post('/admin/blog/store', [BlogController::class, 'store'])->name('admin.blog.store');
@@ -230,14 +236,14 @@ Route::post('/registration', [AstrologerAuthController::class, 'astrologerstore'
     // Route::get('/panchang', [KundaliController::class, 'getPanchang'])->name('front.getPanchang');
     // Route::get('/dailyhoroscope', [HoroscopeController::class, 'dailyHoroscope'])->name('front.dailyHoroscope');
     // Route::get('/horoscope', [HoroscopeController::class, 'horoScope'])->name('front.horoScope');
- 
+
     // Route::get('/kundali', [KundaliController::class, 'getkundali'])->name('front.getkundali');
     // Route::get('/kundali-matching', [KundaliController::class, 'kundaliMatch'])->name('front.kundaliMatch');
     // Route::get('/kundali-match-report', [KundaliController::class, 'kundaliMatchReport'])->name('front.kundaliMatchReport');
-    
+
     // Route::get('/dailyhoroscope', [AstrologerHoroscopeController::class, 'dailyHoroscope'])->name('front.dailyHoroscope');
     // Route::get('/horoscopes', [AstrologerHoroscopeController::class, 'horoScope'])->name('front.astrologers.horoScope');
-        
+
 Route::get('/panchang', [KundaliController::class, 'getPanchang'])->name('front.getPanchang');
 Route::get('/dailyhoroscope', [HoroscopeController::class, 'dailyHoroscope'])->name('front.dailyHoroscope');
 Route::get('/horoscope', [HoroscopeController::class, 'horoScope'])->name('front.horoScope');

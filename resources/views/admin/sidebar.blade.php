@@ -101,6 +101,11 @@
         </li>
 
 
+        <li class="{{ request()->routeIs('admin.Wisdom.wisdom') ? 'active' : '' }}">
+            <a href="{{ route('admin.Wisdom.wisdom') }}"><i class="fas fa-book-open"></i>
+                Wisdom</a>
+        </li>
+
         <li class="{{ request()->routeIs('admin.blog.list') ? 'active' : '' }}">
             <a href="{{ route('admin.blog.list') }}"><i class="fas fa-blog"></i> Blogs</a>
         </li>

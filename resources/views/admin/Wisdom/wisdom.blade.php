@@ -7,7 +7,7 @@
         <main class="main-content">
             <section class="pdf-management">
                 <h2>Add Wisdom video</h2>
-                <form id="videoForm" action="#" method="POST" enctype="multipart/form-data">
+                <form id="videoForm" action="{{route('admin.Wisdom.add')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="video_name">Video Name:</label>
@@ -20,9 +20,9 @@
                     </div>
                     <div class="form-group">
                         <label for="video_option">Select Language:</label>
-                        <select id="video_option" name="video_option" class="form-control">
-                            <option value="text">Hindi</option>
-                            <option value="text">English</option>
+                        <select id="language" name="language" class="form-control">
+                            <option value="Hindi">Hindi</option>
+                            <option value="English">English</option>
                         </select>
                     </div>
 
@@ -58,6 +58,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Placing</th>
                             <th>Thumbnail</th>
                             <th>Video</th>
                             <th>Language</th>
@@ -65,20 +66,50 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($videos as $video)
+                            <tr>
+                                <td>{{ $video->id }}</td>
+                                <td class="audio-action-buttons">
+                                    <button class="audio-move-up"><i class="fa-solid fa-arrow-up"
+                                            style="margin-left: 7px;"></i></button>
+                                    <button class="audio-move-down"><i class="fa-solid fa-arrow-down"
+                                            style="margin-left: 7px;"></i></button>
+                                </td>
+                                <td><img src="{{ asset('storage/' . $video->thumbnail_path) }}"
+                                        alt="{{ $video->video_name }}" class="audio-thumbnail"></td>
+                                <td>
 
-                        <tr>
-                            <td>1</td>
-                            <td><img src="https://www.citypng.com/public/uploads/preview/download-black-male-user-profile-icon-png-701751695035033bwdeymrpov.png" alt=""
-                                    class="audio-thumbnail">
-                            </td>
-                            <td>Video</td>
-                            <td>English</td>
-                            <td class="action-buttons">
-                                <a href="{{ route('admin.Wisdom.edit') }}" class="action-button edit">Edit</a>
-                                <a href="#" class="action-button delete">Delete</a>
-                            </td>
-                        </tr>
+                                    @if ($video->video_path)
+                                        <video width="320" height="240" controls>
+                                            <source src="{{ asset('storage/' . $video->video_path) }}" type="video/mp4">
+                                            {{ $video->video_name }}
+                                        </video>
+                                    @elseif ($video->video_url)
+                                        <iframe width="320" height="240"
+                                            src="{{ str_replace('watch?v=', 'embed/', $video->video_url) }}" frameborder="0"
+                                            allow="autoplay; encrypted-media" allowfullscreen>
+                                        </iframe>
+
+                                        <!-- <iframe width="320" height="240" src="{{ $video->video_url }}" frameborder="0" allowfullscreen>{{ $video->video_name }}</iframe> -->
+                                    @endif
+                                </td>
+                                <td>{{ $video->language }}</td>
+
+                                <td class="action-buttons">
+                                    <a href="{{ route('admin.wisdom.edit', $video->id) }}" class="action-button edit">Edit</a>
+                                    <form action="{{ route('admin.wisdom.destroy', $video->id) }}" method="POST"
+                                        onsubmit="return confirm('Are you sure?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="action-button delete">Delete</button>
+                                    </form>
+                                    {{-- <a href="{{ Storage::url($video->video_path) }}" class="action-button view"
+                                        target="_blank">View</a> --}}
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
+                   
                 </table>
             </section>
         </main>

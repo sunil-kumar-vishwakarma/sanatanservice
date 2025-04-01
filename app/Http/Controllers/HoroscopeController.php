@@ -318,6 +318,7 @@ class HoroscopeController extends Controller
 
     public function generateYearlyHorscope()
 {
+    
     set_time_limit(300);
     $api_key = DB::table('systemflag')->where('name', 'vedicAstroAPI')->first();
     $currDate = date('Y-m-d');

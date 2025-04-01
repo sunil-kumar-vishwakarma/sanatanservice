@@ -4,7 +4,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View; 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -148,6 +148,15 @@ class CustomerController extends Controller
                 'status' => 500,
             ], 500);
         }
+    }
+
+    public function addcustomer()
+    {
+        return view('admin.addcustomer');
+    }
+    public function editcustomer()
+    {
+        return view('admin.editcustomer');
     }
 
 }

@@ -14,6 +14,16 @@ class AstrologerController extends Controller
         // You can fetch astrologer data from the database here and pass it to the view
         return view('admin.Astrologer.manage-astro');
     }
+    public function addastrologer()
+    {
+        // You can fetch astrologer data from the database here and pass it to the view
+        return view('admin.Astrologer.addastrologer');
+    }
+    public function editastrologer()
+    {
+        // You can fetch astrologer data from the database here and pass it to the view
+        return view('admin.Astrologer.editastrologer');
+    }
     public function requestindex()
     {
         // You can fetch astrologer data from the database here and pass it to the view

@@ -4,6 +4,9 @@
     <link rel="stylesheet" href="{{ asset('css/customers.css') }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
+    <link rel="stylesheet" href="{{ asset('css\popus.css') }}">
+    <script src="{{ asset('js\popupform.js') }}" defer></script>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
@@ -15,7 +18,8 @@
                     <input type="text" name="search" placeholder="Search customer..." class="search-input">
                     <button type="submit" class="search-button">Search</button>
                 </form> -->
-                <a href="#" class="add-button">+ Add Customer</a>
+                <a href="{{ route('admin.addcustomer')}}" class="add-button">+ Add Customer</a>
+
                 <br>
             </div>
             <section class="customer-list">
@@ -43,8 +47,8 @@
                             <td>{{ \Carbon\Carbon::parse($users->birthDate)->format('d-m-Y') }}</td>
                             <td>{{ \Carbon\Carbon::parse($users->birthTime)->format('h:i A') }}</td>
                             <td class="action-buttons">
-                                <a href="#" class="action-button edit">Edit</a>
-                                <a href="#" class="action-button delete">Delete</a>
+                                <a href="{{ route('admin.editcustomer')}}" class="action-button edit">Edit</a>
+                                <a href="#" class="action-button delete" onclick="openPopup3()">Delete</a>
                             </td>
                         </tr>
                         @endforeach
@@ -55,6 +59,21 @@
                 </table>
             </section>
         </main>
+    </div>
+
+     <!-- Delete button Popup -->
+     <div id="popupForm-delete" class="popup-overlay" style="display:none;">
+        <div class="popup-box-delete">
+            <span class="close-btn" onclick="closePopup3()">&times;</span>
+            <h2>Do you want to delete this item ?</h2>
+            <form>
+                <div class="delete-buttons">
+                    <button type="submit" class="yes-btn">Yes</button>
+                    <button type="submit" class="no-btn" onclick="closePopup3()">No</button>
+
+                </div>
+            </form>
+        </div>
     </div>
 
 <script>

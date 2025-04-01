@@ -11,17 +11,15 @@ class RunScheduledRoute extends Command
 
     public function handle()
     {
-        $urls = [
-            'daily'  => 'https://jdresearchcenter.com/admin/generate-daily-horscope',
-            'weekly' => 'https://jdresearchcenter.com/admin/generate-weekly-horscope',
-            'yearly' => 'https://jdresearchcenter.com/admin/generate-yearly-horscope',
-        ];
+        $url = 'https://jdresearchcenter.com/admin/generate-daily-horscope';
+        // $url = 'http://127.0.0.1:8000/admin/generate-daily-horscope';
+        // $urls = [
+        //     'daily'  => 'https://jdresearchcenter.com/admin/generate-daily-horscope',
+        //     'weekly' => 'https://jdresearchcenter.com/admin/generate-weekly-horscope',
+        //     'yearly' => 'https://jdresearchcenter.com/admin/generate-yearly-horscope',
+        // ];
 
-        foreach ($urls as $key => $url) {
-            $response = Http::get($url);
-            $this->info("Executed: {$url} - Status: " . $response->status());
-        }
-        
-        $this->info('All horoscope generation tasks completed successfully.');
+        $response = Http::get($url);
+        $this->info("Executed: {$url} - Status: " . $response->status());
     }
 }

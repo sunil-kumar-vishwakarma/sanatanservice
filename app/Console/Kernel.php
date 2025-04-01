@@ -16,11 +16,23 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('run:scheduled-route')->dailyAt('11:10'); // Runs at 11:10 AM
+        // $schedule->command('run:scheduled-route')->dailyAt('1:10'); // Runs at 11:10 AM
         // $schedule->command('horoscope:generate daily')->dailyAt('10:55'); // Runs at 1:00 AM
         // $schedule->command('horoscope:generate weekly')->dailyAt('10:57'); // Runs at 1:30 AM
         // $schedule->command('horoscope:generate yearly')->dailyAt('10:59'); // Runs at 2:00 AM
-    }
+
+            $schedule->command('run:scheduled-route')
+            ->timezone('Asia/Kolkata')
+            ->at('01:00');
+
+            $schedule->command('run:scheduled-route-weekly')
+                    ->timezone('Asia/Kolkata')
+                    ->at('02:00');
+
+            $schedule->command('run:scheduled-route-yearly')
+                    ->timezone('Asia/Kolkata')
+                    ->at('03:00');
+                }
 
     /**
      * Register the commands for the application.

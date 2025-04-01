@@ -43,7 +43,7 @@ class DailyHoroscopeController extends Controller
 
                 $todayHoroscope = Horoscope::selectRaw('horoscopes.*, REPLACE(lucky_color_code, "#", "0xff") AS color_code')
                 ->where('zodiac', $signName)
-                // ->where('date', $dt)
+                ->where('date', $dt)
                 ->where('type', config('constants.DAILY_HORSCOPE'))
                 ->where('langcode', $langcode)
                 ->get();
@@ -51,7 +51,7 @@ class DailyHoroscopeController extends Controller
                 if ($todayHoroscope->isEmpty() && $langcode !== 'en') {
                     $todayHoroscope = Horoscope::selectRaw('horoscopes.*, REPLACE(lucky_color_code, "#", "0xff") AS color_code')
                         ->where('zodiac', $signName)
-                        // ->where('date', $dt)
+                        ->where('date', $dt)
                         ->where('type', config('constants.DAILY_HORSCOPE'))
                         ->where('langcode', 'en')
                         ->get();
@@ -60,8 +60,8 @@ class DailyHoroscopeController extends Controller
               // Fetching weekly horoscope
                 $weeklyHoroScope = Horoscope::selectRaw('horoscopes.*, REPLACE(lucky_color_code, "#", "0xff") AS color_code')
                 ->where('zodiac', $signName)
-                // ->where('start_date', '>=', $startOfWeekFormatted)
-                // ->where('end_date', '<=', $endOfWeekFormatted)
+                ->where('start_date', '>=', $startOfWeekFormatted)
+                ->where('end_date', '<=', $endOfWeekFormatted)
                 ->where('type', config('constants.WEEKLY_HORSCOPE'))
                 ->where('langcode', $langcode)
                 ->get();
@@ -70,8 +70,8 @@ class DailyHoroscopeController extends Controller
                 if ($weeklyHoroScope->isEmpty() && $langcode !== 'en') {
                 $weeklyHoroScope = Horoscope::selectRaw('horoscopes.*, REPLACE(lucky_color_code, "#", "0xff") AS color_code')
                     ->where('zodiac', $signName)
-                    // ->where('start_date', '>=', $startOfWeekFormatted)
-                    // ->where('end_date', '<=', $endOfWeekFormatted)
+                    ->where('start_date', '>=', $startOfWeekFormatted)
+                    ->where('end_date', '<=', $endOfWeekFormatted)
                     ->where('type', config('constants.WEEKLY_HORSCOPE'))
                     ->where('langcode', 'en')
                     ->get();
@@ -80,8 +80,8 @@ class DailyHoroscopeController extends Controller
                 // Fetching yearly horoscope
                 $yearlyHoroScope = Horoscope::selectRaw('horoscopes.*, REPLACE(lucky_color_code, "#", "0xff") AS color_code')
                 ->where('zodiac', $signName)
-                // ->where('start_date', '>=', $startOfYearFormatted)
-                // ->where('end_date', '<=', $endOfYearFormatted)
+                ->where('start_date', '>=', $startOfYearFormatted)
+                ->where('end_date', '<=', $endOfYearFormatted)
                 ->where('type', config('constants.YEARLY_HORSCOPE'))
                 ->where('langcode', $langcode)
                 ->get();
@@ -90,8 +90,8 @@ class DailyHoroscopeController extends Controller
                 if ($yearlyHoroScope->isEmpty() && $langcode !== 'en') {
                 $yearlyHoroScope = Horoscope::selectRaw('horoscopes.*, REPLACE(lucky_color_code, "#", "0xff") AS color_code')
                     ->where('zodiac', $signName)
-                    // ->where('start_date', '>=', $startOfYearFormatted)
-                    // ->where('end_date', '<=', $endOfYearFormatted)
+                    ->where('start_date', '>=', $startOfYearFormatted)
+                    ->where('end_date', '<=', $endOfYearFormatted)
                     ->where('type', config('constants.YEARLY_HORSCOPE'))
                     ->where('langcode', 'en')
                     ->get();

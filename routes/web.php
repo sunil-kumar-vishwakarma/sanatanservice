@@ -165,7 +165,10 @@ Route::middleware(['auth:admin'])->group(function () {
 
 
     Route::get('/admin/wisdom', [WisdomController::class, 'wisdom'])->name('admin.Wisdom.wisdom');
-    Route::get('/admin/wisdom/edit', [WisdomController::class, 'edit'])->name('admin.Wisdom.edit');
+    Route::post('/admin/wisdom/add', [WisdomController::class, 'store'])->name('admin.Wisdom.add');
+    Route::get('/admin/wisdom_edit/{id}', [WisdomController::class, 'edit'])->name('admin.wisdom.edit');
+    Route::post('/admin/wisdom_update/{id}', [WisdomController::class, 'update'])->name('admin.wisdom.update');
+    Route::DELETE('/admin/wisdom_destroy/{id}', [WisdomController::class, 'destroy'])->name('admin.wisdom.destroy');
 
 
     Route::get('/admin/blog', [BlogController::class, 'index'])->name('admin.blog.list');

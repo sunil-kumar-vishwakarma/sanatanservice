@@ -14,7 +14,7 @@
         <main class="main-content">
             <section class="audio-management">
                 <h2>Edit</h2>
-                <form id="audioForm" action="{{ route('admin.live.darshan.update',$livedarshan->id) }}" method="POST" enctype="multipart/form-data">
+                <form id="videoForm" action="{{ route('admin.live.darshan.update',$livedarshan->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="video_name">Video Name:</label>

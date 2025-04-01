@@ -1074,7 +1074,7 @@ class UserController extends Controller
     //     }
     // }
 
-    public function updateUserProfile(Request $req)
+    public function updateUserProfile(Request $request)
 {
     try {
         // Check if user is authenticated
@@ -1085,44 +1085,56 @@ class UserController extends Controller
 
         $id = $user->id;
 
+        $userProfile = User::findOrFail($id);
+
         // Ensure storage directory exists
-        $storagePath = storage_path('app/public/images');
-        if (!file_exists($storagePath)) {
-            mkdir($storagePath, 0777, true);
-        }
+        // $storagePath = storage_path('app/public/images');
+        // if (!file_exists($storagePath)) {
+        //     mkdir($storagePath, 0777, true);
+        // }
 
         $path = null;
         
-        if ($req->profile) {
-            if (Str::contains($req->profile, 'storage')) {
-                $path = $req->profile; // Keep existing image if already stored
-            } else {
-                // Generate a new file name
-                $time = Carbon::now()->timestamp;
-                $imageName = 'profile_' . $id . '_' . $time . '.png';
-                $path = 'images/' . $imageName;
-
-                // Delete old profile image
-                if ($user->profile) {
-                    File::delete(storage_path('app/public/' . str_replace('storage/', '', $user->profile)));
-                }
-
-                // Save the new profile image
-                Storage::disk('public')->put($path, base64_decode($req->profile));
-
-                // Convert to accessible URL
-                $path = Storage::url($path);
-
+        if ($request->hasFile('profile')) {
+            // Delete old thumbnail
+            if ($userProfile->profile) {
+                Storage::disk('public')->delete($userProfile->profile);
             }
+            $thumbnailPath = $request->file('profile')->store('thumbnails', 'public');
+            $userProfile->profile = $thumbnailPath;
         }
 
-        // Update user profile in database
-        DB::table('users')->where('id', '=', $id)->update(['profile' => $path]);
+        $userProfile->save();
+        // if ($req->profile) {
+        //     if (Str::contains($req->profile, 'storage')) {
+        //         $path = $req->profile; // Keep existing image if already stored
+        //     } else {
+        //         // Generate a new file name
+        //         $time = Carbon::now()->timestamp;
+        //         $imageName = 'profile_' . $id . '_' . $time . '.png';
+        //         $path = 'images/' . $imageName;
+
+        //         // Delete old profile image
+        //         if ($user->profile) {
+        //             File::delete(storage_path('app/public/' . str_replace('storage/', '', $user->profile)));
+        //         }
+
+        //         // Save the new profile image
+        //         Storage::disk('public')->put($path, base64_decode($req->profile));
+
+        //         // Convert to accessible URL
+        //         $path = Storage::url($path);
+
+        //     }
+        // }
+
+        // // Update user profile in database
+        // DB::table('users')->where('id', '=', $id)->update(['profile' => $path]);
 
         return response()->json([
             'status' => 200,
             "message" => "Profile updated successfully",
-            "profile_url" => $path
+            "profile_url" => $userProfile
         ], 200);
 
     } catch (\Exception $e) {

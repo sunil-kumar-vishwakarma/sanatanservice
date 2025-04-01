@@ -339,33 +339,33 @@ class HoroscopeController extends Controller
                     continue;
                 }
 
-                // foreach ($data['response'] as $key => $value) {
-                //     $zodiac = "";
-                //     if($i == 1){
-                //         $zodiac = "Aries";
-                //     }else if($i == 2){
-                //         $zodiac = "Taurus";
-                //     }else if($i == 3){
-                //         $zodiac = "Gemini";
-                //     }else if($i == 4){
-                //         $zodiac = "Cancer";
-                //     }else if($i == 5){
-                //         $zodiac = "Leo";
-                //     }else if($i == 6){
-                //         $zodiac = "Virgo";
-                //     }else if($i == 7){
-                //         $zodiac = "Libra";
-                //     }else if($i == 8){
-                //         $zodiac = "Scorpio";
-                //     }else if($i == 9){
-                //         $zodiac = "Sagittarius";
-                //     }else if($i == 10){
-                //         $zodiac = "Capricorn";
-                //     }else if($i == 11){
-                //         $zodiac = "Aquarius";
-                //     }else if($i == 12){
-                //         $zodiac = "Pisces";
-                //     }
+                foreach ($data['response'] as $key => $value) {
+                    $zodiac = "";
+                    if($i == 1){
+                        $zodiac = "Aries";
+                    }else if($i == 2){
+                        $zodiac = "Taurus";
+                    }else if($i == 3){
+                        $zodiac = "Gemini";
+                    }else if($i == 4){
+                        $zodiac = "Cancer";
+                    }else if($i == 5){
+                        $zodiac = "Leo";
+                    }else if($i == 6){
+                        $zodiac = "Virgo";
+                    }else if($i == 7){
+                        $zodiac = "Libra";
+                    }else if($i == 8){
+                        $zodiac = "Scorpio";
+                    }else if($i == 9){
+                        $zodiac = "Sagittarius";
+                    }else if($i == 10){
+                        $zodiac = "Capricorn";
+                    }else if($i == 11){
+                        $zodiac = "Aquarius";
+                    }else if($i == 12){
+                        $zodiac = "Pisces";
+                    }
 
 
 
@@ -389,21 +389,21 @@ class HoroscopeController extends Controller
                         'family' => isset($value['family']['score']) ? substr($value['family']['score'],0,-1) : 0,
                         'friends' => isset($value['friends']['score']) ? substr($value['friends']['score'],0,-1) : 0,
                         'health' => isset($value['health']['score']) ? substr($value['health']['score'],0,-1) : 0,
-                        'bot_response' => str_replace("'", "",$value['prediction']),
+                        'bot_response' => is_array($value['prediction']) ? json_encode($value['prediction']) : str_replace("'", "", $value['prediction']),
                         'date' => $currDate,
                         'type' => config('constants.YEARLY_HORSCOPE'),
                         'start_date' => $startDate,
                         'end_date' => $endDate,
-                        'health_remark' => $value['career']['prediction'],
-                        'relationship_remark' => isset($value['relationship']['prediction']) ? $value['relationship']['prediction'] : "",
-                        'travel_remark' => isset($value['travel']['prediction']) ? $value['travel']['prediction'] : "",
-                        'family_remark' => isset($value['family']['prediction']) ? $value['family']['prediction'] : "",
-                        'friends_remark' => isset($value['friends']['prediction']) ? $value['friends']['prediction'] : "",
-                        'finances_remark' => isset($value['finances']['prediction']) ? $value['finances']['prediction'] : "",
-                        'status_remark' => isset($value['status']['prediction']) ? $value['status']['prediction'] : "",
+                        'health_remark' => isset($value['career']['prediction']) ? (is_array($value['career']['prediction']) ? json_encode($value['career']['prediction']) : $value['career']['prediction']) : "",
+                        'relationship_remark' => isset($value['relationship']['prediction']) ? (is_array($value['relationship']['prediction']) ? json_encode($value['relationship']['prediction']) : $value['relationship']['prediction']) : "",
+                        'travel_remark' => isset($value['travel']['prediction']) ? (is_array($value['travel']['prediction']) ? json_encode($value['travel']['prediction']) : $value['travel']['prediction']) : "",
+                        'family_remark' => isset($value['family']['prediction']) ? (is_array($value['family']['prediction']) ? json_encode($value['family']['prediction']) : $value['family']['prediction']) : "",
+                        'friends_remark' => isset($value['friends']['prediction']) ? (is_array($value['friends']['prediction']) ? json_encode($value['friends']['prediction']) : $value['friends']['prediction']) : "",
+                        'finances_remark' => isset($value['finances']['prediction']) ? (is_array($value['finances']['prediction']) ? json_encode($value['finances']['prediction']) : $value['finances']['prediction']) : "",
+                        'status_remark' => isset($value['status']['prediction']) ? (is_array($value['status']['prediction']) ? json_encode($value['status']['prediction']) : $value['status']['prediction']) : "",
                         'langcode' => $langvalue,
                     ]);
-                // }
+                }
             }
 
         }

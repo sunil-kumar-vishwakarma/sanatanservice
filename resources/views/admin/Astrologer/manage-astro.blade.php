@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" href="{{ asset('css\popus.css') }}">
     <script src="{{ asset('js\popupform.js') }}" defer></script>
+    
     <div class="container">
         <main class="main-content">
             {{-- <h1>Manage Astrologers</h1> --}}
@@ -44,7 +45,7 @@
                                 <button class="status-button inactive" data-status="inactive">Inactive</button>
                             </td>
                             <td class="action-buttons">
-                                <a href="#" class="action-button view">View</a>
+                                <a href="{{ route('admin.Astrologer.viewastrologer')}}" class="action-button view">View</a>
                                 <a href="{{ route('admin.Astrologer.editastrologer')}}" class="action-button edit">Edit</a>
                                 <a href="#" class="action-button delete" onclick="openPopup3()">Delete</a>
                             </td>

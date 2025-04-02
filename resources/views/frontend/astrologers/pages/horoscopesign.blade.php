@@ -6,7 +6,7 @@
                 <div class="col-md-12 d-flex align-items-center">
                     <span style="text-transform: capitalize; ">
                         <span class="text-white breadcrumbs">
-                            <a href="{{route('front.astrologerindex')}}" style="color:white;text-decoration:none">
+                            <a href="{{ route('front.astrologerindex') }}" style="color:white;text-decoration:none">
                                 <i class="fa fa-home font-18"></i>
                             </a>
                             <i class="fa fa-chevron-right"></i> <a href="#"
@@ -60,29 +60,29 @@
         <div class="container">
             <div class="row py-3">
                 <div class="col-12 col-md-12 mt-4 cat-pages-hide">
-                    <h2 class="cat-heading mb-4">Today’s <span class="color-red">Horoscope</span></h2>
+                    <h2 id="horoscopH" class="cat-heading mb-4">Today’s <span class="color-red">Horoscope</span></h2>
                     <p class="text-center">Confused about how your day would turn out to be? Find out if today is the day to
                         make big decisions. Read your Daily Horoscope forecast and get insights regarding different aspects
                         of your life to plan your day better.</p>
 
                     <div class="row pt-4">
                         @foreach ($gethoroscopesign['recordList'] as $horoscopesign)
-                        <div class="col-4 col-md-4 col-lg-3 col-xl-2 mb-4">
-                            <div class="shadow-pink-down text-center p-3 hover-border-red rounded-10">
-                                <a href="{{route('front.dailyHoroscope',['horoscopeSignId' => $horoscopesign['id']])}}"
-                                    title="{{$horoscopesign['name']}}" class="text-decoration-none text-dark">
-                                    <div>
-                                        <img style="height: 110px;width:110px" src="/{{$horoscopesign['image']}}"
-                                            alt="{{$horoscopesign['name']}}">
+                            <div class="col-4 col-md-4 col-lg-3 col-xl-2 mb-4">
+                                <div class="shadow-pink-down text-center p-3 hover-border-red rounded-10">
+                                    <a href="{{ route('front.dailyHoroscope', ['horoscopeSignId' => $horoscopesign['id']]) }}"
+                                        title="{{ $horoscopesign['name'] }}" class="text-decoration-none text-dark">
+                                        <div>
+                                            <img style="height: 110px;width:110px" src="/{{ $horoscopesign['image'] }}"
+                                                alt="{{ $horoscopesign['name'] }}">
 
-                                    </div>
-                                    <div class="">
-                                        <p class="font-weight-bold mb-0 mt-2 color-red">{{$horoscopesign['name']}}</p>
-                                        {{-- <p class="mb-0">Mar 21 - Apr 20</p> --}}
-                                    </div>
-                                </a>
+                                        </div>
+                                        <div class="">
+                                            <p class="font-weight-bold mb-0 mt-2 color-red">{{ $horoscopesign['name'] }}</p>
+                                            {{-- <p class="mb-0">Mar 21 - Apr 20</p> --}}
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
                         @endforeach
 
                     </div>
@@ -115,4 +115,17 @@
             </div>
         </div>
     </div>
+    <style>
+       .cat-pages-hide  .cat-heading {
+    font-weight: 700;
+    font-size: 30px;
+    text-align: center;
+    /* margin-left: 267px; */
+    display: flex
+;
+    justify-content: center;
+    flex-direction: row;
+    text-transform: uppercase;
+}
+    </style>
 @endsection

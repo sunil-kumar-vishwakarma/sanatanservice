@@ -19,10 +19,16 @@ class AstrologerController extends Controller
         // You can fetch astrologer data from the database here and pass it to the view
         return view('admin.Astrologer.addastrologer');
     }
+
     public function editastrologer()
     {
         // You can fetch astrologer data from the database here and pass it to the view
         return view('admin.Astrologer.editastrologer');
+    }
+    public function viewastrologer()
+    {
+        // You can fetch astrologer data from the database here and pass it to the view
+        return view('admin.Astrologer.viewastrologer');
     }
     public function requestindex()
     {
@@ -44,6 +50,14 @@ class AstrologerController extends Controller
         // You can fetch skill data from the database here and pass it to the view
         return view('admin.Astrologer.skills');
     }
+
+    public function addskills()
+    {
+        // You can fetch astrologer data from the database here and pass it to the view
+        return view('admin.Astrologer.addskills');
+    }
+
+
     public function category()
     {
         // You can fetch category data from the database here and pass it to the view

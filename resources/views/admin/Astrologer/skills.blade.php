@@ -3,6 +3,10 @@
 
 @section('content')
     <link rel="stylesheet" href="{{ asset('css\Astrologer\skills.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('css\popus.css') }}">
+    <script src="{{ asset('js\popupform.js') }}" defer></script>
+
     <div class="container">
         <main class="main-content">
             <div class="add-button-container">
@@ -10,7 +14,7 @@
                     <input type="text" name="search" placeholder="Search skills..." class="search-input">
                     <button type="submit" class="search-button">Search</button>
                 </form>
-                <a href="#" class="add-button">+ Add Skills</a>
+                <a href="{{ route('admin.Astrologer.addskills') }}" class="add-button">+ Add Skills</a>
             </div>
             <section class="skill-list">
                 <table class="skill-table">
@@ -33,8 +37,8 @@
                                 </label>
                             </td>
                             <td class="action-buttons">
-                                <a href="#" class="action-button edit">Edit</a>
-                                <a href="#" class="action-button delete">Delete</a>
+                                <a href="#" class="action-button edit" onclick="openPopup2()">Edit</a>
+                                <a href="#" class="action-button delete" onclick="openPopup3()">Delete</a>
                             </td>
                         </tr>
                         <tr>
@@ -47,8 +51,8 @@
                                 </label>
                             </td>
                             <td class="action-buttons">
-                                <a href="#" class="action-button edit">Edit</a>
-                                <a href="#" class="action-button delete">Delete</a>
+                                <a href="#" class="action-button edit" onclick="openPopup2()">Edit</a>
+                                <a href="#" class="action-button delete" onclick="openPopup3()">Delete</a>
                             </td>
                         </tr>
                         <tr>
@@ -61,8 +65,8 @@
                                 </label>
                             </td>
                             <td class="action-buttons">
-                                <a href="#" class="action-button edit">Edit</a>
-                                <a href="#" class="action-button delete">Delete</a>
+                                <a href="#" class="action-button edit" onclick="openPopup2()">Edit</a>
+                                <a href="#" class="action-button delete" onclick="openPopup3()">Delete</a>
                             </td>
                         </tr>
                         <tr>
@@ -75,8 +79,8 @@
                                 </label>
                             </td>
                             <td class="action-buttons">
-                                <a href="#" class="action-button edit">Edit</a>
-                                <a href="#" class="action-button delete">Delete</a>
+                                <a href="#" class="action-button edit" onclick="openPopup2()">Edit</a>
+                                <a href="#" class="action-button delete" onclick="openPopup3()">Delete</a>
                             </td>
                         </tr>
                         <tr>
@@ -89,8 +93,8 @@
                                 </label>
                             </td>
                             <td class="action-buttons">
-                                <a href="#" class="action-button edit">Edit</a>
-                                <a href="#" class="action-button delete">Delete</a>
+                                <a href="#" class="action-button edit" onclick="openPopup2()">Edit</a>
+                                <a href="#" class="action-button delete" onclick="openPopup3()">Delete</a>
                             </td>
                         </tr>
                         <tr>
@@ -103,8 +107,8 @@
                                 </label>
                             </td>
                             <td class="action-buttons">
-                                <a href="#" class="action-button edit">Edit</a>
-                                <a href="#" class="action-button delete">Delete</a>
+                                <a href="#" class="action-button edit" onclick="openPopup2()">Edit</a>
+                                <a href="#" class="action-button delete" onclick="openPopup3()">Delete</a>
                             </td>
                         </tr>
                         <tr>
@@ -117,8 +121,8 @@
                                 </label>
                             </td>
                             <td class="action-buttons">
-                                <a href="#" class="action-button edit">Edit</a>
-                                <a href="#" class="action-button delete">Delete</a>
+                                <a href="#" class="action-button edit" onclick="openPopup2()">Edit</a>
+                                <a href="#" class="action-button delete" onclick="openPopup3()">Delete</a>
                             </td>
                         </tr>
                         <tr>
@@ -131,8 +135,8 @@
                                 </label>
                             </td>
                             <td class="action-buttons">
-                                <a href="#" class="action-button edit">Edit</a>
-                                <a href="#" class="action-button delete">Delete</a>
+                                <a href="#" class="action-button edit" onclick="openPopup2()">Edit</a>
+                                <a href="#" class="action-button delete" onclick="openPopup3()">Delete</a>
                             </td>
                         </tr>
                         <!-- Add more skill items as needed -->
@@ -141,4 +145,110 @@
             </section>
         </main>
     </div>
+    <!-- Pagination -->
+    <div class="pagination-container">
+        <button disabled>« Previous</button>
+        <a href="#" class="active">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <button>Next »</button>
+    </div>
+
+
+
+    <!-- Edit button Popup -->
+    <div id="popupForm-edit" class="popup-overlay" style="display:none;">
+        <div class="popup-box1">
+            <span class="close-btn" onclick="closePopup2()">&times;</span>
+            <h2>Edit skill</h2>
+            <form class="edit-form">
+                <label for="title">Name:</label>
+                <input type="text" id="title" name="title" >
+
+                <button type="submit" class="save-btn">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete button Popup -->
+    <div id="popupForm-delete" class="popup-overlay" style="display:none;">
+        <div class="popup-box-delete">
+            <span class="close-btn" onclick="closePopup3()">&times;</span>
+            <h2>Do you want to delete this item ?</h2>
+            <form>
+                <div class="delete-buttons">
+                    <button type="submit" class="yes-btn">Yes</button>
+                    <button type="submit" class="no-btn" onclick="closePopup3()">No</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    <style>
+        /* Pagination specific styles */
+        .pagination-container {
+            float: left;
+            /* Float the pagination to the left */
+            width: 100%;
+            /* Full width */
+            padding: 10px 0;
+            /* Vertical padding */
+            background-color: #f9f9f9;
+            /* Light background */
+            text-align: center;
+            /* Center align links */
+            margin-top: 20px;
+            /* Space between table and pagination */
+        }
+
+        .pagination-container button,
+        .pagination-container a {
+            display: inline-block;
+            /* Display links as inline blocks */
+            padding: 8px 16px;
+            /* Padding around text */
+            margin: 0 2px;
+            /* Space between links */
+            border: 1px solid #ddd;
+            /* Light grey border */
+            background-color: #fff;
+            /* White background */
+            color: #333;
+            /* Dark text color */
+            text-decoration: none;
+            /* Remove underline */
+            cursor: pointer;
+            /* Pointer cursor on hover */
+            border-radius: 4px;
+            /* Rounded corners */
+        }
+
+        .pagination-container button.disabled,
+        .pagination-container a.disabled {
+            background-color: #e0e0e0;
+            /* Lighter background for disabled */
+            color: #999;
+            /* Lighter text color for disabled */
+            cursor: not-allowed;
+            /* Not allowed cursor */
+        }
+
+        .pagination-container a.active {
+            background-color: #007bff;
+            /* Active page background */
+            color: #fff;
+            /* White text color for active page */
+            border-color: #007bff;
+            /* Active page border color */
+        }
+
+        /* Clearfix for floated elements */
+        .pagination-container:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
 @endsection

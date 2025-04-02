@@ -92,9 +92,13 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/astrologers', [AstrologerController::class, 'index'])->name('admin.astrologers');
     Route::get('/admin/addastrologer', [AstrologerController::class, 'addastrologer'])->name('admin.Astrologer.addastrologer');
     Route::get('/admin/editastrologer', [AstrologerController::class, 'editastrologer'])->name('admin.Astrologer.editastrologer');
+    Route::get('/admin/viewastrologer', [AstrologerController::class, 'viewastrologer'])->name('admin.Astrologer.viewastrologer');
 
     Route::get('/admin/review', [AstrologerController::class, 'review'])->name('admin.review');
+
     Route::get('/admin/skills', [AstrologerController::class, 'skills'])->name('admin.skills');
+    Route::get('/admin/addskills', [AstrologerController::class, 'addskills'])->name('admin.Astrologer.addskills');
+
     Route::get('/admin/categories', [AstrologerController::class, 'category'])->name('admin.categories');
     Route::get('/admin/block-astrologer', [AstrologerController::class, 'block'])->name('admin.block-astrologer');
     Route::get('/admin/pending-request', [AstrologerController::class, 'requestindex'])->name('admin.pending-request');

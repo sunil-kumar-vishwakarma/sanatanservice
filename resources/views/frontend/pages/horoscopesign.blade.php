@@ -257,26 +257,6 @@
 
                     <div class="row pt-4">
                         @foreach ($gethoroscopesign['recordList'] as $horoscopesign)
-<<<<<<< HEAD
-                            <<<<<<< HEAD <div class="col-4 col-md-4 col-lg-3 col-xl-2 mb-4">
-                                <div class="shadow-pink-down text-center p-3 hover-border-red rounded-10">
-                                    <a href="{{ route('front.dailyHoroscope', ['horoscopeSignId' => $horoscopesign['id']]) }}"
-                                        title="{{ $horoscopesign['name'] }}" class="text-decoration-none text-dark">
-                                        <div>
-                                            <img style="height: 110px;width:110px" src="/{{ $horoscopesign['image'] }}"
-                                                alt="{{ $horoscopesign['name'] }}">
-                                            =======
-                                            <div class="col-4 col-md-4 col-lg-3 col-xl-2 mb-4">
-                                                <div class="shadow-pink-down text-center p-3 hover-border-red rounded-10">
-                                                    <a href="{{ route('front.dailyHoroscope', ['horoscopeSignId' => $horoscopesign['id']]) }}"
-                                                        title="{{ $horoscopesign['name'] }}"
-                                                        class="text-decoration-none text-dark">
-                                                        <div>
-                                                            <img style="height: 110px;width:110px"
-                                                                src="{{ asset('storage/' . $horoscopesign['image']) }}"
-                                                                alt="{{ $horoscopesign['name'] }}">
-                                                            >>>>>>> 6d3e2bc51b9173613808b72205ca88a0b6525cc7
-=======
                         <div class="col-4 col-md-4 col-lg-3 col-xl-2 mb-4">
                             <div class="shadow-pink-down text-center p-3 hover-border-red rounded-10">
                                 <a href="{{route('front.dailyHoroscope',['horoscopeSignId' => $horoscopesign['id']])}}"
@@ -284,7 +264,6 @@
                                     <div>
                                         <img style="height: 110px;width:110px" src="{{ asset('storage/' .$horoscopesign['image'])}}"
                                             alt="{{$horoscopesign['name']}}">
->>>>>>> 6d3e2bc51b9173613808b72205ca88a0b6525cc7
 
                                                         </div>
                                                         <div class="">

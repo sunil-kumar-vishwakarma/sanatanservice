@@ -56,7 +56,7 @@
                 <!-- Video URL Input -->
                     <div class="form-group" id="video_url_div" style="display: none;">
                         <label for="video_url">Video URL:</label>
-                        <input type="url" id="video_url" name="video_url" class="form-control"
+                        <input type="url" id="video_url" name="video_url" class="form-control" value="{{$video->video_url}}"
                             placeholder="Enter video URL">
                         @if (!empty($video->video_url))
                             <iframe width="320" height="240"

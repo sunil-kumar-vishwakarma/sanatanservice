@@ -1,5 +1,4 @@
 @extends('admin.layout')
-
 @section('content')
     {{-- @include('admin.alerts') --}}
     <link rel="stylesheet" href="{{ asset('css/arti/arti.css') }}">
@@ -79,7 +78,7 @@
                                         alt="{{ $video->video_name }}" class="audio-thumbnail"></td>
                                 <td>
 
-                                    @if ($video->video_path)
+                                @if ($video->video_path)
                                         <video width="320" height="240" controls>
                                             <source src="{{ asset('storage/' . $video->video_path) }}" type="video/mp4">
                                             {{ $video->video_name }}

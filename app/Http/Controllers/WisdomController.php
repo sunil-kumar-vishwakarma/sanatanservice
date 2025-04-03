@@ -132,25 +132,22 @@ class WisdomController extends Controller
         }
     
         // Handle Video File or URL
-        if (($request->video_option == 'file' && $request->hasFile('video_file')) || ($request->video_option == 'url' && !empty($request->video_url))) { 
-
-                if ($request->video_option == 'file' && $request->hasFile('video_file')) {
-                    // Delete old video file if exists
-                    if ($video->video_path ) {
-                        Storage::disk('public')->delete($video->video_path);
-                    }
-                    $videoPath = $request->file('video_file')->store('videos', 'public');
-                    $video->video_path = $videoPath;
-                    
-                } elseif ($request->video_option == 'url') {
-                    // Delete old video file if switching to URL
-                    if ($video->video_path) {
-                        Storage::disk('public')->delete($video->video_path);
-                    
-                    }
-                    $video->video_url = $request->video_url;
-                }
+        if ($request->video_option == 'file' && $request->hasFile('video_file')) {
+            // Delete old video file if exists
+            if ($video->video_path) {
+                Storage::disk('public')->delete($video->video_path);
             }
+            $videoPath = $request->file('video_file')->store('videos', 'public');
+            $video->video_path = $videoPath;
+            $video->video_url = null; // Reset video URL when file is uploaded
+        } elseif ($request->video_option == 'url') {
+            // Delete old video file if switching to URL
+            if ($video->video_path) {
+                Storage::disk('public')->delete($video->video_path);
+                $video->video_path = null;
+            }
+            $video->video_url = $request->video_url;
+        }
     
         $video->save();
 

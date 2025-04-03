@@ -59,10 +59,16 @@
                         <input type="url" id="video_url" name="video_url" class="form-control" value="{{$video->video_url}}"
                             placeholder="Enter video URL">
                         @if (!empty($video->video_url))
-                            <iframe width="320" height="240"
+
+                        <iframe width="320" height="240"
                                 src="{{ str_replace('watch?v=', 'embed/', $video->video_url) }}"
                                 frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
                             </iframe>
+                            
+                            <!-- <iframe width="320" height="240"
+                                src="{{ str_replace('watch?v=', 'embed/', $video->video_url) }}"
+                                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+                            </iframe> -->
                         @endif
                     </div>
 

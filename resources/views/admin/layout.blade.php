@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pagination.css') }}">
 
     <!-- jQuery (For Smooth Functionality) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

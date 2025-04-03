@@ -21,21 +21,29 @@
                         @foreach($feedback as $rows)
                         <tr>
                             <td>{{$rows->id}}</td>
-                            
+
                             <td>{{$rows->user['name']}}</td>
                             <td>
                             @for ($i = 0; $i < $rows->rating; $i++)
                             ⭐
                             @endfor
-                            
+
                             </td>
                             <td>{{$rows->feedback}}</td>
                         </tr>
                         @endforeach
-                        
+
                     </tbody>
                 </table>
             </section>
         </main>
+    </div>
+     <!-- Pagination -->
+     <div class="pagination-container">
+        <button disabled>« Previous</button>
+        <a href="#" class="active">1</a>
+        <a href="#">2</a>
+        <a href="#">3 ...</a>
+        <button>Next »</button>
     </div>
 @endsection

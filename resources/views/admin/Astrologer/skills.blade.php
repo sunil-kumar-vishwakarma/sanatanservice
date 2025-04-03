@@ -145,14 +145,13 @@
             </section>
         </main>
     </div>
+
     <!-- Pagination -->
-    <div class="pagination-container">
+     <div class="pagination-container">
         <button disabled>« Previous</button>
         <a href="#" class="active">1</a>
         <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
+        <a href="#">3 ...</a>
         <button>Next »</button>
     </div>
 
@@ -186,69 +185,4 @@
             </form>
         </div>
     </div>
-    <style>
-        /* Pagination specific styles */
-        .pagination-container {
-            float: left;
-            /* Float the pagination to the left */
-            width: 100%;
-            /* Full width */
-            padding: 10px 0;
-            /* Vertical padding */
-            background-color: #f9f9f9;
-            /* Light background */
-            text-align: center;
-            /* Center align links */
-            margin-top: 20px;
-            /* Space between table and pagination */
-        }
-
-        .pagination-container button,
-        .pagination-container a {
-            display: inline-block;
-            /* Display links as inline blocks */
-            padding: 8px 16px;
-            /* Padding around text */
-            margin: 0 2px;
-            /* Space between links */
-            border: 1px solid #ddd;
-            /* Light grey border */
-            background-color: #fff;
-            /* White background */
-            color: #333;
-            /* Dark text color */
-            text-decoration: none;
-            /* Remove underline */
-            cursor: pointer;
-            /* Pointer cursor on hover */
-            border-radius: 4px;
-            /* Rounded corners */
-        }
-
-        .pagination-container button.disabled,
-        .pagination-container a.disabled {
-            background-color: #e0e0e0;
-            /* Lighter background for disabled */
-            color: #999;
-            /* Lighter text color for disabled */
-            cursor: not-allowed;
-            /* Not allowed cursor */
-        }
-
-        .pagination-container a.active {
-            background-color: #007bff;
-            /* Active page background */
-            color: #fff;
-            /* White text color for active page */
-            border-color: #007bff;
-            /* Active page border color */
-        }
-
-        /* Clearfix for floated elements */
-        .pagination-container:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-    </style>
 @endsection

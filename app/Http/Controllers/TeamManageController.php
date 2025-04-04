@@ -16,6 +16,14 @@ class TeamManageController extends Controller
     {
         return view('admin.team-management.list');
     }
+    public function addlist()
+    {
+        return view('admin.team-management.addlist');
+    }
+    public function editlist()
+    {
+        return view('admin.team-management.editlist');
+    }
 
 
 }

@@ -26,6 +26,10 @@ class TempleController extends Controller
     {
         return view('admin.Temple.add');
     }
+    public function edit()
+    {
+        return view('admin.Temple.edit');
+    }
 
     public function store(Request $request){
 
@@ -43,15 +47,15 @@ class TempleController extends Controller
         }
 
         $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
-        
+
         // print_r($request->all());die;
-            
+
 
         $video = Temple::create([
             'name' => $request->temple_name,
             'photo' => $thumbnailPath,
             'description' => $request->description,
-            
+
         ]);
 
         $temp_list = Temple::all();
@@ -62,7 +66,7 @@ class TempleController extends Controller
         //     'success' => true,
         //     'video' => $video,
         //     'thumbnail_url' => Storage::url($thumbnailPath),
-            
+
         // ]);
 
     }

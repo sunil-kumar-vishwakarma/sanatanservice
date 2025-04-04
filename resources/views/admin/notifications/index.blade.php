@@ -4,6 +4,8 @@
 
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('css\popus.css') }}">
+    <script src="{{ asset('js\popupform.js') }}" defer></script>
     <div class="admin-container">
         <div class="content-wrapper">
             <div class="page-header">
@@ -21,7 +23,7 @@
                     </div>
                     <div class="notification-actions">
                         <button class="btn mark-read">Mark as Read</button>
-                        <button class="btn delete">Delete</button>
+                        <a href="#" class="btn delete" onclick="openPopup3()">Delete</a>
                     </div>
                 </div>
                 <div class="notification-card">
@@ -35,10 +37,24 @@
                     </div>
                     <div class="notification-actions">
                         <button class="btn mark-read">Mark as Read</button>
-                        <button class="btn delete">Delete</button>
+                        <a href="#" class="btn delete" onclick="openPopup3()">Delete</a>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+     <!-- Delete button Popup -->
+     <div id="popupForm-delete" class="popup-overlay" style="display:none;">
+        <div class="popup-box-delete">
+            <span class="close-btn" onclick="closePopup3()">&times;</span>
+            <h2>Do you want to delete this item ?</h2>
+            <form>
+                <div class="delete-buttons">
+                    <button type="submit" class="yes-btn">Yes</button>
+                    <button type="submit" class="no-btn" onclick="closePopup3()">No</button>
+
+                </div>
+            </form>
         </div>
     </div>
     <style>
@@ -115,6 +131,7 @@
             cursor: pointer;
             border-radius: 4px;
             transition: all 0.3s ease-in-out;
+            text-decoration: none;
         }
 
         .mark-read {

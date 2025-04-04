@@ -6,7 +6,7 @@
     <div class="container">
         <main class="main-content">
             <section class="audio-management">
-                <h2 style="width: 300px;margin-top: 35px;">Edit Blog </h2><a href="{{route('admin.blog.list')}}" class="add-button" style="float: right; margin-top: -56px;">+ Back Blog</a><br><br>
+                <h2 style="width: 300px;margin-top: 35px;">Edit Blog </h2><a href="{{route('admin.blog.list')}}" class="add-button" style="float: right; margin-top: -56px;">  <i class="fas fa-arrow-left"></i> Back</a><br><br>
                 <form id="audioForm" action="{{ route('admin.blog.update',$blog->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
@@ -21,11 +21,11 @@
                             <img src="{{ asset('storage/' .  $blog->blog_image) }}"
                                     alt="Blog Image" class="blog-image" width="300px;" height="300px;">
                     </div>
-                    
+
 
                     <div class="form-group">
                         <label for="pdf_file">Description:</label>
-                        <textarea type="text" id="description" name="description" class="form-control" accept="application/pdf" 
+                        <textarea type="text" id="description" name="description" class="form-control" accept="application/pdf"
                             required>{{$blog->description}} </textarea>
                     </div>
                     <div class="form-group">

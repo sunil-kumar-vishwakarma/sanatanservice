@@ -32,29 +32,38 @@ class AstrologerController extends Controller
     }
     public function requestindex()
     {
-        // You can fetch astrologer data from the database here and pass it to the view
+
         return view('admin.Astrologer.pending-request');
+    }
+    public function addpendingrequest()
+    {
+
+        return view('admin.Astrologer.addpendingrequest');
     }
     public function review()
     {
-        // You can fetch astrologer data from the database here and pass it to the view
+
         return view('admin.Astrologer.review');
     }
     public function commission()
     {
-        // You can fetch astrologer data from the database here and pass it to the view
+
         return view('admin.Astrologer.commission');
+    }
+    public function addcommission()
+    {
+
+        return view('admin.Astrologer.addcommission');
+    }
+    public function editcommission()
+    {
+
+        return view('admin.Astrologer.editcommission');
     }
     public function skills()
     {
-        // You can fetch skill data from the database here and pass it to the view
-        return view('admin.Astrologer.skills');
-    }
 
-    public function addskills()
-    {
-        // You can fetch astrologer data from the database here and pass it to the view
-        return view('admin.Astrologer.addskills');
+        return view('admin.Astrologer.skills');
     }
 
 
@@ -63,6 +72,12 @@ class AstrologerController extends Controller
         // You can fetch category data from the database here and pass it to the view
         return view('admin.Astrologer.categories');
     }
+    public function addcategory()
+    {
+        // You can fetch category data from the database here and pass it to the view
+        return view('admin.Astrologer.addcategory');
+    }
+
     public function block()
     {
         // You can fetch astrologer data from the database here and pass it to the view

@@ -37,7 +37,7 @@
                             <td>vishnu</td>
                             <td>29-03-2025 12:59 PM</td>
                             <td>15</td>
-                            <td>Pending</td>
+                            <td>Accepted</td>
 
                         </tr>
 
@@ -46,5 +46,14 @@
                 </table>
             </section>
         </main>
+    </div>
+     <!-- Pagination -->
+     <div class="pagination-container">
+        <button disabled>« Previous</button>
+        <a href="#" class="active">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">...</a>
+        <button>Next »</button>
     </div>
 @endsection

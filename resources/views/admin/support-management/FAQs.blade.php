@@ -2,8 +2,10 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('css\Astrologer\astrologers.css') }}">
     <link rel="stylesheet" href="{{ asset('css\page-managment.css') }}">
+
     <link rel="stylesheet" href="{{ asset('css\popus.css') }}">
     <script src="{{ asset('js\popupform.js') }}" defer></script>
+
     <script src="{{ asset('js/statusbutton.js') }}" defer></script>
     <!-- CKEditor Script -->
     <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
@@ -25,39 +27,46 @@
             <br>
             <section class="astrologer-list">
                 <table class="astrologer-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>NAME</th>
+                            <th>ACTIONS</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
+                            <td>1</td>
                             <td>First Free Session</td>
                             <td class="action-buttons-faQs">
                                 <a href="#" class="action-button add" onclick="openPopup()">+ Add</a>
-                                <a href="#" class="action-button view">View</a>
                                 <a href="#" class="action-button edit" onclick="openPopup2()">Edit</a>
                                 <a href="#" class="action-button delete" onclick="openPopup3()">Delete</a>
                             </td>
                         </tr>
                         <tr>
+                            <td>2</td>
                             <td>Account related</td>
                             <td class="action-buttons-faQs">
                                 <a href="#" class="action-button add" onclick="openPopup()">+ Add</a>
-                                <a href="#" class="action-button view">View</a>
                                 <a href="#" class="action-button edit" onclick="openPopup2()">Edit</a>
                                 <a href="#" class="action-button delete" onclick="openPopup3()">Delete</a>
                             </td>
                         </tr>
                         <tr>
+                            <td>3</td>
                             <td>Astrologer related</td>
                             <td class="action-buttons-faQs">
                                 <a href="#" class="action-button add" onclick="openPopup()">+ Add</a>
-                                <a href="#" class="action-button view">View</a>
                                 <a href="#" class="action-button edit" onclick="openPopup2()">Edit</a>
                                 <a href="#" class="action-button delete" onclick="openPopup3()">Delete</a>
                             </td>
                         </tr>
                         <tr>
+                            <td>4</td>
                             <td>Wallet related</td>
                             <td class="action-buttons-faQs">
                                 <a href="#" class="action-button add" onclick="openPopup()">+ Add</a>
-                                <a href="#" class="action-button view">View</a>
                                 <a href="#" class="action-button edit" onclick="openPopup2()">Edit</a>
                                 <a href="#" class="action-button delete" onclick="openPopup3()">Delete</a>
                             </td>
@@ -69,7 +78,15 @@
             </section>
         </main>
     </div>
-
+    <!-- Pagination -->
+    <div class="pagination-container">
+        <button disabled>« Previous</button>
+        <a href="#" class="active">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">...</a>
+        <button>Next »</button>
+    </div>
     <!-- + add support button Banner Popup -->
     <div id="popupForm-addsupport" class="popup-overlay" style="display:none;">
         <div class="popup-box1">

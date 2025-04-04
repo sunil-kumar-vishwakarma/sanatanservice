@@ -11,10 +11,10 @@
         <main class="main-content">
             <div class="add-button-container">
                 <form class="search-form" action="#">
-                    <input type="text" name="search" placeholder="Search skills..." class="search-input">
+                    <input type="text" name="search" placeholder="Search..." class="search-input">
                     <button type="submit" class="search-button">Search</button>
                 </form>
-                <a href="{{ route('admin.Astrologer.addskills') }}" class="add-button">+ Add Skills</a>
+                <a href="#" class="add-button" onclick="openPopup1()">+ Add Skills</a>
             </div>
             <section class="skill-list">
                 <table class="skill-table">
@@ -147,24 +147,37 @@
     </div>
 
     <!-- Pagination -->
-     <div class="pagination-container">
+    <div class="pagination-container">
         <button disabled>« Previous</button>
         <a href="#" class="active">1</a>
         <a href="#">2</a>
-        <a href="#">3 ...</a>
+        <a href="#">3</a>
+        <a href="#">...</a>
         <button>Next »</button>
     </div>
 
+    <!-- + add button Banner Popup -->
+    <div id="popupForm-addsupport" class="popup-overlay" style="display:none;">
+        <div class="popup-box1">
+            <span class="close-btn" onclick="closePopup1()">&times;</span>
+            <h2>Add</h2>
+            <form class="edit-form">
+                <label for="title">Name:</label>
+                <input type="text" id="title" name="title" placeholder="Title">
 
+                <button type="submit" class="save-btn">Save</button>
+            </form>
+        </div>
+    </div>
 
     <!-- Edit button Popup -->
     <div id="popupForm-edit" class="popup-overlay" style="display:none;">
         <div class="popup-box1">
             <span class="close-btn" onclick="closePopup2()">&times;</span>
-            <h2>Edit skill</h2>
+            <h2>Edit</h2>
             <form class="edit-form">
                 <label for="title">Name:</label>
-                <input type="text" id="title" name="title" >
+                <input type="text" id="title" name="title">
 
                 <button type="submit" class="save-btn">Save</button>
             </form>

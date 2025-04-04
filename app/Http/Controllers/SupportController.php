@@ -18,6 +18,11 @@ class SupportController extends Controller
         // You can fetch astrologer data from the database here and pass it to the view
         return view('admin.support-management.tickets');
     }
+    public function addtickets()
+    {
+        // You can fetch astrologer data from the database here and pass it to the view
+        return view('admin.support-management.addtickets');
+    }
 
 
 }

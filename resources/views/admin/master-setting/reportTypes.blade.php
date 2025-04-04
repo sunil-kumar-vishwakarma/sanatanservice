@@ -7,7 +7,7 @@
         <main class="main-content">
             <section class="videos-list">
                 <div class="add-button-container">
-                    <a href="#" class="add-button">+ Add Report Types</a>
+                    <a href="{{ route('admin.master-setting.addreporttype')}}" class="add-button">+ Add Report Types</a>
                 </div>
                 <div class="report-container">
                     <div class="report-item">
@@ -32,7 +32,7 @@
                                         <span class="slider"></span>
                                     </label>
                                 </div>
-                                <a href="#" class="action-button edit">Edit</a>
+                                <a href="{{ route('admin.master-setting.editreporttype')}}" class="action-button edit">Edit</a>
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                                         <span class="slider"></span>
                                     </label>
                                 </div>
-                                <a href="#" class="action-button edit">Edit</a>
+                                <a href="{{ route('admin.master-setting.editreporttype')}}" class="action-button edit">Edit</a>
                             </div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                                         <span class="slider"></span>
                                     </label>
                                 </div>
-                                <a href="#" class="action-button edit">Edit</a>
+                                <a href="{{ route('admin.master-setting.editreporttype')}}" class="action-button edit">Edit</a>
                             </div>
                         </div>
                     </div>
@@ -112,12 +112,21 @@
                                         <span class="slider"></span>
                                     </label>
                                 </div>
-                                <a href="#" class="action-button edit">Edit</a>
+                                <a href="{{ route('admin.master-setting.editreporttype')}}" class="action-button edit">Edit</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
         </main>
+    </div>
+     <!-- Pagination -->
+     <div class="pagination-container">
+        <button disabled>« Previous</button>
+        <a href="#" class="active">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">...</a>
+        <button>Next »</button>
     </div>
 @endsection

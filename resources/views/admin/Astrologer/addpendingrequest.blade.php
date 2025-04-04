@@ -5,14 +5,14 @@
     <link rel="stylesheet" href="{{ asset('css/addbutton.css') }}">
     <div class="add-container">
         <div class="back-button-container">
-            <a href="{{ route('admin.customers') }}" class="back-button">
+            <a href="{{ route('admin.pending-request') }}" class="back-button">
                 <i class="fas fa-arrow-left"></i> Back
             </a>
             <br>
         </div>
         <main class="add-content">
             <section class="customer-management">
-                <h2>Add Customer</h2>
+                <h2>Add Request</h2>
                 <br>
                 <form id="customerForm" action="#" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -25,7 +25,7 @@
                         <input type="text" id="name" name="name" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="contact_no">Contact No:</label>
+                        <label for="contact_no">Contact No.:</label>
                         <input type="text" id="contact_no" name="contact_no" class="form-control" required>
                     </div>
                     <div class="form-group">
@@ -33,15 +33,24 @@
                         <input type="email" id="email" name="email" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="birth_date">Birth Date:</label>
-                        <input type="date" id="birth_date" name="birth_date" class="form-control" required>
+                        <label for="gender">Gender:</label>
+                        <select id="gender" name="gender" class="form-control" required>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="birth_time">Birth Time:</label>
-                        <input type="time" id="birth_time" name="birth_time" class="form-control" required>
+                        <label for="gender">Status:</label>
+                        <select id="gender" name="gender" class="form-control" required>
+                            <option value="male">Pending</option>
+                            <option value="female">Approved</option>
+                        </select>
                     </div>
+
+
                     <div class="form-group">
-                        <button type="submit" class="action-button add">Add Customer</button>
+                        <button type="submit" class="action-button add">Add Request</button>
                     </div>
                 </form>
             </section>

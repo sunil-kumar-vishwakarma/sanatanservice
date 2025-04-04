@@ -67,78 +67,13 @@
             </section>
         </main>
     </div>
-
     <!-- Pagination -->
     <div class="pagination-container">
-        <!-- Left Side: Entries per page -->
-        <div class="entries-per-page">
-            <label for="entries-per-page">Show:</label>
-            <select id="entries-per-page">
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-                <option value="40">40</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-            </select>
-            <span>entries per page</span>
-        </div>
-
-        <!-- Right Side: Pagination -->
-        <div class="pagination-buttons">
-            <button disabled>« Previous</button>
-            <a href="#" class="active">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">...</a>
-            <button>Next »</button>
-        </div>
+        <button disabled>« Previous</button>
+        <a href="#" class="active">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">...</a>
+        <button>Next »</button>
     </div>
-
-    <style>
-        .pagination-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        select {
-            padding: 5px;
-            font-size: 16px;
-        }
-
-        .entries {
-            max-width: 400px;
-            margin: auto;
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 8px;
-        }
-
-        .entries p {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .pagination-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .pagination-buttons button {
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            background: #f8f9fa;
-            cursor: pointer;
-        }
-
-        .pagination-buttons button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-    </style>
 @endsection

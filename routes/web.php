@@ -97,12 +97,18 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/review', [AstrologerController::class, 'review'])->name('admin.review');
 
     Route::get('/admin/skills', [AstrologerController::class, 'skills'])->name('admin.skills');
-    Route::get('/admin/addskills', [AstrologerController::class, 'addskills'])->name('admin.Astrologer.addskills');
 
     Route::get('/admin/categories', [AstrologerController::class, 'category'])->name('admin.categories');
+    Route::get('/admin/addcategory', [AstrologerController::class, 'addcategory'])->name('admin.Astrologer.addcategory');
+
     Route::get('/admin/block-astrologer', [AstrologerController::class, 'block'])->name('admin.block-astrologer');
+
     Route::get('/admin/pending-request', [AstrologerController::class, 'requestindex'])->name('admin.pending-request');
+    Route::get('/admin/addpendingrequest', [AstrologerController::class, 'addpendingrequest'])->name('admin.Astrologer.addpendingrequest');
+
     Route::get('/admin/commission', [AstrologerController::class, 'commission'])->name('admin.commission');
+    Route::get('/admin/addcommission', [AstrologerController::class, 'addcommission'])->name('admin.Astrologer.addcommission');
+    Route::get('/admin/editcommission', [AstrologerController::class, 'editcommission'])->name('admin.Astrologer.editcommission');
 
     // horoscope
     Route::get('/admin/weekly-horoscope', [HoroscopeController::class, 'weekly'])->name('admin.horoscope.weekly');
@@ -165,6 +171,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/temple-list', [TempleController::class, 'index'])->name('admin.temple.list');
     Route::get('/admin/temple-view/{id}', [TempleController::class, 'view'])->name('admin.temple.view');
     Route::get('/admin/temple-add', [TempleController::class, 'add'])->name('admin.temple.add');
+    Route::get('/admin/temple-edit', [TempleController::class, 'edit'])->name('admin.temple.edit');
     Route::post('/admin/temple-store', [TempleController::class, 'store'])->name('admin.temple.store');
 
 
@@ -198,6 +205,7 @@ Route::middleware(['auth:admin'])->group(function () {
 
     Route::get('/admin/support-management', [SupportController::class, 'index'])->name('admin.support-management.FAQs');
     Route::get('/admin/support-management/tickets', [SupportController::class, 'tickets'])->name('admin.support-management.tickets');
+    Route::get('/admin/support-management/addtickets', [SupportController::class, 'addtickets'])->name('admin.support-management.addtickets');
 
     Route::get('/admin/earnings/withdrawalmethods', [EarningsController::class, 'withdrawalmethods'])->name('admin.earnings.withdrawalmethods');
     Route::get('/admin/earnings/withdrawalRequests', [EarningsController::class, 'withdrawalRequests'])->name('admin.earnings.withdrawalRequests');
@@ -214,12 +222,17 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/master-setting/customerProfile', [MasterSettingController::class, 'customerProfile'])->name('admin.master-setting.customerProfile');
     Route::get('/admin/master-setting/horoscopeSigns', [MasterSettingController::class, 'horoscopeSigns'])->name('admin.master-setting.horoscopeSigns');
     Route::get('/admin/master-setting/rechargeAmount', [MasterSettingController::class, 'rechargeAmount'])->name('admin.master-setting.rechargeAmount');
+
     Route::get('/admin/master-setting/reportTypes', [MasterSettingController::class, 'reportTypes'])->name('admin.master-setting.reportTypes');
+    Route::get('/admin/master-setting/addreporttype', [MasterSettingController::class, 'addreporttype'])->name('admin.master-setting.addreporttype');
+    Route::get('/admin/master-setting/editreporttype', [MasterSettingController::class, 'editreporttype'])->name('admin.master-setting.editreporttype');
 
 
 
-    Route::get('/admin/team-management/role', [TeamManageController::class, 'role'])->name('admin.team-management.role');
     Route::get('/admin/team-management/list', [TeamManageController::class, 'list'])->name('admin.team-management.list');
+    Route::get('/admin/team-management/addlist', [TeamManageController::class, 'addlist'])->name('admin.team-management.addlist');
+    Route::get('/admin/team-management/editlist', [TeamManageController::class, 'editlist'])->name('admin.team-management.editlist');
+    Route::get('/admin/team-management/role', [TeamManageController::class, 'role'])->name('admin.team-management.role');
 
 
     Route::get('/admin/feedback', [FeedbackController::class, 'index'])->name('admin.feedback');

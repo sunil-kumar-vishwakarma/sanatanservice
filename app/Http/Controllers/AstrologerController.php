@@ -77,6 +77,11 @@ class AstrologerController extends Controller
         // You can fetch category data from the database here and pass it to the view
         return view('admin.Astrologer.addcategory');
     }
+    // public function addcategory()
+    // {
+    //     // You can fetch category data from the database here and pass it to the view
+    //     return view('admin.Astrologer.addcategory');
+    // }
 
     public function block()
     {

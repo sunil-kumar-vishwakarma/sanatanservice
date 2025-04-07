@@ -12,7 +12,7 @@
         <!-- Indicators -->
         <div class="carousel-indicators">
             @foreach($banners as $index => $slider)
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="{{ $index }}" 
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="{{ $index }}"
                         class="{{ $index == 0 ? 'active' : '' }}" aria-label="Slide {{ $index + 1 }}"></button>
             @endforeach
         </div>
@@ -21,7 +21,7 @@
         <div class="carousel-inner">
             @foreach($banners as $index => $slider)
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                    <img src="{{ asset('storage/' . $slider->banner_image) }}" 
+                    <img src="{{ asset('storage/' . $slider->banner_image) }}"
                          class="d-block w-100" alt="Banner Image" height="400px;">
                 </div>
             @endforeach
@@ -208,7 +208,7 @@
 
 <!-- Blog area -->
 
-<h2 class="blog" style="margin-left: 40%;">OUR BLOG</h2>
+<h2 class="blog">OUR BLOG</h2>
 <div class="underline" style="margin-left: 41.5%;"></div>
 <p class="pera2">Delve deeper into the world of Astrology, Psychic Reading & more...</p>
 <div class="blog-container">
@@ -329,8 +329,8 @@ We offer Online Astrology consultation, through which you can connect with our A
                 }
             });
         }
-        
-        // toggle menu bar 
+
+        // toggle menu bar
         function toggleMenu() {
             var menu = document.getElementById("mobileMenu");
             if (menu.style.display === "flex") {

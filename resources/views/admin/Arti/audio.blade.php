@@ -186,7 +186,8 @@
 
         .audio-action-buttons button:hover {
             background-color: #24007a;
-            transform: scale(1.05); 
+            transform: scale(1.05);
+            /* transform: scale(1.05);  */
             /* color: #11003a; */
             color: white;
         }

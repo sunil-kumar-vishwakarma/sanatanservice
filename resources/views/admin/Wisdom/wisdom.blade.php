@@ -85,10 +85,11 @@
                                         </video>
                                     @elseif ($video->video_url)
                                         <iframe width="320" height="240"
-                                            src="{{ str_replace('watch?v=', 'embed/', $video->video_url) }}" frameborder="0"
+                                            src="{{  str_replace('watch?v=', 'embed/', $video->video_url) }}" frameborder="0"
                                             allow="autoplay; encrypted-media" allowfullscreen>
                                         </iframe>
 
+                                        
                                         <!-- <iframe width="320" height="240" src="{{ $video->video_url }}" frameborder="0" allowfullscreen>{{ $video->video_name }}</iframe> -->
                                     @endif
                                 </td>

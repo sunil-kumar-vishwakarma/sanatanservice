@@ -21,7 +21,8 @@
         <main class="main-content">
             <section class="pdf-management">
                 <h2 style="width: 300px;margin-top: 35px;">Add New Video </h2><a href="{{ route('admin.video.video') }}"
-                    class="add-button" style="float: right; margin-top: -56px;"> <i class="fas fa-arrow-left"></i> Back Video</a><br><br>
+                    class="add-button" style="float: right; margin-top: -56px;"> <i class="fas fa-arrow-left"></i> Back
+                    Video</a><br><br>
                 <form id="videoForm" action="{{ route('admin.video.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">

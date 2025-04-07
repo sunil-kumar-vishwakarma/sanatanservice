@@ -12,6 +12,7 @@
                     <input type="text" name="search" placeholder="Search ..." class="search-input">
                     <button type="submit" class="search-button">Search</button>
                 </form>
+                <a href="{{ route('admin.support-management.addtickets')}}" class="add-button">+ Add Ticket</a>
             </div>
 
             <section class="astrologer-list">
@@ -58,15 +59,27 @@
             </section>
         </main>
     </div>
+     <!-- Pagination -->
+     <div class="pagination-container">
+        <button disabled>« Previous</button>
+        <a href="#" class="active">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">...</a>
+        <button>Next »</button>
+    </div>
     <style>
         .failed{
             color: red;
+            font-weight: bold;
         }
         .successs{
             color: green;
+            font-weight: bold;
         }
         .pending{
-            color: #ff6702;
+            color: #ff6200;
+            font-weight: bold;
         }
     </style>
 @endsection

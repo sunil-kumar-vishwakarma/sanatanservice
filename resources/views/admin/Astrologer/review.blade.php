@@ -67,4 +67,13 @@
             </section>
         </main>
     </div>
+    <!-- Pagination -->
+    <div class="pagination-container">
+        <button disabled>« Previous</button>
+        <a href="#" class="active">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">...</a>
+        <button>Next »</button>
+    </div>
 @endsection

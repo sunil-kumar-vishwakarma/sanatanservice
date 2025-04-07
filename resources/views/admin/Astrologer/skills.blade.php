@@ -11,10 +11,10 @@
         <main class="main-content">
             <div class="add-button-container">
                 <form class="search-form" action="#">
-                    <input type="text" name="search" placeholder="Search skills..." class="search-input">
+                    <input type="text" name="search" placeholder="Search..." class="search-input">
                     <button type="submit" class="search-button">Search</button>
                 </form>
-                <a href="{{ route('admin.Astrologer.addskills') }}" class="add-button">+ Add Skills</a>
+                <a href="#" class="add-button" onclick="openPopup1()">+ Add Skills</a>
             </div>
             <section class="skill-list">
                 <table class="skill-table">
@@ -145,27 +145,39 @@
             </section>
         </main>
     </div>
+
     <!-- Pagination -->
     <div class="pagination-container">
         <button disabled>« Previous</button>
         <a href="#" class="active">1</a>
         <a href="#">2</a>
         <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
+        <a href="#">...</a>
         <button>Next »</button>
     </div>
 
+    <!-- + add button Banner Popup -->
+    <div id="popupForm-addsupport" class="popup-overlay" style="display:none;">
+        <div class="popup-box1">
+            <span class="close-btn" onclick="closePopup1()">&times;</span>
+            <h2>Add</h2>
+            <form class="edit-form">
+                <label for="title">Name:</label>
+                <input type="text" id="title" name="title" placeholder="Title">
 
+                <button type="submit" class="save-btn">Save</button>
+            </form>
+        </div>
+    </div>
 
     <!-- Edit button Popup -->
     <div id="popupForm-edit" class="popup-overlay" style="display:none;">
         <div class="popup-box1">
             <span class="close-btn" onclick="closePopup2()">&times;</span>
-            <h2>Edit skill</h2>
+            <h2>Edit</h2>
             <form class="edit-form">
                 <label for="title">Name:</label>
-                <input type="text" id="title" name="title" >
+                <input type="text" id="title" name="title">
 
                 <button type="submit" class="save-btn">Save</button>
             </form>
@@ -186,69 +198,4 @@
             </form>
         </div>
     </div>
-    <style>
-        /* Pagination specific styles */
-        .pagination-container {
-            float: left;
-            /* Float the pagination to the left */
-            width: 100%;
-            /* Full width */
-            padding: 10px 0;
-            /* Vertical padding */
-            background-color: #f9f9f9;
-            /* Light background */
-            text-align: center;
-            /* Center align links */
-            margin-top: 20px;
-            /* Space between table and pagination */
-        }
-
-        .pagination-container button,
-        .pagination-container a {
-            display: inline-block;
-            /* Display links as inline blocks */
-            padding: 8px 16px;
-            /* Padding around text */
-            margin: 0 2px;
-            /* Space between links */
-            border: 1px solid #ddd;
-            /* Light grey border */
-            background-color: #fff;
-            /* White background */
-            color: #333;
-            /* Dark text color */
-            text-decoration: none;
-            /* Remove underline */
-            cursor: pointer;
-            /* Pointer cursor on hover */
-            border-radius: 4px;
-            /* Rounded corners */
-        }
-
-        .pagination-container button.disabled,
-        .pagination-container a.disabled {
-            background-color: #e0e0e0;
-            /* Lighter background for disabled */
-            color: #999;
-            /* Lighter text color for disabled */
-            cursor: not-allowed;
-            /* Not allowed cursor */
-        }
-
-        .pagination-container a.active {
-            background-color: #007bff;
-            /* Active page background */
-            color: #fff;
-            /* White text color for active page */
-            border-color: #007bff;
-            /* Active page border color */
-        }
-
-        /* Clearfix for floated elements */
-        .pagination-container:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-    </style>
 @endsection

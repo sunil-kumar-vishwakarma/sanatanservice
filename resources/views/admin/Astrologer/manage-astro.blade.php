@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" href="{{ asset('css\popus.css') }}">
     <script src="{{ asset('js\popupform.js') }}" defer></script>
-    
+
     <div class="container">
         <main class="main-content">
             {{-- <h1>Manage Astrologers</h1> --}}
@@ -15,7 +15,7 @@
                     <input type="text" name="search" placeholder="Search Astrologer..." class="search-input">
                     <button type="submit" class="search-button">Search</button>
                 </form>
-                <a href="{{ route('admin.Astrologer.addastrologer')}}" class="add-button">+ Add Astrologer</a>
+                <a href="{{ route('admin.Astrologer.addastrologer') }}" class="add-button">+ Add Astrologer</a>
 
             </div>
             <section class="astrologer-list">
@@ -45,8 +45,8 @@
                                 <button class="status-button inactive" data-status="inactive">Inactive</button>
                             </td>
                             <td class="action-buttons">
-                                <a href="{{ route('admin.Astrologer.viewastrologer')}}" class="action-button view">View</a>
-                                <a href="{{ route('admin.Astrologer.editastrologer')}}" class="action-button edit">Edit</a>
+                                <a href="{{ route('admin.Astrologer.viewastrologer') }}" class="action-button view">View</a>
+                                <a href="{{ route('admin.Astrologer.editastrologer') }}" class="action-button edit">Edit</a>
                                 <a href="#" class="action-button delete" onclick="openPopup3()">Delete</a>
                             </td>
                         </tr>
@@ -57,6 +57,17 @@
             </section>
         </main>
     </div>
+
+    <!-- Pagination -->
+    <div class="pagination-container">
+        <button disabled>« Previous</button>
+        <a href="#" class="active">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">...</a>
+        <button>Next »</button>
+    </div>
+
     <!-- Delete button Popup -->
     <div id="popupForm-delete" class="popup-overlay" style="display:none;">
         <div class="popup-box-delete">

@@ -179,11 +179,6 @@ input:checked+.slider:before {
     float: right;
 }
 
-.action-buttons-faQs {
-    float: right;
-}
-
-
 .action-button {
     display: inline-flex;
     align-items: center;

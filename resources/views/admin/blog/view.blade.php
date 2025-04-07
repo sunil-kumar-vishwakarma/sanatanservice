@@ -19,7 +19,7 @@
     </style>
     <div class="container">
         <div class="temple-details">
-        <h2 style="width: 300px;margin-top: 35px;">View Blog </h2><a href="{{route('admin.blog.list')}}" class="add-button" style="float: right; margin-top: -56px;">+ Back Blog</a><br><br>
+        <h2 style="width: 300px;margin-top: 35px;">View Blog </h2><a href="{{route('admin.blog.list')}}" class="add-button" style="float: right; margin-top: -56px;">  <i class="fas fa-arrow-left"></i> Back</a><br><br>
             <div class="image-meta">
                 <img src="{{ asset('storage/' .  $blog->blog_image) }}" alt="Temple Image" class="temple-image">
                 <div class="meta">
@@ -33,7 +33,7 @@
             <div class="description">
             {{$blog->description}}
 
-                
+
                 </p>
             </div>
         </div>

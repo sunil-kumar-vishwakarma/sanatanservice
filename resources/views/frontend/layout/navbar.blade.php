@@ -1,7 +1,7 @@
 
         <div class="logo">
             <a href="{{url('/')}}"><img src="{{asset('assets/images/WhatsApp Image 2025-03-06 at 11.22.52 AM.png')}}" alt="Sanatan Logo"></a>
-            <span><a href="{{url('/')}}" style="color: white;">SANATAN</span></a>
+            <span><a href="{{url('/')}}" style="color: white; text-decoration: none;">SANATAN</span></a>
             <p> Consult Online Astrologers Anytime </p>
         </div>
 

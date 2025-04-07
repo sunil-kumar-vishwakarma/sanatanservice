@@ -20,17 +20,17 @@
         }
 
         /* .cat-heading-match{
-                color: aquamarine;
-            }
-            .text-center.font-24.font-weight-bold{
-                color: aquamarine;
-            }
-            .font-16.text-center.bg-pink.color-red.py-2.font-weight-bold.d-md-block.d-none{
-                color: aquamarine;
-            }
-            .heading.text-center{
-                color: aquamarine;
-            } */
+                    color: aquamarine;
+                }
+                .text-center.font-24.font-weight-bold{
+                    color: aquamarine;
+                }
+                .font-16.text-center.bg-pink.color-red.py-2.font-weight-bold.d-md-block.d-none{
+                    color: aquamarine;
+                }
+                .heading.text-center{
+                    color: aquamarine;
+                } */
         .color-red {
             color: red;
         }
@@ -257,23 +257,24 @@
 
                     <div class="row pt-4">
                         @foreach ($gethoroscopesign['recordList'] as $horoscopesign)
-                        <div class="col-4 col-md-4 col-lg-3 col-xl-2 mb-4">
-                            <div class="shadow-pink-down text-center p-3 hover-border-red rounded-10">
-                                <a href="{{route('front.dailyHoroscope',['horoscopeSignId' => $horoscopesign['id']])}}"
-                                    title="{{$horoscopesign['name']}}" class="text-decoration-none text-dark">
-                                    <div>
-                                        <img style="height: 110px;width:110px" src="{{ asset('storage/' .$horoscopesign['image'])}}"
-                                            alt="{{$horoscopesign['name']}}">
+                            <div class="col-4 col-md-4 col-lg-3 col-xl-2 mb-4">
+                                <div class="shadow-pink-down text-center p-3 hover-border-red rounded-10">
+                                    <a href="{{ route('front.dailyHoroscope', ['horoscopeSignId' => $horoscopesign['id']]) }}"
+                                        title="{{ $horoscopesign['name'] }}" class="text-decoration-none text-dark">
+                                        <div>
+                                            <img style="height: 110px;width:110px"
+                                                src="{{ asset('storage/' . $horoscopesign['image']) }}"
+                                                alt="{{ $horoscopesign['name'] }}">
 
-                                                        </div>
-                                                        <div class="">
-                                                            <p class="font-weight-bold mb-0 mt-2 color-red">
-                                                                {{ $horoscopesign['name'] }}</p>
-                                                            {{-- <p class="mb-0">Mar 21 - Apr 20</p> --}}
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <p class="font-weight-bold mb-0 mt-2 color-red">
+                                                {{ $horoscopesign['name'] }}</p>
+                                            {{-- <p class="mb-0">Mar 21 - Apr 20</p> --}}
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
                         @endforeach
 
                     </div>

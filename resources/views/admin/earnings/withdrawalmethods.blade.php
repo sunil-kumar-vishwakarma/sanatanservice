@@ -74,6 +74,15 @@
 
         </main>
     </div>
+     <!-- Pagination -->
+     <div class="pagination-container">
+        <button disabled>« Previous</button>
+        <a href="#" class="active">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">...</a>
+        <button>Next »</button>
+    </div>
 
     <!-- Edit button Popup -->
     <div id="popupForm-edit" class="popup-overlay" style="display:none;">
@@ -81,8 +90,8 @@
             <span class="close-btn" onclick="closePopup2()">&times;</span>
             <h2>Edit</h2>
             <form>
-                <label for="title">Method Name:</label>
-                <input type="text" id="title" name="title" placeholder="Title">
+                <label for="title"> Name:</label>
+                <input type="text" id="title" name="title" >
 
                 <button type="submit" class="save-btn">Save</button>
             </form>

@@ -64,7 +64,7 @@ header {
 
 /* 🔹 Sign-up Button */
 .signup-btn {
-    padding: 10px 20px;
+    /* padding: 10px 20px; */
     text-decoration: none;
     color: white;
     justify-content: center;
@@ -168,7 +168,7 @@ header {
     position: absolute;
     top: 100%;
     left: 0;
-    /* background-color: #fff; */
+    background: rgb(39, 39, 75);
     border: 1px solid #ccc;
     display: none;
     z-index: 10;
@@ -218,7 +218,7 @@ header {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow effect */
     padding: 10px 20px;
 }
-  
+
 
 
 
@@ -232,8 +232,8 @@ header {
     @include('frontend.layout.navbar')
 </header>
     <div class="main-content">
-        
-        @yield('content') 
+
+        @yield('content')
         @include('frontend.layout.footer')
     </div>
 

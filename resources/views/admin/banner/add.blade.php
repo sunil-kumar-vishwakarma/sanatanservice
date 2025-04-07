@@ -6,10 +6,10 @@
     <div class="container">
         <main class="main-content">
             <section class="audio-management">
-                <h2 style="width: 300px;margin-top: 35px;">Add New Banner </h2><a href="{{route('admin.banner.banner')}}" class="add-button" style="float: right; margin-top: -56px;">+ Back Banner</a><br><br>
+                <h2 style="width: 300px;margin-top: 35px;">Add New Banner </h2><a href="{{route('admin.banner.banner')}}" class="add-button" style="float: right; margin-top: -56px;">  <i class="fas fa-arrow-left"></i> Back Banner</a><br><br>
                 <form id="audioForm" action="{{ route('admin.banner.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    
+
                     <div class="form-group">
                         <label for="thumbnail">Banner Image:</label>
                         <input type="file" id="banner_image" name="banner_image" class="form-control" accept="image/*"
@@ -23,7 +23,7 @@
                         <label for="audio_name">To Date:</label>
                         <input type="date" id="to_date" name="to_date" class="form-control" required>
                     </div>
-                    
+
 
                     <div class="form-group">
                         <label for="audio_name">Banner Type:</label>

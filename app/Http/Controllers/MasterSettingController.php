@@ -25,6 +25,14 @@ class MasterSettingController extends Controller
     {
         return view('admin.master-setting.reportTypes');
     }
+    public function addreporttype()
+    {
+        return view('admin.master-setting.addreporttype');
+    }
+    public function editreporttype()
+    {
+        return view('admin.master-setting.editreporttype');
+    }
 
 
 }

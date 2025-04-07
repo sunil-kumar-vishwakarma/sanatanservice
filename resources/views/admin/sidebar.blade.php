@@ -91,7 +91,7 @@
             <a href="#"><i class="fa-solid fa-tv"></i> TV <i class="fas fa-chevron-down"></i></a>
             <ul class="dropdown-menu">
                 <li class="{{ request()->routeIs('admin.live.arti') ? 'active' : '' }}">
-                    <a href="{{ route('admin.live.arti') }}"><i class="fas fa-video"></i> 
+                    <a href="{{ route('admin.live.arti') }}"><i class="fas fa-video"></i>
                         Videos </a>
                 </li>
                 <li class="{{ request()->routeIs('admin.live.darshan') ? 'active' : '' }}">
@@ -181,8 +181,8 @@
                 <li class="{{ request()->routeIs('admin.master-setting.customerProfile') ? 'active' : '' }}">
                     <a href="{{ route('admin.master-setting.customerProfile') }}"><i class="fas fa-user"></i> Customer Profile</a>
                 </li>
-                <li class="{{ request()->routeIs('horoscopeSigns') ? 'active' : '' }}">
-                    <a href="{{ route('horoscopeSigns') }}"><i class="fas fa-star"></i> Horoscope Signs</a>
+                <li class="{{ request()->routeIs('admin.master-setting.horoscopeSigns') ? 'active' : '' }}">
+                    <a href="{{ route('admin.master-setting.horoscopeSigns') }}"><i class="fas fa-star"></i> Horoscope Signs</a>
                 </li>
                 <li class="{{ request()->routeIs('admin.master-setting.rechargeAmount') ? 'active' : '' }}">
                     <a href="{{ route('admin.master-setting.rechargeAmount') }}"><i class="fas fa-coins"></i> Recharge Amount</a>

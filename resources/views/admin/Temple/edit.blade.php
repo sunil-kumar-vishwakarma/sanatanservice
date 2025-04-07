@@ -12,7 +12,7 @@
         </div>
         <main class="add-content">
             <section class="customer-management">
-                <h2>Add Temple</h2>
+                <h2>Edit Temple Details</h2>
                 <br>
                 <form id="customerForm" action="#" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -27,10 +27,10 @@
                     </div>
                     <div class="form-group">
                         <label for="profile">Description:</label>
-                        <textarea name="description" class="form-control" cols="170" rows="10"></textarea>
+                      <textarea name="description" class="form-control" cols="170" rows="10"></textarea>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="action-button add">Add Temple</button>
+                        <button type="submit" class="action-button add">Update</button>
                     </div>
                 </form>
             </section>

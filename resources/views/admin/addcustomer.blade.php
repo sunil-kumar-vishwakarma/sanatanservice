@@ -14,7 +14,7 @@
             <section class="customer-management">
                 <h2>Add Customer</h2>
                 <br>
-                <form id="customerForm" action="#" method="POST" enctype="multipart/form-data">
+                <form id="customerForm12" action="{{route('admin.add')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="profile">Profile Picture:</label>

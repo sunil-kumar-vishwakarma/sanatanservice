@@ -274,37 +274,17 @@ class UserController extends Controller
 
 
                 //
-
-                // Ensure storage directory exists
-        $storagePath = storage_path('app/public/images');
-        if (!file_exists($storagePath)) {
-            mkdir($storagePath, 0777, true);
-        }
-
-        $path = null;
+                $path = null;
         
-        if ($req->profile) {
-            if (Str::contains($req->profile, 'storage')) {
-                $path = $req->profile; // Keep existing image if already stored
-            } else {
-                // Generate a new file name
-                $time = Carbon::now()->timestamp;
-                $imageName = 'profile_' . $id . '_' . $time . '.png';
-                $path = 'images/' . $imageName;
-
-                // Delete old profile image
-                if ($user->profile) {
-                    File::delete(storage_path('app/public/' . str_replace('storage/', '', $user->profile)));
+                if ($req->hasFile('profile')) {
+                    // Delete old thumbnail
+                    if ($user->profile) {
+                        Storage::disk('public')->delete($user->profile);
+                    }
+                    $thumbnailPath = $req->file('profile')->store('thumbnails', 'public');
+                    $user->profile = $thumbnailPath;
                 }
-
-                // Save the new profile image
-                Storage::disk('public')->put($path, base64_decode($req->profile));
-
-                // Convert to accessible URL
-                $path = Storage::url($path);
-                
-            }
-        }
+       
 
 
                 $user->name = $req->name;
@@ -315,7 +295,7 @@ class UserController extends Controller
                 $user->birthPlace = $req->birthPlace;
                 $user->addressLine1 = $req->addressLine1;
                 $user->location = $req->location;
-                $user->profile = $path;
+                // $user->profile = $path;
                 $user->pincode = $req->pincode;
                 $user->gender = $req->gender;
                 // $user->email = $req->email;

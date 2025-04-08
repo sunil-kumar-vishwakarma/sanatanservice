@@ -86,7 +86,11 @@ Route::middleware(['auth:admin'])->group(function () {
 
     Route::get('/admin/customers', [CustomerController::class, 'index'])->name('admin.customers');
     Route::get('/admin/addcustomer', [CustomerController::class, 'addcustomer'])->name('admin.addcustomer');
-    Route::get('/admin/editcustomer', [CustomerController::class, 'editcustomer'])->name('admin.editcustomer');
+    Route::get('/admin/editcustomer/{id}', [CustomerController::class, 'editcustomer'])->name('admin.editcustomer');
+    Route::post('/admin/add', [CustomerController::class, 'addUser'])->name('admin.add');
+    Route::post('/admin/updateUser/{id}', [CustomerController::class, 'updateUser'])->name('admin.updateUser');
+    // Route::get('/admin/customers/delete/{id}', [UserController::class, 'deleteUser'])->name('admin.customers.delete');
+    Route::delete('/admin/customers/delete/{id}', [CustomerController::class, 'deleteUser'])->name('admin.customers.delete');
 
     // Astrologer
     Route::get('/admin/astrologers', [AstrologerController::class, 'index'])->name('admin.astrologers');

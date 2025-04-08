@@ -40,15 +40,27 @@
                         @foreach($userdata as $users)
                         <tr>
                             <td>{{$users->id}}</td>
-                            <td><img src="{{ asset('https://www.citypng.com/public/uploads/preview/download-black-male-user-profile-icon-png-701751695035033bwdeymrpov.png') }}" alt="Profile"></td>
+                            <td>
+                                @if(!empty($users->profile))
+                            <img src="{{ asset('storage/' .$users->profile) }}" alt="{{ $users->name }}"
+                            class="video-thumbnail" width="100px;">
+                                @else
+                                <img src="{{ asset('https://www.citypng.com/public/uploads/preview/download-black-male-user-profile-icon-png-701751695035033bwdeymrpov.png') }}" alt="Profile"></td>
+                            
+                                @endif
                             <td>{{$users->name}}</td>
                             <td>{{$users->contactNo}}</td>
                             <td>{{$users->email}}</td>
                             <td>{{ \Carbon\Carbon::parse($users->birthDate)->format('d-m-Y') }}</td>
                             <td>{{ \Carbon\Carbon::parse($users->birthTime)->format('h:i A') }}</td>
                             <td class="action-buttons">
-                                <a href="{{ route('admin.editcustomer')}}" class="action-button edit">Edit</a>
-                                <a href="#" class="action-button delete" onclick="openPopup3()">Delete</a>
+                                <a href="{{ route('admin.editcustomer',$users->id)}}" class="action-button edit">Edit</a>
+                                <form action="{{ route('admin.customers.delete', $users->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit">Delete</button>
+                                </form>
+                                <!-- <a href="#" class="action-button delete" onclick="openPopup3()">Delete</a> -->
                             </td>
                         </tr>
                         @endforeach

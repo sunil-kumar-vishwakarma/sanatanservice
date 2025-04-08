@@ -1,7 +1,7 @@
 @extends('frontend.layout.app')
 @section('title', 'Sanatan | Contact ')
 @section('content')
-    
+
     <style>
         /* body {
             font-family: Arial, sans-serif;
@@ -13,20 +13,20 @@
         .contact-section {
             text-align: center;
             padding: 50px 20px;
-           
+
         }
         .section-title {
             font-size: 28px;
             font-weight: bold;
-            margin-left: 45%;
+            margin-left: 3%;
         }
         .underline {
             width: 80px;
             height: 3px;
             background-color: lightblue;
             margin: 10px auto 30px;
-            
-            
+
+
         }
         .contact-container {
             display: flex;
@@ -74,7 +74,7 @@
         }
 
            /* footer */
-    
+
     .footer {
 color: white;
 padding: 30px 20px;
@@ -99,7 +99,7 @@ margin: 10px;
 .footer-section h3 {
 font-size: 18px;
 margin-bottom: 10px;
-border-bottom: 1px solid white;
+/* border-bottom: 1px solid white; */
 padding-bottom: 5px;
 }
 
@@ -190,7 +190,7 @@ margin-top: 10px;
         </div>
     </section>
     <script>
-         // toggle menu bar 
+         // toggle menu bar
          function toggleMenu() {
             var menu = document.getElementById("mobileMenu");
             if (menu.style.display === "flex") {

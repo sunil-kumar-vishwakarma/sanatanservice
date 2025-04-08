@@ -99,7 +99,7 @@ margin: 10px;
 .footer-section h3 {
 font-size: 18px;
 margin-bottom: 10px;
-border-bottom: 1px solid white;
+/* border-bottom: 1px solid white; */
 padding-bottom: 5px;
 }
 

@@ -3,8 +3,8 @@
 @section('content')
 <br><br><br>
 <style>
-    
-/* 
+
+/*
     .banner {
             text-align: center;
             padding: 50px;
@@ -34,7 +34,7 @@
         .content {
             padding: 20px;
             text-align: center;
-           
+
         }
 
         .blog-content h2{
@@ -47,7 +47,7 @@
         .posts {
             display: flex;
             justify-content: center;
-         
+
             flex-wrap: wrap;
         }
         .post {
@@ -74,7 +74,7 @@
     width: 100%;
     margin-bottom: -2px;
 }
-    
+
     .footer {
 color: white;
 padding: 30px 20px;
@@ -99,7 +99,7 @@ margin: 10px;
 .footer-section h3 {
 font-size: 18px;
 margin-bottom: 10px;
-border-bottom: 1px solid white;
+/* border-bottom: 1px solid white; */
 padding-bottom: 5px;
 }
 
@@ -174,13 +174,13 @@ margin-top: 10px;
         <p>Find all you want to know about Astrology, Tarot, Numerology and other divine sciences with the most insightful articles and blogs on a vast range of topics about love, money, career, marriage, lifestyle and more.</p>
     </section>
     <br><br><br>
-    
+
     <section class="blog-content">
         <h2>Recent Posts</h2>
         <div class="posts">
             @foreach($blogs as $rows)
             <div class="post">
-            <img src="{{ asset('storage/' . $rows->blog_image) }}" 
+            <img src="{{ asset('storage/' . $rows->blog_image) }}"
              alt="Banner Image" height="250px;">
 
                 <!-- <img src="assets/images/blog_1.jpg" alt="Post 1"> -->

@@ -51,7 +51,7 @@
 }
 
     /* footer */
-    
+
     .footer {
 color: white;
 padding: 30px 20px;
@@ -76,7 +76,7 @@ margin: 10px;
 .footer-section h3 {
 font-size: 18px;
 margin-bottom: 10px;
-border-bottom: 1px solid white;
+/* border-bottom: 1px solid white; */
 padding-bottom: 5px;
 }
 
@@ -158,7 +158,7 @@ margin-top: 10px;
     <p style="font-size: x-large;">Mirror-Of-Life is committed to ethical practices and client confidentiality...</p> -->
 </div>
 <script>
-         // toggle menu bar 
+         // toggle menu bar
          function toggleMenu() {
             var menu = document.getElementById("mobileMenu");
             if (menu.style.display === "flex") {

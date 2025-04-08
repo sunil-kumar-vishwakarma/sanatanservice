@@ -484,7 +484,7 @@ p#what {
 }
 
 p.life {
-    margin-left: 22%;
+    /* margin-left: 22%; */
     margin-top: 12px;
     margin-bottom: 15px;
 }
@@ -526,7 +526,7 @@ p.life {
     color: white;
     padding: 30px 20px;
     border: 2px solid white; /* White border added */
-    /* margin-top: 20px; */
+    margin-top: 20px;
     background-color: rgb(39, 39, 75) !important;
 }
 
@@ -561,6 +561,12 @@ p.life {
     margin-bottom: 5px;
     font-size: 14px;
     transition: color 0.3s;
+}
+.footer-section ul a{
+    text-decoration: none;
+}
+.footer-section a{
+    text-decoration: none;
 }
 
 .footer-section ul li:hover {

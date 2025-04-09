@@ -11,7 +11,7 @@ class RunScheduledRoute extends Command
 
     public function handle()
     {
-        $url = 'https://jdresearchcenter.com/admin/generate-daily-horscope';
+        $url = 'https://jdresearchcenter.com/public/admin/generate-daily-horscope';
         // $url = 'http://127.0.0.1:8000/admin/generate-daily-horscope';
         // $urls = [
         //     'daily'  => 'https://jdresearchcenter.com/admin/generate-daily-horscope',

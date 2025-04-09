@@ -12,7 +12,7 @@ class RunWeeklyHoroscope extends Command
 
     public function handle()
     {
-        $url = 'https://jdresearchcenter.com/admin/generate-weekly-horscope';
+        $url = 'https://jdresearchcenter.com/public/admin/generate-weekly-horscope';
         // $url = 'http://127.0.0.1:8000/admin/generate-weekly-horscope';
         $response = Http::get($url);
         $this->info("Executed: {$url} - Status: " . $response->status());

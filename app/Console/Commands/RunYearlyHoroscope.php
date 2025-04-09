@@ -12,7 +12,7 @@ class RunYearlyHoroscope extends Command
 
     public function handle()
     {
-        $url = 'https://jdresearchcenter.com/admin/generate-yearly-horscope';
+        $url = 'https://jdresearchcenter.com/public/admin/generate-yearly-horscope';
         // $url = 'http://127.0.0.1:8000/admin/generate-yearly-horscope';
         $response = Http::get($url);
         $this->info("Executed: {$url} - Status: " . $response->status());

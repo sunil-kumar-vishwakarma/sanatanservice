@@ -1,443 +1,382 @@
 @extends('frontend.layout.app')
 @section('title', 'Sanatan | Home ')
 @section('content')
-<br><br><br><br>
-<style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-
-/* 🔹 Logo Section */
-.logo {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    height: 80px;
-    margin-left: 100px;
-    width: 30%;
-}
-
-
-.logo img {
-    height: 50px;
-    margin-left: 100%;
-    margin-top: 18px;
-    border-radius: 50%;
-}
-
-.logo span {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: -57px;
-    margin-right: 50%;
-    width: 80%;
-    margin-left: 149px;
-}
-
-.logo p {
-    font-size: 14px;
-    margin-top: 5px;
-    margin-left: 32%;
-    width: 140%;
-    background-color:rgb(39, 39, 75);
-}
-
-/* 🔹 Dropdown and Sign-up Container */
-.dropdown {
-    position: absolute;
-    display: inline-block;
-}
-
-/* 🔹 Dropdown Button */
-.dropdown .btn {
-    background-color: orange !important;
-    color: white;
-    font-size: 16px;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 543%;
-    width: 100%;
-    margin-bottom: -10px;
-}
-
-/* 🔹 Dropdown Menu - Ensures it appears above content */
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    min-width: 150px;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000; /* Makes sure it's above other elements */
-    display: none;
-}
-
-/* 🔹 Show dropdown on hover */
-.dropdown:hover .dropdown-menu {
-    display: block;
-}
-
-/* 🔹 Sign-up Button */
-.signup-btn {
-    padding: 10px 20px;
-    text-decoration: none;
-    color: white;
-    justify-content: center;
-    width: 5%;
-    margin-left: 15%;
-    margin-top: 20px;
-    font-size: 20px;
-}
-/* Toggle Button */
-/* Toggle Button */
-.toggle-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    margin-right: 10%;
-    /* transform: translateX(-145px); */
-    height: 20px;
-}
-
-/* Mobile Menu (Initially Hidden) */
-.mobile-menu {
-    display: none; /* Hidden by default */
-    background: rgb(39, 39, 75); /* Purple Background */
-    position: absolute;
-    top: 110px;
-    transform: translateX(-50%);
-    width: 80%;
-    padding: 20px;
-    max-width: 1258px;
-    text-align: left;
-    border-radius: 10px;
-    left: 48%;
-    gap: 6px;
-}
-
-/* Show Menu on Active */
-.mobile-menu.active {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 40px; /* Space between columns */
-}
-
-/* Each Section */
-.menu-section {
-    flex: 1;
-    min-width: 200px; /* Minimum width per section */
-}
-
-/* Headings (ASTROLOGY, PANDIT JI, etc.) */
-.mobile-menu a {
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
-    display: block;
-    margin-bottom: 10px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-/* UL List */
-.mobile-menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-/* LI Items */
-.mobile-menu li {
-    padding: 5px 0;
-    color: white;
-    margin-bottom: 5px;
-}
-
-
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .dropdown, .signup-btn {
-        margin-top: 10px;
-        margin-right: 50px;
-    }
-}
-
-/* main section */
-.search-bar {
-            display: flex;
-            justify-content: center;
-            padding: 45px;
-            background: #4a0072;
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: rgb(34 0 59);
+            color: white;
         }
-        .search-bar input, .search-bar select {
-            padding: 10px;
-            margin: 10px;
-            border-radius: 5px;
-            border: none;
-            width: 200px;  
+
+        .chat-main-wrapper {
+            padding: 30px;
+            margin-top: 100px;
         }
-        .astrologers {
+
+        .chat-container-box {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .chat-top-controls {
             display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
             flex-wrap: wrap;
             justify-content: center;
-            padding: 10px;
+            align-items: center;
         }
-        .astrologer-card {
-            background: #500062;
-            padding: 20px;
-            margin: 10px;
-            border-radius: 10px;
-            text-align: center;
-            width: 258px;
-            height: 346px;
-        }
-        .astrologer-card img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-        }
-        .astrologer-card button {
-            display: block;
-            margin: 5px 20px;
-            padding: 10px;
-            background: orange;
+
+        .chat-header-btn {
+            background: linear-gradient(to top, rgba(54, 0, 100, 0.9), #000000);
+            color: white;
+            font-weight: bold;
+            padding: 10px 40px;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
-            display: inline;
         }
 
-        /* footer style */
-        .footer {
-color: white;
-padding: 30px 20px;
-border: 2px solid white; /* White border added */
-margin-top: 20px;
-}
+        .chat-search-input,
+        .chat-filter-dropdown {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            width: 240px;
+        }
 
-.footer-container {
-display: flex;
-flex-wrap: wrap;
-justify-content: space-between;
-max-width: 1200px;
-margin: 0 auto;
-}
+        .chat-card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 970px;
+            margin: 0 auto;
+        }
 
-.footer-section {
-flex: 1;
-min-width: 200px;
-margin: 10px;
-}
+        .chat-astro-card {
+            background-color: #aa0eb50f;
+            border-radius: 10px;
+            padding: 12px;
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: white;
+            border: 1px solid white;
+        }
 
-.footer-section h3 {
-font-size: 18px;
-margin-bottom: 10px;
-border-bottom: 1px solid white;
-padding-bottom: 5px;
-}
+        .chat-img-container {
+            width: 70px;
+            flex-shrink: 0;
+        }
 
-.footer-section ul {
-list-style: none;
-padding: 0;
-margin: auto;
-}
+        .chat-img-style {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+        }
 
-.footer-section ul li {
-margin-bottom: 5px;
-font-size: 14px;
-transition: color 0.3s;
-}
+        .chat-category-label {
+            font-size: 10px;
+            margin-top: 4px;
+            text-align: center;
+        }
 
-.footer-section ul li:hover {
-color: #f39c12;
-cursor: pointer;
-}
+        .chat-astro-info {
+            flex: 1;
+            font-size: 12px;
+            line-height: 1.3;
+        }
 
-.footer-section img {
-width: 150px;
-margin: 5px 0;
-}
+        .chat-astro-info h3 {
+            margin: 0 0 4px;
+            font-size: 14px;
+        }
 
-.social-icons {
-display: flex;
-gap: 10px;
-margin-top: 10px;
-}
+        .chat-astro-info p {
+            margin: 2px 0;
+            font-size: 11px;
+        }
 
-.social-icons img {
-width: 30px;
-transition: transform 0.3s;
-}
+        .chat-price-label {
+            font-weight: bold;
+            font-size: 12px;
+        }
 
-.social-icons img:hover {
-transform: scale(1.1);
-}
+        .chat-price-label span {
+            margin-left: 6px;
+            background: white;
+            color: #aa0eb5;
+            padding: 1px 4px;
+            border-radius: 4px;
+            font-size: 10px;
+        }
 
-.copy {
-text-align: center;
-color: white;
-padding: 10px;
-font-size: 14px;
-margin-top: 10px;
-}
+        .chat-call-buttons {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+            color: #aa0eb5;
+            border: none;
+            border-radius: 30px;
+            font-size: 14px;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
 
+        .chat-voice-call-btn,
+        .chat-video-call-btn {
+            background-color: white;
+            color: #aa0eb5;
+            border: none;
+            border-radius: 20px;
+            font-size: 13px;
+            padding: 6px 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
 
-/* Responsive Footer */
-@media (max-width: 768px) {
-.footer-container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
+        .chat-voice-call-btn:hover,
+        .chat-video-call-btn:hover {
+            background-color: #f5e8fa;
+        }
 
-.footer-column {
-    width: 100%;
-    margin-bottom: 20px;
-}
-}
+        @media (max-width: 480px) {
+            .chat-main-wrapper {
+                padding: 20px !important;
+            }
 
-</style>
+            .chat-top-controls {
+                gap: 12px !important;
+                align-items: stretch !important;
+                flex-wrap: nowrap;
+            }
 
-<main>
-        <section class="search-bar">
-            <h2 style="background-color: #13132b; margin-right:200px; padding: 12px;"> Talk to Astrologers</h2>
-            <input type="text" placeholder="Search Astrologers">
-            <select>
-                <option>Online</option>
-                <option>Low Experience</option>
-                <option>High Experience</option>
-                <option>Lower Price</option>
-                <option>High Price</option>
-            </select>
-            <select>
-                <option>All</option>
-                <option>New category</option>
-                <option>Maritial life</option>
-                <option>Kids</option>
-                <option>Education</option>
-                <option>Finance & Business</option>
-                <option>Love & Relationship</option>
-            </select>
-        </section>
+            .chat-search-input,
+            .chat-filter-dropdown,
+            .chat-header-btn {
+                width: 100% !important;
+                padding: 14px !important;
+                font-size: 22px !important;
+            }
 
-        <section class="astrologers">
-            <div class="astrologer-card">
-                <img src="assets/images/astro_1739789432 copy.png" alt="Astrologer">
-                <br>
-                <h3>Raj</h3>
-                <p>Experience: 10 Years</p>
-                <p>Fee: 5₹/Min (FREE)</p>
-                <p>Category:Job & Kids</p>
-                <button>Call</button>
-                <button>Video</button>
-            </div>
-            <div class="astrologer-card">
-                <img src="assets/images/astro_1739789432.png" alt="Astrologer">
-                <br>
-                <h3>Raj</h3>
-                <p>Experience: 10 Years</p>
-                <p>Fee: 5₹/Min (FREE)</p>
-                <p>Category:Job & Kids</p>
-                <button>Call</button>
-                <button>Video</button>
-            </div>
-            <div class="astrologer-card">
-                <img src="assets/images/astrologer_1740224437ff.png" alt="Astrologer">
-                <br>
-                <h3>Raj</h3>
-                <p>Experience: 10 Years</p>
-                <p>Fee: 5₹/Min (FREE)</p>
-                <p>Category:Job & Kids</p>
-                <button>Call</button>
-                <button>Video</button>
-            </div>
-            <div class="astrologer-card">
-                <img src="assets/images/astrologer_1740079890dd.png" alt="Astrologer">
-                <br>
-                <h3>Raj</h3>
-                <p>Experience: 10 Years</p>
-                <p>Fee: 5₹/Min (FREE)</p>
-                <p>Category:Job & Kids</p>
-                <button>Call</button>
-                <button>Video</button>
-            </div>
-            <div class="astrologer-card">
-                <img src="assets/images/astrologer_1740079890dd.png" alt="Astrologer">
-                <br>
-                <h3>Raj</h3>
-                <p>Experience: 10 Years</p>
-                <p>Fee: 5₹/Min (FREE)</p>
-                <p>Category:Job & Kids</p>
-                <button>Call</button>
-                <button>Video</button>
-            </div>
-            <div class="astrologer-card">
-                <img src="assets/images/astrologer_1740079890dd.png" alt="Astrologer">
-                <br>
-                <h3>Raj</h3>
-                <p>Experience: 10 Years</p>
-                <p>Fee: 5₹/Min (FREE)</p>
-                <p>Category:Job & Kids</p>
-                <button>Call</button>
-                <button>Video</button>
-            </div>
-            <div class="astrologer-card">
-                <img src="assets/images/astrologer_1740079890dd.png" alt="Astrologer">
-                <br>
-                <h3>Raj</h3>
-                <p>Experience: 10 Years</p>
-                <p>Fee: 5₹/Min (FREE)</p>
-                <p>Category:Job & Kids</p>
-                <button>Call</button>
-                <button>Video</button>
-            </div>
-            <div class="astrologer-card">
-                <img src="assets/images/astrologer_1740079890dd.png" alt="Astrologer">
-                <br>
-                <h3>Raj</h3>
-                <p>Experience: 10 Years</p>
-                <p>Fee: 5₹/Min (FREE)</p>
-                <p>Category:Job & Kids</p>
-                <button>Call</button>
-                <button>Video</button>
-            </div>
-            <div class="astrologer-card">
-                <img src="assets/images/astrologer_1740079890dd.png" alt="Astrologer"><br>
-                <h3>Raj</h3>
-                <p>Experience: 10 Years</p>
-                <p>Fee: 5₹/Min (FREE)</p>
-                <p>Category:Job & Kids</p>
-                <button>Call</button>
-                <button>Video</button>
-            </div>
-            <div class="astrologer-card">
-                <img src="assets/images/astrologer_1740079890dd.png" alt="Astrologer"><br>
-                <h3>Raj</h3>
-                <p>Experience: 10 Years</p>
-                <p>Fee: 5₹/Min (FREE)</p>
-                <p>Category:Job & Kids</p>
-                <button>Call</button>
-                <button>Video</button>
-            </div>
-        </section>
-    </main>
+            .chat-card-grid {
+                grid-template-columns: 1fr !important;
+                padding: 0 10px !important;
+            }
 
-    <script>
-         // toggle menu bar 
-         function toggleMenu() {
-            var menu = document.getElementById("mobileMenu");
-            if (menu.style.display === "flex") {
-                menu.style.display = "none";
-            } else {
-                menu.style.display = "flex";
+            .chat-astro-card {
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                padding: 20px !important;
+            }
+
+            .chat-img-container {
+                width: 90px !important;
+            }
+
+            .chat-img-style {
+                width: 90px !important;
+                height: 90px !important;
+            }
+
+            .chat-category-label {
+                font-size: 10px;
+                margin-top: 4px;
+                text-align: center;
+            }
+
+            .chat-astro-info h3 {
+                font-size: 16px !important;
+            }
+
+            .chat-astro-info p {
+                font-size: 13px !important;
+            }
+
+            .chat-price-label {
+                font-size: 14px !important;
+            }
+
+            .chat-price-label span {
+                font-size: 12px !important;
+                padding: 3px 6px !important;
+            }
+
+            .chat-call-buttons {
+                position: static !important;
+                margin-top: 12px !important;
+                padding: 10px !important;
+                font-size: 15px !important;
+                text-align: center !important;
             }
         }
-    </script>
+    </style>
+
+    <div class="chat-main-wrapper">
+        <div class="chat-container-box">
+            <div class="chat-top-controls">
+                <button class="chat-header-btn">Talk To Astrologer</button>
+                <input type="text" placeholder="Search Astrologers" class="chat-search-input" />
+                <select class="chat-filter-dropdown">
+                    <option>Online</option>
+                    <option>Low Experience</option>
+                    <option>High Experience</option>
+                    <option>Lower Price</option>
+                    <option>High Price</option>
+                </select>
+                <select class="chat-filter-dropdown">
+                    <option>All</option>
+                    <option>Maritial life</option>
+                    <option>Kids</option>
+                    <option>Education</option>
+                    <option>Finance & Business</option>
+                    <option>Career & Jobs</option>
+                    <option>Love & Relationship</option>
+                </select>
+            </div>
+
+            <div class="chat-card-grid">
+                <!-- Card 1 -->
+                <div class="chat-astro-card">
+                    <div class="chat-img-container">
+                        <img src="https://jdresearchcenter.com/public/storage/images/astrologer_1739789432.png"
+                            alt="Astrologer" class="chat-img-style">
+                        <p class="chat-category-label">Category: Finance & Business</p>
+                    </div>
+                    <div class="chat-astro-info">
+                        <h3>Kiran</h3>
+                        <p>Career</p>
+                        <p>English, Gujarati</p>
+                        <p>Exp: 12 Years</p>
+                        <p class="chat-price-label">$2/Min <span>FREE</span></p>
+                    </div>
+                    <div class="chat-call-buttons">
+                        <button class="chat-voice-call-btn"><i class="fa-solid fa-phone"></i></button>
+                        <button class="chat-video-call-btn"><i class="fa-solid fa-video"></i></button>
+                    </div>
+                </div>
+                <div class="chat-astro-card">
+                    <div class="chat-img-container">
+                        <img src="https://jdresearchcenter.com/public/storage/images/astrologer_1739789432.png"
+                            alt="Astrologer" class="chat-img-style">
+                        <p class="chat-category-label">Category: Finance & Business</p>
+                    </div>
+                    <div class="chat-astro-info">
+                        <h3>Kiran</h3>
+                        <p>Career</p>
+                        <p>English, Gujarati</p>
+                        <p>Exp: 12 Years</p>
+                        <p class="chat-price-label">$2/Min <span>FREE</span></p>
+                    </div>
+                    <div class="chat-call-buttons">
+                        <button class="chat-voice-call-btn"><i class="fa-solid fa-phone"></i></button>
+                        <button class="chat-video-call-btn"><i class="fa-solid fa-video"></i></button>
+                    </div>
+                </div>
+                <div class="chat-astro-card">
+                    <div class="chat-img-container">
+                        <img src="https://jdresearchcenter.com/public/storage/images/astrologer_1739789432.png"
+                            alt="Astrologer" class="chat-img-style">
+                        <p class="chat-category-label">Category: Finance & Business</p>
+                    </div>
+                    <div class="chat-astro-info">
+                        <h3>Kiran</h3>
+                        <p>Career</p>
+                        <p>English, Gujarati</p>
+                        <p>Exp: 12 Years</p>
+                        <p class="chat-price-label">$2/Min <span>FREE</span></p>
+                    </div>
+                    <div class="chat-call-buttons">
+                        <button class="chat-voice-call-btn"><i class="fa-solid fa-phone"></i></button>
+                        <button class="chat-video-call-btn"><i class="fa-solid fa-video"></i></button>
+                    </div>
+                </div>
+                <div class="chat-astro-card">
+                    <div class="chat-img-container">
+                        <img src="https://jdresearchcenter.com/public/storage/images/astrologer_1739789432.png"
+                            alt="Astrologer" class="chat-img-style">
+                        <p class="chat-category-label">Category: Finance & Business</p>
+                    </div>
+                    <div class="chat-astro-info">
+                        <h3>Kiran</h3>
+                        <p>Career</p>
+                        <p>English, Gujarati</p>
+                        <p>Exp: 12 Years</p>
+                        <p class="chat-price-label">$2/Min <span>FREE</span></p>
+                    </div>
+                    <div class="chat-call-buttons">
+                        <button class="chat-voice-call-btn"><i class="fa-solid fa-phone"></i></button>
+                        <button class="chat-video-call-btn"><i class="fa-solid fa-video"></i></button>
+                    </div>
+                </div>
+                <div class="chat-astro-card">
+                    <div class="chat-img-container">
+                        <img src="https://jdresearchcenter.com/public/storage/images/astrologer_1739789432.png"
+                            alt="Astrologer" class="chat-img-style">
+                        <p class="chat-category-label">Category: Finance & Business</p>
+                    </div>
+                    <div class="chat-astro-info">
+                        <h3>Kiran</h3>
+                        <p>Career</p>
+                        <p>English, Gujarati</p>
+                        <p>Exp: 12 Years</p>
+                        <p class="chat-price-label">$2/Min <span>FREE</span></p>
+                    </div>
+                    <div class="chat-call-buttons">
+                        <button class="chat-voice-call-btn"><i class="fa-solid fa-phone"></i></button>
+                        <button class="chat-video-call-btn"><i class="fa-solid fa-video"></i></button>
+                    </div>
+                </div>
+                <div class="chat-astro-card">
+                    <div class="chat-img-container">
+                        <img src="https://jdresearchcenter.com/public/storage/images/astrologer_1739789432.png"
+                            alt="Astrologer" class="chat-img-style">
+                        <p class="chat-category-label">Category: Finance & Business</p>
+                    </div>
+                    <div class="chat-astro-info">
+                        <h3>Kiran</h3>
+                        <p>Career</p>
+                        <p>English, Gujarati</p>
+                        <p>Exp: 12 Years</p>
+                        <p class="chat-price-label">$2/Min <span>FREE</span></p>
+                    </div>
+                    <div class="chat-call-buttons">
+                        <button class="chat-voice-call-btn"><i class="fa-solid fa-phone"></i></button>
+                        <button class="chat-video-call-btn"><i class="fa-solid fa-video"></i></button>
+                    </div>
+                </div>
+                <div class="chat-astro-card">
+                    <div class="chat-img-container">
+                        <img src="https://jdresearchcenter.com/public/storage/images/astrologer_1739789432.png"
+                            alt="Astrologer" class="chat-img-style">
+                        <p class="chat-category-label">Category: Finance & Business</p>
+                    </div>
+                    <div class="chat-astro-info">
+                        <h3>Kiran</h3>
+                        <p>Career</p>
+                        <p>English, Gujarati</p>
+                        <p>Exp: 12 Years</p>
+                        <p class="chat-price-label">$2/Min <span>FREE</span></p>
+                    </div>
+                    <div class="chat-call-buttons">
+                        <button class="chat-voice-call-btn"><i class="fa-solid fa-phone"></i></button>
+                        <button class="chat-video-call-btn"><i class="fa-solid fa-video"></i></button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+@endsection

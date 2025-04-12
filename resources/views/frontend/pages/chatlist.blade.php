@@ -7,7 +7,8 @@
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
-            background-color: rgb(34 0 59);
+            /* background-color: rgb(34 0 59); */
+            background-color: #12002c;
             color: white;
         }
 

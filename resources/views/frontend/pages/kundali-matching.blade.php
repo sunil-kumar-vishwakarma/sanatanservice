@@ -1,126 +1,137 @@
 @extends('frontend.layout.app')
 @section('content')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
-    .bg-white {
-    --bs-bg-opacity: 1;
-    background-color: rgb(35 23 58) !important;
-}
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* max-width: 1200px; */
-    margin-top: 0%!important;
-    /* margin-top: 5%; */
-}
+        .bg-white {
+            --bs-bg-opacity: 1;
+            background-color: rgb(35 23 58) !important;
+        }
 
-/* .cat-heading-match{
-    color: aquamarine;
-}
-.text-center.font-24.font-weight-bold{
-    color: aquamarine;
-}
-.font-16.text-center.bg-pink.color-red.py-2.font-weight-bold.d-md-block.d-none{
-    color: aquamarine;
-}
-.heading.text-center{
-    color: aquamarine;
-} */
-.color-red{
-    color:red;
-}
-.d-block.font-30.heading-line.px-xl-5.mx-xl-4{
-    color:white;
-}
-.d-none.d-md-block.font-22.mt-3{
-    color:white;
-}
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* max-width: 1200px; */
+            margin-top: 0% !important;
+            /* margin-top: 5%; */
+        }
 
-.bg-pink {
-    background: rgba(54, 0, 100, 0.9) !important;
-}
-@media (min-width: 576px) {
-    .p-sm-3 {
-        padding: 1rem !important;
-    }
-}
-.text-center {
-    text-align: center !important;
-}
-.font-30 {
-    font-size: 30px !important;
-}
-@media (min-width: 1200px) {
-    .pl-xl-5, .px-xl-5 {
-        padding-left: 3rem !important;
-    }
-}
-.btn-chat {
-    background: white;
-    box-shadow: 0 2px 3px #ffd70080;
-    font-size: 15px;
-    font-weight: 600;
-    border-radius: 40px;
-    padding: 8px 20px;
-    margin: 0 5px;
-    white-space: nowrap;
-}
-.position-relative {
-    position: relative !important;
-}
-img {
-    vertical-align: middle;
-    border-style: none;
-}
-h2.heading {
-    font-weight: 700 !important;
-    text-transform: uppercase;
-    font-size: 30px !important;
-}
-h1, h2, h3, h4, h5 {
-    color: white;
-    font-weight: 600;
-}
-.panchange-view{
-    /* background-color: rgb(39, 39, 75); */
-    margin-top: -35px;
-}
+        .color-red {
+            color: red;
+        }
 
-svg {
-    background-color: white;
-    border-radius: 25px;
-    overflow: hidden;
-    vertical-align: middle;
-}
-.astroway-menu li {
-    min-width: 70px;
-}
-.astroway-menu li {
-    margin-right: 0px !important;
-}
-.astroway-menu ul {
-    overflow-x: auto;
-    justify-content: space-between;
-    scrollbar-width: none;
-}
+        .d-block.font-30.heading-line.px-xl-5.mx-xl-4 {
+            color: white;
+        }
 
-.row-images{
-    width: 100%;
-}
-.font-weight-semi-bold {
-    font-weight: 600 !important;
-    color: white;
-}
-label {
-    display: inline-block;
-    margin-bottom: .5rem;
-}
-.color-red {
-    color: #65A9FD !important;
-}
-</style>
+        .d-none.d-md-block.font-22.mt-3 {
+            color: white;
+        }
+
+        .bg-pink {
+            background: rgba(54, 0, 100, 0.9) !important;
+        }
+
+
+
+        .btn-chat {
+            background: white;
+            box-shadow: 0 2px 3px #ffd70080;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 40px;
+            padding: 8px 20px;
+            margin: 0 5px;
+            white-space: nowrap;
+        }
+
+        .btn-chat:hover {
+            color: white;
+            background-color: purple;
+        }
+
+        .position-relative {
+            /* display: flex; */
+            flex-direction: row !important;
+            gap: 32px;
+            /* position: relative; */
+        }
+
+
+        img {
+            vertical-align: middle;
+            border-style: none;
+        }
+
+        h2.heading {
+            font-weight: 700 !important;
+            text-transform: uppercase;
+            font-size: 30px !important;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            color: white;
+            font-weight: 600;
+        }
+
+        .panchange-view {
+            /* background-color: rgb(39, 39, 75); */
+            margin-top: -35px;
+        }
+
+        svg {
+            background-color: white;
+            border-radius: 25px;
+            overflow: hidden;
+            vertical-align: middle;
+        }
+
+        .astroway-menu li {
+            min-width: 70px;
+        }
+
+        .astroway-menu li {
+            margin-right: 0px !important;
+        }
+
+        .astroway-menu ul {
+            overflow-x: auto;
+            justify-content: space-between;
+            scrollbar-width: none;
+        }
+
+        .row-images {
+            width: 100%;
+        }
+
+        .font-weight-semi-bold {
+            font-weight: 600 !important;
+            color: white;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: .5rem;
+        }
+
+        .color-red {
+            color: #65A9FD !important;
+        }
+
+        /* Tablet and up */
+      
+        @media (max-width: 480px) {
+            .position-relative {
+                flex-direction: column !important;
+                gap: 40px;
+            }
+        }
+    </style>
     <div class="pt-1 pb-1 bg-red d-none d-md-block astroway-breadcrumb panchange-view">
         <div class="container">
             <div class="row afterLoginDisplay">
@@ -189,7 +200,11 @@ label {
                 <div class="col-sm-12 mt-4">
                     <div class="row">
                         <div class="col-12 mb-4">
-                            <h2 class="cat-heading-match font-weight-bold">Kundli Matching | Kundali Match for Marriage |
+                            <h2 class="cat-heading-match font-weight-bold"
+                                style="
+                            text-align: center;
+                        ">Kundli
+                                Matching | Kundali Match for Marriage |
                                 Horoscope Matching</h2>
                             <div>
                                 <p class="pt-3 text-center">Have you finalized the person you wish to get married to and
@@ -227,7 +242,7 @@ label {
                             <div class="show-shadow-rounded-main mb-3 h-100">
                                 <h3 class="font-16 text-center bg-pink color-red py-2 font-weight-bold d-md-block d-none">
                                     ENTER DETAILS</h3>
-                                <form class="px-3 font-12" id="kundalimatchForm"  autocomplete="off" >
+                                <form class="px-3 font-12" id="kundalimatchForm" autocomplete="off">
                                     <div class="row">
                                         <div class="titleDifferent d-md-none d-block">
                                             <h4 class="color-red text-center font-weight-bold py-1 px-3 mt-2">
@@ -236,44 +251,51 @@ label {
                                         </div>
                                         <div class="col-12 col-md-6 py-3 show-shadow-rounded">
                                             <div class="form-group">
-                                                <label  class="font-weight-semi-bold">Boy Name&nbsp;<span
+                                                <label class="font-weight-semi-bold">Boy Name&nbsp;<span
                                                         class="color-red">*</span></label>
-                                                <input class="form-control border-pink" data-val="true" name="kundali[0][name]" placeholder="Enter Name" type="text"
+                                                <input class="form-control border-pink" data-val="true"
+                                                    name="kundali[0][name]" placeholder="Enter Name" type="text"
                                                     value="">
                                             </div>
                                             <div class=" mb-3">
                                                 <label class="font-weight-semi-bold">Birth Date&nbsp;<span
                                                         class="color-red">*</span></label>
-                                                <input type="date" name="kundali[0][birthDate]" class="form-control rounded border-pink shadow-none matchInTxt ui-autocomplete-input">
+                                                <input type="date" name="kundali[0][birthDate]"
+                                                    class="form-control rounded border-pink shadow-none matchInTxt ui-autocomplete-input">
 
                                             </div>
                                             <div class="form-group">
-                                                <label  class="font-weight-semi-bold">Birth Time&nbsp;<span
+                                                <label class="font-weight-semi-bold">Birth Time&nbsp;<span
                                                         class="color-red">*</span></label>
-                                                <input type="time" name="kundali[0][birthTime]" class="form-control rounded border-pink shadow-none matchInTxt ui-autocomplete-input">
+                                                <input type="time" name="kundali[0][birthTime]"
+                                                    class="form-control rounded border-pink shadow-none matchInTxt ui-autocomplete-input">
                                             </div>
                                             <div class="mb-3">
-                                                <label  class="font-weight-semi-bold">Place of
+                                                <label class="font-weight-semi-bold">Place of
                                                     Birth&nbsp;<span class="color-red">*</span></label>
                                                 <div class="input-group is-invalid">
                                                     <input class="form-control border-pink ui-autocomplete-input"
-                                                        placeholder="Enter City" id="boyaddress" name="kundali[0][birthPlace]" type="text" autocomplete="off">
+                                                        placeholder="Enter City" id="boyaddress"
+                                                        name="kundali[0][birthPlace]" type="text" autocomplete="off">
                                                 </div>
                                             </div>
 
                                             <div class="mb-3">
-                                                <label  class="font-weight-semi-bold">Type&nbsp;<span class="color-red">*</span></label>
-                                                <select name="kundali[0][match_type]" class="form-control font-14 border-pink text-dark shadow-none matchInTxt">
-                                                <option>Select Type</option>
-                                                <option value="North">North</option>
-                                                <option value="South">South</option>
-                                            </select>
+                                                <label class="font-weight-semi-bold">Type&nbsp;<span
+                                                        class="color-red">*</span></label>
+                                                <select name="kundali[0][match_type]"
+                                                    class="form-control font-14 border-pink text-dark shadow-none matchInTxt">
+                                                    <option>Select Type</option>
+                                                    <option value="North">North</option>
+                                                    <option value="South">South</option>
+                                                </select>
                                             </div>
 
                                             <input type="hidden" value="Male" name="kundali[0][gender]">
                                             <input type="hidden" id="boylatitude" name="kundali[0][latitude]">
                                             <input type="hidden" id="boylongitude" name="kundali[0][longitude]">
-                                            <input type="hidden" id="boytimezone" name="kundali[0][timezone]" value="5.5">
+                                            <input type="hidden" id="boytimezone" name="kundali[0][timezone]"
+                                                value="5.5">
                                             <input type="hidden" value="en" name="kundali[0][lang]">
                                             <input type="hidden" value="1" name="kundali[0][forMatch]">
                                             <input type="hidden" value="true" name="is_match">
@@ -288,54 +310,62 @@ label {
                                         <div class="col-12 col-md-6 py-3 show-shadow-rounded">
                                             <div class="form-group">
 
-                                                <label  class="font-weight-semi-bold">Girl Name&nbsp;<span class="color-red">*</span></label>
-                                                <input class="form-control border-pink"  name="kundali[1][name]"
+                                                <label class="font-weight-semi-bold">Girl Name&nbsp;<span
+                                                        class="color-red">*</span></label>
+                                                <input class="form-control border-pink" name="kundali[1][name]"
                                                     placeholder="Enter Name" type="text" value="">
                                             </div>
                                             <div class=" mb-3">
                                                 <label class="font-weight-semi-bold">Birth Date&nbsp;<span
                                                         class="color-red">*</span></label>
-                                                <input type="date" name="kundali[1][birthDate]" class="form-control rounded border-pink shadow-none matchInTxt ui-autocomplete-input">
+                                                <input type="date" name="kundali[1][birthDate]"
+                                                    class="form-control rounded border-pink shadow-none matchInTxt ui-autocomplete-input">
 
                                             </div>
                                             <div class="form-group">
                                                 <label class="font-weight-semi-bold">Birth Time&nbsp;<span
                                                         class="color-red">*</span></label>
-                                                <input type="time" name="kundali[1][birthTime]" class="form-control rounded border-pink shadow-none matchInTxt ui-autocomplete-input">
+                                                <input type="time" name="kundali[1][birthTime]"
+                                                    class="form-control rounded border-pink shadow-none matchInTxt ui-autocomplete-input">
                                             </div>
                                             <div class="mb-3">
-                                                <label  class="font-weight-semi-bold">Place of
+                                                <label class="font-weight-semi-bold">Place of
                                                     Birth&nbsp;<span class="color-red">*</span></label>
-                                                <input class="form-control border-pink ui-autocomplete-input" id="girladdress" name="kundali[1][birthPlace]" placeholder="Enter City" type="text" autocomplete="off">
+                                                <input class="form-control border-pink ui-autocomplete-input"
+                                                    id="girladdress" name="kundali[1][birthPlace]"
+                                                    placeholder="Enter City" type="text" autocomplete="off">
                                             </div>
 
                                             <div class="mb-3">
-                                                <label class="font-weight-semi-bold">Type&nbsp;<span class="color-red">*</span></label>
-                                                <select name="kundali[1][match_type]" class="form-control font-14 border-pink text-dark shadow-none matchInTxt">
-                                                <option>Select Type</option>
-                                                <option value="North">North</option>
-                                                <option value="South">South</option>
-                                            </select>
+                                                <label class="font-weight-semi-bold">Type&nbsp;<span
+                                                        class="color-red">*</span></label>
+                                                <select name="kundali[1][match_type]"
+                                                    class="form-control font-14 border-pink text-dark shadow-none matchInTxt">
+                                                    <option>Select Type</option>
+                                                    <option value="North">North</option>
+                                                    <option value="South">South</option>
+                                                </select>
                                             </div>
 
                                             <input type="hidden" value="Female" name="kundali[1][gender]">
                                             <input type="hidden" id="girllatitude" name="kundali[1][latitude]">
                                             <input type="hidden" id="girllongitude" name="kundali[1][longitude]">
-                                            <input type="hidden" id="girltimezone" name="kundali[1][timezone]" value="5.5">
+                                            <input type="hidden" id="girltimezone" name="kundali[1][timezone]"
+                                                value="5.5">
                                             <input type="hidden" value="en" name="kundali[1][lang]">
                                             <input type="hidden" value="1" name="kundali[1][forMatch]">
 
 
                                             <div class="row">
                                                 <div class="col-12 col-md-12 pt-3 text-center text-md-right">
-                                                    <div class="">
-                                                        <button class="btn btn-chat px-5 my-2"
-                                                            id="kundalimatchloaderbtn" type="button" style="display:none;"
-                                                            disabled>
+                                                    <div class="" style="text-align: end;">
+                                                        <button class="btn btn-chat px-5 my-2" id="kundalimatchloaderbtn"
+                                                            type="button" style="display:none;" disabled>
                                                             <span class="spinner-border spinner-border-sm" role="status"
                                                                 aria-hidden="true"></span> Loading...
                                                         </button>
-                                                        <button type="submit" id="showKundalimatchbtn" class="btn btn-chat px-5 my-2">Get
+                                                        <button type="submit" id="showKundalimatchbtn"
+                                                            class="btn btn-chat px-5 my-2">Get
                                                             Report</button>
                                                     </div>
                                                 </div>
@@ -427,8 +457,8 @@ label {
                                         <span class="d-none d-md-block font-22 mt-3">Get answers to all your questions
                                             right here.</span>
 
-                                        <a href="#"
-                                            class="btn btn-chat px-3 px-sm-4 font-small-ms mt-3">Ask An Astrologer Now</a>
+                                        <a href="#" class="btn btn-chat px-3 px-sm-4 font-small-ms mt-3">Ask An
+                                            Astrologer Now</a>
                                     </div>
                                 </div>
                                 <div
@@ -470,4 +500,3 @@ label {
         </div>
     </div>
 @endsection
-

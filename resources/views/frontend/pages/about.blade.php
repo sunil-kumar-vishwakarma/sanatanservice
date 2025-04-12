@@ -16,13 +16,7 @@
             padding: 20px;
             text-align: center;
         }
-        h1 {
-            font-size: 32px;
-            font-weight: bold;
-            text-transform: uppercase;
-            position: relative;
-            display: inline-block;
-        }
+
         h1::after {
             content: "";
             display: block;
@@ -144,16 +138,9 @@
     </style>
 
     <div class="container-data">
-        <h1 style="margin-left: 43%;">{{$pages->title}}</h1><br><br>
+        <h1>{{$pages->title}}</h1><br><br>
         {!! $pages->description !!}
-        <!-- <p style="font-size: x-large;">Mirror-Of-Life stands as a beacon in the realm of astrology, blending ancient wisdom with modern insights to offer profound guidance and clarity to individuals seeking to understand the cosmic forces shaping their lives...</p>
-        <p style="font-size: x-large;">Astrology, as practiced at Mirror-Of-Life, is not merely about predicting the future, but rather understanding the intricate interplay between celestial bodies and human existence...</p>
-        <p style="font-size: x-large;">Our team of astrologers brings a wealth of experience and expertise to each consultation...</p>
-        <p style="font-size: x-large;">What sets Mirror-Of-Life apart is our dedication to accuracy and authenticity...</p>
-        <p style="font-size: x-large;">At Mirror-Of-Life, we embrace diversity and inclusivity, welcoming clients from all walks of life and backgrounds...</p>
-        <p style="font-size: x-large;">Beyond individual consultations, Mirror-Of-Life offers a range of resources to enrich your understanding of astrology...</p>
-        <p style="font-size: x-large;">Mirror-Of-Life is committed to ethical practices and client confidentiality...</p> -->
-    </div>
+     </div>
     <script>
          // toggle menu bar
          function toggleMenu() {

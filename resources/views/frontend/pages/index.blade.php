@@ -262,9 +262,9 @@
             <p>Get in touch with the best Online pandits, anytime & anywhere!</p>
         </div>
         <div class="astro-slider-wrapper">
-            <button class="astro-arrow left" onclick="slideAstrologers('left')">&#10094;</button>
+            <button class="astro-arrow left" onclick="slidePandit('left')">&#10094;</button>
 
-            <div class="astrologer-grid" id="astroSlider">
+            <div class="astrologer-grid" id="panditSlider">
                 <a href="#" class="astro-card">
                     <img src="assets/images/astro1.png" alt="Pandit 1" />
                     <div class="astro-info">
@@ -356,7 +356,7 @@
 
                 <!-- Add more <a href="#">...</a> blocks for other astrologers as needed -->
 
-                <button class="astro-arrow right" onclick="slideAstrologers('right')">&#10095;</button>
+                <button class="astro-arrow right" onclick="slidePandit('right')">&#10095;</button>
             </div>
         </div>
     </section>

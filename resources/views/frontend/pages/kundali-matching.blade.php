@@ -5,7 +5,9 @@
     <style>
         .bg-white {
             --bs-bg-opacity: 1;
-            background-color: rgb(35 23 58) !important;
+            /* background-color: rgb(35 23 58) !important; */
+            background-color: #15002c !important;
+
         }
 
         .container {
@@ -124,7 +126,7 @@
         }
 
         /* Tablet and up */
-      
+
         @media (max-width: 480px) {
             .position-relative {
                 flex-direction: column !important;
@@ -132,7 +134,7 @@
             }
         }
     </style>
-    <div class="pt-1 pb-1 bg-red d-none d-md-block astroway-breadcrumb panchange-view">
+    {{-- <div class="pt-1 pb-1 bg-red d-none d-md-block astroway-breadcrumb panchange-view">
         <div class="container">
             <div class="row afterLoginDisplay">
                 <div class="col-md-12 d-flex align-items-center">
@@ -149,9 +151,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="astroway-menu pt-2 pb-md-3 bg-pink border-bottom border-pink">
+    {{-- <div class="astroway-menu pt-2 pb-md-3 bg-pink border-bottom border-pink">
         <div class="container">
             <div class="row row-images">
                 <div class="col-sm-12">
@@ -193,8 +195,10 @@
 
             </div>
         </div>
-    </div>
-    <div class="ds-head-populararticle bg-white cat-pages">
+    </div> --}}
+
+
+    <div class="ds-head-populararticle bg-white cat-pages" style="margin-top: 81px">
         <div class="container">
             <div class="row py-3">
                 <div class="col-sm-12 mt-4">

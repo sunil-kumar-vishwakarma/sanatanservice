@@ -1,275 +1,71 @@
 @extends('frontend.layout.app')
 @section('title', 'Sanatan | About Us ')
 @section('content')
-<?php
-// Process the form submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password'];
-    $errors = [];
 
-    // Basic validation
-    if (empty($username)) {
-        $errors[] = "Username is required.";
-    }
-    if (empty($email)) {
-        $errors[] = "Email is required.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Invalid email format.";
-    }
-    if (empty($password)) {
-        $errors[] = "Password is required.";
-    }
-    if ($password !== $confirm_password) {
-        $errors[] = "Passwords do not match.";
-    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="style.css">
 
-    if (empty($errors)) {
-        // Here you would typically insert the user into the database
-        // For this example, we'll just display a success message
-        $success_message = "Signup successful!";
-    }
-}
-?>
+    <div class="auth-wrapper" id="authContainer">
+        <div class="auth-form auth-signup">
+            <form>
+                <h1>Create Account</h1>
+                <div class="social-icons-auth">
+                    <a href="#" target="_blank">
+                        <img src="assets/images/login_with_google.png" alt="Google" width="30" height="30">
+                    </a>
+                </div>
+                <span>or use your email for registration</span>
+                <input type="text" placeholder="Name" />
+                <input type="email" placeholder="Email" />
+                <input type="password" placeholder="Password" />
+                <button>Sign Up</button>
+            </form>
+        </div>
 
+        <div class="auth-form auth-signin">
+            <form>
+                <h1>Sign In</h1>
+                <div class="social-icons-auth">
+                    <a href="#" target="_blank">
+                        <img src="assets/images/login_with_google.png" alt="Google" width="30" height="30">
+                    </a>
 
-    <style>
+                </div>
+                <span>or use your email password</span>
+                <input type="email" placeholder="Email" />
+                <input type="password" placeholder="Password" />
+                <a href="#">Forget Your Password?</a>
+                <button>Sign In</button>
+            </form>
+        </div>
 
-/* 
-        body {
-            font-family: Arial, sans-serif;
-            background-color:rgb(39, 39, 75) ;
-            margin: 0;
-            padding: 0;
-        } */
-
-        .container {
-            display: block!important;
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            background: darkcyan;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 10%;
-            border-radius: 20px;
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            margin-bottom: 5px;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        input[type="submit"] {
-            padding: 10px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #555;
-        }
-
-        .error {
-            color: red;
-            margin-bottom: 10px;
-        }
-
-        .success {
-            color: green;
-            margin-bottom: 10px;
-        }
-        
-        /* Media Queries for Responsiveness */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .logo {
-        margin-left: 0;
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    .logo img {
-        margin-left: 0;
-    }
-
-    .logo span {
-        margin-left: 0;
-    }
-
-    .logo p {
-        margin-left: 0;
-    }
-
-    .lang {
-        margin-left: 0;
-        margin-top: 10px;
-        width: 100%;
-    }
-
-    .lang button {
-        margin-left: 0;
-        margin-top: 10px;
-        width: 100%;
-    }
-
-    .dropdwn ul {
-        left: 0;
-        width: 100%;
-        background-color: rgb(39, 39, 75);
-    }
-
-    .signup-btn, .login {
-        margin-left: 0;
-        margin-top: 10px;
-        width: 100%;
-    }
-
-    .toggle-btn {
-        margin-right: 0;
-        margin-top: 10px;
-        width: 100%;
-    }
-
-    .mobile-menu {
-        top: 340px;
-        left: 187px;
-        width: 100%;
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        display: none;
-    }
-
-    .menu-section {
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    .mobile-menu a {
-        font-size: 16px;
-        width: 100%;
-        text-align: center;
-    }
-
-    .mobile-menu li {
-        padding: 5px 0;
-        width: 100%;
-        text-align: center;
-        background-color:rgb(39, 39, 75);
-    }
-}
-
-@media (max-width: 480px) {
-
-    * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html, body {
-    overflow-x: hidden; /* Left side scroll ko hata diya */
-    width: 100%; /* Puri screen ko cover karega */
-}
-
-    .logo img {
-        height: 40px;
-        width: 40px;
-    }
-
-    .logo span {
-        font-size: 16px;
-    }
-
-    .logo p {
-        font-size: 12px;
-    }
-
-    .signup-btn, .login {
-        font-size: 16px;
-    }
-
-    .lang button {
-        font-size: 14px;
-    }
-}
-
-
-        @media (max-width: 768px) {
-            .container {
-                margin: 20px;
-            }
-        }
-    </style>
-
-    <div class="container">
-        <h2>Signup</h2>
-        <?php if (!empty($errors)): ?>
-            <div class="error">
-                <?php foreach ($errors as $error): ?>
-                    <p><?php echo $error; ?></p>
-                <?php endforeach; ?>
+        <div class="auth-toggle-container">
+            <div class="auth-toggle">
+                <div class="auth-panel auth-panel-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Enter your personal details to use all of site features</p>
+                    <button class="auth-hidden" id="authLoginBtn">Sign In</button>
+                </div>
+                <div class="auth-panel auth-panel-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details to start your journey with us</p>
+                    <button class="auth-hidden" id="authRegisterBtn">Sign Up</button>
+                </div>
             </div>
-        <?php endif; ?>
-        <?php if (!empty($success_message)): ?>
-            <div class="success">
-                <p><?php echo $success_message; ?></p>
-            </div>
-        <?php endif; ?>
-        <form method="POST" action="">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" value="<?php echo isset($username) ? htmlspecialchars($username) : ''; ?>">
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>">
-
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password">
-
-            <label for="confirm_password">Confirm Password:</label>
-            <input type="password" id="confirm_password" name="confirm_password">
-
-            <input type="submit" value="Signup">
-        </form>
+        </div>
     </div>
 
     <script>
-         // toggle menu bar 
-         function toggleMenu() {
-            var menu = document.getElementById("mobileMenu");
-            if (menu.style.display === "flex") {
-                menu.style.display = "none";
-            } else {
-                menu.style.display = "flex";
-            }
-        }
+        const authContainer = document.getElementById('authContainer');
+        const authRegisterBtn = document.getElementById('authRegisterBtn');
+        const authLoginBtn = document.getElementById('authLoginBtn');
+
+        authRegisterBtn.addEventListener('click', () => {
+            authContainer.classList.add('active');
+        });
+
+        authLoginBtn.addEventListener('click', () => {
+            authContainer.classList.remove('active');
+        });
     </script>
+@endsection

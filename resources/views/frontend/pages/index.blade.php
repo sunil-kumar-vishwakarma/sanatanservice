@@ -158,7 +158,7 @@
             <button class="astro-arrow left" onclick="slideAstrologers('left')">&#10094;</button>
 
             <div class="astrologer-grid" id="astroSlider">
-                <a href="#" class="astro-card">
+                <a href="/astrologerdetailspage" class="astro-card">
                     <img src="assets/images/astro1.png" alt="Astrologer 1" />
                     <div class="astro-info">
                         <h4>Astrologer Priya</h4>
@@ -173,7 +173,7 @@
                     </div>
                 </a>
 
-                <a href="#" class="astro-card">
+                <a href="/astrologerdetailspage" class="astro-card">
                     <img src="assets/images/astro2.png" alt="Astrologer 2" />
                     <div class="astro-info">
                         <h4>Astrologer Raj</h4>
@@ -188,7 +188,7 @@
                     </div>
                 </a>
 
-                <a href="#" class="astro-card">
+                <a href="/astrologerdetailspage" class="astro-card">
                     <img src="assets/images/astro3.png" alt="Astrologer 3" />
                     <div class="astro-info">
                         <h4>Astrologer Vishnu</h4>
@@ -204,7 +204,7 @@
                 </a>
 
                 <!-- Repeat for remaining astrologers -->
-                <a href="#" class="astro-card">
+                <a href="/astrologerdetailspage" class="astro-card">
                     <img src="assets/images/astro4.png" alt="Astrologer 4" />
                     <div class="astro-info">
                         <h4>Astrologer Raj</h4>
@@ -218,7 +218,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="#" class="astro-card">
+                <a href="/astrologerdetailspage" class="astro-card">
                     <img src="assets/images/astro4.png" alt="Astrologer 4" />
                     <div class="astro-info">
                         <h4>Astrologer Raj</h4>
@@ -232,7 +232,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="#" class="astro-card">
+                <a href="/astrologerdetailspage" class="astro-card">
                     <img src="assets/images/astro4.png" alt="Astrologer 4" />
                     <div class="astro-info">
                         <h4>Astrologer Raj</h4>

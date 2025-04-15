@@ -32,7 +32,8 @@
         }
 
         .chat-header-btn {
-            background: linear-gradient(to top, rgba(54, 0, 100, 0.9), #000000);
+            /* background: linear-gradient(to top, rgba(54, 0, 100, 0.9), #000000); */
+            background-color: #4b0082;
             color: white;
             font-weight: bold;
             padding: 10px 40px;

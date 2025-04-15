@@ -497,10 +497,7 @@ p.life {
     color: black;
 }
 
-.active, .accordion:hover {
-    background-color: white;
-    color: black;
-}
+
 .panel {
     padding: 0 30px;
     display: none;

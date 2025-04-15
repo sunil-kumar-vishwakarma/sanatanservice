@@ -15,7 +15,7 @@ use App\Models\Blog;
 
 class HomeController extends Controller
 {
-  
+
     public function home(Request $request)
     {
         $banners = BannerManagement::all();
@@ -25,6 +25,10 @@ class HomeController extends Controller
     public function talkastrologer(Request $request)
     {
         return view('frontend.pages.talkastrologer');
+    }
+    public function astrologerdetailspage(){
+
+        return view('frontend.pages.astrologerdetailspage');
     }
 
     public function astrologerChatList(Request $request)
@@ -51,10 +55,10 @@ class HomeController extends Controller
     public function blog(Request $request)
     {
         $blogs =  Blog::all();
-      
+
         // You can fetch astrologer data from the database here and pass it to the view
         return view('frontend.pages.blog', compact('blogs'));
-       
+
     }
 
 

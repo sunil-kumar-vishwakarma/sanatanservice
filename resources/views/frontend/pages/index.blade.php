@@ -126,7 +126,7 @@
             <p>Today's Panchang</p>
         </a>
 
-        <a href="{{ url('/janam-kundali') }}" class="feature-item">
+        <a href="{{ url('/kundali') }}" class="feature-item">
             <img src="{{ asset('assets/images/FreeKundali1707194841.png') }}" alt="Kundli" />
             <p>Janam Kundali</p>
         </a>
@@ -416,7 +416,7 @@
                     <h4>Zodiac Signs man clingy in Romance</h4>
                     <h3>Zodiac Signs man are clingy in Romance</h3>
                     <p>Have you ever dated someone who just couldn’t give you...</p>
-                    <a href="#">Read More ➭</a>
+                    <a href="/blogDetailspage">Read More ➭</a>
                 </div>
             </div>
 
@@ -426,7 +426,7 @@
                     <h4>5 Zodiac Signs That Are Born Clever</h4>
                     <h3>5 Zodiac Signs That Are Born Clever</h3>
                     <p>Have you ever wondered why some people seem to be...</p>
-                    <a href="#">Read More ➭</a>
+                    <a href="/blogDetailspage">Read More ➭</a>
                 </div>
             </div>
 
@@ -436,7 +436,7 @@
                     <h4>Signs Connection in Relationship</h4>
                     <h3>Connection In Relationships Signs</h3>
                     <p>You might understand this need for touch if you’re a Taurus or know one...</p>
-                    <a href="#">Read More ➭</a>
+                    <a href="/blogDetailspage">Read More ➭</a>
                 </div>
             </div>
         </div>

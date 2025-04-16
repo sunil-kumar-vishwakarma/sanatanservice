@@ -451,6 +451,10 @@ text-decoration: none;
   cursor: pointer;
   font-size: 14px;
 }
+.action-btn:hover{
+    background-color: rgb(34 0 59);
+      color: #fff;
+}
 
 /* Features */
 .features {

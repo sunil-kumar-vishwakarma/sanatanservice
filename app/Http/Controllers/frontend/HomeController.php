@@ -30,6 +30,10 @@ class HomeController extends Controller
 
         return view('frontend.pages.astrologerdetailspage');
     }
+    public function blogDetailspage(){
+
+        return view('frontend.pages.blogDetailspage');
+    }
 
     public function astrologerChatList(Request $request)
     {

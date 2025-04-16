@@ -265,6 +265,7 @@ Route::get('/astrologer_registration', [AstrologerAuthController::class, 'astrol
 Route::post('/registration', [AstrologerAuthController::class, 'astrologerstore'])->name('front.astrologerstore');
 
 Route::get('/astrologerdetailspage', [HomeController::class, 'astrologerdetailspage'])->name('front.astrologerdetailspage');
+Route::get('/blogDetailspage', [HomeController::class, 'blogDetailspage'])->name('front.blogDetailspage');
 
     // Route::get('/panchang', [KundaliController::class, 'getPanchang'])->name('front.getPanchang');
     // Route::get('/dailyhoroscope', [HoroscopeController::class, 'dailyHoroscope'])->name('front.dailyHoroscope');

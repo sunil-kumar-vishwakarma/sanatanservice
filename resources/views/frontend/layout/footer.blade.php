@@ -33,8 +33,8 @@
                 <h4>Astrologer Section</h4>
                 <ul>
 
-                    <li><a href="#" >Astrologer Login</a></li>
-                    <li><a href="#" >Astrologer Registration</a></li>
+                    <li><a href="/user_registration" >Astrologer Login</a></li>
+                    <li><a href="/user_registration" >Astrologer Registration</a></li>
 
                 </ul>
             </div>

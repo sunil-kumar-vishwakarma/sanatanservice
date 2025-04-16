@@ -102,14 +102,46 @@
     .hidden {
         display: none !important;
     }
+
+    #menu {
+        max-height: 90vh;
+        /* So it doesn't overflow full screen */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        /* Smooth scrolling on iOS */
+    }
+    
 </style>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const toggleButton = document.getElementById("toggleMobileMenu");
         const menu = document.getElementById("menu");
+        const icon = toggleButton.querySelector("i");
 
-        toggleButton.addEventListener("click", function() {
+        toggleButton.addEventListener("click", function(e) {
             menu.classList.toggle("hidden");
+
+            // Toggle the icon between hamburger and close
+            if (menu.classList.contains("hidden")) {
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-list");
+            } else {
+                icon.classList.remove("fa-list");
+                icon.classList.add("fa-xmark");
+            }
+        });
+
+        // Close menu when clicking outside (except on toggle or inside menu)
+        document.addEventListener("click", function(event) {
+            const isClickInsideMenu = menu.contains(event.target);
+            const isClickOnToggle = toggleButton.contains(event.target);
+            const isLink = event.target.closest('a');
+
+            if (!isClickInsideMenu && !isClickOnToggle && !isLink && !menu.classList.contains("hidden")) {
+                menu.classList.add("hidden");
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-list");
+            }
         });
     });
 </script>

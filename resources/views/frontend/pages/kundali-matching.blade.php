@@ -10,6 +10,10 @@
 
         }
 
+        .site-title h1 {
+            margin-bottom: -5px !important;
+        }
+
         .container {
             display: flex;
             justify-content: space-between;

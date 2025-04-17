@@ -7,6 +7,9 @@
             padding: 60px 20px;
             background-color: #12002c;
         }
+        .site-title h1 {
+            margin-bottom: -5px !important;
+        }
 
         .section-title {
             text-align: center;

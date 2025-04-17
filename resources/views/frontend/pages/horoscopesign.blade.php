@@ -9,6 +9,9 @@
             --bs-bg-opacity: 1;
             background-color: rgb(35 23 58) !important;
         }
+        .site-title h1 {
+            margin-bottom: -5px !important;
+        }
 
         .container {
             display: flex;

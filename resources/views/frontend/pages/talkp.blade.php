@@ -12,6 +12,9 @@ body {
             margin: 0;
             padding: 0;
         }
+        .site-title h1 {
+            margin-bottom: -5px !important;
+        }
 
 /* header style */
 header {
@@ -202,7 +205,7 @@ header {
             margin: 10px;
             border-radius: 5px;
             border: none;
-            width: 200px;  
+            width: 200px;
         }
         .astrologers {
             display: flex;
@@ -442,7 +445,7 @@ margin-top: 10px;
     </main>
 
     <script>
-         // toggle menu bar 
+         // toggle menu bar
          function toggleMenu() {
             var menu = document.getElementById("mobileMenu");
             if (menu.style.display === "flex") {

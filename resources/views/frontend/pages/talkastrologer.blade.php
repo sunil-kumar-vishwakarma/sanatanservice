@@ -263,8 +263,8 @@
                         <p class="chat-price-label">$2/Min <span>FREE</span></p>
                     </div>
                     <div class="chat-call-buttons">
-                        <button class="chat-voice-call-btn"><i class="fa-solid fa-phone"></i></button>
-                        <button class="chat-video-call-btn"><i class="fa-solid fa-video"></i></button>
+                        <button class="chat-voice-call-btn chat-now-btn"><i class="fa-solid fa-phone"></i></button>
+                        <button class="chat-video-call-btn chat-now-btn"><i class="fa-solid fa-video"></i></button>
                     </div>
                 </div>
                 <div class="chat-astro-card">
@@ -281,8 +281,8 @@
                         <p class="chat-price-label">$2/Min <span>FREE</span></p>
                     </div>
                     <div class="chat-call-buttons">
-                        <button class="chat-voice-call-btn"><i class="fa-solid fa-phone"></i></button>
-                        <button class="chat-video-call-btn"><i class="fa-solid fa-video"></i></button>
+                        <button class="chat-voice-call-btn chat-now-btn"><i class="fa-solid fa-phone"></i></button>
+                        <button class="chat-video-call-btn chat-now-btn"><i class="fa-solid fa-video"></i></button>
                     </div>
                 </div>
                 <div class="chat-astro-card">
@@ -299,8 +299,8 @@
                         <p class="chat-price-label">$2/Min <span>FREE</span></p>
                     </div>
                     <div class="chat-call-buttons">
-                        <button class="chat-voice-call-btn"><i class="fa-solid fa-phone"></i></button>
-                        <button class="chat-video-call-btn"><i class="fa-solid fa-video"></i></button>
+                        <button class="chat-voice-call-btn chat-now-btn"><i class="fa-solid fa-phone"></i></button>
+                        <button class="chat-video-call-btn chat-now-btn"><i class="fa-solid fa-video"></i></button>
                     </div>
                 </div>
                 <div class="chat-astro-card">
@@ -317,8 +317,8 @@
                         <p class="chat-price-label">$2/Min <span>FREE</span></p>
                     </div>
                     <div class="chat-call-buttons">
-                        <button class="chat-voice-call-btn"><i class="fa-solid fa-phone"></i></button>
-                        <button class="chat-video-call-btn"><i class="fa-solid fa-video"></i></button>
+                        <button class="chat-voice-call-btn chat-now-btn"><i class="fa-solid fa-phone"></i></button>
+                        <button class="chat-video-call-btn chat-now-btn"><i class="fa-solid fa-video"></i></button>
                     </div>
                 </div>
                 <div class="chat-astro-card">
@@ -335,8 +335,8 @@
                         <p class="chat-price-label">$2/Min <span>FREE</span></p>
                     </div>
                     <div class="chat-call-buttons">
-                        <button class="chat-voice-call-btn"><i class="fa-solid fa-phone"></i></button>
-                        <button class="chat-video-call-btn"><i class="fa-solid fa-video"></i></button>
+                        <button class="chat-voice-call-btn chat-now-btn"><i class="fa-solid fa-phone"></i></button>
+                        <button class="chat-video-call-btn chat-now-btn"><i class="fa-solid fa-video"></i></button>
                     </div>
                 </div>
                 <div class="chat-astro-card">
@@ -353,8 +353,8 @@
                         <p class="chat-price-label">$2/Min <span>FREE</span></p>
                     </div>
                     <div class="chat-call-buttons">
-                        <button class="chat-voice-call-btn"><i class="fa-solid fa-phone"></i></button>
-                        <button class="chat-video-call-btn"><i class="fa-solid fa-video"></i></button>
+                        <button class="chat-voice-call-btn chat-now-btn"><i class="fa-solid fa-phone"></i></button>
+                        <button class="chat-video-call-btn chat-now-btn"><i class="fa-solid fa-video"></i></button>
                     </div>
                 </div>
                 <div class="chat-astro-card">
@@ -371,8 +371,8 @@
                         <p class="chat-price-label">$2/Min <span>FREE</span></p>
                     </div>
                     <div class="chat-call-buttons">
-                        <button class="chat-voice-call-btn"><i class="fa-solid fa-phone"></i></button>
-                        <button class="chat-video-call-btn"><i class="fa-solid fa-video"></i></button>
+                        <button class="chat-voice-call-btn chat-now-btn"><i class="fa-solid fa-phone"></i></button>
+                        <button class="chat-video-call-btn chat-now-btn"><i class="fa-solid fa-video"></i></button>
                     </div>
                 </div>
 
@@ -381,4 +381,241 @@
         </div>
     </div>
 
+
+     <!-- Intake Form Modal -->
+     <div id="astroIntakeModal" class="astro-intake-modal astro-intake-hidden">
+        <div class="astro-intake-form-wrapper">
+            <div class="astro-intake-header">
+                <h3 class="astro-intake-title">Intake Form</h3>
+                <button class="astro-intake-close-btn">&times;</button>
+            </div>
+            <form class="astro-intake-form-body">
+                <div class="astro-intake-row">
+                    <div class="astro-intake-group">
+                        <label for="astroName">Name*</label>
+                        <input type="text" id="astroName" name="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="astro-intake-group">
+                        <label for="astroPhone">Phone No*</label>
+                        <input type="tel" id="astroPhone" name="phone" placeholder="Enter phone number" required>
+                    </div>
+                </div>
+
+                <div class="astro-intake-row">
+                    <div class="astro-intake-group">
+                        <label for="astroGender">Gender*</label>
+                        <select id="astroGender" name="gender" required>
+                            <option value="" disabled selected>Select gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="astro-intake-group">
+                        <label for="astroBirthdate">Birthdate*</label>
+                        <input type="date" id="astroBirthdate" name="birthdate" required>
+                    </div>
+                </div>
+
+                <div class="astro-intake-row">
+                    <div class="astro-intake-group">
+                        <label for="astroBirthtime">Birthtime*</label>
+                        <input type="time" id="astroBirthtime" name="birthtime" required>
+                    </div>
+                    <div class="astro-intake-group">
+                        <label for="astroBirthplace">Birthplace*</label>
+                        <input type="text" id="astroBirthplace" name="birthplace" placeholder="Enter birthplace"
+                            required>
+                    </div>
+                </div>
+
+                <div class="astro-intake-row">
+                    <div class="astro-intake-group">
+                        <label for="astroMaritalStatus">Marital Status*</label>
+                        <select id="astroMaritalStatus" name="maritalStatus" required>
+                            <option value="" disabled selected>Select status</option>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Divorced">Divorced</option>
+                            <option value="Widowed">Widowed</option>
+                        </select>
+                    </div>
+                    <div class="astro-intake-group">
+                        <label for="astroOccupation">Occupation*</label>
+                        <input type="text" id="astroOccupation" name="occupation" placeholder="Enter occupation"
+                            required>
+                    </div>
+                </div>
+
+                <div class="astro-intake-row">
+                    <div class="astro-intake-group astro-intake-full">
+                        <label for="astroTopic">Topic Of Concern*</label>
+                        <input type="text" id="astroTopic" name="topic" placeholder="e.g. Love, Career..."
+                            required>
+                    </div>
+                </div>
+                <div class="astro-intake-row">
+                    <button type="submit" class="astro-intake-start-btn">Start</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        /* Intake Form Modal */
+        .astro-intake-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.742);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            transform: translateY(-20px);
+        }
+
+        .astro-intake-modal:not(.astro-intake-hidden) {
+            opacity: 1;
+            margin-top: 25px;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .astro-intake-form-wrapper {
+            background: linear-gradient(135deg, #2e1366, #1a0b3a, #0d0618);
+            /* Dark purple background */
+            color: #fff;
+            /* White text color */
+            padding: 20px;
+            /* Reduced padding */
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .astro-intake-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            /* Reduced margin */
+        }
+
+        .astro-intake-title {
+            margin: 0;
+            font-size: 20px;
+            /* Reduced font size */
+            font-weight: bold;
+        }
+
+        .astro-intake-close-btn {
+            border: none;
+            background: none;
+            font-size: 20px;
+            font-weight: bold;
+            /* Reduced font size */
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .astro-intake-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            /* Reduced margin */
+        }
+
+        .astro-intake-group {
+            flex: 1;
+            margin-right: 15px;
+            /* Reduced margin */
+        }
+
+        .astro-intake-group:last-child {
+            margin-right: 0;
+        }
+
+        .astro-intake-group astro-intake-full {
+            flex: 100%;
+        }
+
+        .astro-intake-group label {
+            display: block;
+            margin-bottom: 3px;
+            /* Reduced margin */
+            font-size: 14px;
+            /* Reduced font size */
+        }
+
+        .astro-intake-group input,
+        .astro-intake-group select {
+            width: 100%;
+            padding: 8px;
+            /* Reduced padding */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            /* Reduced font size */
+        }
+
+        .astro-intake-start-btn {
+            width: 100%;
+            padding: 8px;
+            /* Reduced padding */
+            background: #cb5500;
+            /* Yellow background color */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            /* Reduced font size */
+        }
+
+        .astro-intake-start-btn:hover {
+            background: #d55a02;
+            /* Darker yellow on hover */
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const intakeModal = document.getElementById('astroIntakeModal');
+            const intakeCloseBtn = document.querySelector('.astro-intake-close-btn');
+            const chatNowBtns = document.querySelectorAll('.chat-now-btn');
+
+            // Function to open the form
+            function openForm() {
+                intakeModal.classList.remove('astro-intake-hidden');
+            }
+
+            // Function to close the form
+            function closeForm() {
+                intakeModal.classList.add('astro-intake-hidden');
+            }
+
+            // Open the form when any button with the class 'chat-now-btn' is clicked
+            chatNowBtns.forEach(btn => {
+                btn.addEventListener('click', openForm);
+            });
+
+            // Close the form when the close button is clicked
+            intakeCloseBtn.addEventListener('click', closeForm);
+
+            // Close the form when clicking outside the form
+            intakeModal.addEventListener('click', function(event) {
+                if (event.target === intakeModal) {
+                    closeForm();
+                }
+            });
+        });
+    </script>
 @endsection

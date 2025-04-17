@@ -36,6 +36,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  margin-top: 7px;
 }
 .header-container a{
     text-decoration: none;
@@ -59,7 +60,7 @@ header {
 
 .site-title h1 {
   font-size: 22px;
-  margin-bottom: -5px;
+  margin-bottom: -10px;
   color: white;
 }
 
@@ -451,10 +452,7 @@ text-decoration: none;
   cursor: pointer;
   font-size: 14px;
 }
-.action-btn:hover{
-    background-color: rgb(34 0 59);
-      color: #fff;
-}
+
 
 /* Features */
 .features {

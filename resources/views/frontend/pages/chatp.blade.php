@@ -11,6 +11,9 @@
             margin: 0;
             padding: 0;
         }
+        .site-title h1 {
+            margin-bottom: -5px !important;
+        }
 
         /* header style */
         header {

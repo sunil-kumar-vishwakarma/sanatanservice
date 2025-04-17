@@ -256,7 +256,7 @@
 
 
     <!-- Pandit ji Section -->
-    <section class="Astrologers">
+    {{-- <section class="Astrologers">
         <div class="astro-txt">
             <h1>OUR PANDIT'S</h1>
             <p>Get in touch with the best Online pandits, anytime & anywhere!</p>
@@ -359,7 +359,7 @@
                 <button class="astro-arrow right" onclick="slidePandit('right')">&#10095;</button>
             </div>
         </div>
-    </section>
+    </section> --}}
 
 
 

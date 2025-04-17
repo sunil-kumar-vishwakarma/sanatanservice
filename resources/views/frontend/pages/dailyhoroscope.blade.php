@@ -11,6 +11,7 @@
             max-width: 100%;
             /* Ensure container does not exceed the width of the viewport */
         }
+        
 
         .astroway-menu ul {
             display: flex;

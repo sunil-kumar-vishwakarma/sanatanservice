@@ -3,6 +3,9 @@
     .pac-container:after {
         content: none !important;
     }
+    .site-title h1 {
+            margin-bottom: -5px !important;
+        }
 </style>
 @section('content')
     <div class="pt-1 pb-1 bg-red d-none d-md-block astroway-breadcrumb">

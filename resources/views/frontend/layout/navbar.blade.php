@@ -110,7 +110,7 @@
         -webkit-overflow-scrolling: touch;
         /* Smooth scrolling on iOS */
     }
-    
+
 </style>
 <script>
     document.addEventListener("DOMContentLoaded", function() {

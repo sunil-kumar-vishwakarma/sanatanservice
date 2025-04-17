@@ -26,7 +26,7 @@
             <form>
                 <h1>Sign In</h1>
                 <div class="social-icons-auth">
-                    <a href="#"><i class="fab fa-google"></i></a>  <a href="#" target="_blank">
+                   <a href="#" target="_blank">
                         <img src="assets/images/login_with_google.png" alt="Google" width="30" height="30">
                     </a>
                 </div>

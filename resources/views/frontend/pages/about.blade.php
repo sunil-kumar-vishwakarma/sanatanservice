@@ -1,8 +1,8 @@
 @extends('frontend.layout.app')
 @section('title', 'Sanatan | About Us ')
 @section('content')
-<style>
-       .container-data h1::after {
+    <style>
+        .container-data h1::after {
             content: "";
             display: block;
             width: 100px;
@@ -11,7 +11,11 @@
             margin: 10px auto 0;
         }
 
-</style>
+        .site-title h1 {
+            margin-bottom: -5px !important;
+        }
+    </style>
+    
     <div class="container-data">
         <h1>{{ $pages->title }}</h1><br><br>
         {!! $pages->description !!}

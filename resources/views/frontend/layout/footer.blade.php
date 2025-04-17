@@ -70,6 +70,6 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>Copyright © 2020-2025 SANATAN. All Rights Reserved</p>
+            <p>Copyright © 2025 SANATAN. All Rights Reserved</p>
         </div>
     </footer>

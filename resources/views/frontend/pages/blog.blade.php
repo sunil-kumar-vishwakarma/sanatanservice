@@ -3,6 +3,9 @@
 @section('content')
     <br><br><br>
     <style>
+         .site-title h1 {
+            margin-bottom: -5px !important;
+        }
         /*
             .banner {
                     text-align: center;

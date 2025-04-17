@@ -69,6 +69,9 @@
             /* padding-left: 167px;
                 padding-right: 184px; */
         }
+        .site-title h1 {
+            margin-bottom: -5px !important;
+        }
 
         .high {
             background-color: #EE4E5E !important;
@@ -118,7 +121,7 @@
 
 
     .daybox:hover {
-        background-color: #31214f;
+        background-color: #fff;
     }
 
 

@@ -1304,20 +1304,21 @@ public function resetPassword(Request $request)
         $detail = PersonalizeDetail::where('user_id', $user->id)->first();
 
         // Merge data accordingly
-        $mergedData = $detail
-            ? array_merge(
-                $detail->only([
-                    'user_id', 'zodiac_sign', 'date_of_birth',
-                    'time_of_birth', 'place_of_birth', 'current_location'
-                ]),
-                $user->toArray()
-            )
-            : $user->toArray();
+        // $mergedData = $detail
+        //     ? array_merge(
+        //         $detail->only([
+        //             'user_id', 'zodiac_sign', 'date_of_birth',
+        //             'time_of_birth', 'place_of_birth', 'current_location'
+        //         ]),
+        //         $user->toArray()
+        //     )
+        //     : $user->toArray();
 
         return response()->json([
             'status' => 200,
             'message' => 'Get personalize details successfully',
-            'details' => $mergedData
+            'personalize_details' => $detail ?? '',
+            'user'=>$user
         ], 200);
 
     } catch (\Exception $e) {

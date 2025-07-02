@@ -45,6 +45,8 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('refresh', [UserController::class, 'refreshToken']);
     // Route::post('user/update/{id}', [UserController::class, 'updateUser']);
     Route::post('userupdate', [UserController::class, 'updateUser']);
+    Route::post('user_personalize_details', [UserController::class, 'UserPersonalizeDetails']);
+    Route::get('personalize_detail_show', [UserController::class, 'personalizeDetailShow']);
     Route::post('password/reset', [UserController::class, 'forgotPassword']);
     Route::post('userStatus/update/{id}', [UserController::class, 'activeUser']);
     Route::post('user/delete', [UserController::class, 'deleteUser'])->name('api.deleteUser');

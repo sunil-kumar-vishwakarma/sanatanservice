@@ -8,6 +8,7 @@ use App\Models\UserModel\User;
 use App\Models\UserModel\UserDeviceDetail;
 use App\Models\UserModel\UserRole;
 use App\Models\UserModel\UserWallet;
+use App\Models\PersonalizeDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -1240,4 +1241,74 @@ public function resetPassword(Request $request)
 // }
 
 
+   public function UserPersonalizeDetails(Request $request)
+{
+    try {
+        // Check if user is authenticated
+        $user = Auth::guard('api')->user();
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
+        }
+
+        $id = $user->id;
+
+       $data = $request->validate([
+            'zodiac_sign' => 'nullable|string',
+            'date_of_birth' => 'nullable|date',
+            'time_of_birth' => 'nullable',
+            'place_of_birth' => 'nullable|string',
+            'current_location' => 'nullable|string',
+        ]);
+
+        $data['user_id'] = $id;
+        $detail = PersonalizeDetail::updateOrCreate(['user_id' => $id],$data);
+       
+    
+        return response()->json([
+            'status' => 200,
+            "message" => "Add Personalize details successfully",
+            "details" => $detail
+        ], 200);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => true,
+            'message' => $e->getMessage(),
+            'status' => 500,
+        ], 500);
+    }
+}
+
+ public function personalizeDetailShow()
+    {
+
+        try {
+        // Check if user is authenticated
+        $user = Auth::guard('api')->user();
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
+        }
+
+        $id = $user->id;
+        $detail = PersonalizeDetail::where('user_id', $user->id)->firstOrFail();
+        $mergedData = array_merge(
+            $detail->only(['user_id', 'zodiac_sign', 'date_of_birth','time_of_birth','place_of_birth','current_location']),
+            $user->toArray()
+        );
+         return response()->json([
+            'status' => 200,
+            "message" => "get Personalize details successfully",
+            "details" => $mergedData,
+            // "user" =>$user
+        ], 200);
+
+
+        } catch (\Exception $e) {
+        return response()->json([
+            'error' => true,
+            'message' => $e->getMessage(),
+            'status' => 500,
+        ], 500);
+    }
+    }
 }

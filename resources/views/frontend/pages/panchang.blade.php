@@ -252,8 +252,14 @@
                                                     <p class="font-weight-semi-bold mb-2">Tithi</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <p class="mb-2">
-                                                        {{ $getPanchang['recordList']['response']['tithi']['name'] }}</p>
+                                                    @php
+                                                    $tithi = $getPanchang['recordList']['response']['tithi'] ?? null;
+                                                @endphp
+
+                                                <p class="mb-2">
+                                                    {{ is_array($tithi) ? ($tithi['name'] ?? '-') : $tithi }}
+                                                </p>
+                                                    
                                                 </div>
                                             </div>
 
@@ -262,9 +268,14 @@
                                                     <p class="font-weight-semi-bold mb-2">Nakshatra</p>
                                                 </div>
                                                 <div class="col-6">
+                                                    @php
+                                                        $nakshatra = $getPanchang['recordList']['response']['nakshatra'] ?? null;
+                                                    @endphp
+
                                                     <p class="mb-2">
-                                                        {{ $getPanchang['recordList']['response']['nakshatra']['name'] }}
+                                                        {{ is_array($nakshatra) ? ($nakshatra['name'] ?? '-') : ($nakshatra ?? '-') }}
                                                     </p>
+                                                    
                                                 </div>
                                             </div>
 
@@ -273,8 +284,13 @@
                                                     <p class="font-weight-semi-bold mb-2">Yoga</p>
                                                 </div>
                                                 <div class="col-6">
+                                                    @php
+                                                        $yoga = $getPanchang['recordList']['response']['yoga'] ?? null;
+                                                    @endphp
+
                                                     <p class="mb-2">
-                                                        {{ $getPanchang['recordList']['response']['yoga']['name'] }}</p>
+                                                        {{ is_array($yoga) ? ($yoga['name'] ?? '-') : ($yoga ?? '-') }}
+                                                    </p>
                                                 </div>
                                             </div>
 
@@ -283,8 +299,14 @@
                                                     <p class="font-weight-semi-bold mb-2">Karana</p>
                                                 </div>
                                                 <div class="col-6">
+                                                    @php
+                                                        $karana = $getPanchang['recordList']['response']['karana'] ?? null;
+                                                    @endphp
+
                                                     <p class="mb-2">
-                                                        {{ $getPanchang['recordList']['response']['karana']['name'] }}</p>
+                                                        {{ is_array($karana) ? ($karana['name'] ?? '-') : ($karana ?? '-') }}
+                                                    </p>
+
                                                 </div>
                                             </div>
 
@@ -293,8 +315,14 @@
                                                     <p class="font-weight-semi-bold mb-2">Rasi</p>
                                                 </div>
                                                 <div class="col-6">
+                                                    @php
+                                                        $rasi = $getPanchang['recordList']['response']['rasi'] ?? null;
+                                                    @endphp
+
                                                     <p class="mb-2">
-                                                        {{ $getPanchang['recordList']['response']['rasi']['name'] }}</p>
+                                                        {{ is_array($rasi) ? ($rasi['name'] ?? '-') : ($rasi ?? '-') }}
+                                                    </p>
+
                                                 </div>
                                             </div>
 
@@ -313,9 +341,14 @@
                                                     <p class="font-weight-semi-bold mb-2">Sunrise</p>
                                                 </div>
                                                 <div class="col-6">
+                                                    @php
+                                                        $sunRise = $getPanchang['recordList']['response']['advanced_details']['sun_rise'] ?? '-';
+                                                    @endphp
+
                                                     <p class="mb-2">
-                                                        {{ $getPanchang['recordList']['response']['advanced_details']['sun_rise'] }}
+                                                        {{ $sunRise }}
                                                     </p>
+
                                                 </div>
                                             </div>
                                             <div class="row border-bottom pt-2">
@@ -323,9 +356,14 @@
                                                     <p class="font-weight-semi-bold mb-2">Sunset</p>
                                                 </div>
                                                 <div class="col-6">
+                                                    @php
+                                                        $sunSet = $getPanchang['recordList']['response']['advanced_details']['sun_set'] ?? '-';
+                                                    @endphp
+
                                                     <p class="mb-2">
-                                                        {{ $getPanchang['recordList']['response']['advanced_details']['sun_set'] }}
+                                                        {{ $sunSet }}
                                                     </p>
+
                                                 </div>
                                             </div>
                                             <div class="row border-bottom pt-2">
@@ -334,7 +372,7 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <p class="mb-2">
-                                                        {{ $getPanchang['recordList']['response']['advanced_details']['moon_rise'] }}
+                                                        {{ $getPanchang['recordList']['response']['advanced_details']['moon_rise'] ?? '-' }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -344,7 +382,7 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <p class="mb-2">
-                                                        {{ $getPanchang['recordList']['response']['advanced_details']['moon_set'] }}
+                                                        {{ $getPanchang['recordList']['response']['advanced_details']['moon_set']  ?? '-'  }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -354,7 +392,7 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <p class="mb-2">
-                                                        {{ $getPanchang['recordList']['response']['advanced_details']['next_full_moon'] }}
+                                                        {{ $getPanchang['recordList']['response']['advanced_details']['next_full_moon']  ?? '-' }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -364,7 +402,7 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <p class="mb-2">
-                                                        {{ $getPanchang['recordList']['response']['advanced_details']['next_new_moon'] }}
+                                                        {{ $getPanchang['recordList']['response']['advanced_details']['next_new_moon'] ?? '-' }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -374,7 +412,7 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <p class="mb-2">
-                                                        {{ $getPanchang['recordList']['response']['advanced_details']['masa']['amanta_name'] }}
+                                                        {{ $getPanchang['recordList']['response']['advanced_details']['masa']['amanta_name'] ?? '-' }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -384,7 +422,7 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <p class="mb-2">
-                                                        {{ $getPanchang['recordList']['response']['advanced_details']['masa']['paksha'] }}
+                                                        {{ $getPanchang['recordList']['response']['advanced_details']['masa']['paksha']  ?? '-'  }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -394,7 +432,7 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <p class="mb-2">
-                                                        {{ $getPanchang['recordList']['response']['advanced_details']['masa']['purnimanta_name'] }}
+                                                        {{ $getPanchang['recordList']['response']['advanced_details']['masa']['purnimanta_name'] ?? '-'  }}
                                                     </p>
                                                 </div>
                                             </div>

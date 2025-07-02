@@ -1252,16 +1252,28 @@ public function resetPassword(Request $request)
 
         $id = $user->id;
 
-       $data = $request->validate([
-            'zodiac_sign' => 'nullable|string',
-            'date_of_birth' => 'nullable|date',
-            'time_of_birth' => 'nullable',
-            'place_of_birth' => 'nullable|string',
-            'current_location' => 'nullable|string',
-        ]);
+    //    $data = $request->validate([
+    //         'zodiac_sign' => 'required|string',
+    //         'date_of_birth' => 'required|date',
+    //         'time_of_birth' => 'required',
+    //         'place_of_birth' => 'required|string',
+    //         'current_location' => 'required|string',
+    //     ]);
 
-        $data['user_id'] = $id;
-        $detail = PersonalizeDetail::updateOrCreate(['user_id' => $id],$data);
+          
+    $validator = Validator::make($request->all(), [
+        'zodiac_sign' => 'required|string',
+        'date_of_birth' => 'required|date',
+        'time_of_birth' => 'required',
+        'place_of_birth' => 'required|string',
+        'current_location' => 'required|string',
+        
+    ]);
+        if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
+    }
+        // $validator['user_id'] = $id;
+        $detail = PersonalizeDetail::updateOrCreate(['user_id' => $id],$request->all());
        
     
         return response()->json([
@@ -1291,10 +1303,16 @@ public function resetPassword(Request $request)
 
         $id = $user->id;
         $detail = PersonalizeDetail::where('user_id', $user->id)->firstOrFail();
-        $mergedData = array_merge(
+
+        if(!empty($detail)){
+            $mergedData = array_merge(
             $detail->only(['user_id', 'zodiac_sign', 'date_of_birth','time_of_birth','place_of_birth','current_location']),
             $user->toArray()
         );
+        }else{
+            $mergedData = $user;
+        }
+       
          return response()->json([
             'status' => 200,
             "message" => "get Personalize details successfully",

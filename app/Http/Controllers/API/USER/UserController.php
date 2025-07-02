@@ -1291,42 +1291,42 @@ public function resetPassword(Request $request)
     }
 }
 
- public function personalizeDetailShow()
-    {
-
-        try {
-        // Check if user is authenticated
+   public function personalizeDetailShow()
+{
+    try {
         $user = Auth::guard('api')->user();
+
         if (!$user) {
             return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
         }
 
-        $id = $user->id;
-        $detail = PersonalizeDetail::where('user_id', $user->id)->firstOrFail();
+        // Try to get personalize detail, but don't fail if missing
+        $detail = PersonalizeDetail::where('user_id', $user->id)->first();
 
-        if(!empty($detail)){
-            $mergedData = array_merge(
-            $detail->only(['user_id', 'zodiac_sign', 'date_of_birth','time_of_birth','place_of_birth','current_location']),
-            $user->toArray()
-        );
-        }else{
-            $mergedData = $user;
-        }
-       
-         return response()->json([
+        // Merge data accordingly
+        $mergedData = $detail
+            ? array_merge(
+                $detail->only([
+                    'user_id', 'zodiac_sign', 'date_of_birth',
+                    'time_of_birth', 'place_of_birth', 'current_location'
+                ]),
+                $user->toArray()
+            )
+            : $user->toArray();
+
+        return response()->json([
             'status' => 200,
-            "message" => "get Personalize details successfully",
-            "details" => $mergedData,
-            // "user" =>$user
+            'message' => 'Get personalize details successfully',
+            'details' => $mergedData
         ], 200);
 
-
-        } catch (\Exception $e) {
+    } catch (\Exception $e) {
         return response()->json([
             'error' => true,
             'message' => $e->getMessage(),
             'status' => 500,
         ], 500);
     }
-    }
+}
+
 }

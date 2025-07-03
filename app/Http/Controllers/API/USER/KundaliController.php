@@ -433,7 +433,7 @@ private function fetchKundaliData($kundali)
         // print_r($pdf_type);die;
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
-		  CURLOPT_URL => 'https://api.vedicastroapi.com/v3-json/pdf/horoscope-queue?name=Sunil&dob='.$birthDate.'&tob='.$birthTime.'&lat='.$latitude.'&lon='.$longitude.'&tz='.$timezone.'&api_key='.$api_key->value.'&lang=en&style=north&color=140&pob=indore&company_name=AstroWay&address=indore&website=https%3A%2F%2Fastroway.diploy.in%2F&email=nb%40diploy.in&phone=%2B91%208690482938&pdf_type='.$pdf_type.'',
+		  CURLOPT_URL => 'https://api.vedicastroapi.com/v3-json/pdf/horoscope-queue?name='.$name.'&dob='.$birthDate.'&tob='.$birthTime.'&lat='.$latitude.'&lon='.$longitude.'&tz='.$timezone.'&api_key='.$api_key->value.'&lang=en&style=north&color=140&pob=indore&company_name=AstroWay&address=indore&website=https%3A%2F%2Fastroway.diploy.in%2F&email=nb%40diploy.in&phone=%2B91%208690482938&pdf_type='.$pdf_type.'',
 		  CURLOPT_RETURNTRANSFER => true,
 		  CURLOPT_ENCODING => '',
 		  CURLOPT_MAXREDIRS => 10,

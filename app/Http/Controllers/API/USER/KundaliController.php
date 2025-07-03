@@ -64,6 +64,10 @@ public function addKundali(Request $req)
                         $kundali['pdf_type']
                     );
 
+                    $decoded = json_decode($kundaliList, true);
+          $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+
+
                     $kundalis->name = $kundali['name'];
                     $kundalis->gender = $kundali['gender'];
                     $kundalis->birthDate = date('Y-m-d', strtotime($kundali['birthDate']));
@@ -75,7 +79,7 @@ public function addKundali(Request $req)
                     $kundalis->pdf_type = isset($kundali['pdf_type']) ? $kundali['pdf_type'] : '';
                     $kundalis->match_type = isset($kundali['match_type']) ? $kundali['match_type'] : '';
                     $kundalis->forMatch = isset($kundali['forMatch']) ? $kundali['forMatch'] : 0;
-                    $kundalis->pdf_link = isset($kundaliList) ? $kundaliList : '';
+                    $kundalis->pdf_link = isset($pdfUrl) ? $pdfUrl : '';
                     $kundalis->update();
                     $kundali2[] = $kundalis;
                 }
@@ -107,7 +111,9 @@ public function addKundali(Request $req)
                         $kundali['birthPlace'],
                         $kundali['pdf_type']
                     );
-           
+       
+          $decoded = json_decode($kundaliList, true);
+          $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
 
                         $newKundali = Kundali::create([
                             'name' => $kundali['name'],
@@ -123,7 +129,7 @@ public function addKundali(Request $req)
                             'pdf_type' => isset($kundali['pdf_type']) ? $kundali['pdf_type'] : '',
                             'match_type' => isset($kundali['match_type']) ? $kundali['match_type'] : '',
                             'forMatch' => isset($kundali['forMatch']) ? $kundali['forMatch'] : 0,
-                            'pdf_link' => isset($kundaliList) ? $kundaliList : '',
+                            'pdf_link' => isset($pdfUrl) ? $pdfUrl : '',
 
                         ]);
 
@@ -165,6 +171,9 @@ public function addKundali(Request $req)
 
                     );
 
+                    $decoded = json_decode($kundaliList, true);
+          $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+
                         $newKundali = Kundali::create([
                             'name' => $kundali['name'],
                             'gender' => $kundali['gender'],
@@ -179,7 +188,7 @@ public function addKundali(Request $req)
                             'pdf_type' => isset($kundali['pdf_type']) ? $kundali['pdf_type'] : '',
                             'match_type' => isset($kundali['match_type']) ? $kundali['match_type'] : '',
                             'forMatch' => isset($kundali['forMatch']) ? $kundali['forMatch'] : 0,
-                            'pdf_link' => isset($kundaliList) ? $kundaliList : '',
+                            'pdf_link' => isset($pdfUrl) ? $pdfUrl : '',
 
                         ]);
 

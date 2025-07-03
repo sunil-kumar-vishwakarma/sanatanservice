@@ -53,12 +53,12 @@ public function addKundali(Request $req)
 
                 if ($kundalis) {
                        $kundaliList = $this->getKundliViaVedic(
-                        $kundali['lang'],
                         $kundali['name'],
-                        $kundali['latitude'],
-                        $kundali['longitude'],
                         $kundali['birthDate'],
                         $kundali['birthTime'],
+                        $kundali['latitude'],
+                        $kundali['longitude'],
+                        $kundali['lang'],
                         $kundali['timezone'] ?? 5.5,
                         $kundali['birthPlace'],
                         $kundali['pdf_type']
@@ -96,17 +96,18 @@ public function addKundali(Request $req)
                             ->where('userId', $id)
                             ->update(['amount' => $updatedAmount]);
 
-                                $kundaliList = $this->getKundliViaVedic(
-                        $kundali['lang'],
+                        $kundaliList = $this->getKundliViaVedic(
                         $kundali['name'],
-                        $kundali['latitude'],
-                        $kundali['longitude'],
                         $kundali['birthDate'],
                         $kundali['birthTime'],
+                        $kundali['latitude'],
+                        $kundali['longitude'],
+                        $kundali['lang'],
                         $kundali['timezone'] ?? 5.5,
                         $kundali['birthPlace'],
                         $kundali['pdf_type']
                     );
+           
 
                         $newKundali = Kundali::create([
                             'name' => $kundali['name'],
@@ -151,12 +152,12 @@ public function addKundali(Request $req)
                     $kundalicount = Kundali::where('createdBy', '=', $id)->count();
                     if(!$req->is_match && $kundalicount==0){
                          $kundaliList = $this->getKundliViaVedic(
-                        $kundali['lang'],
                         $kundali['name'],
-                        $kundali['latitude'],
-                        $kundali['longitude'],
                         $kundali['birthDate'],
                         $kundali['birthTime'],
+                        $kundali['latitude'],
+                        $kundali['longitude'],
+                        $kundali['lang'],
                         $kundali['timezone'] ?? 5.5,
                         $kundali['birthPlace'],
                         $kundali['pdf_type']
@@ -416,86 +417,27 @@ private function fetchKundaliData($kundali)
         }
     }
 
-//   public function getKundliViaVedic($name,$lat, $long, $dob, $tob, $timezone, $pob)
-    // {
-	// 	$curl = curl_init();
-	// 	curl_setopt_array($curl, array(
-	// 	  CURLOPT_URL => 'https://api.vedicastroapi.com/v3-json/pdf/horoscope?name=Karan%20Test&dob=03%2F01%2F1996&tob=09%3A04&lat=28.7040592&lon=77.1024902&tz=5.5&api_key=2d0cefb1-b103-5a55-8f0b-499862d7d62c&lang=en&style=north&color=140&pob=Coimbatore&company_name=AstroWay&address=Delhi&website=https%3A%2F%2Fastroway.diploy.in%2F&email=nb%40diploy.in&phone=%2B91%208690482938&pdf_type=medium',
-	// 	  CURLOPT_RETURNTRANSFER => true,
-	// 	  CURLOPT_ENCODING => '',
-	// 	  CURLOPT_MAXREDIRS => 10,
-	// 	  CURLOPT_TIMEOUT => 0,
-	// 	  CURLOPT_FOLLOWLOCATION => true,
-	// 	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-	// 	  CURLOPT_CUSTOMREQUEST => 'GET',
-	// 	));
-	// 	$response = curl_exec($curl);
-	// 	return $response;
-    // }
+  public function getKundliViaVedic($name,$birthDate, $birthTime, $latitude,$longitude, $long, $timezone, $birthPlace,$pdf_type)
+    {
+ $api_key=DB::table('systemflag')->where('name','vedicAstroAPI')->first();
 
-  //Dynamic part
-       public function getKundliViaVedic($lang,$name, $lat, $long, $dob, $tob, $timezone = '5.5', $pob, $pdfType = 'small', $match_type = 'north')
-        {
-		 $api_key=DB::table('systemflag')->where('name','vedicAstroAPI')->first();
-
-        $formattedBirthDate = date('d/m/Y', strtotime($dob));
-        $apiUrl = 'https://api.vedicastroapi.com/v3-json/pdf/horoscope?';
-
-        $queryParams = http_build_query([
-            'name' => $name,
-            'dob' => $formattedBirthDate,
-            'tob' => $tob,
-            'lat' => $lat,
-            'lon' => $long,
-            'tz' => $timezone,
-            'pob' => $pob,
-            'api_key' => $api_key->value,
-            'lang' => $lang,
-            'style' => $match_type,
-            'color' => '140',
-            'pdf_type' => $pdfType,
-        ]);
-
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $apiUrl . $queryParams,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-        ));
-        $response = curl_exec($curl);
-
-
-        // Check if the request was successful
-        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        if ($httpCode == 200) {
-            $response = json_decode($response);
-
-            $timestamp = now()->timestamp;
-            $path = 'kundli/' . $name . '_kundali_' . $timestamp . '.pdf';
-
-            // Save the PDF to a local file
-            $pdfPath = public_path($path);
-
-            $content = file_get_contents($response->response);
-            file_put_contents($pdfPath, $content);
-
-            // Close the cURL session
-            curl_close($curl);
-
-            // Return the local path to the saved PDF
-            return $path;
-        } else {
-            // Handle error (e.g., log or return an error message)
-            curl_close($curl);
-            return false;
-        }
+        // print_r($pdf_type);die;
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+		  CURLOPT_URL => 'https://api.vedicastroapi.com/v3-json/pdf/horoscope-queue?name=Sunil&dob='.$birthDate.'&tob='.$birthTime.'&lat='.$latitude.'&lon='.$longitude.'&tz='.$timezone.'&api_key='.$api_key->value.'&lang=en&style=north&color=140&pob=indore&company_name=AstroWay&address=indore&website=https%3A%2F%2Fastroway.diploy.in%2F&email=nb%40diploy.in&phone=%2B91%208690482938&pdf_type='.$pdf_type.'',
+		  CURLOPT_RETURNTRANSFER => true,
+		  CURLOPT_ENCODING => '',
+		  CURLOPT_MAXREDIRS => 10,
+		  CURLOPT_TIMEOUT => 0,
+		  CURLOPT_FOLLOWLOCATION => true,
+		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		  CURLOPT_CUSTOMREQUEST => 'GET',
+		));
+		$response = curl_exec($curl);
+		return $response;
     }
 
+ 
     //Get kundali
     public function getKundalis(Request $req)
     {

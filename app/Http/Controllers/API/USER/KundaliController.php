@@ -26,12 +26,13 @@ public function addKundali(Request $req)
             $id = Auth::guard('api')->user()->id;
         }
 
-        $data = $req->only('kundali', 'amount', 'is_match');
+        // $data = $req->only('kundali', 'amount', 'is_match');
+        $data = $req->only('kundali', 'is_match');
 
         // Validate the data
         $validator = Validator::make($data, [
             'kundali' => 'required|array',
-            'amount' => 'required|numeric', // Assuming amount is required and should be numeric
+            // 'amount' => 'required|numeric', // Assuming amount is required and should be numeric
         ]);
 
         // Send a failed response if the request is not valid
@@ -87,18 +88,18 @@ public function addKundali(Request $req)
                 // Check if wallet has enough amount only if is_match is false
 				$kundalicount = Kundali::where('createdBy', '=', $id)->count();
                 if (!$req->is_match && $kundalicount>0) {
-                    $wallet = DB::table('user_wallets')
-                        ->where('userId', '=', $id)
-                        ->first();
+                    // $wallet = DB::table('user_wallets')
+                    //     ->where('userId', '=', $id)
+                    //     ->first();
 
-                    $requiredAmount = $req->amount;
+                    // $requiredAmount = $req->amount;
 
-                    if ($wallet && $wallet->amount >= $requiredAmount) {
-                        $updatedAmount = $wallet->amount - $requiredAmount;
+                    // if ($wallet && $wallet->amount >= $requiredAmount) {
+                    //     $updatedAmount = $wallet->amount - $requiredAmount;
 
-                        DB::table('user_wallets')
-                            ->where('userId', $id)
-                            ->update(['amount' => $updatedAmount]);
+                        // DB::table('user_wallets')
+                        //     ->where('userId', $id)
+                        //     ->update(['amount' => $updatedAmount]);
 
                         $kundaliList = $this->getKundliViaVedic(
                         $kundali['name'],
@@ -136,24 +137,24 @@ public function addKundali(Request $req)
                         $kundali2[] = $newKundali;
 
                         // Add wallet transaction entry
-                        $transaction = [
-                            'userId' => $id,
-                            'amount' => $requiredAmount,
-                            'isCredit' => false,
-                            'transactionType' => 'KundliView',
-                            'created_at' => now(),
-                            'updated_at' => now(),
-                        ];
+                        // $transaction = [
+                        //     'userId' => $id,
+                        //     'amount' => $requiredAmount,
+                        //     'isCredit' => false,
+                        //     'transactionType' => 'KundliView',
+                        //     'created_at' => now(),
+                        //     'updated_at' => now(),
+                        // ];
 
-                        DB::table('wallettransaction')->insert($transaction);
-                    } else {
-                        // Insufficient funds in the wallet
-                        return response()->json([
-                            'error' => true,
-                            'message' => 'Insufficient funds in the wallet.',
-                            'status' => 400,
-                        ], 400);
-                    }
+                        // DB::table('wallettransaction')->insert($transaction);
+                    // } else {
+                        
+                    //     return response()->json([
+                    //         'error' => true,
+                    //         'message' => 'Insufficient funds in the wallet.',
+                    //         'status' => 400,
+                    //     ], 400);
+                    // }
                 } else {
                     $kundalicount = Kundali::where('createdBy', '=', $id)->count();
                     if(!$req->is_match && $kundalicount==0){

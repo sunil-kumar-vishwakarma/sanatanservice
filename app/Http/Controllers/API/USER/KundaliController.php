@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\RequestException;
 use Str;
+use App\Models\PersonalizeDetail;
+use Carbon\Carbon;
 class KundaliController extends Controller
 {
 
@@ -403,6 +405,9 @@ private function fetchKundaliData($kundali)
     // }
 
 	//dynamic part
+
+     
+
 		public function getKundali(Request $req, $id)
     {
         try {
@@ -695,6 +700,7 @@ private function fetchKundaliData($kundali)
 //     }
 // }
 
+
 public function computePersonalizedMessage(Request $request)
 {
     $request->validate([
@@ -780,6 +786,144 @@ return response()->json(['html' => $cleanHtml]);
 }
 
 
+public function UserPersonalizeDetails(Request $request)
+    {
+        try {
+            // Check if user is authenticated
+            $user = Auth::guard('api')->user();
+            if (!$user) {
+                return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
+            }
+
+            $id = $user->id;
+    
+        $validator = Validator::make($request->all(), [
+            // 'zodiac_sign' => 'required|string',
+            'date_of_birth' => 'required|date',
+            'time_of_birth' => 'required',
+            'place_of_birth' => 'required|string',
+            'current_location' => 'required|string',
+            'lat' => 'required',
+            'lon' => 'required',
+            'tz' => 'required',
+            
+        ]);
+            if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        $dob = $request->date_of_birth;
+        $tob = $request->time_of_birth;
+        $lat = $request->lat;
+        $lon= $request->lon;
+        $tz= $request->tz;
+            // $validator['user_id'] = $id;
+            $zodiacSign =  $this->findZodiacSign($dob, $tob,$lat,$lon,$tz);
+            $decoded = json_decode($zodiacSign, true);
+            $zo = isset($decoded['response']) ? $decoded['response'] : null;
+
+            // $getNakshatraKundliDetail =  $this->getNakshatraKundliDetail($dob,$tob,$lat,$lon,$tz);
+            //  print_r($getNakshatraKundliDetail['response']);die;
+            // $decodedKundliDetail = json_decode($getNakshatraKundliDetail, true);
+           
+            // $kundliDetail = isset($decodedKundliDetail['response']) ? $decodedKundliDetail['response'] : null;
+
+            // $nakshatraId = '2';
+            // $dailyNakshatraPredictions = $this->getDailyNakshatraPredictions($nakshatraId);
+            //  print_r($dailyNakshatraPredictions);die;
+            //  $decodedNakshatraPredictions = json_decode($dailyNakshatraPredictions, true);
+            // $decodedNakshatra = isset($decodedNakshatraPredictions['response']) ? $decodedNakshatraPredictions['response'] : null;
+
+            $request['zodiac_sign'] = $zo['moon_sign'];
+            $request['nakshatraId'] = 'ashwini';
+            $detail = PersonalizeDetail::updateOrCreate(['user_id' => $id],$request->all());
+
+        
+            return response()->json([
+                'status' => 200,
+                "message" => "Add Personalize details successfully",
+                "details" => $detail
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+                'status' => 500,
+            ], 500);
+        }
+    }
+
+   public function personalizeDetailShow()
+    {
+        try {
+            $user = Auth::guard('api')->user();
+
+            if (!$user) {
+                return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
+            }
+
+            // Try to get personalize detail, but don't fail if missing
+            $detail = PersonalizeDetail::where('user_id', $user->id)->first();
+
+        
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Get personalize details successfully',
+                'personalize_details' => $detail ?? '',
+                'user'=>$user
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+                'status' => 500,
+            ], 500);
+        }
+    }
+
+ public function findZodiacSign($dob, $tob, $lat, $lon, $tz)
+    {
+        
+
+        $lang = 'en';
+    // print_r($tob);die;
+
+        $apiKey = '445a4fd8-0e58-5ea9-89b2-0cff19374be1';
+        $url = 'https://api.vedicastroapi.com/v3-json/extended-horoscope/find-moon-sign';
+
+        $params = [
+            'api_key' => $apiKey,
+            'dob' => $dob,
+            'tob' => $tob,
+            'lat' => $lat,
+            'lon' => $lon,
+            'tz' => $tz,
+            'lang' => $lang,
+        ];
+
+        $finalUrl = $url . '?' . http_build_query($params);
+
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $finalUrl,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 20,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        ]);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return $response;
+        // $result = json_decode($response, true);
+        // if (json_last_error() === JSON_ERROR_NONE) {
+        //     return $result;
+        // }
+
+        // return ['status' => 500, 'response' => 'Invalid JSON from API'];
+    }
 
     public function getZodiacSign(Request $request)
     {
@@ -790,7 +934,7 @@ return response()->json(['html' => $cleanHtml]);
         'lon' => 'required',
         'tz' => 'required',
         'lang' => 'required',
-    ]);
+        ]);
     
         $dob = $request->dob;
         $tob =$request->tob;
@@ -835,17 +979,17 @@ return response()->json(['html' => $cleanHtml]);
         return ['status' => 500, 'response' => 'Invalid JSON from API'];
     }
 
-    public function getZodiacTraits($sign)
-{
-    $traits = [
-        'Gemini' => 'Intelligent, curious, adaptable, witty, talkative, but sometimes restless.',
-        'Taurus' => 'Grounded, dependable, sensual, stubborn, values stability.',
-        'Leo' => 'Confident, warm, charismatic, loves attention and creativity.',
-        // Add more signs here
-    ];
+//     public function getZodiacTraits($sign)
+// {
+//     $traits = [
+//         'Gemini' => 'Intelligent, curious, adaptable, witty, talkative, but sometimes restless.',
+//         'Taurus' => 'Grounded, dependable, sensual, stubborn, values stability.',
+//         'Leo' => 'Confident, warm, charismatic, loves attention and creativity.',
+//         // Add more signs here
+//     ];
 
-    return isset($traits[$sign]) ? ['traits' => $traits[$sign]] : null;
-}
+//     return isset($traits[$sign]) ? ['traits' => $traits[$sign]] : null;
+// }
 
 public function getDailyNakshatraPrediction(Request $request)
 {
@@ -915,6 +1059,65 @@ public function getDailyNakshatraPredictions($nakshatraId)
 }
 
 
+public function getNakshatraKundliDetail($dob,$tob,$lat,$lon,$tz)
+{
+    //  $request->validate([
+    //         'dob' => 'required|date_format:d/m/Y',
+    //         'tob' => 'required',
+    //         'lat' => 'required',
+    //         'lon' => 'required',
+    //         'tz'  => 'required',
+    //         'lang'  => 'required',
+    //     ]);
+
+    //  $dob = $request->dob;
+    // $tob = $request->tob;
+    // $lat = $request->lat;
+    //  $lon = $request->lon;
+    // $tz = $request->tz;
+    // $lang = $request->lang;
+
+    $apiKey = '445a4fd8-0e58-5ea9-89b2-0cff19374be1';
+    $url = 'https://api.vedicastroapi.com/v3-json/extended-horoscope/extended-kundli-details';
+
+    $params = [
+        'api_key' => $apiKey,
+        'dob' => $dob,
+        'tob' => $tob,
+        'lat' => $lat,
+        'lon' => $lon,
+        'tz' => $tz,
+        'lang' => 'en'
+    ];
+
+    $finalUrl = $url . '?' . http_build_query($params);
+
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $finalUrl,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 20,
+    ]);
+
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    // $data = json_decode($response, true);
+    
+
+    return json_decode($response, true);
+
+    if (isset($data['nakshatra']['id'])) {
+        return [
+            'id' => $data['nakshatra']['id'],
+            'name' => $data['nakshatra']['name_en'] ?? $data['nakshatra']['name']
+        ];
+    }
+
+    return null;
+}
+
+
 public function getNakshatraFromKundli(Request $request)
 {
      $request->validate([
@@ -934,8 +1137,6 @@ public function getNakshatraFromKundli(Request $request)
     $lang = $request->lang;
 
     $apiKey = '445a4fd8-0e58-5ea9-89b2-0cff19374be1';
-    // $dobFormatted = date('d/m/Y', strtotime($dob)); // Ensure format is DD/MM/YYYY
-
     $url = 'https://api.vedicastroapi.com/v3-json/extended-horoscope/extended-kundli-details';
 
     $params = [

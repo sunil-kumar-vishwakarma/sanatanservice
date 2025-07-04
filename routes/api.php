@@ -45,8 +45,7 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('refresh', [UserController::class, 'refreshToken']);
     // Route::post('user/update/{id}', [UserController::class, 'updateUser']);
     Route::post('userupdate', [UserController::class, 'updateUser']);
-    Route::post('user_personalize_details', [UserController::class, 'UserPersonalizeDetails']);
-    Route::get('personalize_detail_show', [UserController::class, 'personalizeDetailShow']);
+    
     Route::post('password/reset', [UserController::class, 'forgotPassword']);
     Route::post('userStatus/update/{id}', [UserController::class, 'activeUser']);
     Route::post('user/delete', [UserController::class, 'deleteUser'])->name('api.deleteUser');
@@ -92,6 +91,8 @@ Route::post('getNakshatraFromKundliDetail', [KundaliController::class, 'getNaksh
 Route::post('/get-ascendant', [KundaliController::class, 'getAscendant']);
 Route::post('/get-compute-personalized-message', [KundaliController::class, 'computePersonalizedMessage']);
 Route::get('/get-kundali_list', [KundaliController::class, 'getKundalisList']);
+Route::post('user_personalize_details', [KundaliController::class, 'UserPersonalizeDetails']);
+    Route::get('personalize_detail_show', [KundaliController::class, 'personalizeDetailShow']);
 // banner list
 
 

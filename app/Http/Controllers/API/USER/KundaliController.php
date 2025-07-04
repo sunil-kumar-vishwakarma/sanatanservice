@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
-
+use Illuminate\Http\Client\RequestException;
 class KundaliController extends Controller
 {
 
@@ -631,52 +631,68 @@ public function computePersonalizedMessage(Request $request)
 
     $nakshatraId = $request->nakshatra_id;
     $moonSign = $request->moon_sign;
-    // Step 1: Fetch Daily Nakshatra Prediction
-    $nakshatraPrediction = $this->getDailyNakshatraPredictions($nakshatraId);
 
-    // Step 2: Get static Gemini Traits (or fetch from another API if available)
-    $zodiacTraits = $this->getZodiacTraits($moonSign); // Gemini assumed
+    // $nakshatraPrediction = $this->getDailyNakshatraPredictions($nakshatraId);
+   $nakshatraPrediction = [
+    'prediction' => "Today is a powerful day for introspection and spiritual clarity. You may find comfort in solitude and wisdom in silence. Avoid overthinking—trust your instincts and remain grounded."
+];
+$zodiacTraits = [
+    'traits' => "Adaptable, curious, intelligent, social, expressive, witty"
+];
+    // if (
+    //     !$nakshatraPrediction || !isset($nakshatraPrediction['prediction'])
+    // ) {
+    //     return response()->json(['message' => 'Personalized message is currently unavailable.'], 422);
+    // }
 
-    // Step 3: Validate both JSONs
-    if (
-        !$nakshatraPrediction || !isset($nakshatraPrediction['prediction']) ||
-        !$zodiacTraits || !isset($zodiacTraits['traits'])
-    ) {
-        return 'Personalized message is currently unavailable.';
-    }
+            $prompt = <<<EOT
+        You are an expert Vedic astrologer. Based on the following:
 
-    // Step 4: Build AI Prompt
-    $prompt = <<<EOT
-You are an expert Vedic astrologer. Based on the following:
+        1. Daily Nakshatra Prediction:
+        {$nakshatraPrediction['prediction']}
 
-1. **Daily Nakshatra Prediction:**
-{$nakshatraPrediction['prediction']}
+        2. Zodiac Sign (Moon Sign): $moonSign
+        Traits: {$zodiacTraits['traits']}
 
-2. **Zodiac Sign (Moon Sign): $moonSign**
-Traits: {$zodiacTraits['traits']}
+        Generate a personalized daily message (2–4 lines) for a user born under the $moonSign sign, considering both nakshatra and zodiac traits. Be friendly, insightful, and inspiring.
+        EOT;
 
-Generate a personalized daily message (2–4 lines) for a user born under the $moonSign sign, considering both nakshatra and zodiac traits. Be friendly, insightful, and inspiring.
-EOT;
+    // ✅ Use valid OpenAI key here
+    $geminiKey = env('OPENAI_API_KEY'); // recommended to use env variable
+// $geminiKey = config('services.gemini.key'); // A safer way to get the key
 
-    
-    $openaiKey = 'AIzaSyCXPJaPEPuIJ66w-nTbgE-W7S2qQ-cTJvY';
+$prompt = "Explain the difference between Laravel's HTTP Client and Guzzle in simple terms.";
+
+try {
     $response = Http::withHeaders([
-        'Authorization' => 'Bearer ' . $openaiKey,
-        'Content-Type' => 'application/json'
-    ])->post('https://api.openai.com/v1/chat/completions', [
-        'model' => 'gpt-4',
-        'messages' => [
-            ['role' => 'system', 'content' => 'You are a helpful astrology assistant.'],
-            ['role' => 'user', 'content' => $prompt]
-        ],
-        'temperature' => 0.7,
-        'max_tokens' => 150,
+        'Content-Type' => 'application/json',
+    ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$geminiKey", [
+        'contents' => [
+            [
+                'parts' => [
+                    ['text' => $prompt]
+                ]
+            ]
+        ]
     ]);
 
-    $aiReply = $response->json('choices.0.message.content');
+    // Throw an exception if the request was not successful (e.g., 4xx or 5xx error)
+    $response->throw();
 
-    return $aiReply ?? 'Could not generate message.';
+    // Get the generated text from the response body.
+    // You need to know the structure of the Gemini API response to do this.
+    $generatedText = $response->json('candidates.0.content.parts.0.text');
+
+    // Now you can use the text
+    echo $generatedText;
+
+} catch (RequestException $e) {
+    // Handle API errors (e.g., invalid key, bad request, server error)
+    // You could log the error or return a user-friendly message
+    return "Error: Could not connect to the Gemini API. " . $e->getMessage();
 }
+}
+
 
 
     public function getZodiacSign(Request $request)
@@ -749,14 +765,14 @@ public function getDailyNakshatraPrediction(Request $request)
 {
       $request->validate([
         'nakshatraId' => 'required',
-        'date' => 'required',
-        'lang' => 'required',
+        // 'date' => 'required',
+        // 'lang' => 'required',
         
     ]);
 
     $nakshatraId = $request->nakshatraId;
     $date = $request->date;
-    $lang = $request->lang;
+    $lang = 'en';
     $apiKey = '445a4fd8-0e58-5ea9-89b2-0cff19374be1';
     $date = $date ?? date('d/m/Y'); // default today
 
@@ -788,14 +804,28 @@ public function getDailyNakshatraPredictions($nakshatraId)
     $apiKey = '445a4fd8-0e58-5ea9-89b2-0cff19374be1';
     $date = date('d/m/Y');
 
-    $response = Http::get('https://api.vedicastroapi.com/v3-json/prediction/daily-nakshatra', [
+    $url = 'https://api.vedicastroapi.com/v3-json/prediction/daily-nakshatra';
+
+    $params = [
         'nakshatra' => $nakshatraId,
         'date' => $date,
         'api_key' => $apiKey,
-        'lang' => 'en',
+        'lang' => 'en'
+    ];
+
+    $finalUrl = $url . '?' . http_build_query($params);
+
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $finalUrl,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 15,
     ]);
 
-    return $response->json();
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    return json_decode($response, true);
 }
 
 

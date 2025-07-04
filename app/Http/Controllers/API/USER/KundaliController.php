@@ -665,7 +665,7 @@ public function computePersonalizedMessage(Request $request)
     $prompt = "Explain the difference between Laravel's HTTP Client and Guzzle in simple terms.";
 
     try {
-        $response = Http::withHeaders([
+        $response = Http::post([
             'Content-Type' => 'application/json',
         ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$geminiKey", [
             'contents' => [

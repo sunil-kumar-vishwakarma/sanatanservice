@@ -78,7 +78,7 @@ Route::post('kundali/add', [KundaliController::class, 'addKundali'])->name('api.
 Route::post('kundali/update/{id}', [KundaliController::class, 'updateKundali']);
 Route::post('pdf/price', [KundaliController::class, 'getKundaliPrice']);
 Route::post('getkundali', [KundaliController::class, 'getKundalis']);
-Route::post('kundali/delete', [KundaliController::class, 'deleteKundali'])->name('api.deleteKundali');
+Route::post('kundali/delete/{id}', [KundaliController::class, 'deleteKundali'])->name('api.deleteKundali');
 Route::post('kundali/get/{id}', [KundaliController::class, 'getKundali']);
 Route::post('kundali/show/{id}', [KundaliController::class, 'kundaliShow']);
 Route::post('kundali/removeFromTrackPlanet', [KundaliController::class, 'removeFromTrackPlanet']);
@@ -91,6 +91,7 @@ Route::post('getNakshatraFromKundliDetail', [KundaliController::class, 'getNaksh
 
 Route::post('/get-ascendant', [KundaliController::class, 'getAscendant']);
 Route::post('/get-compute-personalized-message', [KundaliController::class, 'computePersonalizedMessage']);
+Route::get('/get-kundali_list', [KundaliController::class, 'getKundalisList']);
 // banner list
 
 

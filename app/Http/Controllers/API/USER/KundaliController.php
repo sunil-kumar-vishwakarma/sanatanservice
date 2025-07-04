@@ -422,7 +422,38 @@ private function fetchKundaliData($kundali)
     }
 
 
-
+ public function getKundalisList()
+    {
+        try {
+         
+            $user = Auth::guard('api')->user();
+            if (!$user) {
+                return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
+            }
+    
+            $id = $user->id;
+            
+            $kundali = Kundali::query();
+            $kundali->where('createdBy', '=', $id)->where('forMatch',0)->orderByDesc('created_at');
+            $kundaliCount = Kundali::query();
+            $kundaliCount->where('createdBy', '=', $id)
+                ->where('forMatch',0)->count();
+           
+            return response()->json([
+                // 'recordList' => $kundali->get(),
+                'status' => 200,
+                'totalRecords' => $id,
+                'kundliList' =>$kundali->get()
+				
+            ], 200);
+        } catch (\Exception$e) {
+            return response()->json([
+                'error' => false,
+                'message' => $e->getMessage(),
+                'status' => 500,
+            ], 500);
+        }
+    }
 
     //Update kundali
     public function updateKundali(Request $req, $id)
@@ -466,13 +497,13 @@ private function fetchKundaliData($kundali)
     }
 
     //Delete kundali
-    public function deleteKundali(Request $req)
+    public function deleteKundali($id)
     {
         try {
             if (!Auth::guard('api')->user()) {
                 return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
             }
-            $kundali = Kundali::find($req->id);
+            $kundali = Kundali::find($id);
             if ($kundali) {
                 $kundali->delete();
                 return response()->json([
@@ -513,6 +544,7 @@ private function fetchKundaliData($kundali)
             ], 500);
         }
     }
+    
 
     public function removeFromTrackPlanet(Request $req)
     {
@@ -649,7 +681,15 @@ EOT;
 
     public function getZodiacSign(Request $request)
     {
-        
+         $request->validate([
+        'dob' => 'required',
+        'tob' => 'required',
+        'lat' => 'required',
+        'lon' => 'required',
+        'tz' => 'required',
+        'lang' => 'required',
+    ]);
+    
         $dob = $request->dob;
         $tob =$request->tob;
         $lat =$request->lat;
@@ -707,6 +747,13 @@ EOT;
 
 public function getDailyNakshatraPrediction(Request $request)
 {
+      $request->validate([
+        'nakshatraId' => 'required',
+        'date' => 'required',
+        'lang' => 'required',
+        
+    ]);
+
     $nakshatraId = $request->nakshatraId;
     $date = $request->date;
     $lang = $request->lang;
@@ -754,6 +801,15 @@ public function getDailyNakshatraPredictions($nakshatraId)
 
 public function getNakshatraFromKundli(Request $request)
 {
+     $request->validate([
+            'dob' => 'required|date_format:d/m/Y',
+            'tob' => 'required',
+            'lat' => 'required',
+            'lon' => 'required',
+            'tz'  => 'required',
+            'lang'  => 'required',
+        ]);
+
      $dob = $request->dob;
     $tob = $request->tob;
     $lat = $request->lat;

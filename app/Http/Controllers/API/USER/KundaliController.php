@@ -434,15 +434,15 @@ private function fetchKundaliData($kundali)
             $id = $user->id;
             
             $kundali = Kundali::query();
-            $kundali->where('createdBy', '=', $id)->where('forMatch',0)->orderByDesc('created_at');
+            $kundali->where('createdBy', '=', $id)->whereNotNull('pdf_link')->where('forMatch',0)->orderByDesc('created_at');
             $kundaliCount = Kundali::query();
-            $kundaliCount->where('createdBy', '=', $id)
+            $kundaliCount->where('createdBy', '=', $id)->whereNotNull('pdf_link')
                 ->where('forMatch',0)->count();
            
             return response()->json([
                 // 'recordList' => $kundali->get(),
                 'status' => 200,
-                'totalRecords' => $id,
+                'totalRecords' => $kundaliCount->count(),
                 'kundliList' =>$kundali->get()
 				
             ], 200);

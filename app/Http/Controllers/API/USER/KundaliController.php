@@ -237,114 +237,6 @@ public function addKundali(Request $req)
 }
 
 
-// public function addKundali(Request $req)
-// {
-//     DB::beginTransaction();
-
-//     try {
-//         // Authenticate user
-//         if (!Auth::guard('api')->user()) {
-//             return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
-//         } 
-//         $id = Auth::guard('api')->user()->id;
-
-//         // Validate request data
-//         $data = $req->only('kundali', 'amount', 'is_match');
-//         $validator = Validator::make($data, [
-//             'kundali' => 'required|array',
-//             'amount' => 'required|numeric',
-//         ]);
-
-//         if ($validator->fails()) {
-//             return response()->json(['error' => $validator->messages(), 'status' => 400], 400);
-//         }
-
-//         $kundaliRecords = [];
-//         $isMatch = $req->is_match == "false" ? 0 : 1;
-
-//         foreach ($req->kundali as $kundali) {
-//             if (isset($kundali['id'])) {
-//                 // Update existing Kundali
-//                 $existingKundali = Kundali::find($kundali['id']);
-
-//                 if ($existingKundali) {
-//                     $kundaliData = $this->fetchKundaliData($kundali);
-//                     if (!$kundaliData) {
-//                         return response()->json([
-//                             'error' => true,
-//                             'message' => 'Failed to fetch Kundali details. API issue.',
-//                             'status' => 500,
-//                         ], 500);
-//                     }
-
-//                     // Update data
-//                     $existingKundali->update(array_merge($kundali, ['pdf_link' => $kundaliData]));
-//                     $kundaliRecords[] = $existingKundali;
-//                 }
-//             } else {
-//                 // New Kundali: Check wallet balance
-//                 $kundaliCount = Kundali::where('createdBy', '=', $id)->count();
-//                 $wallet = DB::table('user_wallets')->where('userId', '=', $id)->first();
-//                 $requiredAmount = $req->amount;
-
-//                 if (!$isMatch && $kundaliCount > 0 && (!$wallet || $wallet->amount < $requiredAmount)) {
-//                     return response()->json([
-//                         'error' => true,
-//                         'message' => 'Insufficient funds in the wallet.',
-//                         'status' => 400,
-//                     ], 400);
-//                 }
-
-//                 // Deduct wallet amount if required
-//                 if (!$isMatch && $kundaliCount > 0) {
-//                     DB::table('user_wallets')->where('userId', $id)->update(['amount' => $wallet->amount - $requiredAmount]);
-//                     DB::table('wallettransaction')->insert([
-//                         'userId' => $id,
-//                         'amount' => $requiredAmount,
-//                         'isCredit' => false,
-//                         'transactionType' => 'KundliView',
-//                         'created_at' => now(),
-//                         'updated_at' => now(),
-//                     ]);
-//                 }
-
-//                 // Fetch Kundali details from API
-//                 $kundaliData = $this->fetchKundaliData($kundali);
-//                 if (!$kundaliData) {
-//                     return response()->json([
-//                         'error' => true,
-//                         'message' => 'Failed to generate Kundali. API issue.',
-//                         'status' => 500,
-//                     ], 500);
-//                 }
-
-//                 // Create new Kundali entry
-//                 $newKundali = Kundali::create(array_merge($kundali, [
-//                     'createdBy' => $id,
-//                     'modifiedBy' => $id,
-//                     'pdf_link' => $kundaliData,
-//                 ]));
-                
-//                 $kundaliRecords[] = $newKundali;
-//             }
-//         }
-
-//         DB::commit();
-//         return response()->json([
-//             'message' => 'Kundali added successfully',
-//             'recordList' => $kundaliRecords,
-//             'status' => 200,
-//         ], 200);
-//     } catch (\Exception $e) {
-//         DB::rollback();
-//         return response()->json([
-//             'error' => true,
-//             'message' => $e->getMessage(),
-//             'status' => 500,
-//         ], 500);
-//     }
-// }
-
 private function fetchKundaliData($kundali)
 {
     try {
@@ -694,4 +586,270 @@ private function fetchKundaliData($kundali)
             ], 500);
         }
     }
+
+
+
+
+public function computePersonalizedMessage(Request $request)
+{
+    $request->validate([
+        'nakshatra_id' => 'required|integer',
+        'moon_sign' => 'required|string'
+    ]);
+
+    $nakshatraId = $request->nakshatra_id;
+    $moonSign = $request->moon_sign;
+    // Step 1: Fetch Daily Nakshatra Prediction
+    $nakshatraPrediction = $this->getDailyNakshatraPredictions($nakshatraId);
+
+    // Step 2: Get static Gemini Traits (or fetch from another API if available)
+    $zodiacTraits = $this->getZodiacTraits($moonSign); // Gemini assumed
+
+    // Step 3: Validate both JSONs
+    if (
+        !$nakshatraPrediction || !isset($nakshatraPrediction['prediction']) ||
+        !$zodiacTraits || !isset($zodiacTraits['traits'])
+    ) {
+        return 'Personalized message is currently unavailable.';
+    }
+
+    // Step 4: Build AI Prompt
+    $prompt = <<<EOT
+You are an expert Vedic astrologer. Based on the following:
+
+1. **Daily Nakshatra Prediction:**
+{$nakshatraPrediction['prediction']}
+
+2. **Zodiac Sign (Moon Sign): $moonSign**
+Traits: {$zodiacTraits['traits']}
+
+Generate a personalized daily message (2–4 lines) for a user born under the $moonSign sign, considering both nakshatra and zodiac traits. Be friendly, insightful, and inspiring.
+EOT;
+
+    
+    $openaiKey = 'AIzaSyCXPJaPEPuIJ66w-nTbgE-W7S2qQ-cTJvY';
+    $response = Http::withHeaders([
+        'Authorization' => 'Bearer ' . $openaiKey,
+        'Content-Type' => 'application/json'
+    ])->post('https://api.openai.com/v1/chat/completions', [
+        'model' => 'gpt-4',
+        'messages' => [
+            ['role' => 'system', 'content' => 'You are a helpful astrology assistant.'],
+            ['role' => 'user', 'content' => $prompt]
+        ],
+        'temperature' => 0.7,
+        'max_tokens' => 150,
+    ]);
+
+    $aiReply = $response->json('choices.0.message.content');
+
+    return $aiReply ?? 'Could not generate message.';
+}
+
+
+    public function getZodiacSign(Request $request)
+    {
+        
+        $dob = $request->dob;
+        $tob =$request->tob;
+        $lat =$request->lat;
+        $lon= $request->lon;
+        $tz= $request->tz;
+        $lang = $request->lang;
+    
+
+        $apiKey = '445a4fd8-0e58-5ea9-89b2-0cff19374be1';
+        $url = 'https://api.vedicastroapi.com/v3-json/extended-horoscope/find-moon-sign';
+
+        $params = [
+            'api_key' => $apiKey,
+            'dob' => $dob,
+            'tob' => $tob,
+            'lat' => $lat,
+            'lon' => $lon,
+            'tz' => $tz,
+            'lang' => $lang,
+        ];
+
+        $finalUrl = $url . '?' . http_build_query($params);
+
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $finalUrl,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 20,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        ]);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $result = json_decode($response, true);
+        if (json_last_error() === JSON_ERROR_NONE) {
+            return $result;
+        }
+
+        return ['status' => 500, 'response' => 'Invalid JSON from API'];
+    }
+
+    public function getZodiacTraits($sign)
+{
+    $traits = [
+        'Gemini' => 'Intelligent, curious, adaptable, witty, talkative, but sometimes restless.',
+        'Taurus' => 'Grounded, dependable, sensual, stubborn, values stability.',
+        'Leo' => 'Confident, warm, charismatic, loves attention and creativity.',
+        // Add more signs here
+    ];
+
+    return isset($traits[$sign]) ? ['traits' => $traits[$sign]] : null;
+}
+
+public function getDailyNakshatraPrediction(Request $request)
+{
+    $nakshatraId = $request->nakshatraId;
+    $date = $request->date;
+    $lang = $request->lang;
+    $apiKey = '445a4fd8-0e58-5ea9-89b2-0cff19374be1';
+    $date = $date ?? date('d/m/Y'); // default today
+
+    $url = 'https://api.vedicastroapi.com/v3-json/prediction/daily-nakshatra';
+
+    $params = [
+        'nakshatra' => $nakshatraId,
+        'date' => $date,
+        'api_key' => $apiKey,
+        'lang' => $lang
+    ];
+
+    $finalUrl = $url . '?' . http_build_query($params);
+
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $finalUrl,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 15,
+    ]);
+
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    return json_decode($response, true);
+}
+public function getDailyNakshatraPredictions($nakshatraId)
+{
+    $apiKey = '445a4fd8-0e58-5ea9-89b2-0cff19374be1';
+    $date = date('d/m/Y');
+
+    $response = Http::get('https://api.vedicastroapi.com/v3-json/prediction/daily-nakshatra', [
+        'nakshatra' => $nakshatraId,
+        'date' => $date,
+        'api_key' => $apiKey,
+        'lang' => 'en',
+    ]);
+
+    return $response->json();
+}
+
+
+public function getNakshatraFromKundli(Request $request)
+{
+     $dob = $request->dob;
+    $tob = $request->tob;
+    $lat = $request->lat;
+     $lon = $request->lon;
+    $tz = $request->tz;
+    $lang = $request->lang;
+
+    $apiKey = '445a4fd8-0e58-5ea9-89b2-0cff19374be1';
+    // $dobFormatted = date('d/m/Y', strtotime($dob)); // Ensure format is DD/MM/YYYY
+
+    $url = 'https://api.vedicastroapi.com/v3-json/extended-horoscope/extended-kundli-details';
+
+    $params = [
+        'api_key' => $apiKey,
+        'dob' => $dob,
+        'tob' => $tob,
+        'lat' => $lat,
+        'lon' => $lon,
+        'tz' => $tz,
+        'lang' => $lang
+    ];
+
+    $finalUrl = $url . '?' . http_build_query($params);
+
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $finalUrl,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 20,
+    ]);
+
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    // $data = json_decode($response, true);
+    
+
+    return json_decode($response, true);
+
+    if (isset($data['nakshatra']['id'])) {
+        return [
+            'id' => $data['nakshatra']['id'],
+            'name' => $data['nakshatra']['name_en'] ?? $data['nakshatra']['name']
+        ];
+    }
+
+    return null;
+}
+
+
+public function getAscendant(Request $request)
+    {
+        // Validate incoming request (optional)
+        $request->validate([
+            'dob' => 'required|date_format:d/m/Y',
+            'tob' => 'required',
+            'lat' => 'required|numeric',
+            'lon' => 'required|numeric',
+            'tz'  => 'required|numeric',
+        ]);
+
+        // Get request inputs or use defaults
+        $dob = $request->dob;
+        $tob = $request->tob;
+        $lat = $request->lat;
+        $lon = $request->lon;
+        $tz  = $request->tz;
+        $lang = $request->lang;
+
+        $apiKey = '445a4fd8-0e58-5ea9-89b2-0cff19374be1';
+
+        $url = "https://api.vedicastroapi.com/v3-json/extended-horoscope/find-ascendant";
+
+        $response = Http::get($url, [
+            'api_key' => $apiKey,
+            'dob' => $dob,
+            'tob' => $tob,
+            'lat' => $lat,
+            'lon' => $lon,
+            'tz' => $tz,
+            'lang' => $lang
+        ]);
+
+        if ($response->successful()) {
+            return response()->json([
+                'status' => true,
+                'data' => $response->json()
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'error' => 'Failed to fetch data from API',
+                'details' => $response->body()
+            ], $response->status());
+        }
+    }
+
+
 }

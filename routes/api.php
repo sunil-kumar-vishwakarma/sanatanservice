@@ -85,7 +85,12 @@ Route::post('kundali/removeFromTrackPlanet', [KundaliController::class, 'removeF
 Route::post('kundali/addForTrackPlanet', [KundaliController::class, 'addForTrackPlanet']);
 Route::post('kundali/getForTrackPlanet', [KundaliController::class, 'getForTrackPlanet']);
 Route::post('get/panchang', [KundaliController::class, 'getPanchang']);
+Route::post('getZodiacSign', [KundaliController::class, 'getZodiacSign']);
+Route::post('getDailyNakshatraPrediction', [KundaliController::class, 'getDailyNakshatraPrediction']);
+Route::post('getNakshatraFromKundliDetail', [KundaliController::class, 'getNakshatraFromKundli']);
 
+Route::post('/get-ascendant', [KundaliController::class, 'getAscendant']);
+Route::post('/get-compute-personalized-message', [KundaliController::class, 'computePersonalizedMessage']);
 // banner list
 
 

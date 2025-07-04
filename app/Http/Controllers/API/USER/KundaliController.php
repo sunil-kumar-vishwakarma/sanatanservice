@@ -633,12 +633,12 @@ public function computePersonalizedMessage(Request $request)
     $moonSign = $request->moon_sign;
 
     // $nakshatraPrediction = $this->getDailyNakshatraPredictions($nakshatraId);
-   $nakshatraPrediction = [
-    'prediction' => "Today is a powerful day for introspection and spiritual clarity. You may find comfort in solitude and wisdom in silence. Avoid overthinking—trust your instincts and remain grounded."
-];
-$zodiacTraits = [
-    'traits' => "Adaptable, curious, intelligent, social, expressive, witty"
-];
+    $nakshatraPrediction = [
+        'prediction' => "Today is a powerful day for introspection and spiritual clarity. You may find comfort in solitude and wisdom in silence. Avoid overthinking—trust your instincts and remain grounded."
+    ];
+    $zodiacTraits = [
+        'traits' => "Adaptable, curious, intelligent, social, expressive, witty"
+    ];
     // if (
     //     !$nakshatraPrediction || !isset($nakshatraPrediction['prediction'])
     // ) {
@@ -658,39 +658,40 @@ $zodiacTraits = [
         EOT;
 
     // ✅ Use valid OpenAI key here
-    $geminiKey = env('OPENAI_API_KEY'); // recommended to use env variable
-// $geminiKey = config('services.gemini.key'); // A safer way to get the key
+    // $geminiKey = env('OPENAI_API_KEY'); // recommended to use env variable
+    $geminiKey = 'AIzaSyA8zxadwjuzmCzaRZdrW_eD9EEaqGNDFd4';
+    // $geminiKey = config('services.gemini.key'); // A safer way to get the key
 
-$prompt = "Explain the difference between Laravel's HTTP Client and Guzzle in simple terms.";
+    $prompt = "Explain the difference between Laravel's HTTP Client and Guzzle in simple terms.";
 
-try {
-    $response = Http::withHeaders([
-        'Content-Type' => 'application/json',
-    ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$geminiKey", [
-        'contents' => [
-            [
-                'parts' => [
-                    ['text' => $prompt]
+    try {
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+        ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$geminiKey", [
+            'contents' => [
+                [
+                    'parts' => [
+                        ['text' => $prompt]
+                    ]
                 ]
             ]
-        ]
-    ]);
+        ]);
 
-    // Throw an exception if the request was not successful (e.g., 4xx or 5xx error)
-    $response->throw();
+        // Throw an exception if the request was not successful (e.g., 4xx or 5xx error)
+        $response->throw();
 
-    // Get the generated text from the response body.
-    // You need to know the structure of the Gemini API response to do this.
-    $generatedText = $response->json('candidates.0.content.parts.0.text');
+        // Get the generated text from the response body.
+        // You need to know the structure of the Gemini API response to do this.
+        $generatedText = $response->json('candidates.0.content.parts.0.text');
 
-    // Now you can use the text
-    echo $generatedText;
+        // Now you can use the text
+        echo $generatedText;
 
-} catch (RequestException $e) {
-    // Handle API errors (e.g., invalid key, bad request, server error)
-    // You could log the error or return a user-friendly message
-    return "Error: Could not connect to the Gemini API. " . $e->getMessage();
-}
+    } catch (RequestException $e) {
+        // Handle API errors (e.g., invalid key, bad request, server error)
+        // You could log the error or return a user-friendly message
+        return "Error: Could not connect to the Gemini API. " . $e->getMessage();
+    }
 }
 
 

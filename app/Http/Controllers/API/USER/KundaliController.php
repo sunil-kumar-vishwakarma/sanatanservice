@@ -727,7 +727,7 @@ public function computePersonalizedMessage(Request $request)
     ];
 
     $prompt = <<<EOT
-You are an expert Vedic astrologer and web content generator. Based on the following:
+You are an expert Sanatan title and web content generator. Based on the following:
 
 - Nakshatra ID: $nakshatraId
 - Moon Sign: $moonSign
@@ -736,7 +736,7 @@ You are an expert Vedic astrologer and web content generator. Based on the follo
 - Time of Birth: $tob
 - Place of Birth: $pob
 
-Generate a **short and insightful astrology summary** for the user including the following sections, each as a **label and value pair** that can be shown in a table format:
+Generate a **short and Sanatan insightful astrology summary** for the user including the following sections, each as a **label and value pair** that can be shown in a table format:
 
 1. Today's Insight
 2. Rahu Kaal (time range and purpose)

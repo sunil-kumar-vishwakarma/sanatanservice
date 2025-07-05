@@ -743,7 +743,7 @@ Generate a **short and Sanatan insightful astrology summary** for the user inclu
 2. Rahu Kaal (time range and purpose)
 3. Shubh Muhurat (time range and purpose)
 4. Ritual Suggestion
-Show message response in json format view 200 character
+Show message response in text format view 200 character
 .
 EOT;
 
@@ -776,7 +776,12 @@ $cleanHtml = Str::of($generatedText)
     ->trim();
 
 // Directly return it as raw HTML in JSON
-return response()->json(['html' => $cleanHtml]);
+// return response()->json(['html' => $cleanHtml]);
+return response()->json([
+                'status' => 200,
+                "message" => "Successfully",
+                'html' => $cleanHtml
+            ], 200);
 
     } catch (\Illuminate\Http\Client\RequestException $e) {
         return response()->json([

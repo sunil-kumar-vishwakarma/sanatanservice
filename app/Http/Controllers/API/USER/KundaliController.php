@@ -821,20 +821,20 @@ public function UserPersonalizeDetails(Request $request)
             $decoded = json_decode($zodiacSign, true);
             $zo = isset($decoded['response']) ? $decoded['response'] : null;
 
-            // $getNakshatraKundliDetail =  $this->getNakshatraKundliDetail($dob,$tob,$lat,$lon,$tz);
+            $getNakshatraKundliDetail =  $this->getNakshatraKundliDetail($dob,$tob,$lat,$lon,$tz);
             //  print_r($getNakshatraKundliDetail['response']);die;
             // $decodedKundliDetail = json_decode($getNakshatraKundliDetail, true);
            
             // $kundliDetail = isset($decodedKundliDetail['response']) ? $decodedKundliDetail['response'] : null;
 
-            // $nakshatraId = '2';
+            $nakshatraId = $getNakshatraKundliDetail['response']['nakshatra'];
             // $dailyNakshatraPredictions = $this->getDailyNakshatraPredictions($nakshatraId);
             //  print_r($dailyNakshatraPredictions);die;
             //  $decodedNakshatraPredictions = json_decode($dailyNakshatraPredictions, true);
             // $decodedNakshatra = isset($decodedNakshatraPredictions['response']) ? $decodedNakshatraPredictions['response'] : null;
 
             $request['zodiac_sign'] = $zo['moon_sign'];
-            $request['nakshatraId'] = 'ashwini';
+            $request['nakshatraId'] = $getNakshatraKundliDetail['response']['nakshatra'];
             $detail = PersonalizeDetail::updateOrCreate(['user_id' => $id],$request->all());
 
         

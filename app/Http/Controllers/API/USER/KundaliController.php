@@ -737,12 +737,13 @@ You are an expert Sanatan title and web content generator. Based on the followin
 - Place of Birth: $pob
 
 Generate a **short and Sanatan insightful astrology summary** for the user including the following sections, each as a **label and value pair** that can be shown in a table format:
-
+    this is parameter
+0. Sanatan insightful astrology summary
 1. Today's Insight
 2. Rahu Kaal (time range and purpose)
 3. Shubh Muhurat (time range and purpose)
 4. Ritual Suggestion
-Show message response in html format view 250 character
+Show message response in json format view 200 character
 .
 EOT;
 

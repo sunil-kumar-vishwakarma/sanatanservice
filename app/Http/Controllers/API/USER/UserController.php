@@ -335,6 +335,8 @@ class UserController extends Controller
                 $req['lat'] = $lat;
                 $req['lon'] = $lon;
                 $req['tz'] = $tz;
+                $req['time_of_birth'] = $tob;
+                $req['place_of_birth'] = $birthPlace;
                 $birthTime = $req->time_of_birth . ':00';
                 $detail = PersonalizeDetail::updateOrCreate(['user_id' => $id],$req->all());
                 $user['nakshatraId'] =$detail->nakshatraId;

@@ -15,6 +15,9 @@ class PersonalizeDetail extends Model
         'time_of_birth',
         'place_of_birth',
         'current_location',
-        'nakshatraId'
+        'nakshatraId',
+        'lat',
+        'lon',
+        'tz'
     ];
 }

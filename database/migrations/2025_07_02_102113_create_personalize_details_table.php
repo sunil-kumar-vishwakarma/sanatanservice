@@ -22,6 +22,9 @@ class CreatePersonalizeDetailsTable extends Migration
             $table->string('place_of_birth');
             $table->string('current_location');
             $table->string('nakshatraId');
+            $table->string('lat');
+            $table->string('lon');
+            $table->string('tz');
             $table->timestamps();
         });
     }

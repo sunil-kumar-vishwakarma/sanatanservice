@@ -332,11 +332,17 @@ class UserController extends Controller
                 $req['zodiac_sign'] = $zo['moon_sign'];
                 $req['nakshatraId'] = $getNakshatraKundliDetail['response']['nakshatra'];
                 $req['date_of_birth'] = $birthDate;
+                $req['lat'] = $lat;
+                $req['lon'] = $lon;
+                $req['tz'] = $tz;
                 $birthTime = $req->time_of_birth . ':00';
                 $detail = PersonalizeDetail::updateOrCreate(['user_id' => $id],$req->all());
                 $user['nakshatraId'] =$detail->nakshatraId;
                 $user['zodiac_sign'] =$detail->zodiac_sign;
                 $user['current_location'] =$detail->current_location;
+                $user['lat'] =$detail->lat;
+                $user['lon'] =$detail->lon;
+                $user['tz'] =$detail->tz;
                
 
                 return response()->json(['message' => 'User update sucessfully', 'status' => 200, 'data'=>$user], 200);
@@ -562,6 +568,9 @@ class UserController extends Controller
             $user['nakshatraId'] =$detail->nakshatraId;
             $user['zodiac_sign'] =$detail->zodiac_sign;
             $user['current_location'] =$detail->current_location;
+            $user['lat'] =$detail->lat;
+            $user['lon'] =$detail->lon;
+            $user['tz'] =$detail->tz;
         
             // $userWallet = UserWallet::query()
             //     ->where('userId', '=', $id)

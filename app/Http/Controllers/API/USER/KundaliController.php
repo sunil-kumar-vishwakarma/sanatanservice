@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\USER;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserModel\Kundali;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -736,14 +737,14 @@ You are an expert Sanatan title and web content generator. Based on the followin
 - Time of Birth: $tob
 - Place of Birth: $pob
 
-Generate a **short and Sanatan insightful astrology summary** for the user including the following sections, each as a **label and value pair** that can be shown in a table format:
+Generate a **short and Sanatan insightful astrology summary** for the user including the following sections, each as a **label and value pair** that can be shown in a text format:
     this is parameter
 0. Sanatan insightful astrology summary
 1. Today's Insight
 2. Rahu Kaal (time range and purpose)
 3. Shubh Muhurat (time range and purpose)
 4. Ritual Suggestion
-Show message response in text format view 200 character
+Show message response in text format view 150 character
 .
 EOT;
 
@@ -792,7 +793,7 @@ return response()->json([
 }
 
 
-public function UserPersonalizeDetails(Request $request)
+    public function UserPersonalizeDetails(Request $request)
     {
         try {
             // Check if user is authenticated
@@ -828,22 +829,20 @@ public function UserPersonalizeDetails(Request $request)
             $zo = isset($decoded['response']) ? $decoded['response'] : null;
 
             $getNakshatraKundliDetail =  $this->getNakshatraKundliDetail($dob,$tob,$lat,$lon,$tz);
-            //  print_r($getNakshatraKundliDetail['response']);die;
-            // $decodedKundliDetail = json_decode($getNakshatraKundliDetail, true);
            
-            // $kundliDetail = isset($decodedKundliDetail['response']) ? $decodedKundliDetail['response'] : null;
-
             $nakshatraId = $getNakshatraKundliDetail['response']['nakshatra'];
-            // $dailyNakshatraPredictions = $this->getDailyNakshatraPredictions($nakshatraId);
-            //  print_r($dailyNakshatraPredictions);die;
-            //  $decodedNakshatraPredictions = json_decode($dailyNakshatraPredictions, true);
-            // $decodedNakshatra = isset($decodedNakshatraPredictions['response']) ? $decodedNakshatraPredictions['response'] : null;
-
+           
             $request['zodiac_sign'] = $zo['moon_sign'];
             $request['nakshatraId'] = $getNakshatraKundliDetail['response']['nakshatra'];
             $detail = PersonalizeDetail::updateOrCreate(['user_id' => $id],$request->all());
+            $birthDate = Carbon::createFromFormat('d/m/Y', $request->date_of_birth)->format('Y-m-d');
+            $birthTime = $request->time_of_birth . ':00';
 
-        
+            User::where('id', $id)->update([
+                'birthDate' => $birthDate,
+                'birthTime' => $birthTime,
+                'birthPlace' => $request->place_of_birth,
+            ]);
             return response()->json([
                 'status' => 200,
                 "message" => "Add Personalize details successfully",
@@ -889,12 +888,12 @@ public function UserPersonalizeDetails(Request $request)
         }
     }
 
- public function findZodiacSign($dob, $tob, $lat, $lon, $tz)
+    public function findZodiacSign($dob, $tob, $lat, $lon, $tz)
     {
         
 
         $lang = 'en';
-    // print_r($tob);die;
+        // print_r($tob);die;
 
         $apiKey = '445a4fd8-0e58-5ea9-89b2-0cff19374be1';
         $url = 'https://api.vedicastroapi.com/v3-json/extended-horoscope/find-moon-sign';

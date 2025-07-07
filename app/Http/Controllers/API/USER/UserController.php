@@ -44,6 +44,7 @@ class UserController extends Controller
                     'verifyOTP',
                     'signUp',
                     'resetPassword',
+                    
                 ],
             ]
         );
@@ -257,6 +258,12 @@ class UserController extends Controller
 
             $req->validate = ([
                 'contactNo' => 'required',
+                'birthDate' => 'required',
+                'birthTime' => 'required',
+                'lat' => 'required',
+                'lon' => 'required',
+                'tz' => 'required',
+                'birthPlace' => 'required',
             ]);
             $user = Auth::guard('api')->user();
             if (!$user) {
@@ -287,10 +294,11 @@ class UserController extends Controller
                 }
        
 
-
+                // $birthDate = Carbon::createFromFormat('Y-m-d', $req->date_of_birth)->format('d/m/Y');
                 $user->name = $req->name;
                 $user->contactNo = $req->contactNo;
                 // $user->password = Hash::make($req->password);
+                // $user->birthDate = $req->birthDate;
                 $user->birthDate = $req->birthDate;
                 $user->birthTime = $req->birthTime;
                 $user->birthPlace = $req->birthPlace;
@@ -302,6 +310,35 @@ class UserController extends Controller
                 // $user->email = $req->email;
                 $user->countryCode = $req->countryCode;
                 $user->update();
+
+                $dateString = $req->birthDate; // e.g., '02/05/1996'
+                $carbonDate = Carbon::createFromFormat('Y-m-d', $dateString); // ✔️
+                $birthDate = $carbonDate->format('d/m/Y');
+                $dob = $birthDate;
+                $tob = $req->birthTime;
+                $lat = $req->lat;
+                $lon= $req->lon;
+                $tz= $req->tz;
+                $birthPlace= $req->birthPlace;
+            
+                $zodiacSign =  $this->findZodiacSign($dob, $tob,$lat,$lon,$tz);
+                $decoded = json_decode($zodiacSign, true);
+                $zo = isset($decoded['response']) ? $decoded['response'] : null;
+
+                $getNakshatraKundliDetail =  $this->getNakshatraKundliDetail($dob,$tob,$lat,$lon,$tz);
+            
+                $nakshatraId = $getNakshatraKundliDetail['response']['nakshatra'];
+            
+                $req['zodiac_sign'] = $zo['moon_sign'];
+                $req['nakshatraId'] = $getNakshatraKundliDetail['response']['nakshatra'];
+                $req['date_of_birth'] = $birthDate;
+                $birthTime = $req->time_of_birth . ':00';
+                $detail = PersonalizeDetail::updateOrCreate(['user_id' => $id],$req->all());
+                $user['nakshatraId'] =$detail->nakshatraId;
+                $user['zodiac_sign'] =$detail->zodiac_sign;
+                $user['current_location'] =$detail->current_location;
+               
+
                 return response()->json(['message' => 'User update sucessfully', 'status' => 200, 'data'=>$user], 200);
             } else {
                 return response()->json(['message' => 'No user is found', 'status' => 404], 404);
@@ -313,6 +350,81 @@ class UserController extends Controller
                 'status' => 500,
             ], 500);
         }
+    }
+
+    public function getNakshatraKundliDetail($dob,$tob,$lat,$lon,$tz)
+{
+   
+    $apiKey = '445a4fd8-0e58-5ea9-89b2-0cff19374be1';
+    $url = 'https://api.vedicastroapi.com/v3-json/extended-horoscope/extended-kundli-details';
+
+    $params = [
+        'api_key' => $apiKey,
+        'dob' => $dob,
+        'tob' => $tob,
+        'lat' => $lat,
+        'lon' => $lon,
+        'tz' => $tz,
+        'lang' => 'en'
+    ];
+
+    $finalUrl = $url . '?' . http_build_query($params);
+
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $finalUrl,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 20,
+    ]);
+
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    return json_decode($response, true);
+
+    if (isset($data['nakshatra']['id'])) {
+        return [
+            'id' => $data['nakshatra']['id'],
+            'name' => $data['nakshatra']['name_en'] ?? $data['nakshatra']['name']
+        ];
+    }
+
+    return null;
+}
+
+     public function findZodiacSign($dob, $tob, $lat, $lon, $tz)
+    {
+        
+
+        $lang = 'en';
+        $apiKey = '445a4fd8-0e58-5ea9-89b2-0cff19374be1';
+        $url = 'https://api.vedicastroapi.com/v3-json/extended-horoscope/find-moon-sign';
+
+        $params = [
+            'api_key' => $apiKey,
+            'dob' => $dob,
+            'tob' => $tob,
+            'lat' => $lat,
+            'lon' => $lon,
+            'tz' => $tz,
+            'lang' => $lang,
+        ];
+
+        $finalUrl = $url . '?' . http_build_query($params);
+
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $finalUrl,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 20,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        ]);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return $response;
+    
     }
 
     //Login admin
@@ -446,6 +558,11 @@ class UserController extends Controller
                 $id = Auth::guard('api')->user()->id;
             }
             $user = User::find($id);
+            $detail = PersonalizeDetail::where('user_id', $user->id)->first();
+            $user['nakshatraId'] =$detail->nakshatraId;
+            $user['zodiac_sign'] =$detail->zodiac_sign;
+            $user['current_location'] =$detail->current_location;
+        
             // $userWallet = UserWallet::query()
             //     ->where('userId', '=', $id)
             //     ->get();
@@ -460,6 +577,7 @@ class UserController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => $user,
+                'zodiac_data' => $detail ?? '',
                 'status' => 200,
             ], 200);
         } catch (\Exception$e) {

@@ -188,7 +188,21 @@ class DailyHoroscopeController extends Controller
  $horoscopeDaily = Horoscope::where('zodiac', $horoscopeSign->name)
         ->where('langcode', $lang)
         ->first();
-    return response()->json(['status'=>200,'message' => 'Horoscope stored successfully','daily'=>$horoscopeDaily]);
+
+        $horo2 = array(
+                    'todayHoroscope' => $horoscopeDaily,
+                    // 'weeklyHoroScope' => $weeklyHoroScope,
+                    // 'yearlyHoroScope' => $yearlyHoroScope
+                );
+    //             return response()->json([
+    //                 "message" => "get daily Horoscope",
+    //                 'astroApiCallType' => $astroApiCallType,
+    //               // "recordList" => $horo,
+    //                 'vedicList' => $horo2,
+    //                 'status' => 200,
+    //             ], 200);
+
+    return response()->json(['status'=>200,'message' => 'Horoscope stored successfully','astroApiCallType'=>$horo2]);
 }
 
 

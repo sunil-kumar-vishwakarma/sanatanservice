@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\USER;
 use App\Http\Controllers\Controller;
 use App\Models\UserModel\Kundali;
 use App\Models\User;
+use App\Models\ComputePersonalizeMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -704,6 +705,19 @@ private function fetchKundaliData($kundali)
 
 public function computePersonalizedMessage(Request $request)
 {
+
+            $user = Auth::guard('api')->user();
+            if (!$user) {
+                return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
+            }
+
+            $userId = $user->id;
+            $date = date('d/m/Y');
+
+           
+            
+            // print_r($promptMessage);die;
+
     $request->validate([
         'nakshatra_id' => 'required',
         'moon_sign' => 'required|string',
@@ -712,21 +726,14 @@ public function computePersonalizedMessage(Request $request)
         'pob' => 'required|string'
 
     ]);
-    $date = date('d/m/Y');
+    $date = date('Y-m-d');
     $nakshatraId = $request->nakshatra_id;
     $moonSign = $request->moon_sign;
     $dob = $request->dob;
     $tob = $request->tob;
     $pob = $request->pob;
 
-    $nakshatraPrediction = [
-        'prediction' => "Ashwini "
-    ];
-
-    $zodiacTraits = [
-        'traits' => "Gemini"
-    ];
-
+$birthDate = Carbon::createFromFormat('d/m/Y', $request->dob)->format('Y-m-d');
     $prompt = <<<EOT
 You are an expert Sanatan title and web content generator. Based on the following:
 
@@ -768,21 +775,49 @@ EOT;
         $response->throw(); // if 4xx/5xx error, it will throw
 
         $generatedText = $response->json('candidates.0.content.parts.0.text');
-// $generatedText = $response->json('candidates.0.content.parts.0.text');
+        $cleanHtml = Str::of($generatedText)
+            ->replace('```html', '')
+            ->replace('```', '')
+            ->trim();
 
-// Remove markdown-style ```html and ``` wrapping
-$cleanHtml = Str::of($generatedText)
-    ->replace('```html', '')
-    ->replace('```', '')
-    ->trim();
+             $promptMessage = ComputePersonalizeMessage::where('user_id', $userId)->first();
+            if(!empty($promptMessage)){
+               $prodate = $promptMessage->date;
 
-// Directly return it as raw HTML in JSON
-// return response()->json(['html' => $cleanHtml]);
-return response()->json([
-                'status' => 200,
-                "message" => "Successfully",
-                'html' => $cleanHtml
-            ], 200);
+               $dob = $request->dob;
+               $tob = $request->tob;
+               $pob = $request->pob;
+
+               if($dob !=$promptMessage->dob || $tob !=$promptMessage->tob || $pob !=$promptMessage->pob){
+
+                $promptMessage = ComputePersonalizeMessage::where('user_id', $userId)->update(['message' => $cleanHtml,'date' => $date, 'dob'=>$dob,'tob'=>$tob,'pob'=>$pob]);
+           
+               } else 
+
+            //    if($dob ==$promptMessage->dob || $tob ==$promptMessage->tob || $pob ==$promptMessage->pob || $prodate !=$date){
+            //          $promptMessage = ComputePersonalizeMessage::where('user_id', $userId)->update(['message' => $cleanHtml,'date' => $date, 'dob'=>$dob,'tob'=>$tob,'pob'=>$tob]);
+           
+            //     }
+
+                if($prodate !=$date){
+                     $promptMessage = ComputePersonalizeMessage::where('user_id', $userId)->update(['message' => $cleanHtml,'date' => $date]);
+           
+                }
+
+            }else{
+
+           
+            $promptMessage = ComputePersonalizeMessage::create(['user_id' => $userId,'message' => $cleanHtml,'date' => $date,'dob'=>$dob,'tob'=>$tob,'pob'=>$tob]);
+            // print_r($promptMessage);die;
+             }
+
+             $promptMessages = ComputePersonalizeMessage::where('user_id', $userId)->first();
+           $promptDatamessage=  $promptMessages['message'];
+        return response()->json([
+                        'status' => 200,
+                        "message" => "Successfully",
+                        'html' => $promptDatamessage
+                    ], 200);
 
     } catch (\Illuminate\Http\Client\RequestException $e) {
         return response()->json([

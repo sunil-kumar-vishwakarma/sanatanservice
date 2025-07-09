@@ -62,6 +62,8 @@ Route::group(['middleware' => 'api'], function () {
 
     //dailyHoroscope
     Route::post('getDailyHoroscope', [DailyHoroscopeController::class, 'getDailyHoroscope']);
+    Route::post('getWeeklyHoroscope', [DailyHoroscopeController::class, 'getWeeklyHoroscope']);
+    Route::post('getYearlyHoroscope', [DailyHoroscopeController::class, 'getYearlyHoroscope']);
     Route::post('getDailyHoroscopeInsightForAdmin', [DailyHoroscopeController::class, 'getDailyHoroscopeInsightForAdmin']);
     Route::post('getHoroscope', [DailyHoroscopeController::class, 'getHoroscope']);
     // Route::post('generateToken', [TokenGeneratorController::class, 'generateToken']);

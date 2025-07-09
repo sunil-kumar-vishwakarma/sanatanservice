@@ -46,7 +46,7 @@ class DailyHoroscopeController extends Controller
                 ->where('date', $dt)
                 ->where('type', config('constants.DAILY_HORSCOPE'))
                 ->where('langcode', $langcode)
-                ->get();
+                ->first();
 
                 if ($todayHoroscope->isEmpty() && $langcode !== 'en') {
                     $todayHoroscope = Horoscope::selectRaw('horoscopes.*, REPLACE(lucky_color_code, "#", "0xff") AS color_code')
@@ -54,7 +54,7 @@ class DailyHoroscopeController extends Controller
                         ->where('date', $dt)
                         ->where('type', config('constants.DAILY_HORSCOPE'))
                         ->where('langcode', 'en')
-                        ->get();
+                        ->fist();
                 }
 
               // Fetching weekly horoscope

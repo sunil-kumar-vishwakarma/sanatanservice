@@ -18,11 +18,11 @@ class DailyHoroscopeController extends Controller
      public function getDailyHoroscope(Request $req)
     {
         try {
-            $dt = Carbon::now()->format('Y-m-d');
-            $yesterday = Carbon::yesterday()->format('Y-m-d');
-            $tomorrow = Carbon::tomorrow()->format('Y-m-d');
-            $mstData = MstControl::query()->get();
-            $astroApiCallType = $mstData[0]->astro_api_call_type;
+                $dt = Carbon::now()->format('Y-m-d');
+                $yesterday = Carbon::yesterday()->format('Y-m-d');
+                $tomorrow = Carbon::tomorrow()->format('Y-m-d');
+                $mstData = MstControl::query()->get();
+                $astroApiCallType = $mstData[0]->astro_api_call_type;
 
                 $currentDate = new DateTime();
                 $currentYear = $currentDate->format('Y');
@@ -48,15 +48,16 @@ class DailyHoroscopeController extends Controller
                 ->where('langcode', $langcode)
                 ->first();
 
-                if ($todayHoroscope->isEmpty() && $langcode !== 'en') {
-                    $todayHoroscope = Horoscope::selectRaw('horoscopes.*, REPLACE(lucky_color_code, "#", "0xff") AS color_code')
-                        ->where('zodiac', $signName)
-                        ->where('date', $dt)
-                        ->where('type', config('constants.DAILY_HORSCOPE'))
-                        ->where('langcode', 'en')
-                        ->fist();
-                }
+                // if ($todayHoroscope->isEmpty() && $langcode !== 'en') {
+                //     $todayHoroscope = Horoscope::selectRaw('horoscopes.*, REPLACE(lucky_color_code, "#", "0xff") AS color_code')
+                //         ->where('zodiac', $signName)
+                //         ->where('date', $dt)
+                //         ->where('type', config('constants.DAILY_HORSCOPE'))
+                //         ->where('langcode', 'en')
+                //         ->fist();
+                // }
 
+                // print_r($todayHoroscope);die;
               // Fetching weekly horoscope
                 $weeklyHoroScope = Horoscope::selectRaw('horoscopes.*, REPLACE(lucky_color_code, "#", "0xff") AS color_code')
                 ->where('zodiac', $signName)

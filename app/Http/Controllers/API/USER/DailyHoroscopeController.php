@@ -202,7 +202,7 @@ class DailyHoroscopeController extends Controller
     //                 'status' => 200,
     //             ], 200);
 
-    return response()->json(['status'=>200,'message' => 'Horoscope stored successfully','astroApiCallType'=>$horo2]);
+    return response()->json(['status'=>200,'message' => 'Horoscope stored successfully','vedicList'=>$horo2]);
 }
 
 

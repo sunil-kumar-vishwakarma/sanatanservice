@@ -194,15 +194,9 @@ class DailyHoroscopeController extends Controller
                     // 'weeklyHoroScope' => $weeklyHoroScope,
                     // 'yearlyHoroScope' => $yearlyHoroScope
                 );
-    //             return response()->json([
-    //                 "message" => "get daily Horoscope",
-    //                 'astroApiCallType' => $astroApiCallType,
-    //               // "recordList" => $horo,
-    //                 'vedicList' => $horo2,
-    //                 'status' => 200,
-    //             ], 200);
+  
 
-    return response()->json(['status'=>200,'message' => 'Horoscope stored successfully','vedicList'=>$horo2]);
+    return response()->json(['status'=>200,'message' => 'Horoscope stored successfully','todayHoroscope' => [$horoscopeDaily]]);
 }
 
 
@@ -281,7 +275,7 @@ public function getWeeklyHoroscope(Request $req)
         );
     }
 
-    return response()->json(['status'=>200,'message' => 'Weekly horoscope stored or already up to date','weekly'=>$existingHoroscope]);
+    return response()->json(['status'=>200,'message' => 'Weekly horoscope stored or already up to date','weeklyHoroScope'=>[$existingHoroscope]]);
 }
 
 
@@ -479,7 +473,7 @@ public function getYearlyHoroscope(Request $req)
     return response()->json([
         'status' => 200,
         'message' => 'Yearly horoscope stored or already up to date',
-        'yearly' => $existingHoroscope
+        'yearlyHoroScope' => [$existingHoroscope]
     ]);
 }
 

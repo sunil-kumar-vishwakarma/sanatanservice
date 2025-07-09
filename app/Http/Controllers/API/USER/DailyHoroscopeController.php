@@ -190,7 +190,7 @@ class DailyHoroscopeController extends Controller
         ->first();
 
         $horo2 = array(
-                    'todayHoroscope' => $horoscopeDaily,
+                    'todayHoroscope' => [$horoscopeDaily],
                     // 'weeklyHoroScope' => $weeklyHoroScope,
                     // 'yearlyHoroScope' => $yearlyHoroScope
                 );

@@ -328,10 +328,15 @@ private function fetchKundaliData($kundali)
     {
  $api_key=DB::table('systemflag')->where('name','vedicAstroAPI')->first();
 
-        // print_r($pdf_type);die;
+ 
+ $convertedName = str_replace(' ', '%2', $name);
+//  $website = str_replace(' ', '%2', 'https://sanatanservice.com/public/');
+
+//  print_r($website);die;
+
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
-		  CURLOPT_URL => 'https://api.vedicastroapi.com/v3-json/pdf/horoscope-queue?name='.$name.'&dob='.$birthDate.'&tob='.$birthTime.'&lat='.$latitude.'&lon='.$longitude.'&tz='.$timezone.'&api_key='.$api_key->value.'&lang=en&style=north&color=140&pob=indore&company_name=AstroWay&address=indore&website=https%3A%2F%2Fastroway.diploy.in%2F&email=nb%40diploy.in&phone=%2B91%208690482938&pdf_type='.$pdf_type.'',
+		  CURLOPT_URL => 'https://api.vedicastroapi.com/v3-json/pdf/horoscope-queue?name='.$convertedName.'&dob='.$birthDate.'&tob='.$birthTime.'&lat='.$latitude.'&lon='.$longitude.'&tz='.$timezone.'&api_key='.$api_key->value.'&lang=en&style=north&color=140&pob=indore&company_name=SantanService%LLC&address=indore&website=https://sanatanservice.com/public/&email=sanatanservice@gmail.com&phone=%2B91%208690482938&pdf_type='.$pdf_type.'',
 		  CURLOPT_RETURNTRANSFER => true,
 		  CURLOPT_ENCODING => '',
 		  CURLOPT_MAXREDIRS => 10,
@@ -734,26 +739,48 @@ public function computePersonalizedMessage(Request $request)
     $pob = $request->pob;
 
 $birthDate = Carbon::createFromFormat('d/m/Y', $request->dob)->format('Y-m-d');
-    $prompt = <<<EOT
-You are an expert Sanatan title and web content generator. Based on the following:
+
+    $prompt = 
+    <<<EOT
+    You are a knowledgeable Vedic astrologer. Based on the data below, write a personalized daily summary in a warm and concise tone:
 
 - Nakshatra ID: $nakshatraId
 - Moon Sign: $moonSign
-- Date: $date
+- Date:$date
 - User DOB: $dob
 - Time of Birth: $tob
 - Place of Birth: $pob
 
-Generate a **short and Sanatan insightful astrology summary** for the user including the following sections, each as a **label and value pair** that can be shown in a text format:
+Generate a short and  insightful astrology summary for the user exactly including the following sections, each as a label and value pair that can be shown in a text format in an app, do not remove any section in summary:
     this is parameter
-0. Sanatan insightful astrology summary
-1. Today's Insight
-2. Rahu Kaal (time range and purpose)
-3. Shubh Muhurat (time range and purpose)
+
+1. Todays Insight (no user greeting or placeholder in response)
+2. Shubh Muhurat (time range in AM or PM and purpose)
+3. Rahu Kaal (time range in AM or PM and purpose)
 4. Ritual Suggestion
-Show message response in text format view 150 character
-.
+Show message response in text format view where Todays insight is 500 character in user friendly text and total response is 900 characters.
 EOT;
+
+//     $prompt = <<<EOT
+// You are an expert Sanatan title and web content generator. Based on the following:
+
+// - Nakshatra ID: $nakshatraId
+// - Moon Sign: $moonSign
+// - Date: $date
+// - User DOB: $dob
+// - Time of Birth: $tob
+// - Place of Birth: $pob
+
+// Generate a **short and Sanatan insightful astrology summary** for the user including the following sections, each as a **label and value pair** that can be shown in a text format:
+//     this is parameter
+// 0. Sanatan insightful astrology summary
+// 1. Today's Insight
+// 2. Rahu Kaal (time range and purpose)
+// 3. Shubh Muhurat (time range and purpose)
+// 4. Ritual Suggestion
+// Show message response in text format view 150 character
+// .
+// EOT;
 
 
     // Replace this with your actual Gemini API Key securely from env

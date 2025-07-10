@@ -188,12 +188,6 @@ class DailyHoroscopeController extends Controller
  $horoscopeDaily = Horoscope::where('zodiac', $horoscopeSign->name)
         ->where('langcode', $lang)
         ->first();
-
-        $horo2 = array(
-                    'todayHoroscope' => [$horoscopeDaily],
-                    // 'weeklyHoroScope' => $weeklyHoroScope,
-                    // 'yearlyHoroScope' => $yearlyHoroScope
-                );
   
 
     return response()->json(['status'=>200,'message' => 'Horoscope stored successfully','todayHoroscope' => [$horoscopeDaily]]);
@@ -275,7 +269,14 @@ public function getWeeklyHoroscope(Request $req)
         );
     }
 
-    return response()->json(['status'=>200,'message' => 'Weekly horoscope stored or already up to date','weeklyHoroScope'=>[$existingHoroscope]]);
+    $existingWeeklyHoroscope = Horoscope::where('zodiac', $horoscopeSign->name)
+        ->where('langcode', $lang)
+        ->where('start_date', '>=', $startDate)
+        ->where('end_date', '<=', $endDate)
+        ->where('type', config('constants.WEEKLY_HORSCOPE'))
+        ->first();
+
+    return response()->json(['status'=>200,'message' => 'Weekly horoscope stored or already up to date','weeklyHoroScope'=>[$existingWeeklyHoroscope]]);
 }
 
 
@@ -462,7 +463,7 @@ public function getYearlyHoroscope(Request $req)
         }
 
         // Refresh from DB
-        $existingHoroscope = Horoscope::where('zodiac', $horoscopeSign->name)
+        $existingYearlyHoroscope = Horoscope::where('zodiac', $horoscopeSign->name)
             ->where('langcode', $lang)
             ->where('type', config('constants.YEARLY_HORSCOPE'))
             ->where('start_date', $startOfYear)
@@ -473,7 +474,7 @@ public function getYearlyHoroscope(Request $req)
     return response()->json([
         'status' => 200,
         'message' => 'Yearly horoscope stored or already up to date',
-        'yearlyHoroScope' => [$existingHoroscope]
+        'yearlyHoroScope' => [$existingYearlyHoroscope]
     ]);
 }
 

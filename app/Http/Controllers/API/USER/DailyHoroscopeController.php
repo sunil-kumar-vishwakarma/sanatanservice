@@ -463,14 +463,16 @@ public function getYearlyHoroscope(Request $req)
         }
 
         // Refresh from DB
-        $existingYearlyHoroscope = Horoscope::where('zodiac', $horoscopeSign->name)
+       
+    }
+
+     $existingYearlyHoroscope = Horoscope::where('zodiac', $horoscopeSign->name)
             ->where('langcode', $lang)
             ->where('type', config('constants.YEARLY_HORSCOPE'))
             ->where('start_date', $startOfYear)
             ->where('end_date', $endOfYear)
             ->first();
-    }
-
+            
     return response()->json([
         'status' => 200,
         'message' => 'Yearly horoscope stored or already up to date',

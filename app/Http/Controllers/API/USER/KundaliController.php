@@ -77,8 +77,6 @@ public function addKundali(Request $req)
                     $response = Http::get($pdfUrl);
                     $pdfUrlss =   Storage::disk('public')->put('kundali/'.$filename, $response);
                     $pdfUrlssPdf= 'storage/kundali/'.$filename;
-
-
                     $kundalis->name = $kundali['name'];
                     $kundalis->gender = $kundali['gender'];
                     $kundalis->birthDate = date('Y-m-d', strtotime($kundali['birthDate']));
@@ -243,6 +241,7 @@ public function addKundali(Request $req)
         return response()->json([
             'message' => 'Kundali updated successfully',
             'recordList' => $kundali2,
+            'recordListPDF' => $pdfUrl,
             'status' => 200,
         ], 200);
     } catch (\Exception $e) {

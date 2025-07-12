@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\RequestException;
 use Str;
+use Illuminate\Support\Facades\Storage;
 use App\Models\PersonalizeDetail;
 use Carbon\Carbon;
 class KundaliController extends Controller
@@ -71,7 +72,11 @@ public function addKundali(Request $req)
                     );
 
                     $decoded = json_decode($kundaliList, true);
-          $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+                    $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+                    $filename = 'horoscope_'. time() . '.pdf';
+                    $response = Http::get($pdfUrl);
+                    $pdfUrlss =   Storage::disk('public')->put('kundali/' . $filename, $response);
+                    $pdfUrlssPdf= 'storage/kundali/'.$filename;
 
 
                     $kundalis->name = $kundali['name'];
@@ -85,7 +90,7 @@ public function addKundali(Request $req)
                     $kundalis->pdf_type = isset($kundali['pdf_type']) ? $kundali['pdf_type'] : '';
                     $kundalis->match_type = isset($kundali['match_type']) ? $kundali['match_type'] : '';
                     $kundalis->forMatch = isset($kundali['forMatch']) ? $kundali['forMatch'] : 0;
-                    $kundalis->pdf_link = isset($pdfUrl) ? $pdfUrl : '';
+                    $kundalis->pdf_link = isset($pdfUrlssPdf) ? $pdfUrlssPdf : '';
                     $kundalis->update();
                     $kundali2[] = $kundalis;
                 }
@@ -118,8 +123,13 @@ public function addKundali(Request $req)
                         $kundali['pdf_type']
                     );
        
-          $decoded = json_decode($kundaliList, true);
-          $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+                $decoded = json_decode($kundaliList, true);
+                $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+
+                $filename = 'horoscope_'. time() . '.pdf';
+                $response = Http::get($pdfUrl);
+                $pdfUrlss =   Storage::disk('public')->put('kundali/' . $filename, $response);
+                $pdfUrlssPdf= 'storage/kundali/'.$filename;
 
                         $newKundali = Kundali::create([
                             'name' => $kundali['name'],
@@ -135,7 +145,7 @@ public function addKundali(Request $req)
                             'pdf_type' => isset($kundali['pdf_type']) ? $kundali['pdf_type'] : '',
                             'match_type' => isset($kundali['match_type']) ? $kundali['match_type'] : '',
                             'forMatch' => isset($kundali['forMatch']) ? $kundali['forMatch'] : 0,
-                            'pdf_link' => isset($pdfUrl) ? $pdfUrl : '',
+                            'pdf_link' => isset($pdfUrlssPdf) ? $pdfUrlssPdf : '',
 
                         ]);
 
@@ -178,7 +188,11 @@ public function addKundali(Request $req)
                     );
 
                     $decoded = json_decode($kundaliList, true);
-          $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+                    $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+                    $filename = 'horoscope_'. time() . '.pdf';
+                    $response = Http::get($pdfUrl);
+                    $pdfUrlss =   Storage::disk('public')->put('kundali/' . $filename, $response);
+                    $pdfUrlssPdf= 'storage/kundali/'.$filename;
 
                         $newKundali = Kundali::create([
                             'name' => $kundali['name'],
@@ -194,7 +208,7 @@ public function addKundali(Request $req)
                             'pdf_type' => isset($kundali['pdf_type']) ? $kundali['pdf_type'] : '',
                             'match_type' => isset($kundali['match_type']) ? $kundali['match_type'] : '',
                             'forMatch' => isset($kundali['forMatch']) ? $kundali['forMatch'] : 0,
-                            'pdf_link' => isset($pdfUrl) ? $pdfUrl : '',
+                            'pdf_link' => isset($pdfUrlssPdf) ? $pdfUrlssPdf : '',
 
                         ]);
 

@@ -75,7 +75,7 @@ public function addKundali(Request $req)
                     $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
                     $filename = 'horoscope_'. time() . '.pdf';
                     $response = Http::get($pdfUrl);
-                    $pdfUrlss =   Storage::disk('public')->put('kundali/' . $filename, $response);
+                    $pdfUrlss =   Storage::disk('public')->put('kundali/'.$filename, $response);
                     $pdfUrlssPdf= 'storage/kundali/'.$filename;
 
 

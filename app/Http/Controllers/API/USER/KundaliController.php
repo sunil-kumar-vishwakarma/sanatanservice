@@ -73,7 +73,7 @@ public function addKundali(Request $req)
 
                     $decoded = json_decode($kundaliList, true);
                     $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
-                    $filename = 'horoscope_'. time() . '.pdf';
+                    $filename = 'horoscope'.time().'.pdf';
                     $response = Http::get($pdfUrl);
                     $pdfUrlss =   Storage::disk('public')->put('kundali/'.$filename, $response);
                     $pdfUrlssPdf= 'storage/kundali/'.$filename;
@@ -126,7 +126,7 @@ public function addKundali(Request $req)
                 $decoded = json_decode($kundaliList, true);
                 $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
 
-                $filename = 'horoscope_'.time().'.pdf';
+                $filename = 'horoscope'.time().'.pdf';
                 $response = Http::get($pdfUrl);
                 $pdfUrlss =   Storage::disk('public')->put('kundali/'.$filename, $response);
                 $pdfUrlssPdf= 'storage/kundali/'.$filename;
@@ -189,7 +189,7 @@ public function addKundali(Request $req)
 
                     $decoded = json_decode($kundaliList, true);
                     $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
-                    $filename = 'horoscope_'.time().'.pdf';
+                    $filename = 'horoscope'.time().'.pdf';
                     $response = Http::get($pdfUrl);
                     $pdfUrlss =   Storage::disk('public')->put('kundali/'.$filename, $response);
                     $pdfUrlssPdf= 'storage/kundali/'.$filename;

@@ -75,8 +75,11 @@ public function addKundali(Request $req)
                     $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
                     $filename = 'horoscope'.time().'.pdf';
                     $response = Http::get($pdfUrl);
-                    $pdfUrlss =   Storage::disk('public')->put('kundali/'.$filename, $response);
-                    $pdfUrlssPdf= 'storage/kundali/'.$filename;
+                    // $pdfUrlss =   Storage::disk('public')->put('kundali/'.$filename, $response);
+                    // $pdfUrlssPdf= 'storage/kundali/'.$filename;
+
+                     $pdfUrlss =   Storage::disk('public')->put($filename, $response);
+                    $pdfUrlssPdf= 'storage/'.$filename;
 
 
                     $kundalis->name = $kundali['name'];
@@ -128,8 +131,10 @@ public function addKundali(Request $req)
 
                 $filename = 'horoscope'.time().'.pdf';
                 $response = Http::get($pdfUrl);
-                $pdfUrlss =   Storage::disk('public')->put('kundali/'.$filename, $response);
-                $pdfUrlssPdf= 'storage/kundali/'.$filename;
+                 $pdfUrlss =   Storage::disk('public')->put($filename, $response);
+                $pdfUrlssPdf= 'storage/'.$filename;
+                // $pdfUrlss =   Storage::disk('public')->put('kundali/'.$filename, $response);
+                // $pdfUrlssPdf= 'storage/kundali/'.$filename;
 
                         $newKundali = Kundali::create([
                             'name' => $kundali['name'],
@@ -191,8 +196,8 @@ public function addKundali(Request $req)
                     $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
                     $filename = 'horoscope'.time().'.pdf';
                     $response = Http::get($pdfUrl);
-                    $pdfUrlss =   Storage::disk('public')->put('kundali/'.$filename, $response);
-                    $pdfUrlssPdf= 'storage/kundali/'.$filename;
+                    $pdfUrlss =   Storage::disk('public')->put($filename, $response);
+                    $pdfUrlssPdf= 'storage/'.$filename;
 
                         $newKundali = Kundali::create([
                             'name' => $kundali['name'],

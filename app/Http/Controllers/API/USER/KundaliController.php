@@ -299,7 +299,7 @@ public function addKundali(Request $req)
 
         DB::commit();
         return response()->json([
-            'message' => 'Kundali updated successfully',
+            'message' => 'Kundali Generated successfully',
             'recordList' => $kundali2,
             'recordListPDF' => $pdfUrl,
             'status' => 200,

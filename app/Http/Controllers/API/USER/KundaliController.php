@@ -267,7 +267,7 @@ public function addKundali(Request $req)
 {
     DB::beginTransaction();
 
-    
+
     try {
         // Get authenticated user
         $user = Auth::guard('api')->user();
@@ -321,11 +321,7 @@ public function addKundali(Request $req)
                 if ($response->successful() && strpos($response->header('Content-Type'), 'application/pdf') !== false) {
                     Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
                     $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
-                } else {
-                    Log::error('PDF Download Error. Status: ' . $response->status() . ', Type: ' . $response->header('Content-Type'));
-                }
-            }
-        }
+                
 
         $savedKundalis = [];
 
@@ -378,6 +374,20 @@ public function addKundali(Request $req)
             'recordListPDF' => $pdfUrlssPdf,
             'status' => 200,
         ], 200);
+
+        } else {
+                    Log::error('PDF Download Error. Status: ' . $response->status() . ', Type: ' . $response->header('Content-Type'));
+                    DB::rollback();
+                    Log::error('Kundali Add Error: ' . $e->getMessage());
+                    return response()->json([
+                        'error' => true,
+                        'message' => $e->getMessage(),
+                        'status' => 500,
+                    ], 500);
+                }
+                
+            }
+        }
     } catch (\Exception $e) {
         DB::rollback();
         Log::error('Kundali Add Error: ' . $e->getMessage());

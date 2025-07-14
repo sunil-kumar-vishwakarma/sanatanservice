@@ -20,336 +20,368 @@ use Illuminate\Support\Facades\Log;
 class KundaliController extends Controller
 {
 
+// public function addKundali(Request $req)
+// {
+
+//     DB::beginTransaction();
+
+//     try {
+//         // Get user id
+//         if (!Auth::guard('api')->user()) {
+//             return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
+//         } else {
+//             $id = Auth::guard('api')->user()->id;
+//         }
+
+//         // $data = $req->only('kundali', 'amount', 'is_match');
+//         $data = $req->only('kundali', 'is_match');
+
+//         // Validate the data
+//         $validator = Validator::make($data, [
+//             'kundali' => 'required|array',
+//             // 'amount' => 'required|numeric', // Assuming amount is required and should be numeric
+//         ]);
+
+//         // Send a failed response if the request is not valid
+//         if ($validator->fails()) {
+//             return response()->json(['error' => $validator->messages(), 'status' => 400], 400);
+//         }
+
+//         $kundali2 = [];
+
+//         if($req->is_match=="false"){
+//             $req->is_match=0;
+//         }
+
+//         // Create or update Kundali
+//         foreach ($req->kundali as $kundali) {
+
+//             if (isset($kundali['id'])) {
+//                 $kundalis = Kundali::find($kundali['id']);
+
+//                 if ($kundalis) {
+//                        $kundaliList = $this->getKundliViaVedic(
+//                         $kundali['name'],
+//                         $kundali['birthDate'],
+//                         $kundali['birthTime'],
+//                         $kundali['latitude'],
+//                         $kundali['longitude'],
+//                         $kundali['lang'],
+//                         $kundali['timezone'] ?? 5.5,
+//                         $kundali['birthPlace'],
+//                         $kundali['pdf_type']
+//                     );
+
+//                     $decoded = json_decode($kundaliList, true);
+//                     $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+//                     if ($pdfUrl) {
+//                         $filename = 'horoscope' . time() . '.pdf';
+//                         $response = Http::get($pdfUrl);
+
+//                         // Check if the HTTP request was successful
+//                         if ($response->successful()) {
+//                             // Optional: check content-type is PDF
+//                             if (strpos($response->header('Content-Type'), 'application/pdf') !== false) {
+//                                 Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
+//                                 $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
+//                             } else {
+//                                 Log::error('Invalid content type from PDF URL: ' . $response->header('Content-Type'));
+//                             }
+//                         } else {
+//                             Log::error('Failed to download PDF. Status: ' . $response->status());
+//                         }
+//                     }
+
+
+//                     $kundalis->name = $kundali['name'];
+//                     $kundalis->gender = $kundali['gender'];
+//                     $kundalis->birthDate = date('Y-m-d', strtotime($kundali['birthDate']));
+//                     $kundalis->birthTime = $kundali['birthTime'];
+//                     $kundalis->birthPlace = $kundali['birthPlace'];
+//                     $kundalis->latitude = $kundali['latitude'];
+//                     $kundalis->longitude = $kundali['longitude'];
+//                     $kundalis->timezone = isset($kundali['timezone']) ? $kundali['timezone'] : 5.5;
+//                     $kundalis->pdf_type = isset($kundali['pdf_type']) ? $kundali['pdf_type'] : '';
+//                     $kundalis->match_type = isset($kundali['match_type']) ? $kundali['match_type'] : '';
+//                     $kundalis->forMatch = isset($kundali['forMatch']) ? $kundali['forMatch'] : 0;
+//                     $kundalis->pdf_link = isset($pdfUrlssPdf) ? $pdfUrlssPdf : '';
+//                     $kundalis->update();
+//                     $kundali2[] = $kundalis;
+//                 }
+//             } else {
+//                 // Check if wallet has enough amount only if is_match is false
+// 				$kundalicount = Kundali::where('createdBy', '=', $id)->count();
+//                 if (!$req->is_match && $kundalicount>0) {
+//                         $kundaliList = $this->getKundliViaVedic(
+//                         $kundali['name'],
+//                         $kundali['birthDate'],
+//                         $kundali['birthTime'],
+//                         $kundali['latitude'],
+//                         $kundali['longitude'],
+//                         $kundali['lang'],
+//                         $kundali['timezone'] ?? 5.5,
+//                         $kundali['birthPlace'],
+//                         $kundali['pdf_type']
+//                     );
+       
+//                 $decoded = json_decode($kundaliList, true);
+//                 $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+                 
+//                     if ($pdfUrl) {
+//                         $filename = 'horoscope' . time() . '.pdf';
+//                         $response = Http::get($pdfUrl);
+
+//                         if ($response->successful()) {
+//                             if (strpos($response->header('Content-Type'), 'application/pdf') !== false) {
+//                                 Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
+//                                 $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
+//                             } else {
+//                                 Log::error('Invalid content type from PDF URL: ' . $response->header('Content-Type'));
+//                             }
+//                         } else {
+//                             Log::error('Failed to download PDF. Status: ' . $response->status());
+//                         }
+//                     }
+
+//                         $newKundali = Kundali::create([
+//                             'name' => $kundali['name'],
+//                             'gender' => $kundali['gender'],
+//                             'birthDate' => date('Y-m-d', strtotime($kundali['birthDate'])),
+//                             'birthTime' => $kundali['birthTime'],
+//                             'birthPlace' => $kundali['birthPlace'],
+//                             'createdBy' => $id,
+//                             'modifiedBy' => $id,
+//                             'latitude' => $kundali['latitude'],
+//                             'longitude' => $kundali['longitude'],
+//                             'timezone' => isset($kundali['timezone']) ? $kundali['timezone'] : 5.5,
+//                             'pdf_type' => isset($kundali['pdf_type']) ? $kundali['pdf_type'] : '',
+//                             'match_type' => isset($kundali['match_type']) ? $kundali['match_type'] : '',
+//                             'forMatch' => isset($kundali['forMatch']) ? $kundali['forMatch'] : 0,
+//                             'pdf_link' => isset($pdfUrlssPdf) ? $pdfUrlssPdf : '',
+
+//                         ]);
+
+//                         $kundali2[] = $newKundali;
+
+//                 } else {
+//                     $kundalicount = Kundali::where('createdBy', '=', $id)->count();
+//                     if(!$req->is_match && $kundalicount==0){
+//                          $kundaliList = $this->getKundliViaVedic(
+//                         $kundali['name'],
+//                         $kundali['birthDate'],
+//                         $kundali['birthTime'],
+//                         $kundali['latitude'],
+//                         $kundali['longitude'],
+//                         $kundali['lang'],
+//                         $kundali['timezone'] ?? 5.5,
+//                         $kundali['birthPlace'],
+//                         $kundali['pdf_type']
+
+
+//                     );
+
+//                     $decoded = json_decode($kundaliList, true);
+//                     $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;   
+//                     if ($pdfUrl) {
+//                         $filename = 'horoscope' . time() . '.pdf';
+//                         $response = Http::get($pdfUrl);
+
+//                         // Check if the HTTP request was successful
+//                         if ($response->successful()) {
+//                             // Optional: check content-type is PDF
+//                             if (strpos($response->header('Content-Type'), 'application/pdf') !== false) {
+//                                 Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
+//                                 $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
+//                             } else {
+//                                 Log::error('Invalid content type from PDF URL: ' . $response->header('Content-Type'));
+//                             }
+//                         } else {
+//                             Log::error('Failed to download PDF. Status: ' . $response->status());
+//                         }
+//                     }
+
+//                         $newKundali = Kundali::create([
+//                             'name' => $kundali['name'],
+//                             'gender' => $kundali['gender'],
+//                             'birthDate' => date('Y-m-d', strtotime($kundali['birthDate'])),
+//                             'birthTime' => $kundali['birthTime'],
+//                             'birthPlace' => $kundali['birthPlace'],
+//                             'createdBy' => $id,
+//                             'modifiedBy' => $id,
+//                             'latitude' => $kundali['latitude'],
+//                             'longitude' => $kundali['longitude'],
+//                             'timezone' => isset($kundali['timezone']) ? $kundali['timezone'] : 5.5,
+//                             'pdf_type' => isset($kundali['pdf_type']) ? $kundali['pdf_type'] : '',
+//                             'match_type' => isset($kundali['match_type']) ? $kundali['match_type'] : '',
+//                             'forMatch' => isset($kundali['forMatch']) ? $kundali['forMatch'] : 0,
+//                             'pdf_link' => isset($pdfUrlssPdf) ? $pdfUrlssPdf : '',
+
+//                         ]);
+
+//                         $kundali2[] = $newKundali;
+//                     }else{
+//                          $newKundali = Kundali::create([
+//                         'name' => $kundali['name'],
+//                         'gender' => $kundali['gender'],
+//                         'birthDate' => date('Y-m-d', strtotime($kundali['birthDate'])),
+//                         'birthTime' => $kundali['birthTime'],
+//                         'birthPlace' => $kundali['birthPlace'],
+//                         'createdBy' => $id,
+//                         'modifiedBy' => $id,
+//                         'latitude' => $kundali['latitude'],
+//                         'longitude' => $kundali['longitude'],
+//                         'timezone' => isset($kundali['timezone']) ? $kundali['timezone'] : 5.5,
+//                         'pdf_type' => isset($kundali['pdf_type']) ? $kundali['pdf_type'] : '',
+//                         'match_type' => isset($kundali['match_type']) ? $kundali['match_type'] : '',
+//                         'forMatch' => isset($kundali['forMatch']) ? $kundali['forMatch'] : 0,
+//                         'pdf_link' => isset($kundaliList) ? $kundaliList : '',
+//                     ]);
+
+//                     $kundali2[] = $newKundali;
+//                     }
+//                     // If is_match is true, don't perform wallet-related actions
+
+//                 }
+//             }
+//         }
+
+//         DB::commit();
+//         return response()->json([
+//             'message' => 'Kundali Generated successfully',
+//             'recordList' => $kundali2,
+//             'recordListPDF' => $pdfUrl,
+//             'status' => 200,
+//         ], 200);
+//     } catch (\Exception $e) {
+//         DB::rollback();
+//         return response()->json([
+//             'error' => false,
+//             'message' => $e->getMessage(),
+//             'status' => 500,
+//         ], 500);
+//     }
+// }
+
+
 public function addKundali(Request $req)
 {
-
     DB::beginTransaction();
 
     try {
-        // Get user id
-        if (!Auth::guard('api')->user()) {
+        // Get authenticated user
+        $user = Auth::guard('api')->user();
+        if (!$user) {
             return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
-        } else {
-            $id = Auth::guard('api')->user()->id;
         }
+        $id = $user->id;
 
-        // $data = $req->only('kundali', 'amount', 'is_match');
         $data = $req->only('kundali', 'is_match');
 
-        // Validate the data
+        // Validation
         $validator = Validator::make($data, [
             'kundali' => 'required|array',
-            // 'amount' => 'required|numeric', // Assuming amount is required and should be numeric
         ]);
-
-        // Send a failed response if the request is not valid
         if ($validator->fails()) {
             return response()->json(['error' => $validator->messages(), 'status' => 400], 400);
         }
 
-        $kundali2 = [];
-
-        if($req->is_match=="false"){
-            $req->is_match=0;
+        if ($req->is_match === "false") {
+            $req->is_match = 0;
         }
 
-        // Create or update Kundali
-        foreach ($req->kundali as $kundali) {
+        $kundaliList = $req->kundali;
+        $pdfUrlssPdf = null;
+        $decoded = null;
+        $pdfUrl = null;
 
-            if (isset($kundali['id'])) {
-                $kundalis = Kundali::find($kundali['id']);
+        // Generate PDF only ONCE using first kundali in list
+        if (!empty($kundaliList)) {
+            $first = $kundaliList[0];
 
-                if ($kundalis) {
-                       $kundaliList = $this->getKundliViaVedic(
-                        $kundali['name'],
-                        $kundali['birthDate'],
-                        $kundali['birthTime'],
-                        $kundali['latitude'],
-                        $kundali['longitude'],
-                        $kundali['lang'],
-                        $kundali['timezone'] ?? 5.5,
-                        $kundali['birthPlace'],
-                        $kundali['pdf_type']
-                    );
+            $kundaliResponse = $this->getKundliViaVedic(
+                $first['name'],
+                $first['birthDate'],
+                $first['birthTime'],
+                $first['latitude'],
+                $first['longitude'],
+                $first['lang'],
+                $first['timezone'] ?? 5.5,
+                $first['birthPlace'],
+                $first['pdf_type']
+            );
 
-                    $decoded = json_decode($kundaliList, true);
-                    $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
-                    // $filename = 'horoscope'.time().'.pdf';
-                    // $response = Http::get($pdfUrl);
-                    // $pdfUrlss =   Storage::disk('public')->put('kundali_date/'.$filename, $response);
-                    // $pdfUrlssPdf= 'storage/kundali_date/'.$filename;
+            $decoded = json_decode($kundaliResponse, true);
+            $pdfUrl = $decoded['response'] ?? null;
 
-                    // if ($pdfUrl) {
-                        $filename = 'horoscope' . time() . '.pdf';
-                        $response = Http::get($pdfUrl);
+            if ($pdfUrl) {
+                $filename = 'horoscope' . time() . '.pdf';
+                $response = Http::get($pdfUrl);
 
-                        // Check if the HTTP request was successful
-                        // if ($response->successful()) {
-                            // Optional: check content-type is PDF
-                            // if (strpos($response->header('Content-Type'), 'application/pdf') !== false) {
-                                Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
-                                $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
-                    //         } else {
-                    //             Log::error('Invalid content type from PDF URL: ' . $response->header('Content-Type'));
-                    //         }
-                    //     } else {
-                    //         Log::error('Failed to download PDF. Status: ' . $response->status());
-                    //     }
-                    // }
-
-
-                    $kundalis->name = $kundali['name'];
-                    $kundalis->gender = $kundali['gender'];
-                    $kundalis->birthDate = date('Y-m-d', strtotime($kundali['birthDate']));
-                    $kundalis->birthTime = $kundali['birthTime'];
-                    $kundalis->birthPlace = $kundali['birthPlace'];
-                    $kundalis->latitude = $kundali['latitude'];
-                    $kundalis->longitude = $kundali['longitude'];
-                    $kundalis->timezone = isset($kundali['timezone']) ? $kundali['timezone'] : 5.5;
-                    $kundalis->pdf_type = isset($kundali['pdf_type']) ? $kundali['pdf_type'] : '';
-                    $kundalis->match_type = isset($kundali['match_type']) ? $kundali['match_type'] : '';
-                    $kundalis->forMatch = isset($kundali['forMatch']) ? $kundali['forMatch'] : 0;
-                    $kundalis->pdf_link = isset($pdfUrlssPdf) ? $pdfUrlssPdf : '';
-                    $kundalis->update();
-                    $kundali2[] = $kundalis;
-                }
-            } else {
-                // Check if wallet has enough amount only if is_match is false
-				$kundalicount = Kundali::where('createdBy', '=', $id)->count();
-                if (!$req->is_match && $kundalicount>0) {
-                    // $wallet = DB::table('user_wallets')
-                    //     ->where('userId', '=', $id)
-                    //     ->first();
-
-                    // $requiredAmount = $req->amount;
-
-                    // if ($wallet && $wallet->amount >= $requiredAmount) {
-                    //     $updatedAmount = $wallet->amount - $requiredAmount;
-
-                        // DB::table('user_wallets')
-                        //     ->where('userId', $id)
-                        //     ->update(['amount' => $updatedAmount]);
-
-                        $kundaliList = $this->getKundliViaVedic(
-                        $kundali['name'],
-                        $kundali['birthDate'],
-                        $kundali['birthTime'],
-                        $kundali['latitude'],
-                        $kundali['longitude'],
-                        $kundali['lang'],
-                        $kundali['timezone'] ?? 5.5,
-                        $kundali['birthPlace'],
-                        $kundali['pdf_type']
-                    );
-       
-                $decoded = json_decode($kundaliList, true);
-                $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
-
-                // $filename = 'horoscope'.time().'.pdf';
-                // $response = Http::get($pdfUrl);
-                // $pdfUrlss =   Storage::disk('public')->put('kundali_date/'.$filename, $response);
-                // $pdfUrlssPdf= 'storage/kundali_date/'.$filename;
-
-                                    
-                    // if ($pdfUrl) {
-                        $filename = 'horoscope' . time() . '.pdf';
-                        $response = Http::get($pdfUrl);
-
-                        // Check if the HTTP request was successful
-                        // if ($response->successful()) {
-                            // Optional: check content-type is PDF
-                            // if (strpos($response->header('Content-Type'), 'application/pdf') !== false) {
-                                Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
-                                $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
-                    //         } else {
-                    //             Log::error('Invalid content type from PDF URL: ' . $response->header('Content-Type'));
-                    //         }
-                    //     } else {
-                    //         Log::error('Failed to download PDF. Status: ' . $response->status());
-                    //     }
-                    // }
-
-                        $newKundali = Kundali::create([
-                            'name' => $kundali['name'],
-                            'gender' => $kundali['gender'],
-                            'birthDate' => date('Y-m-d', strtotime($kundali['birthDate'])),
-                            'birthTime' => $kundali['birthTime'],
-                            'birthPlace' => $kundali['birthPlace'],
-                            'createdBy' => $id,
-                            'modifiedBy' => $id,
-                            'latitude' => $kundali['latitude'],
-                            'longitude' => $kundali['longitude'],
-                            'timezone' => isset($kundali['timezone']) ? $kundali['timezone'] : 5.5,
-                            'pdf_type' => isset($kundali['pdf_type']) ? $kundali['pdf_type'] : '',
-                            'match_type' => isset($kundali['match_type']) ? $kundali['match_type'] : '',
-                            'forMatch' => isset($kundali['forMatch']) ? $kundali['forMatch'] : 0,
-                            'pdf_link' => isset($pdfUrlssPdf) ? $pdfUrlssPdf : '',
-
-                        ]);
-
-                        $kundali2[] = $newKundali;
-
-                        // Add wallet transaction entry
-                        // $transaction = [
-                        //     'userId' => $id,
-                        //     'amount' => $requiredAmount,
-                        //     'isCredit' => false,
-                        //     'transactionType' => 'KundliView',
-                        //     'created_at' => now(),
-                        //     'updated_at' => now(),
-                        // ];
-
-                        // DB::table('wallettransaction')->insert($transaction);
-                    // } else {
-                        
-                    //     return response()->json([
-                    //         'error' => true,
-                    //         'message' => 'Insufficient funds in the wallet.',
-                    //         'status' => 400,
-                    //     ], 400);
-                    // }
+                if ($response->successful() && strpos($response->header('Content-Type'), 'application/pdf') !== false) {
+                    Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
+                    $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
                 } else {
-                    $kundalicount = Kundali::where('createdBy', '=', $id)->count();
-                    if(!$req->is_match && $kundalicount==0){
-                         $kundaliList = $this->getKundliViaVedic(
-                        $kundali['name'],
-                        $kundali['birthDate'],
-                        $kundali['birthTime'],
-                        $kundali['latitude'],
-                        $kundali['longitude'],
-                        $kundali['lang'],
-                        $kundali['timezone'] ?? 5.5,
-                        $kundali['birthPlace'],
-                        $kundali['pdf_type']
+                    Log::error('PDF Download Error. Status: ' . $response->status() . ', Type: ' . $response->header('Content-Type'));
+                }
+            }
+        }
 
+        $savedKundalis = [];
 
-                    );
-
-                    $decoded = json_decode($kundaliList, true);
-                    $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
-                    // $filename = 'horoscope'.time().'.pdf';
-                    // $response = Http::get($pdfUrl);
-                    // $pdfUrlss =   Storage::disk('public')->put('kundali_date/'.$filename, $response);
-                    // $pdfUrlssPdf= 'storage/kundali_date/'.$filename;
-
-
-                            
-                    // if ($pdfUrl) {
-                        $filename = 'horoscope' . time() . '.pdf';
-                        $response = Http::get($pdfUrl);
-
-                        // Check if the HTTP request was successful
-                        // if ($response->successful()) {
-                            // Optional: check content-type is PDF
-                            // if (strpos($response->header('Content-Type'), 'application/pdf') !== false) {
-                                Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
-                                $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
-                    //         } else {
-                    //             Log::error('Invalid content type from PDF URL: ' . $response->header('Content-Type'));
-                    //         }
-                    //     } else {
-                    //         Log::error('Failed to download PDF. Status: ' . $response->status());
-                    //     }
-                    // }
-
-                        $newKundali = Kundali::create([
-                            'name' => $kundali['name'],
-                            'gender' => $kundali['gender'],
-                            'birthDate' => date('Y-m-d', strtotime($kundali['birthDate'])),
-                            'birthTime' => $kundali['birthTime'],
-                            'birthPlace' => $kundali['birthPlace'],
-                            'createdBy' => $id,
-                            'modifiedBy' => $id,
-                            'latitude' => $kundali['latitude'],
-                            'longitude' => $kundali['longitude'],
-                            'timezone' => isset($kundali['timezone']) ? $kundali['timezone'] : 5.5,
-                            'pdf_type' => isset($kundali['pdf_type']) ? $kundali['pdf_type'] : '',
-                            'match_type' => isset($kundali['match_type']) ? $kundali['match_type'] : '',
-                            'forMatch' => isset($kundali['forMatch']) ? $kundali['forMatch'] : 0,
-                            'pdf_link' => isset($pdfUrlssPdf) ? $pdfUrlssPdf : '',
-
-                        ]);
-
-                        $kundali2[] = $newKundali;
-                    }else{
-                        $kundaliList = $this->getKundliViaVedic(
-                        $kundali['name'],
-                        $kundali['birthDate'],
-                        $kundali['birthTime'],
-                        $kundali['latitude'],
-                        $kundali['longitude'],
-                        $kundali['lang'],
-                        $kundali['timezone'] ?? 5.5,
-                        $kundali['birthPlace'],
-                        $kundali['pdf_type']
-
-
-                    );
-
-                    $decoded = json_decode($kundaliList, true);
-                    $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
-                    // $filename = 'horoscope'.time().'.pdf';
-                    // $response = Http::get($pdfUrl);
-                    // $pdfUrlss =   Storage::disk('public')->put('kundali_date/'.$filename, $response);
-                    // $pdfUrlssPdf= 'storage/kundali_date/'.$filename;
-
-
-                            
-                    if ($pdfUrl) {
-                        $filename = 'horoscope' . time() . '.pdf';
-                        $response = Http::get($pdfUrl);
-
-                        // Check if the HTTP request was successful
-                        // if ($response->successful()) {
-                            // Optional: check content-type is PDF
-                            // if (strpos($response->header('Content-Type'), 'application/pdf') !== false) {
-                                Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
-                                $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
-                        //     } else {
-                        //         Log::error('Invalid content type from PDF URL: ' . $response->header('Content-Type'));
-                        //     }
-                        // } else {
-                        //     Log::error('Failed to download PDF. Status: ' . $response->status());
-                        // }
-                    }
-
-
-                         $newKundali = Kundali::create([
+        foreach ($kundaliList as $kundali) {
+            if (isset($kundali['id'])) {
+                // Update existing
+                $existing = Kundali::find($kundali['id']);
+                if ($existing) {
+                    $existing->update([
                         'name' => $kundali['name'],
                         'gender' => $kundali['gender'],
                         'birthDate' => date('Y-m-d', strtotime($kundali['birthDate'])),
                         'birthTime' => $kundali['birthTime'],
                         'birthPlace' => $kundali['birthPlace'],
-                        'createdBy' => $id,
-                        'modifiedBy' => $id,
                         'latitude' => $kundali['latitude'],
                         'longitude' => $kundali['longitude'],
-                        'timezone' => isset($kundali['timezone']) ? $kundali['timezone'] : 5.5,
-                        'pdf_type' => isset($kundali['pdf_type']) ? $kundali['pdf_type'] : '',
-                        'match_type' => isset($kundali['match_type']) ? $kundali['match_type'] : '',
-                        'forMatch' => isset($kundali['forMatch']) ? $kundali['forMatch'] : 0,
-                        'pdf_link' => isset($pdfUrlssPdf) ? $pdfUrlssPdf : '',
+                        'timezone' => $kundali['timezone'] ?? 5.5,
+                        'pdf_type' => $kundali['pdf_type'] ?? '',
+                        'match_type' => $kundali['match_type'] ?? '',
+                        'forMatch' => $kundali['forMatch'] ?? 0,
+                        'pdf_link' => $pdfUrlssPdf ?? '',
                     ]);
-
-                    $kundali2[] = $newKundali;
-                    }
-                    // If is_match is true, don't perform wallet-related actions
-
+                    $savedKundalis[] = $existing;
                 }
+            } else {
+                // New entry
+                $savedKundalis[] = Kundali::create([
+                    'name' => $kundali['name'],
+                    'gender' => $kundali['gender'],
+                    'birthDate' => date('Y-m-d', strtotime($kundali['birthDate'])),
+                    'birthTime' => $kundali['birthTime'],
+                    'birthPlace' => $kundali['birthPlace'],
+                    'createdBy' => $id,
+                    'modifiedBy' => $id,
+                    'latitude' => $kundali['latitude'],
+                    'longitude' => $kundali['longitude'],
+                    'timezone' => $kundali['timezone'] ?? 5.5,
+                    'pdf_type' => $kundali['pdf_type'] ?? '',
+                    'match_type' => $kundali['match_type'] ?? '',
+                    'forMatch' => $kundali['forMatch'] ?? 0,
+                    'pdf_link' => $pdfUrlssPdf ?? '',
+                ]);
             }
         }
 
         DB::commit();
         return response()->json([
-            'message' => 'Kundali Generated successfully',
-            'recordList' => $kundali2,
-            'recordListPDF' => $pdfUrl,
+            'message' => 'Kundali generated successfully',
+            'recordList' => $savedKundalis,
+            'recordListPDF' => $pdfUrlssPdf,
             'status' => 200,
         ], 200);
     } catch (\Exception $e) {
         DB::rollback();
+        Log::error('Kundali Add Error: ' . $e->getMessage());
         return response()->json([
-            'error' => false,
+            'error' => true,
             'message' => $e->getMessage(),
             'status' => 500,
         ], 500);
@@ -439,32 +471,82 @@ private function fetchKundaliData($kundali)
         }
     }
 
-  public function getKundliViaVedic($name,$birthDate, $birthTime, $latitude,$longitude, $long, $timezone, $birthPlace,$pdf_type)
-    {
- $api_key=DB::table('systemflag')->where('name','vedicAstroAPI')->first();
+//   public function getKundliViaVedic($name,$birthDate, $birthTime, $latitude,$longitude, $long, $timezone, $birthPlace,$pdf_type)
+//     {
+//         $api_key=DB::table('systemflag')->where('name','vedicAstroAPI')->first();
 
  
- $convertedName = str_replace(' ', '%2', $name);
-//  $website = str_replace(' ', '%2', 'https://sanatanservice.com/public/');
+//         $convertedName = str_replace(' ', '%2', $name);
 
-//  print_r($website);die;
+// 		$curl = curl_init();
+// 		curl_setopt_array($curl, array(
+// 		  CURLOPT_URL => 'https://api.vedicastroapi.com/v3-json/pdf/horoscope-queue?name='.$convertedName.'&dob='.$birthDate.'&tob='.$birthTime.'&lat='.$latitude.'&lon='.$longitude.'&tz='.$timezone.'&api_key='.$api_key->value.'&lang=en&style=north&color=140&pob=indore&company_name=SantanService%LLC&address=indore&website=https://sanatanservice.com/public/&email=sanatanservice@gmail.com&phone=%2B91%208690482938&pdf_type='.$pdf_type.'',
+// 		  CURLOPT_RETURNTRANSFER => true,
+// 		  CURLOPT_ENCODING => '',
+// 		  CURLOPT_MAXREDIRS => 10,
+// 		  CURLOPT_TIMEOUT => 0,
+// 		  CURLOPT_FOLLOWLOCATION => true,
+// 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+// 		  CURLOPT_CUSTOMREQUEST => 'GET',
+// 		));
+// 		$response = curl_exec($curl);
+// 		return $response;
+//     }
 
-		$curl = curl_init();
-		curl_setopt_array($curl, array(
-		  CURLOPT_URL => 'https://api.vedicastroapi.com/v3-json/pdf/horoscope-queue?name='.$convertedName.'&dob='.$birthDate.'&tob='.$birthTime.'&lat='.$latitude.'&lon='.$longitude.'&tz='.$timezone.'&api_key='.$api_key->value.'&lang=en&style=north&color=140&pob=indore&company_name=SantanService%LLC&address=indore&website=https://sanatanservice.com/public/&email=sanatanservice@gmail.com&phone=%2B91%208690482938&pdf_type='.$pdf_type.'',
-		  CURLOPT_RETURNTRANSFER => true,
-		  CURLOPT_ENCODING => '',
-		  CURLOPT_MAXREDIRS => 10,
-		  CURLOPT_TIMEOUT => 0,
-		  CURLOPT_FOLLOWLOCATION => true,
-		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		  CURLOPT_CUSTOMREQUEST => 'GET',
-		));
-		$response = curl_exec($curl);
-		return $response;
+ public function getKundliViaVedic($name, $birthDate, $birthTime, $latitude, $longitude, $lang, $timezone, $birthPlace, $pdf_type)
+{
+    $api_key = DB::table('systemflag')->where('name', 'vedicAstroAPI')->first();
+    if (!$api_key) {
+        Log::error('VedicAstroAPI key not found in systemflag table');
+        return null;
     }
 
- 
+    $convertedName = urlencode($name);
+    $encodedPlace = urlencode($birthPlace);
+
+    $queryParams = http_build_query([
+        'name' => $convertedName,
+        'dob' => $birthDate,
+        'tob' => $birthTime,
+        'lat' => $latitude,
+        'lon' => $longitude,
+        'tz' => $timezone,
+        'api_key' => $api_key->value,
+        'lang' => 'en',
+        'style' => 'north',
+        'color' => '140',
+        'pob' => $encodedPlace,
+        'company_name' => 'Sanatan Service LLC',
+        'address' => 'Indore',
+        'website' => 'https://sanatanservice.com/public/',
+        'email' => 'sanatanservice@gmail.com',
+        'phone' => '+91 8690482938',
+        'pdf_type' => $pdf_type
+    ]);
+
+    $url = "https://api.vedicastroapi.com/v3-json/pdf/horoscope-queue?" . $queryParams;
+
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_TIMEOUT => 20,
+    ]);
+
+    $response = curl_exec($curl);
+    $error = curl_error($curl);
+    curl_close($curl);
+
+    if ($error) {
+        Log::error('Curl error in getKundliViaVedic: ' . $error);
+        return null;
+    }
+
+    Log::info('VedicAstro PDF API Response: ' . $response);
+    return $response;
+}
+
     //Get kundali
     public function getKundalis(Request $req)
     {

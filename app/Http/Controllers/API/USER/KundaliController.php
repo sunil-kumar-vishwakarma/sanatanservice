@@ -75,8 +75,8 @@ public function addKundali(Request $req)
                     $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
                     $filename = 'horoscope'.time().'.pdf';
                     $response = Http::get($pdfUrl);
-                    $pdfUrlss =   Storage::disk('public')->put('kundali/'.$filename, $response);
-                    $pdfUrlssPdf= 'storage/kundali/'.$filename;
+                    $pdfUrlss =   Storage::disk('public')->put('kundali_date/'.$filename, $response);
+                    $pdfUrlssPdf= 'storage/kundali_date/'.$filename;
                     $kundalis->name = $kundali['name'];
                     $kundalis->gender = $kundali['gender'];
                     $kundalis->birthDate = date('Y-m-d', strtotime($kundali['birthDate']));
@@ -126,8 +126,8 @@ public function addKundali(Request $req)
 
                 $filename = 'horoscope'.time().'.pdf';
                 $response = Http::get($pdfUrl);
-                $pdfUrlss =   Storage::disk('public')->put('kundali/'.$filename, $response);
-                $pdfUrlssPdf= 'storage/kundali/'.$filename;
+                $pdfUrlss =   Storage::disk('public')->put('kundali_date/'.$filename, $response);
+                $pdfUrlssPdf= 'storage/kundali_date/'.$filename;
 
                         $newKundali = Kundali::create([
                             'name' => $kundali['name'],
@@ -189,8 +189,8 @@ public function addKundali(Request $req)
                     $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
                     $filename = 'horoscope'.time().'.pdf';
                     $response = Http::get($pdfUrl);
-                    $pdfUrlss =   Storage::disk('public')->put('kundali/'.$filename, $response);
-                    $pdfUrlssPdf= 'storage/kundali/'.$filename;
+                    $pdfUrlss =   Storage::disk('public')->put('kundali_date/'.$filename, $response);
+                    $pdfUrlssPdf= 'storage/kundali_date/'.$filename;
 
                         $newKundali = Kundali::create([
                             'name' => $kundali['name'],

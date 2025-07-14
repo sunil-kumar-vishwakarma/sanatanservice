@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\PersonalizeDetail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-
 class KundaliController extends Controller
 {
 
@@ -74,30 +73,30 @@ public function addKundali(Request $req)
                     );
 
                     $decoded = json_decode($kundaliList, true);
-                    // $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+                    $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
                     // $filename = 'horoscope'.time().'.pdf';
                     // $response = Http::get($pdfUrl);
                     // $pdfUrlss =   Storage::disk('public')->put('kundali_date/'.$filename, $response);
                     // $pdfUrlssPdf= 'storage/kundali_date/'.$filename;
 
-                
-
-                    
-                    $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
                     if ($pdfUrl) {
-                        $filename = 'horoscope'.time().'.pdf';
+                        $filename = 'horoscope' . time() . '.pdf';
                         $response = Http::get($pdfUrl);
 
+                        // Check if the HTTP request was successful
                         if ($response->successful()) {
-                            Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
-
-                            $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
-                            // Now return this URL or store it in DB
+                            // Optional: check content-type is PDF
+                            if (strpos($response->header('Content-Type'), 'application/pdf') !== false) {
+                                Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
+                                $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
+                            } else {
+                                Log::error('Invalid content type from PDF URL: ' . $response->header('Content-Type'));
+                            }
                         } else {
-                            // Handle HTTP error
-                            Log::error('Failed to fetch PDF. Status: ' . $response->status());
+                            Log::error('Failed to download PDF. Status: ' . $response->status());
                         }
                     }
+
 
                     $kundalis->name = $kundali['name'];
                     $kundalis->gender = $kundali['gender'];
@@ -144,29 +143,31 @@ public function addKundali(Request $req)
                     );
        
                 $decoded = json_decode($kundaliList, true);
-                // $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+                $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
 
                 // $filename = 'horoscope'.time().'.pdf';
                 // $response = Http::get($pdfUrl);
                 // $pdfUrlss =   Storage::disk('public')->put('kundali_date/'.$filename, $response);
                 // $pdfUrlssPdf= 'storage/kundali_date/'.$filename;
 
-                $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+                                    
                     if ($pdfUrl) {
-                        $filename = 'horoscope'.time().'.pdf';
+                        $filename = 'horoscope' . time() . '.pdf';
                         $response = Http::get($pdfUrl);
 
+                        // Check if the HTTP request was successful
                         if ($response->successful()) {
-                            Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
-
-                            $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
-                            // Now return this URL or store it in DB
+                            // Optional: check content-type is PDF
+                            if (strpos($response->header('Content-Type'), 'application/pdf') !== false) {
+                                Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
+                                $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
+                            } else {
+                                Log::error('Invalid content type from PDF URL: ' . $response->header('Content-Type'));
+                            }
                         } else {
-                            // Handle HTTP error
-                            Log::error('Failed to fetch PDF. Status: ' . $response->status());
+                            Log::error('Failed to download PDF. Status: ' . $response->status());
                         }
                     }
-
 
                         $newKundali = Kundali::create([
                             'name' => $kundali['name'],
@@ -225,25 +226,29 @@ public function addKundali(Request $req)
                     );
 
                     $decoded = json_decode($kundaliList, true);
-                    // $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+                    $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
                     // $filename = 'horoscope'.time().'.pdf';
                     // $response = Http::get($pdfUrl);
                     // $pdfUrlss =   Storage::disk('public')->put('kundali_date/'.$filename, $response);
                     // $pdfUrlssPdf= 'storage/kundali_date/'.$filename;
 
-                    $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+
+                            
                     if ($pdfUrl) {
-                        $filename = 'horoscope'.time().'.pdf';
+                        $filename = 'horoscope' . time() . '.pdf';
                         $response = Http::get($pdfUrl);
 
+                        // Check if the HTTP request was successful
                         if ($response->successful()) {
-                            Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
-
-                            $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
-                            // Now return this URL or store it in DB
+                            // Optional: check content-type is PDF
+                            if (strpos($response->header('Content-Type'), 'application/pdf') !== false) {
+                                Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
+                                $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
+                            } else {
+                                Log::error('Invalid content type from PDF URL: ' . $response->header('Content-Type'));
+                            }
                         } else {
-                            // Handle HTTP error
-                            Log::error('Failed to fetch PDF. Status: ' . $response->status());
+                            Log::error('Failed to download PDF. Status: ' . $response->status());
                         }
                     }
 

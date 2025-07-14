@@ -267,6 +267,7 @@ public function addKundali(Request $req)
 {
     DB::beginTransaction();
 
+    
     try {
         // Get authenticated user
         $user = Auth::guard('api')->user();

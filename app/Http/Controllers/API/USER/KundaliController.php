@@ -378,10 +378,10 @@ public function addKundali(Request $req)
         } else {
                     Log::error('PDF Download Error. Status: ' . $response->status() . ', Type: ' . $response->header('Content-Type'));
                     DB::rollback();
-                    Log::error('Kundali Add Error: ' . $e->getMessage());
+                    Log::error('Kundali Add Error: ' . $response->status());
                     return response()->json([
                         'error' => true,
-                        'message' => $e->getMessage(),
+                        'message' => $response->status(),
                         'status' => 500,
                     ], 500);
                 }

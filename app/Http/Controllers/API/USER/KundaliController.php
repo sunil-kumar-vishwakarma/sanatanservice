@@ -72,11 +72,31 @@ public function addKundali(Request $req)
                     );
 
                     $decoded = json_decode($kundaliList, true);
+                    // $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+                    // $filename = 'horoscope'.time().'.pdf';
+                    // $response = Http::get($pdfUrl);
+                    // $pdfUrlss =   Storage::disk('public')->put('kundali_date/'.$filename, $response);
+                    // $pdfUrlssPdf= 'storage/kundali_date/'.$filename;
+
+                
+
+                    
                     $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
-                    $filename = 'horoscope'.time().'.pdf';
-                    $response = Http::get($pdfUrl);
-                    $pdfUrlss =   Storage::disk('public')->put('kundali_date/'.$filename, $response);
-                    $pdfUrlssPdf= 'storage/kundali_date/'.$filename;
+                    if ($pdfUrl) {
+                        $filename = 'horoscope'.time().'.pdf';
+                        $response = Http::get($pdfUrl);
+
+                        if ($response->successful()) {
+                            Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
+
+                            $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
+                            // Now return this URL or store it in DB
+                        } else {
+                            // Handle HTTP error
+                            Log::error('Failed to fetch PDF. Status: ' . $response->status());
+                        }
+                    }
+
                     $kundalis->name = $kundali['name'];
                     $kundalis->gender = $kundali['gender'];
                     $kundalis->birthDate = date('Y-m-d', strtotime($kundali['birthDate']));
@@ -122,12 +142,29 @@ public function addKundali(Request $req)
                     );
        
                 $decoded = json_decode($kundaliList, true);
-                $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+                // $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
 
-                $filename = 'horoscope'.time().'.pdf';
-                $response = Http::get($pdfUrl);
-                $pdfUrlss =   Storage::disk('public')->put('kundali_date/'.$filename, $response);
-                $pdfUrlssPdf= 'storage/kundali_date/'.$filename;
+                // $filename = 'horoscope'.time().'.pdf';
+                // $response = Http::get($pdfUrl);
+                // $pdfUrlss =   Storage::disk('public')->put('kundali_date/'.$filename, $response);
+                // $pdfUrlssPdf= 'storage/kundali_date/'.$filename;
+
+                $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+                    if ($pdfUrl) {
+                        $filename = 'horoscope'.time().'.pdf';
+                        $response = Http::get($pdfUrl);
+
+                        if ($response->successful()) {
+                            Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
+
+                            $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
+                            // Now return this URL or store it in DB
+                        } else {
+                            // Handle HTTP error
+                            Log::error('Failed to fetch PDF. Status: ' . $response->status());
+                        }
+                    }
+
 
                         $newKundali = Kundali::create([
                             'name' => $kundali['name'],
@@ -186,11 +223,27 @@ public function addKundali(Request $req)
                     );
 
                     $decoded = json_decode($kundaliList, true);
+                    // $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
+                    // $filename = 'horoscope'.time().'.pdf';
+                    // $response = Http::get($pdfUrl);
+                    // $pdfUrlss =   Storage::disk('public')->put('kundali_date/'.$filename, $response);
+                    // $pdfUrlssPdf= 'storage/kundali_date/'.$filename;
+
                     $pdfUrl = isset($decoded['response']) ? $decoded['response'] : null;
-                    $filename = 'horoscope'.time().'.pdf';
-                    $response = Http::get($pdfUrl);
-                    $pdfUrlss =   Storage::disk('public')->put('kundali_date/'.$filename, $response);
-                    $pdfUrlssPdf= 'storage/kundali_date/'.$filename;
+                    if ($pdfUrl) {
+                        $filename = 'horoscope'.time().'.pdf';
+                        $response = Http::get($pdfUrl);
+
+                        if ($response->successful()) {
+                            Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
+
+                            $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
+                            // Now return this URL or store it in DB
+                        } else {
+                            // Handle HTTP error
+                            Log::error('Failed to fetch PDF. Status: ' . $response->status());
+                        }
+                    }
 
                         $newKundali = Kundali::create([
                             'name' => $kundali['name'],

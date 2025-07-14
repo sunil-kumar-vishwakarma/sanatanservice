@@ -16,6 +16,8 @@ use Str;
 use Illuminate\Support\Facades\Storage;
 use App\Models\PersonalizeDetail;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
+
 class KundaliController extends Controller
 {
 

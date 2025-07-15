@@ -263,22 +263,156 @@ class KundaliController extends Controller
 // }
 
 
+// public function addKundali(Request $req)
+// {
+//     DB::beginTransaction();
+
+
+//     try {
+//         // Get authenticated user
+//         $user = Auth::guard('api')->user();
+//         if (!$user) {
+//             return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
+//         }
+//         $id = $user->id;
+
+//         $data = $req->only('kundali', 'is_match');
+
+//         // Validation
+//         $validator = Validator::make($data, [
+//             'kundali' => 'required|array',
+//         ]);
+//         if ($validator->fails()) {
+//             return response()->json(['error' => $validator->messages(), 'status' => 400], 400);
+//         }
+
+//         if ($req->is_match === "false") {
+//             $req->is_match = 0;
+//         }
+
+//         $kundaliList = $req->kundali;
+//         $pdfUrlssPdf = null;
+//         $decoded = null;
+//         $pdfUrl = null;
+
+//         // Generate PDF only ONCE using first kundali in list
+//         if (!empty($kundaliList)) {
+//             $first = $kundaliList[0];
+
+//             $kundaliResponse = $this->getKundliViaVedic(
+//                 $first['name'],
+//                 $first['birthDate'],
+//                 $first['birthTime'],
+//                 $first['latitude'],
+//                 $first['longitude'],
+//                 $first['lang'],
+//                 $first['timezone'] ?? 5.5,
+//                 $first['birthPlace'],
+//                 $first['pdf_type']
+//             );
+
+//             $decoded = json_decode($kundaliResponse, true);
+//             $pdfUrl = $decoded['response'] ?? null;
+
+//             if ($pdfUrl) {
+//                 $filename = 'horoscope' . time() . '.pdf';
+//                 $response = Http::get($pdfUrl);
+
+//                 if ($response->successful() && strpos($response->header('Content-Type'), 'application/pdf') !== false) {
+//                     Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
+//                     $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
+                
+
+//         $savedKundalis = [];
+
+//         foreach ($kundaliList as $kundali) {
+//             if (isset($kundali['id'])) {
+//                 // Update existing
+//                 $existing = Kundali::find($kundali['id']);
+//                 if ($existing) {
+//                     $existing->update([
+//                         'name' => $kundali['name'],
+//                         'gender' => $kundali['gender'],
+//                         'birthDate' => date('Y-m-d', strtotime($kundali['birthDate'])),
+//                         'birthTime' => $kundali['birthTime'],
+//                         'birthPlace' => $kundali['birthPlace'],
+//                         'latitude' => $kundali['latitude'],
+//                         'longitude' => $kundali['longitude'],
+//                         'timezone' => $kundali['timezone'] ?? 5.5,
+//                         'pdf_type' => $kundali['pdf_type'] ?? '',
+//                         'match_type' => $kundali['match_type'] ?? '',
+//                         'forMatch' => $kundali['forMatch'] ?? 0,
+//                         'pdf_link' => $pdfUrlssPdf ?? '',
+//                     ]);
+//                     $savedKundalis[] = $existing;
+//                 }
+//             } else {
+//                 // New entry
+//                 $savedKundalis[] = Kundali::create([
+//                     'name' => $kundali['name'],
+//                     'gender' => $kundali['gender'],
+//                     'birthDate' => date('Y-m-d', strtotime($kundali['birthDate'])),
+//                     'birthTime' => $kundali['birthTime'],
+//                     'birthPlace' => $kundali['birthPlace'],
+//                     'createdBy' => $id,
+//                     'modifiedBy' => $id,
+//                     'latitude' => $kundali['latitude'],
+//                     'longitude' => $kundali['longitude'],
+//                     'timezone' => $kundali['timezone'] ?? 5.5,
+//                     'pdf_type' => $kundali['pdf_type'] ?? '',
+//                     'match_type' => $kundali['match_type'] ?? '',
+//                     'forMatch' => $kundali['forMatch'] ?? 0,
+//                     'pdf_link' => $pdfUrlssPdf ?? '',
+//                 ]);
+//             }
+//         }
+
+//         DB::commit();
+//         return response()->json([
+//             'message' => 'Kundali generated successfully',
+//             'recordList' => $savedKundalis,
+//             'recordListPDF' => $pdfUrlssPdf,
+//             'status' => 200,
+//         ], 200);
+
+//         } else {
+//                     Log::error('PDF Download Error. Status: ' . $response->status() . ', Type: ' . $response->header('Content-Type'));
+//                     DB::rollback();
+//                     Log::error('Kundali Add Error: ' . $response->status());
+//                     return response()->json([
+//                         'error' => true,
+//                         'message' => $response->status(),
+//                         'status' => 500,
+//                     ], 500);
+//                 }
+                
+//             }
+//         }
+//     } catch (\Exception $e) {
+//         DB::rollback();
+//         Log::error('Kundali Add Error: ' . $e->getMessage());
+//         return response()->json([
+//             'error' => true,
+//             'message' => $e->getMessage(),
+//             'status' => 500,
+//         ], 500);
+//     }
+// }
+
 public function addKundali(Request $req)
 {
     DB::beginTransaction();
 
-
     try {
-        // Get authenticated user
+        // Auth check
         $user = Auth::guard('api')->user();
         if (!$user) {
             return response()->json(['error' => 'Unauthorized', 'status' => 401], 401);
         }
         $id = $user->id;
 
+        // Validate input
         $data = $req->only('kundali', 'is_match');
-
-        // Validation
         $validator = Validator::make($data, [
             'kundali' => 'required|array',
         ]);
@@ -292,50 +426,90 @@ public function addKundali(Request $req)
 
         $kundaliList = $req->kundali;
         $pdfUrlssPdf = null;
-        $decoded = null;
-        $pdfUrl = null;
 
-        // Generate PDF only ONCE using first kundali in list
         if (!empty($kundaliList)) {
             $first = $kundaliList[0];
+            $pdfUrl = null;
+            $response = null;
+            $maxTotalAttempts = 10; // max attempts to avoid infinite loop
+            $attempt = 0;
+            $success = false;
 
-            $kundaliResponse = $this->getKundliViaVedic(
-                $first['name'],
-                $first['birthDate'],
-                $first['birthTime'],
-                $first['latitude'],
-                $first['longitude'],
-                $first['lang'],
-                $first['timezone'] ?? 5.5,
-                $first['birthPlace'],
-                $first['pdf_type']
-            );
+            // Repeat until PDF URL found AND is downloadable
+            while ($attempt < $maxTotalAttempts && !$success) {
+                // 1. Call API to get new PDF URL
+                $kundaliResponse = $this->getKundliViaVedic(
+                    $first['name'],
+                    $first['birthDate'],
+                    $first['birthTime'],
+                    $first['latitude'],
+                    $first['longitude'],
+                    $first['lang'],
+                    $first['timezone'] ?? 5.5,
+                    $first['birthPlace'],
+                    $first['pdf_type']
+                );
 
-            $decoded = json_decode($kundaliResponse, true);
-            $pdfUrl = $decoded['response'] ?? null;
+                $decoded = json_decode($kundaliResponse, true);
+                $pdfUrl = $decoded['response'] ?? null;
 
-            if ($pdfUrl) {
-                $filename = 'horoscope' . time() . '.pdf';
-                $response = Http::get($pdfUrl);
+                if ($pdfUrl) {
+                    $response = Http::timeout(10)->get($pdfUrl);
+                    if ($response->successful() && strpos($response->header('Content-Type'), 'application/pdf') !== false) {
+                        $filename = 'horoscope' . time() . '.pdf';
+                        Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
+                        $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
+                        $success = true;
+                        break;
+                    }
+                }
 
-                if ($response->successful() && strpos($response->header('Content-Type'), 'application/pdf') !== false) {
-                    Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
-                    $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
-                
+                $attempt++;
+                sleep(2); // wait before next retry
+            }
 
-        $savedKundalis = [];
+            // Final check if PDF was saved
+            if (!$success) {
+                DB::rollback();
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Failed to generate valid PDF after multiple attempts.',
+                    'status' => 500,
+                ], 500);
+            }
 
-        foreach ($kundaliList as $kundali) {
-            if (isset($kundali['id'])) {
-                // Update existing
-                $existing = Kundali::find($kundali['id']);
-                if ($existing) {
-                    $existing->update([
+            // Now save kundali data
+            $savedKundalis = [];
+
+            foreach ($kundaliList as $kundali) {
+                if (isset($kundali['id'])) {
+                    $existing = Kundali::find($kundali['id']);
+                    if ($existing) {
+                        $existing->update([
+                            'name' => $kundali['name'],
+                            'gender' => $kundali['gender'],
+                            'birthDate' => date('Y-m-d', strtotime($kundali['birthDate'])),
+                            'birthTime' => $kundali['birthTime'],
+                            'birthPlace' => $kundali['birthPlace'],
+                            'latitude' => $kundali['latitude'],
+                            'longitude' => $kundali['longitude'],
+                            'timezone' => $kundali['timezone'] ?? 5.5,
+                            'pdf_type' => $kundali['pdf_type'] ?? '',
+                            'match_type' => $kundali['match_type'] ?? '',
+                            'forMatch' => $kundali['forMatch'] ?? 0,
+                            'pdf_link' => $pdfUrlssPdf ?? '',
+                        ]);
+                        $savedKundalis[] = $existing;
+                    }
+                } else {
+                    $savedKundalis[] = Kundali::create([
                         'name' => $kundali['name'],
                         'gender' => $kundali['gender'],
                         'birthDate' => date('Y-m-d', strtotime($kundali['birthDate'])),
                         'birthTime' => $kundali['birthTime'],
                         'birthPlace' => $kundali['birthPlace'],
+                        'createdBy' => $id,
+                        'modifiedBy' => $id,
                         'latitude' => $kundali['latitude'],
                         'longitude' => $kundali['longitude'],
                         'timezone' => $kundali['timezone'] ?? 5.5,
@@ -344,49 +518,23 @@ public function addKundali(Request $req)
                         'forMatch' => $kundali['forMatch'] ?? 0,
                         'pdf_link' => $pdfUrlssPdf ?? '',
                     ]);
-                    $savedKundalis[] = $existing;
                 }
-            } else {
-                // New entry
-                $savedKundalis[] = Kundali::create([
-                    'name' => $kundali['name'],
-                    'gender' => $kundali['gender'],
-                    'birthDate' => date('Y-m-d', strtotime($kundali['birthDate'])),
-                    'birthTime' => $kundali['birthTime'],
-                    'birthPlace' => $kundali['birthPlace'],
-                    'createdBy' => $id,
-                    'modifiedBy' => $id,
-                    'latitude' => $kundali['latitude'],
-                    'longitude' => $kundali['longitude'],
-                    'timezone' => $kundali['timezone'] ?? 5.5,
-                    'pdf_type' => $kundali['pdf_type'] ?? '',
-                    'match_type' => $kundali['match_type'] ?? '',
-                    'forMatch' => $kundali['forMatch'] ?? 0,
-                    'pdf_link' => $pdfUrlssPdf ?? '',
-                ]);
             }
-        }
 
-        DB::commit();
-        return response()->json([
-            'message' => 'Kundali generated successfully',
-            'recordList' => $savedKundalis,
-            'recordListPDF' => $pdfUrlssPdf,
-            'status' => 200,
-        ], 200);
-
+            DB::commit();
+            return response()->json([
+                'message' => 'Kundali generated and saved successfully.',
+                'recordList' => $savedKundalis,
+                'recordListPDF' => $pdfUrlssPdf,
+                'status' => 200,
+            ], 200);
         } else {
-                    Log::error('PDF Download Error. Status: ' . $response->status() . ', Type: ' . $response->header('Content-Type'));
-                    DB::rollback();
-                    Log::error('Kundali Add Error: ' . $response->status());
-                    return response()->json([
-                        'error' => true,
-                        'message' => $response->status(),
-                        'status' => 500,
-                    ], 500);
-                }
-                
-            }
+            DB::rollback();
+            return response()->json([
+                'error' => true,
+                'message' => 'No kundali data provided.',
+                'status' => 400,
+            ], 400);
         }
     } catch (\Exception $e) {
         DB::rollback();

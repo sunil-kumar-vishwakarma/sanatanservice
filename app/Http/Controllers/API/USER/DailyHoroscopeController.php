@@ -147,13 +147,24 @@ class DailyHoroscopeController extends Controller
 
     if (!$horoscope || $horoscope->date != $currDate) {
         // API call only if new or outdated
-        $dailyHoroscope = Http::get('https://api.vedicastroapi.com/v3-json/prediction/daily-moon', [
+        if($req->type == 'sun'){
+
+            $dailyHoroscope = Http::get('https://api.vedicastroapi.com/v3-json/prediction/daily-sun', [
+                'zodiac' => $zodiac,
+                'date' => $date,
+                'show_same' => true,
+                'api_key' => $api_key,
+                'lang' => $lang,
+            ]);
+        }else{
+            $dailyHoroscope = Http::get('https://api.vedicastroapi.com/v3-json/prediction/daily-moon', [
             'zodiac' => $zodiac,
             'date' => $date,
             'show_same' => true,
             'api_key' => $api_key,
             'lang' => $lang,
         ]);
+        }
 
         $data = $dailyHoroscope->json();
 
@@ -228,7 +239,9 @@ public function getWeeklyHoroscope(Request $req)
     // Fetch from API if not exists or outdated
     if (!$existingHoroscope || $existingHoroscope->date !== $currDate) {
 
-        $response = Http::get('https://api.vedicastroapi.com/v3-json/prediction/weekly-moon', [
+         if($req->type == 'sun'){
+
+        $response = Http::get('https://api.vedicastroapi.com/v3-json/prediction/weekly-sun', [
             'zodiac' => $zodiacId,
             'date' => $currDate,
             'show_same' => true,
@@ -236,7 +249,16 @@ public function getWeeklyHoroscope(Request $req)
             'lang' => $lang,
             'week' => 'thisweek',
         ]);
-
+        }else{
+            $response = Http::get('https://api.vedicastroapi.com/v3-json/prediction/weekly-moon', [
+            'zodiac' => $zodiacId,
+            'date' => $currDate,
+            'show_same' => true,
+            'api_key' => $apiKey,
+            'lang' => $lang,
+            'week' => 'thisweek',
+        ]);
+        }
         $data = $response->json();
 
         // print_r($data);die;

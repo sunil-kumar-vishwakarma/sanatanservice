@@ -185,6 +185,7 @@ class DailyHoroscopeController extends Controller
                         'end_date' => null,
                         'start_date' => null,
                         'type' => config('constants.DAILY_HORSCOPE'),
+                        'sun_moon_type' => $req->type,
                     ]
                 );
         }
@@ -227,6 +228,7 @@ class DailyHoroscopeController extends Controller
                         'end_date' => null,
                         'start_date' => null,
                         'type' => config('constants.DAILY_HORSCOPE'),
+                        'sun_moon_type' => $req->type,
                     ]
                 );
             }

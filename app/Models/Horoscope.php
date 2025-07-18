@@ -35,6 +35,7 @@ class Horoscope extends Model
         'friends_remark',
         'finances_remark',
         'status_remark',
-        'langcode'
+        'langcode',
+        'sun_moon_type'
     ];
 }

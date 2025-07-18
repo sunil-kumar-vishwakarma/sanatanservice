@@ -125,12 +125,129 @@ class DailyHoroscopeController extends Controller
     //     }
     // }
 
- public function getDailyHoroscope(Request $req)
+//  public function getDailyHoroscope(Request $req)
+// {
+//     $date = date('d/m/Y');
+//     $currDate = $date; // standardize
+//     $zodiac = $req->horoscopeSignId;
+//     $lang = 'en';
+
+//     set_time_limit(300);
+
+//     $api_key = DB::table('systemflag')->where('name', 'vedicAstroAPI')->value('value');
+
+//     $horoscopeSign = DB::table('hororscope_signs')->where('id', $zodiac)->first();
+//     if (!$horoscopeSign) {
+//         return response()->json(['error' => 'Invalid horoscope sign ID'], 400);
+//     }
+
+//     $horoscope = Horoscope::where('zodiac', $horoscopeSign->name)
+//         ->where('langcode', $lang)
+//         ->first();
+//     if($req->type == 'sun'){
+        
+//         if (!$horoscope || $horoscope->date != $currDate || $horoscope->sun_moon_type =='sun') {
+//             // API call only if new or outdated
+//             // print_r($horoscope);die;
+//             $dailyHoroscope = Http::get('https://api.vedicastroapi.com/v3-json/prediction/daily-sun', [
+//                 'zodiac' => $zodiac,
+//                 'date' => $date,
+//                 'show_same' => true,
+//                 'api_key' => $api_key,
+//                 'lang' => $lang,
+//             ]);
+       
+
+//                 $data = $dailyHoroscope->json();
+
+//                 if (!isset($data['response'])) {
+//                     return response()->json(['error' => 'Invalid API response'], 500);
+//                 }
+
+//                 Horoscope::updateOrCreate(
+//                     ['zodiac' => $data['response']['zodiac'], 'langcode' => $lang],
+//                     [
+//                         'total_score' => $data['response']['total_score'],
+//                         'lucky_color' => $data['response']['lucky_color'],
+//                         'lucky_color_code' => $data['response']['lucky_color_code'],
+//                         'lucky_number' => json_encode($data['response']['lucky_number']),
+//                         'physique' => $data['response']['physique'],
+//                         'status' => $data['response']['status'],
+//                         'finances' => $data['response']['finances'],
+//                         'relationship' => $data['response']['relationship'],
+//                         'career' => $data['response']['career'],
+//                         'travel' => $data['response']['travel'],
+//                         'family' => $data['response']['family'],
+//                         'friends' => $data['response']['friends'],
+//                         'health' => $data['response']['health'],
+//                         'bot_response' => $data['response']['bot_response'],
+//                         'date' => $currDate,
+//                         'end_date' => null,
+//                         'start_date' => null,
+//                         'type' => config('constants.DAILY_HORSCOPE'),
+//                         'sun_moon_type' => $req->type,
+//                     ]
+//                 );
+//         }
+//      }else{
+//          if (!$horoscope || $horoscope->date != $currDate || $horoscope->sun_moon_type =='moon') {
+
+//             $dailyHoroscope = Http::get('https://api.vedicastroapi.com/v3-json/prediction/daily-moon', [
+//             'zodiac' => $zodiac,
+//             'date' => $date,
+//             'show_same' => true,
+//             'api_key' => $api_key,
+//             'lang' => $lang,
+//         ]);
+
+
+//                 $data = $dailyHoroscope->json();
+
+//                 if (!isset($data['response'])) {
+//                     return response()->json(['error' => 'Invalid API response'], 500);
+//                 }
+
+//                 Horoscope::updateOrCreate(
+//                     ['zodiac' => $data['response']['zodiac'], 'langcode' => $lang],
+//                     [
+//                         'total_score' => $data['response']['total_score'],
+//                         'lucky_color' => $data['response']['lucky_color'],
+//                         'lucky_color_code' => $data['response']['lucky_color_code'],
+//                         'lucky_number' => json_encode($data['response']['lucky_number']),
+//                         'physique' => $data['response']['physique'],
+//                         'status' => $data['response']['status'],
+//                         'finances' => $data['response']['finances'],
+//                         'relationship' => $data['response']['relationship'],
+//                         'career' => $data['response']['career'],
+//                         'travel' => $data['response']['travel'],
+//                         'family' => $data['response']['family'],
+//                         'friends' => $data['response']['friends'],
+//                         'health' => $data['response']['health'],
+//                         'bot_response' => $data['response']['bot_response'],
+//                         'date' => $currDate,
+//                         'end_date' => null,
+//                         'start_date' => null,
+//                         'type' => config('constants.DAILY_HORSCOPE'),
+//                         'sun_moon_type' => $req->type,
+//                     ]
+//                 );
+//             }
+//         }
+
+//  $horoscopeDaily = Horoscope::where('zodiac', $horoscopeSign->name)
+//         ->where('langcode', $lang)->where('sun_moon_type',$req->type)
+//         ->first();
+  
+
+//     return response()->json(['status'=>200,'message' => 'Horoscope stored successfully','type'=>$req->type,'todayHoroscope' => [$horoscopeDaily]]);
+// }
+public function getDailyHoroscope(Request $req)
 {
     $date = date('d/m/Y');
-    $currDate = $date; // standardize
+    $currDate = $date;
     $zodiac = $req->horoscopeSignId;
     $lang = 'en';
+    $type = $req->type; // sun or moon
 
     set_time_limit(300);
 
@@ -141,58 +258,20 @@ class DailyHoroscopeController extends Controller
         return response()->json(['error' => 'Invalid horoscope sign ID'], 400);
     }
 
+    // Fetch horoscope with correct sun/moon type
     $horoscope = Horoscope::where('zodiac', $horoscopeSign->name)
-        ->where('langcode', $lang)->where('sun_moon_type',$req->type)
+        ->where('langcode', $lang)
+        ->where('sun_moon_type', $type)
         ->first();
 
-    if($req->type == 'sun'){
-        
-        if (!$horoscope || $horoscope->date != $currDate) {
-            // API call only if new or outdated
-            $dailyHoroscope = Http::get('https://api.vedicastroapi.com/v3-json/prediction/daily-sun', [
-                'zodiac' => $zodiac,
-                'date' => $date,
-                'show_same' => true,
-                'api_key' => $api_key,
-                'lang' => $lang,
-            ]);
-       
+    $isOutdated = !$horoscope || $horoscope->date != $currDate;
 
-                $data = $dailyHoroscope->json();
+    if ($isOutdated) {
+        $endpoint = $type === 'sun'
+            ? 'https://api.vedicastroapi.com/v3-json/prediction/daily-sun'
+            : 'https://api.vedicastroapi.com/v3-json/prediction/daily-moon';
 
-                if (!isset($data['response'])) {
-                    return response()->json(['error' => 'Invalid API response'], 500);
-                }
-
-                Horoscope::updateOrCreate(
-                    ['zodiac' => $data['response']['zodiac'], 'langcode' => $lang, 'sun_moon_type' => $req->type],
-                    [
-                        'total_score' => $data['response']['total_score'],
-                        'lucky_color' => $data['response']['lucky_color'],
-                        'lucky_color_code' => $data['response']['lucky_color_code'],
-                        'lucky_number' => json_encode($data['response']['lucky_number']),
-                        'physique' => $data['response']['physique'],
-                        'status' => $data['response']['status'],
-                        'finances' => $data['response']['finances'],
-                        'relationship' => $data['response']['relationship'],
-                        'career' => $data['response']['career'],
-                        'travel' => $data['response']['travel'],
-                        'family' => $data['response']['family'],
-                        'friends' => $data['response']['friends'],
-                        'health' => $data['response']['health'],
-                        'bot_response' => $data['response']['bot_response'],
-                        'date' => $currDate,
-                        'end_date' => null,
-                        'start_date' => null,
-                        'type' => config('constants.DAILY_HORSCOPE'),
-                        'sun_moon_type' => $req->type,
-                    ]
-                );
-        }
-     }else{
-         if (!$horoscope || $horoscope->date != $currDate) {
-
-            $dailyHoroscope = Http::get('https://api.vedicastroapi.com/v3-json/prediction/daily-moon', [
+        $response = Http::get($endpoint, [
             'zodiac' => $zodiac,
             'date' => $date,
             'show_same' => true,
@@ -200,54 +279,166 @@ class DailyHoroscopeController extends Controller
             'lang' => $lang,
         ]);
 
+        $data = $response->json();
 
-                $data = $dailyHoroscope->json();
-
-                if (!isset($data['response'])) {
-                    return response()->json(['error' => 'Invalid API response'], 500);
-                }
-
-                Horoscope::updateOrCreate(
-                    ['zodiac' => $data['response']['zodiac'], 'langcode' => $lang, 'sun_moon_type' => $req->type],
-                    [
-                        'total_score' => $data['response']['total_score'],
-                        'lucky_color' => $data['response']['lucky_color'],
-                        'lucky_color_code' => $data['response']['lucky_color_code'],
-                        'lucky_number' => json_encode($data['response']['lucky_number']),
-                        'physique' => $data['response']['physique'],
-                        'status' => $data['response']['status'],
-                        'finances' => $data['response']['finances'],
-                        'relationship' => $data['response']['relationship'],
-                        'career' => $data['response']['career'],
-                        'travel' => $data['response']['travel'],
-                        'family' => $data['response']['family'],
-                        'friends' => $data['response']['friends'],
-                        'health' => $data['response']['health'],
-                        'bot_response' => $data['response']['bot_response'],
-                        'date' => $currDate,
-                        'end_date' => null,
-                        'start_date' => null,
-                        'type' => config('constants.DAILY_HORSCOPE'),
-                        'sun_moon_type' => $req->type,
-                    ]
-                );
-            }
+        if (!isset($data['response'])) {
+            return response()->json(['error' => 'Invalid API response'], 500);
         }
 
- $horoscopeDaily = Horoscope::where('zodiac', $horoscopeSign->name)
-        ->where('langcode', $lang)->where('sun_moon_type',$req->type)
-        ->first();
-  
+        // Store/update horoscope
+        Horoscope::updateOrCreate(
+            [
+                'zodiac' => $data['response']['zodiac'],
+                'langcode' => $lang,
+                'sun_moon_type' => $type??'moon',
+            ],
+            [
+                'total_score' => $data['response']['total_score'],
+                'lucky_color' => $data['response']['lucky_color'],
+                'lucky_color_code' => $data['response']['lucky_color_code'],
+                'lucky_number' => json_encode($data['response']['lucky_number']),
+                'physique' => $data['response']['physique'],
+                'status' => $data['response']['status'],
+                'finances' => $data['response']['finances'],
+                'relationship' => $data['response']['relationship'],
+                'career' => $data['response']['career'],
+                'travel' => $data['response']['travel'],
+                'family' => $data['response']['family'],
+                'friends' => $data['response']['friends'],
+                'health' => $data['response']['health'],
+                'bot_response' => $data['response']['bot_response'],
+                'date' => $currDate,
+                'start_date' => null,
+                'end_date' => null,
+                'type' => config('constants.DAILY_HORSCOPE'),
+            ]
+        );
+    }
 
-    return response()->json(['status'=>200,'message' => 'Horoscope stored successfully','type'=>$req->type,'todayHoroscope' => [$horoscopeDaily]]);
+    if(!empty($type)){
+        $horoscopeDaily = Horoscope::where('zodiac', $horoscopeSign->name)
+        ->where('langcode', $lang)
+        ->where('sun_moon_type', $type)
+        ->first();
+    }else{
+        $horoscopeDaily = Horoscope::where('zodiac', $horoscopeSign->name)
+        ->where('langcode', $lang)
+        ->where('sun_moon_type', 'moon')
+        ->first();
+    }
+    
+
+    return response()->json([
+        'status' => 200,
+        'message' => 'Horoscope stored successfully',
+        'type' => $type,
+        'todayHoroscope' => [$horoscopeDaily]
+    ]);
 }
 
+
+// public function getWeeklyHoroscope(Request $req)
+// {
+//     $currDate = date('d/m/Y');
+//     $zodiacId = $req->horoscopeSignId;
+//     $lang = 'en';
+
+//     set_time_limit(300);
+
+//     // Fetch API key
+//     $apiKey = DB::table('systemflag')->where('name', 'vedicAstroAPI')->value('value');
+
+//     // Get zodiac name
+//     $horoscopeSign = DB::table('hororscope_signs')->where('id', $zodiacId)->first();
+//     if (!$horoscopeSign) {
+//         return response()->json(['error' => 'Invalid horoscope sign ID'], 400);
+//     }
+
+//         $today = Carbon::createFromFormat('d/m/Y', $currDate);
+//         $startDate = $today->copy()->startOfWeek(Carbon::MONDAY)->format('d/m/Y');
+//         $endDate = $today->copy()->endOfWeek(Carbon::SUNDAY)->format('d/m/Y');
+
+//     // Check if horoscope already exists
+//     $existingHoroscope = Horoscope::where('zodiac', $horoscopeSign->name)
+//         ->where('langcode', $lang)
+//         ->where('start_date', '>=', $startDate)
+//         ->where('end_date', '<=', $endDate)
+//         ->where('type', config('constants.WEEKLY_HORSCOPE'))
+//         ->first();
+
+        
+
+//     // Fetch from API if not exists or outdated
+//     if (!$existingHoroscope || $existingHoroscope->date !== $currDate) {
+
+//          if($req->type == 'sun'){
+
+//         $response = Http::get('https://api.vedicastroapi.com/v3-json/prediction/weekly-sun', [
+//             'zodiac' => $zodiacId,
+//             'date' => $currDate,
+//             'show_same' => true,
+//             'api_key' => $apiKey,
+//             'lang' => $lang,
+//             'week' => 'thisweek',
+//         ]);
+//         }else{
+//             $response = Http::get('https://api.vedicastroapi.com/v3-json/prediction/weekly-moon', [
+//             'zodiac' => $zodiacId,
+//             'date' => $currDate,
+//             'show_same' => true,
+//             'api_key' => $apiKey,
+//             'lang' => $lang,
+//             'week' => 'thisweek',
+//         ]);
+//         }
+//         $data = $response->json();
+
+//         // print_r($data);die;
+//         if (!isset($data['response'])) {
+//             return response()->json(['error' => 'Invalid API response'], 500);
+//         }
+        
+        
+//         Horoscope::updateOrCreate(
+//             ['zodiac' => $data['response']['zodiac'], 'langcode' => $lang, 'type' => config('constants.WEEKLY_HORSCOPE'), 'sun_moon_type' => $type??'moon',],
+//             [
+//                 'total_score' => $data['response']['total_score'],
+//                 'lucky_color' => $data['response']['lucky_color'],
+//                 'lucky_color_code' => $data['response']['lucky_color_code'],
+//                 'lucky_number' => json_encode($data['response']['lucky_number']),
+//                 // 'physique' => $data['response']['physique'],
+//                 'status' => $data['response']['status'],
+//                 'finances' => $data['response']['finances'],
+//                 'relationship' => $data['response']['relationship'],
+//                 'career' => $data['response']['career'],
+//                 'travel' => $data['response']['travel'],
+//                 'family' => $data['response']['family'],
+//                 'friends' => $data['response']['friends'],
+//                 'health' => $data['response']['health'],
+//                 'bot_response' => $data['response']['bot_response'],
+//                 'date' => $currDate,
+//                 'start_date' => $startDate,
+//                 'end_date' => $endDate,
+//             ]
+//         );
+//     }
+
+//     $existingWeeklyHoroscope = Horoscope::where('zodiac', $horoscopeSign->name)
+//         ->where('langcode', $lang)
+//         ->where('start_date', '>=', $startDate)
+//         ->where('end_date', '<=', $endDate)
+//         ->where('type', config('constants.WEEKLY_HORSCOPE'))
+//         ->first();
+
+//     return response()->json(['status'=>200,'message' => 'Weekly horoscope stored or already up to date','weeklyHoroScope'=>[$existingWeeklyHoroscope]]);
+// }
 
 public function getWeeklyHoroscope(Request $req)
 {
     $currDate = date('d/m/Y');
     $zodiacId = $req->horoscopeSignId;
     $lang = 'en';
+    $type = $req->type ?? 'moon'; // Default to 'moon'
 
     set_time_limit(300);
 
@@ -260,26 +451,27 @@ public function getWeeklyHoroscope(Request $req)
         return response()->json(['error' => 'Invalid horoscope sign ID'], 400);
     }
 
-        $today = Carbon::createFromFormat('d/m/Y', $currDate);
-        $startDate = $today->copy()->startOfWeek(Carbon::MONDAY)->format('d/m/Y');
-        $endDate = $today->copy()->endOfWeek(Carbon::SUNDAY)->format('d/m/Y');
+    // Calculate current week's start and end dates
+    $today = Carbon::createFromFormat('d/m/Y', $currDate);
+    $startDate = $today->copy()->startOfWeek(Carbon::MONDAY)->format('d/m/Y');
+    $endDate = $today->copy()->endOfWeek(Carbon::SUNDAY)->format('d/m/Y');
 
-    // Check if horoscope already exists
+    // Check if data already exists for this week, type, and zodiac
     $existingHoroscope = Horoscope::where('zodiac', $horoscopeSign->name)
         ->where('langcode', $lang)
-        ->where('start_date', '>=', $startDate)
-        ->where('end_date', '<=', $endDate)
+        ->where('start_date', $startDate)
+        ->where('end_date', $endDate)
         ->where('type', config('constants.WEEKLY_HORSCOPE'))
+        ->where('sun_moon_type', $type)
         ->first();
 
-        
-
-    // Fetch from API if not exists or outdated
+    // Fetch from API if not present or outdated
     if (!$existingHoroscope || $existingHoroscope->date !== $currDate) {
+        $endpoint = $type === 'sun'
+            ? 'https://api.vedicastroapi.com/v3-json/prediction/weekly-sun'
+            : 'https://api.vedicastroapi.com/v3-json/prediction/weekly-moon';
 
-         if($req->type == 'sun'){
-
-        $response = Http::get('https://api.vedicastroapi.com/v3-json/prediction/weekly-sun', [
+        $response = Http::get($endpoint, [
             'zodiac' => $zodiacId,
             'date' => $currDate,
             'show_same' => true,
@@ -287,32 +479,27 @@ public function getWeeklyHoroscope(Request $req)
             'lang' => $lang,
             'week' => 'thisweek',
         ]);
-        }else{
-            $response = Http::get('https://api.vedicastroapi.com/v3-json/prediction/weekly-moon', [
-            'zodiac' => $zodiacId,
-            'date' => $currDate,
-            'show_same' => true,
-            'api_key' => $apiKey,
-            'lang' => $lang,
-            'week' => 'thisweek',
-        ]);
-        }
+
         $data = $response->json();
 
-        // print_r($data);die;
         if (!isset($data['response'])) {
             return response()->json(['error' => 'Invalid API response'], 500);
         }
-        
-        
+
         Horoscope::updateOrCreate(
-            ['zodiac' => $data['response']['zodiac'], 'langcode' => $lang, 'type' => config('constants.WEEKLY_HORSCOPE')],
+            [
+                'zodiac' => $data['response']['zodiac'],
+                'langcode' => $lang,
+                'type' => config('constants.WEEKLY_HORSCOPE'),
+                'sun_moon_type' => $type,
+                'start_date' => $startDate,
+                'end_date' => $endDate,
+            ],
             [
                 'total_score' => $data['response']['total_score'],
                 'lucky_color' => $data['response']['lucky_color'],
                 'lucky_color_code' => $data['response']['lucky_color_code'],
                 'lucky_number' => json_encode($data['response']['lucky_number']),
-                // 'physique' => $data['response']['physique'],
                 'status' => $data['response']['status'],
                 'finances' => $data['response']['finances'],
                 'relationship' => $data['response']['relationship'],
@@ -323,20 +510,25 @@ public function getWeeklyHoroscope(Request $req)
                 'health' => $data['response']['health'],
                 'bot_response' => $data['response']['bot_response'],
                 'date' => $currDate,
-                'start_date' => $startDate,
-                'end_date' => $endDate,
             ]
         );
     }
 
-    $existingWeeklyHoroscope = Horoscope::where('zodiac', $horoscopeSign->name)
+    // Fetch updated/created record
+    $weeklyHoroscope = Horoscope::where('zodiac', $horoscopeSign->name)
         ->where('langcode', $lang)
-        ->where('start_date', '>=', $startDate)
-        ->where('end_date', '<=', $endDate)
+        ->where('start_date', $startDate)
+        ->where('end_date', $endDate)
         ->where('type', config('constants.WEEKLY_HORSCOPE'))
+        ->where('sun_moon_type', $type)
         ->first();
 
-    return response()->json(['status'=>200,'message' => 'Weekly horoscope stored or already up to date','weeklyHoroScope'=>[$existingWeeklyHoroscope]]);
+    return response()->json([
+        'status' => 200,
+        'message' => 'Weekly horoscope stored or already up to date',
+        'type' => $type,
+        'weeklyHoroscope' => [$weeklyHoroscope]
+    ]);
 }
 
 

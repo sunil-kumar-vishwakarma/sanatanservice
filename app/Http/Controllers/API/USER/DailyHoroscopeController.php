@@ -201,7 +201,7 @@ class DailyHoroscopeController extends Controller
         ->first();
   
 
-    return response()->json(['status'=>200,'message' => 'Horoscope stored successfully','todayHoroscope' => [$horoscopeDaily]]);
+    return response()->json(['status'=>200,'message' => 'Horoscope stored successfully','type'=>$req->type,'todayHoroscope' => [$horoscopeDaily]]);
 }
 
 

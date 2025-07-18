@@ -142,7 +142,7 @@ class DailyHoroscopeController extends Controller
     }
 
     $horoscope = Horoscope::where('zodiac', $horoscopeSign->name)
-        ->where('langcode', $lang)
+        ->where('langcode', $lang)->where('sun_moon_type',$req->type)
         ->first();
 
     if($req->type == 'sun'){
@@ -235,7 +235,7 @@ class DailyHoroscopeController extends Controller
         }
 
  $horoscopeDaily = Horoscope::where('zodiac', $horoscopeSign->name)
-        ->where('langcode', $lang)
+        ->where('langcode', $lang)->where('sun_moon_type',$req->type)
         ->first();
   
 

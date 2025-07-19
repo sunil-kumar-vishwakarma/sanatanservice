@@ -11,6 +11,7 @@ class PersonalizeDetail extends Model
     protected $fillable = [
         'user_id',
         'zodiac_sign',
+        'zodiac_sun_sign',
         'date_of_birth',
         'time_of_birth',
         'place_of_birth',

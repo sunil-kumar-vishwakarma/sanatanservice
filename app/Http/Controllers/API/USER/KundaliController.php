@@ -1246,11 +1246,17 @@ EOT;
             $decoded = json_decode($zodiacSign, true);
             $zo = isset($decoded['response']) ? $decoded['response'] : null;
 
+            $zodiacSunSign =$this->findZodiacSunSign($dob, $tob,$lat,$lon,$tz);
+            $decodedSun = json_decode($zodiacSunSign, true);
+            $sunsign = isset($decodedSun['response']) ? $decodedSun['response'] : null;
+
+
             $getNakshatraKundliDetail =  $this->getNakshatraKundliDetail($dob,$tob,$lat,$lon,$tz);
            
             $nakshatraId = $getNakshatraKundliDetail['response']['nakshatra'];
            
             $request['zodiac_sign'] = $zo['moon_sign'];
+            $request['zodiac_sun_sign'] = $sunsign['sun_sign'];
             $request['nakshatraId'] = $getNakshatraKundliDetail['response']['nakshatra'];
             $detail = PersonalizeDetail::updateOrCreate(['user_id' => $id],$request->all());
             $birthDate = Carbon::createFromFormat('d/m/Y', $request->date_of_birth)->format('Y-m-d');
@@ -1315,6 +1321,48 @@ EOT;
 
         $apiKey = '445a4fd8-0e58-5ea9-89b2-0cff19374be1';
         $url = 'https://api.vedicastroapi.com/v3-json/extended-horoscope/find-moon-sign';
+
+        $params = [
+            'api_key' => $apiKey,
+            'dob' => $dob,
+            'tob' => $tob,
+            'lat' => $lat,
+            'lon' => $lon,
+            'tz' => $tz,
+            'lang' => $lang,
+        ];
+
+        $finalUrl = $url . '?' . http_build_query($params);
+
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $finalUrl,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 20,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        ]);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return $response;
+        // $result = json_decode($response, true);
+        // if (json_last_error() === JSON_ERROR_NONE) {
+        //     return $result;
+        // }
+
+        // return ['status' => 500, 'response' => 'Invalid JSON from API'];
+    }
+
+     public function findZodiacSunSign($dob, $tob, $lat, $lon, $tz)
+    {
+        
+
+        $lang = 'en';
+        // print_r($tob);die;
+
+        $apiKey = '445a4fd8-0e58-5ea9-89b2-0cff19374be1';
+        $url = 'https://api.vedicastroapi.com/v3-json/extended-horoscope/find-sun-sign';
 
         $params = [
             'api_key' => $apiKey,

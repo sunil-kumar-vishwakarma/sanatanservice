@@ -325,11 +325,17 @@ class UserController extends Controller
                 $decoded = json_decode($zodiacSign, true);
                 $zo = isset($decoded['response']) ? $decoded['response'] : null;
 
+                $zodiacSunSign =$this->findZodiacSunSign($dob, $tob,$lat,$lon,$tz);
+                $decodedSun = json_decode($zodiacSunSign, true);
+                $sunsign = isset($decodedSun['response']) ? $decodedSun['response'] : null;
+
+
                 $getNakshatraKundliDetail =  $this->getNakshatraKundliDetail($dob,$tob,$lat,$lon,$tz);
             
                 $nakshatraId = $getNakshatraKundliDetail['response']['nakshatra'];
             
                 $req['zodiac_sign'] = $zo['moon_sign'];
+                $req['zodiac_sun_sign'] = $sunsign['sun_sign'];
                 $req['nakshatraId'] = $getNakshatraKundliDetail['response']['nakshatra'];
                 $req['date_of_birth'] = $birthDate;
                 $req['lat'] = $lat;
@@ -341,6 +347,7 @@ class UserController extends Controller
                 $detail = PersonalizeDetail::updateOrCreate(['user_id' => $id],$req->all());
                 $user['nakshatraId'] =$detail->nakshatraId;
                 $user['zodiac_sign'] =$detail->zodiac_sign;
+                $user['zodiac_sun_sign'] =$detail->zodiac_sun_sign;
                 $user['current_location'] =$detail->current_location;
                 $user['lat'] =$detail->lat;
                 $user['lon'] =$detail->lon;
@@ -435,6 +442,47 @@ class UserController extends Controller
     
     }
 
+      public function findZodiacSunSign($dob, $tob, $lat, $lon, $tz)
+    {
+        
+
+        $lang = 'en';
+        // print_r($tob);die;
+
+        $apiKey = '445a4fd8-0e58-5ea9-89b2-0cff19374be1';
+        $url = 'https://api.vedicastroapi.com/v3-json/extended-horoscope/find-sun-sign';
+
+        $params = [
+            'api_key' => $apiKey,
+            'dob' => $dob,
+            'tob' => $tob,
+            'lat' => $lat,
+            'lon' => $lon,
+            'tz' => $tz,
+            'lang' => $lang,
+        ];
+
+        $finalUrl = $url . '?' . http_build_query($params);
+
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $finalUrl,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 20,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        ]);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return $response;
+        // $result = json_decode($response, true);
+        // if (json_last_error() === JSON_ERROR_NONE) {
+        //     return $result;
+        // }
+
+        // return ['status' => 500, 'response' => 'Invalid JSON from API'];
+    }
     //Login admin
     public function loginUser(Request $req)
     {
@@ -569,6 +617,7 @@ class UserController extends Controller
             $detail = PersonalizeDetail::where('user_id', $user->id)->first();
             $user['nakshatraId'] =$detail->nakshatraId;
             $user['zodiac_sign'] =$detail->zodiac_sign;
+            $user['zodiac_sun_sign'] =$detail->zodiac_sun_sign;
             $user['current_location'] =$detail->current_location;
             $user['lat'] =$detail->lat;
             $user['lon'] =$detail->lon;

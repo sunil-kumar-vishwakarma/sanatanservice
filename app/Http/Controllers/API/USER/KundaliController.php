@@ -489,7 +489,7 @@ public function addKundali(Request $req)
                         $existing->update([
                             'name' => $kundali['name'],
                             'gender' => $kundali['gender'],
-                            'birthDate' => date('Y-m-d', strtotime($kundali['birthDate'])),
+                            'birthDate' => $kundali['birthDate'],
                             'birthTime' => $kundali['birthTime'],
                             'birthPlace' => $kundali['birthPlace'],
                             'latitude' => $kundali['latitude'],
@@ -506,7 +506,7 @@ public function addKundali(Request $req)
                     $savedKundalis[] = Kundali::create([
                         'name' => $kundali['name'],
                         'gender' => $kundali['gender'],
-                        'birthDate' => date('Y-m-d', strtotime($kundali['birthDate'])),
+                        'birthDate' => $kundali['birthDate'],
                         'birthTime' => $kundali['birthTime'],
                         'birthPlace' => $kundali['birthPlace'],
                         'createdBy' => $id,

@@ -401,6 +401,7 @@ class KundaliController extends Controller
 
 public function addKundali(Request $req)
 {
+    // print_r($req->all());die;
     DB::beginTransaction();
 
     try {
@@ -660,9 +661,10 @@ private function fetchKundaliData($kundali)
         return null;
     }
 
-    $convertedName = urlencode($name);
+    // $convertedName = urlencode($name);
+    $convertedName = $name;
     $encodedPlace = urlencode($birthPlace);
-
+// print_r($convertedName);die;
     $queryParams = http_build_query([
         'name' => $convertedName,
         'dob' => $birthDate,

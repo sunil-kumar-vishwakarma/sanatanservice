@@ -80,6 +80,7 @@ Route::post('kundali/update/{id}', [KundaliController::class, 'updateKundali']);
 Route::post('pdf/price', [KundaliController::class, 'getKundaliPrice']);
 Route::post('getkundali', [KundaliController::class, 'getKundalis']);
 Route::post('kundali/delete/{id}', [KundaliController::class, 'deleteKundali'])->name('api.deleteKundali');
+// Route::delete('kundali/delete/{id}', [KundaliController::class, 'deleteKundali']);
 Route::post('kundali/get/{id}', [KundaliController::class, 'getKundali']);
 Route::post('kundali/show/{id}', [KundaliController::class, 'kundaliShow']);
 Route::post('kundali/removeFromTrackPlanet', [KundaliController::class, 'removeFromTrackPlanet']);

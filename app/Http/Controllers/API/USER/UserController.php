@@ -331,6 +331,23 @@ class UserController extends Controller
 
 
                 $getNakshatraKundliDetail =  $this->getNakshatraKundliDetail($dob,$tob,$lat,$lon,$tz);
+                if (
+                is_array($getNakshatraKundliDetail) &&
+                isset($getNakshatraKundliDetail['status']) &&
+                $getNakshatraKundliDetail['status'] == 200 &&
+                isset($getNakshatraKundliDetail['response']) &&
+                is_array($getNakshatraKundliDetail['response']) &&
+                isset($getNakshatraKundliDetail['response']['nakshatra'])
+            ) {
+                $nakshatraId = $getNakshatraKundliDetail['response']['nakshatra'];
+            } else {
+                // Handle the error properly
+                return response()->json([
+                    'error' => 'API Error',
+                    'message' => $getNakshatraKundliDetail['response'] ?? 'Unknown error',
+                    'status' => $getNakshatraKundliDetail['status'] ?? 500
+                ], $getNakshatraKundliDetail['status'] ?? 500);
+            }
             
                 $nakshatraId = $getNakshatraKundliDetail['response']['nakshatra'];
             

@@ -41,6 +41,7 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('reset-password', [UserController::class, 'resetPassword']);
 
     Route::post('user/add', [UserController::class, 'addUser']);
+    Route::post('user/verifyEmailOtp', [UserController::class, 'verifyEmailOtp']);
     Route::post('getProfile', [UserController::class, 'getProfile']);
     Route::post('refresh', [UserController::class, 'refreshToken']);
     // Route::post('user/update/{id}', [UserController::class, 'updateUser']);

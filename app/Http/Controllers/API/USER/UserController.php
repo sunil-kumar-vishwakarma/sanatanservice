@@ -44,6 +44,7 @@ class UserController extends Controller
                     'verifyOTP',
                     'signUp',
                     'resetPassword',
+                    'verifyEmailOtp',
                     
                 ],
             ]
@@ -75,9 +76,22 @@ class UserController extends Controller
             );
 
             //Validate the data
-            $validator = Validator::make($data, [
-                'contactNo' => 'required|max:10|unique:users,contactNo',
-            ]);
+            // $validator = Validator::make($data, [
+            //     'contactNo' => 'required|max:10|unique:users,contactNo',
+            // ]);
+
+                $rules = [];
+
+                if ($req->has('contactNo')) {
+                    $rules['contactNo'] = 'required|digits:10|unique:users,contactNo';
+                }
+
+                if ($req->has('email')) {
+                    $rules['email'] = 'required|email|unique:users,email';
+                }
+
+                $validator = Validator::make($req->all(), $rules);
+
 
             //Send failed response if request is not valid
             if ($validator->fails()) {
@@ -86,7 +100,7 @@ class UserController extends Controller
             }
 
             //Image
-
+            $otp = rand(100000, 999999);
             //Create a new user
             $user = User::create([
                 'name' => $req->name,
@@ -101,7 +115,23 @@ class UserController extends Controller
                 'pincode' => $req->pincode,
                 'gender' => $req->gender,
                 'countryCode' => $req->countryCode,
+                'otp' => $otp,
             ]);
+
+            
+
+        // Store OTP in password_resets table
+        // DB::table('password_resets')->updateOrInsert(
+        //     ['email' => $request->email],
+        //     ['token' => $otp, 'created_at' => Carbon::now()]
+        // );
+
+        // Send OTP via email
+        Mail::raw("Your OTP is: $otp", function ($message) use ($req) {
+            $message->to($req->email)
+                    ->subject('Verify email OTP');
+        });
+
             // if ($req->profile) {
             //     if (Str::contains($req->profile, 'storage')) {
             //         $path = $req->profile;
@@ -141,6 +171,35 @@ class UserController extends Controller
                 'status' => 500,
             ], 500);
         }
+    }
+
+    public function verifyEmailOtp(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+            'otp'   => 'required|numeric|digits:6', // ✅ exactly 6 digits
+        ]);
+
+        $user = User::where('email', $request->email)
+                    ->where('otp', $request->otp)
+                    ->first();
+
+                    // print_r($user);die;
+        if (!$user) {
+            return response()->json(['error' => 'Invalid OTP'], 400);
+        }
+
+        // ✅ Update email_verified_at with current date & time
+        $user->update([
+            'email_verified_at' => now(),
+            'otp' => null // optional: clear OTP after success
+        ]);
+
+        return response()->json([
+            'email'   => $user->email,
+            'message' => 'OTP verified successfully',
+            'verified_at' => $user->email_verified_at
+        ], 200);
     }
 
 
@@ -501,66 +560,137 @@ class UserController extends Controller
         // return ['status' => 500, 'response' => 'Invalid JSON from API'];
     }
     //Login admin
-    public function loginUser(Request $req)
-    {
+    // public function loginUser(Request $req)
+    // {
 
+    //     try {
+    //         $data = $req->only('email', 'password');
+    //         // print_r($data);die;
+    //         //Valid credential
+    //         $validator = Validator::make($data, [
+    //             'email' => 'required',
+    //             'password' => 'required|string|min:6|max:50',
+    //         ]);
+
+    //         //Send failed response if request is not valid
+    //         if ($validator->fails()) {
+    //             return response()->json(['error' => $validator->errors(), 'status' => 400], 400);
+    //         }
+
+    //         //Create token
+    //         try {
+    //             $token = Auth::guard('api')->attempt($data);
+    //             // print_r($token);die;
+
+    //             if (!$token ) {
+
+    //                 // print_r($token);die;
+
+    //                 return response()->json([
+    //                     'success' => false,
+    //                     'message' => 'Login credentials are invalid.',
+    //                 ], 400);
+    //             }
+    //         } catch (JWTException $e) {
+    //             return response()->json([
+    //                 'success' => false,
+    //                 'message' => 'Could not create token.',
+    //             ], 500);
+    //         }
+    //         if ($token) {
+    //             $data = array(
+    //                 'token' => $token,
+    //                 'expirationDate' => Carbon::now()->addMonth(),
+    //             );
+    //             DB::table('users')->where('email', '=', $req->email)->update($data);
+    //         }
+    //         //Json response
+    //         return response()->json([
+    //             'success' => true,
+    //             'token' => $token,
+    //             'token_type' => 'Bearer',
+    //             'status' => 200,
+    //         ], 200);
+    //     } catch (\Exception$e) {
+    //         return response()->json([
+    //             'error' => false,
+    //             'message' => $e->getMessage(),
+    //             'status' => 500,
+
+    //         ], 500);
+    //     }
+    // }
+public function loginUser(Request $req)
+{
+    try {
+        $data = $req->only('email', 'password');
+
+        // ✅ Validation
+        $validator = Validator::make($data, [
+            'email'    => 'required|email',
+            'password' => 'required|string|min:6|max:50',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors(), 'status' => 400], 400);
+        }
+
+        // ✅ Check if user exists & email verified
+        $user =User::where('email', $req->email)->first();
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found.',
+            ], 404);
+        }
+
+        if (is_null($user->email_verified_at)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Please verify your email before login.',
+            ], 403);
+        }
+
+        // ✅ Create token
         try {
-            $data = $req->only('email', 'password');
-            // print_r($data);die;
-            //Valid credential
-            $validator = Validator::make($data, [
-                'email' => 'required',
-                'password' => 'required|string|min:6|max:50',
-            ]);
+            $token = Auth::guard('api')->attempt($data);
 
-            //Send failed response if request is not valid
-            if ($validator->fails()) {
-                return response()->json(['error' => $validator->errors(), 'status' => 400], 400);
-            }
-
-            //Create token
-            try {
-                $token = Auth::guard('api')->attempt($data);
-                // print_r($token);die;
-
-                if (!$token ) {
-
-                    // print_r($token);die;
-
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'Login credentials are invalid.',
-                    ], 400);
-                }
-            } catch (JWTException $e) {
+            if (!$token) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Could not create token.',
-                ], 500);
+                    'message' => 'Login credentials are invalid.',
+                ], 400);
             }
-            if ($token) {
-                $data = array(
-                    'token' => $token,
-                    'expirationDate' => Carbon::now()->addMonth(),
-                );
-                DB::table('users')->where('email', '=', $req->email)->update($data);
-            }
-            //Json response
+        } catch (JWTException $e) {
             return response()->json([
-                'success' => true,
-                'token' => $token,
-                'token_type' => 'Bearer',
-                'status' => 200,
-            ], 200);
-        } catch (\Exception$e) {
-            return response()->json([
-                'error' => false,
-                'message' => $e->getMessage(),
-                'status' => 500,
-
+                'success' => false,
+                'message' => 'Could not create token.',
             ], 500);
         }
+
+        // ✅ Update last login & token expiry in DB
+        $user->update([
+            'last_login_at'  => now(),
+            'token'          => $token,
+            'expirationDate' => Carbon::now()->addMonth(),
+        ]);
+
+        return response()->json([
+            'success'     => true,
+            'token'       => $token,
+            'token_type'  => 'Bearer',
+            'status'      => 200,
+        ], 200);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => $e->getMessage(),
+            'status'  => 500,
+        ], 500);
     }
+}
 
 
 //     public function loginUser(Request $req)

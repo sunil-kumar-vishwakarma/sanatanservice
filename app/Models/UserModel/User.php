@@ -30,7 +30,9 @@ class User extends Authenticatable implements JWTSubject
         'location',
         'pincode',
         'gender',
-        'countryCode'
+        'countryCode',
+        'otp',
+        'email_verified_at'
     ];
 
     /**

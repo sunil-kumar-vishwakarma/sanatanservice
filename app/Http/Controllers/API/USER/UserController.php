@@ -45,6 +45,7 @@ class UserController extends Controller
                     'signUp',
                     'resetPassword',
                     'verifyEmailOtp',
+                    'resentOtpUser',
                     
                 ],
             ]
@@ -172,6 +173,63 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+
+   public function resentOtpUser(Request $req)
+{
+ 
+        // ✅ Validate that email exists (not unique, since it's resend OTP)
+        $validator = Validator::make($req->all(), [
+            'email' => 'required|email|exists:users,email',
+        ]);
+
+        if ($validator->fails()) {
+            DB::rollBack();
+            return response()->json([
+                'error' => $validator->messages(),
+                'status' => 400
+            ], 400);
+        }
+
+        // ✅ Find the existing user
+        $user = User::where('email', $req->email)->first();
+
+        if (!$user) {
+            DB::rollBack();
+            return response()->json([
+                'error' => 'User not found',
+                'status' => 404
+            ], 404);
+        }
+
+        // ✅ Generate new OTP
+        $otp = rand(100000, 999999);
+
+        // ✅ Update OTP for the user
+        $user->update([
+            'otp' => $otp,
+        ]);
+
+        Mail::raw("Your OTP is: $otp", function ($message) use ($req) {
+            $message->to($req->email)
+                    ->subject('Verify email OTP');
+        });
+        // ✅ Send OTP via email
+        // Mail::raw("Your OTP is: $otp", function ($message) use ($req) {
+        //     $message->to($req->email)
+        //         ->subject('Verify email OTP');
+        // });
+
+        return response()->json([
+            'success' => true,
+            'status' => 200,
+            'message' => 'OTP resent successfully',
+            'recordList' => $user,
+        ], 200);
+
+    
+}
+
 
     public function verifyEmailOtp(Request $request)
     {

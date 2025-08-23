@@ -38,6 +38,7 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('login', [UserController::class, 'loginUser']);
     Route::post('forgot-password', [UserController::class, 'forgotPassword']);
     Route::post('verify-otp', [UserController::class, 'verifyOTP']);
+    Route::post('resentOtpUser', [UserController::class, 'resentOtpUser']);
     Route::post('reset-password', [UserController::class, 'resetPassword']);
 
     Route::post('user/add', [UserController::class, 'addUser']);

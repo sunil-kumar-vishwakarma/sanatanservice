@@ -101,7 +101,7 @@ class UserController extends Controller
             }
 
             //Image
-            $otp = rand(100000, 999999);
+            
             //Create a new user
             $user = User::create([
                 'name' => $req->name,
@@ -116,7 +116,7 @@ class UserController extends Controller
                 'pincode' => $req->pincode,
                 'gender' => $req->gender,
                 'countryCode' => $req->countryCode,
-                'otp' => $otp,
+               
             ]);
 
             
@@ -128,10 +128,7 @@ class UserController extends Controller
         // );
 
         // Send OTP via email
-        Mail::raw("Your OTP is: $otp", function ($message) use ($req) {
-            $message->to($req->email)
-                    ->subject('Verify email OTP');
-        });
+        
 
             // if ($req->profile) {
             //     if (Str::contains($req->profile, 'storage')) {
@@ -331,13 +328,22 @@ class UserController extends Controller
 
             //Image
 
+            $otp = rand(100000, 999999);
+
             //Create a new user
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password),
+                'otp' => $otp,
             ]);
             
+             
+        Mail::raw("Your OTP is: $otp", function ($message) use ($req) {
+            $message->to($req->email)
+                    ->subject('Verify email OTP');
+        });
+
             $user->update();
             UserRole::create([
                 'userId' => $user->id,

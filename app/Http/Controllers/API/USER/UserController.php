@@ -200,7 +200,7 @@ class UserController extends Controller
         }
 
         // ✅ Generate new OTP
-        $otp = rand(100000, 999999);
+        $otp = rand(1000, 9999);
 
         // ✅ Update OTP for the user
         $user->update([
@@ -232,7 +232,7 @@ class UserController extends Controller
     {
         $request->validate([
             'email' => 'required|email|exists:users,email',
-            'otp'   => 'required|numeric|digits:6', // ✅ exactly 6 digits
+            'otp'   => 'required|numeric|digits:4', // ✅ exactly 6 digits
         ]);
 
         $user = User::where('email', $request->email)
@@ -258,6 +258,49 @@ class UserController extends Controller
     }
 
 
+    // public function googleLogin(Request $request)
+    // {
+    //     $validated = $request->validate([
+    //         'uid' => 'required|string',
+    //         'email' => 'required|email',
+    //         'name' => 'required|string',
+    //         'photo_url' => 'nullable|string',
+    //     ]);
+
+    //     // Check if user already exists
+    //     $user = User::where('google_uid', $validated['uid'])
+    //                 ->orWhere('email', $validated['email'])
+    //                 ->first();
+
+    //     if (!$user) {
+    //         // Create new user
+    //         $user = User::create([
+    //             'name' => $validated['name'],
+    //             'email' => $validated['email'],
+    //             'google_uid' => $validated['uid'],
+    //             'profile' => $validated['photo_url'] ?? null,
+    //             'password' => bcrypt(\Illuminate\Support\Str::random(16)), // ✅ fix str() helper issue
+    //         ]);
+    //     } else {
+    //         // Update photo/name if changed
+    //         $user->update([
+    //             'google_uid' => $validated['uid'],
+    //             'name' => $validated['name'],
+    //             'profile' => $validated['photo_url'] ?? $user->profile, // ✅ fix: should be $user->profile not photo_url
+    //         ]);
+    //     }
+
+    //     // Generate token
+    //     $token = $user->createToken('authToken')->plainTextToken;
+
+    //     return response()->json([
+    //         'status' => true,
+    //         'message' => 'Login successful',
+    //         'user' => $user,
+    //         'token' => $token,
+    //     ]);
+    // }
+
     public function googleLogin(Request $request)
 {
     $validated = $request->validate([
@@ -275,29 +318,29 @@ class UserController extends Controller
     if (!$user) {
         // Create new user
         $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
+            'name'       => $validated['name'],
+            'email'      => $validated['email'],
             'google_uid' => $validated['uid'],
-            'profile' => $validated['photo_url'] ?? null,
-            'password' => bcrypt(\Illuminate\Support\Str::random(16)), // ✅ fix str() helper issue
+            'profile'    => $validated['photo_url'] ?? null,
+            'password'   => bcrypt(Str::random(16)), // random password
         ]);
     } else {
-        // Update photo/name if changed
+        // Update existing user
         $user->update([
             'google_uid' => $validated['uid'],
-            'name' => $validated['name'],
-            'profile' => $validated['photo_url'] ?? $user->profile, // ✅ fix: should be $user->profile not photo_url
+            'name'       => $validated['name'],
+            'profile'    => $validated['photo_url'] ?? $user->profile,
         ]);
     }
 
-    // Generate token
+    // Generate Sanctum token
     $token = $user->createToken('authToken')->plainTextToken;
 
     return response()->json([
-        'status' => true,
+        'status'  => true,
         'message' => 'Login successful',
-        'user' => $user,
-        'token' => $token,
+        'user'    => $user,
+        'token'   => $token,
     ]);
 }
 
@@ -329,7 +372,7 @@ class UserController extends Controller
 
             //Image
 
-            $otp = rand(100000, 999999);
+            $otp = rand(1000, 9999);
 
             //Create a new user
             $user = User::create([

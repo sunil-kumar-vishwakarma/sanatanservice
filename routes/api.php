@@ -43,9 +43,11 @@ Route::group(['middleware' => 'api'], function () {
     // Route::post('googleLogin', [UserController::class, 'googleLogin']);
 
     Route::post('/googleLogin', [AuthController::class, 'googleLogin']);
-Route::middleware('auth:sanctum')->get('/user', function (\Illuminate\Http\Request $request) {
-    return $request->user();
-});
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/user', function (Request $request) {
+            return $request->user();
+        });
+    });
 
     Route::post('user/add', [UserController::class, 'addUser']);
     Route::post('user/verifyEmailOtp', [UserController::class, 'verifyEmailOtp']);

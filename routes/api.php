@@ -40,7 +40,12 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('verify-otp', [UserController::class, 'verifyOTP']);
     Route::post('resentOtpUser', [UserController::class, 'resentOtpUser']);
     Route::post('reset-password', [UserController::class, 'resetPassword']);
-    Route::post('googleLogin', [UserController::class, 'googleLogin']);
+    // Route::post('googleLogin', [UserController::class, 'googleLogin']);
+
+    Route::post('/googleLogin', [AuthController::class, 'googleLogin']);
+Route::middleware('auth:sanctum')->get('/user', function (\Illuminate\Http\Request $request) {
+    return $request->user();
+});
 
     Route::post('user/add', [UserController::class, 'addUser']);
     Route::post('user/verifyEmailOtp', [UserController::class, 'verifyEmailOtp']);

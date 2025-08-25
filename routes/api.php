@@ -42,7 +42,7 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('reset-password', [UserController::class, 'resetPassword']);
     // Route::post('googleLogin', [UserController::class, 'googleLogin']);
 
-    Route::post('/googleLogin', [AuthController::class, 'googleLogin']);
+    Route::post('/googleLogin', [UserController::class, 'googleLogin']);
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/user', function (Request $request) {
             return $request->user();

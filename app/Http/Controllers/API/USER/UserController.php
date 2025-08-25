@@ -339,8 +339,8 @@ class UserController extends Controller
             ]);
             
              
-        Mail::raw("Your OTP is: $otp", function ($message) use ($req) {
-            $message->to($req->email)
+        Mail::raw("Your OTP is: $otp", function ($message) use ($request) {
+            $message->to($request->email)
                     ->subject('Verify email OTP');
         });
 

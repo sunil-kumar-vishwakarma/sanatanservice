@@ -21,6 +21,9 @@ use Illuminate\Support\Str;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Tymon\JWTAuth\Facades\JWTAuth;
+
+
 
 define('DESTINATIONPATH', 'public/storage/images/');
 
@@ -46,6 +49,7 @@ class UserController extends Controller
                     'resetPassword',
                     'verifyEmailOtp',
                     'resentOtpUser',
+                    'googleLogin'
                     
                 ],
             ]
@@ -301,17 +305,17 @@ class UserController extends Controller
     //     ]);
     // }
 
-    public function googleLogin(Request $request)
+public function googleLogin(Request $request)
 {
     $validated = $request->validate([
-        'uid' => 'required|string',
-        'email' => 'required|email',
-        'name' => 'required|string',
-        'photo_url' => 'nullable|string',
+        'google_uid' => 'required|string',
+        'email'      => 'required|email',
+        'name'       => 'required|string',
+        'profile'    => 'nullable|string',
     ]);
 
     // Check if user already exists
-    $user = User::where('google_uid', $validated['uid'])
+    $user = User::where('google_uid', $validated['google_uid'])
                 ->orWhere('email', $validated['email'])
                 ->first();
 
@@ -320,30 +324,33 @@ class UserController extends Controller
         $user = User::create([
             'name'       => $validated['name'],
             'email'      => $validated['email'],
-            'google_uid' => $validated['uid'],
-            'profile'    => $validated['photo_url'] ?? null,
-            'password'   => bcrypt(Str::random(16)), // random password
+            'google_uid' => $validated['google_uid'],
+            'profile'    => $validated['profile'] ?? null,
+            'password'   => bcrypt(Str::random(16)), // dummy random password
         ]);
     } else {
         // Update existing user
         $user->update([
-            'google_uid' => $validated['uid'],
+            'google_uid' => $validated['google_uid'],
             'name'       => $validated['name'],
-            'profile'    => $validated['photo_url'] ?? $user->profile,
+            'profile'    => $validated['profile'] ?? $user->profile,
         ]);
     }
 
-    // Generate Sanctum token
-    // $token = $user->createToken('authToken')->plainTextToken;
-    $token = Auth::guard('api')->attempt($user);
+    // ✅ Generate JWT token from user (no password required)
+    $token = JWTAuth::fromUser($user);
+// $token = \PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth::fromUser($user);
 
     return response()->json([
-        'status'  => true,
+        'success'  => true,
         'message' => 'Login successful',
         'user'    => $user,
         'token'   => $token,
+        'token_type'  => 'Bearer',
+        'status'      => 200,
     ]);
 }
+
 
     
     public function signUp(Request $request)

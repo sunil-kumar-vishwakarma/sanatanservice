@@ -334,7 +334,8 @@ class UserController extends Controller
     }
 
     // Generate Sanctum token
-    $token = $user->createToken('authToken')->plainTextToken;
+    // $token = $user->createToken('authToken')->plainTextToken;
+    $token = Auth::guard('api')->attempt($user);
 
     return response()->json([
         'status'  => true,

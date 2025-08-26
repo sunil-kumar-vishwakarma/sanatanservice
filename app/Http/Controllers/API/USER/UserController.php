@@ -175,6 +175,37 @@ class UserController extends Controller
         }
     }
 
+public function deleteAccount(Request $request)
+{
+    try {
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorized user.'
+            ], 401);
+        }
+
+        // Soft delete or permanent delete
+        $user->delete();
+
+        return response()->json([
+             'success' => true,
+            'status' => 200,
+            'message' => 'Your account has been deleted successfully.'
+        ], 200);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'status' => 404,
+            'message' => 'Something went wrong!',
+            'error'   => $e->getMessage()
+        ], 500);
+    }
+}
+
 
    public function resentOtpUser(Request $req)
 {

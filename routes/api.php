@@ -55,6 +55,7 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('refresh', [UserController::class, 'refreshToken']);
     // Route::post('user/update/{id}', [UserController::class, 'updateUser']);
     Route::post('userupdate', [UserController::class, 'updateUser']);
+    Route::delete('deleteAccount', [UserController::class, 'deleteAccount']);
     
     Route::post('password/reset', [UserController::class, 'forgotPassword']);
     Route::post('userStatus/update/{id}', [UserController::class, 'activeUser']);

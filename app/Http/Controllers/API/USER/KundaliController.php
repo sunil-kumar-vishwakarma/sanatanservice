@@ -1371,7 +1371,7 @@ EOT;
     
         $validator = Validator::make($request->all(), [
             // 'zodiac_sign' => 'required|string',
-            'date_of_birth' => 'required|date',
+            'date_of_birth' => 'required',
             'time_of_birth' => 'required',
             'place_of_birth' => 'required|string',
             'current_location' => 'required|string',
@@ -1397,7 +1397,7 @@ EOT;
             $decodedSun = json_decode($zodiacSunSign, true);
             $sunsign = isset($decodedSun['response']) ? $decodedSun['response'] : null;
 
-
+// print_r($dob);die;
             $getNakshatraKundliDetail =  $this->getNakshatraKundliDetail($dob,$tob,$lat,$lon,$tz);
            
             $nakshatraId = $getNakshatraKundliDetail['response']['nakshatra'];

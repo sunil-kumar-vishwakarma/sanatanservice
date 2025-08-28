@@ -244,7 +244,7 @@ public function deleteAccount(Request $request)
 
         Mail::raw("Your OTP is: $otp", function ($message) use ($req) {
             $message->to($req->email)
-                    ->subject('Sanatan Verify email OTP');
+                    ->subject('Sanatan - Verify email OTP');
         });
         // ✅ Send OTP via email
         // Mail::raw("Your OTP is: $otp", function ($message) use ($req) {
@@ -255,7 +255,7 @@ public function deleteAccount(Request $request)
         return response()->json([
             'success' => true,
             'status' => 200,
-            'message' => 'Sanatan OTP Resent Successfully',
+            'message' => 'Sanatan - OTP Resent Successfully',
             'recordList' => $user,
         ], 200);
 
@@ -287,7 +287,7 @@ public function deleteAccount(Request $request)
 
         return response()->json([
             'email'   => $user->email,
-            'message' => 'Sanatan OTP Verified Successfully',
+            'message' => 'Sanatan - OTP Verified Successfully',
             'verified_at' => $user->email_verified_at
         ], 200);
     }
@@ -424,7 +424,7 @@ public function googleLogin(Request $request)
              
         Mail::raw("Your OTP is: $otp", function ($message) use ($request) {
             $message->to($request->email)
-                    ->subject('Sanatan Verify email OTP');
+                    ->subject('Sanatan - Verify email OTP');
         });
 
             $user->update();

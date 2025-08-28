@@ -242,10 +242,16 @@ public function deleteAccount(Request $request)
             'otp' => $otp,
         ]);
 
-        Mail::raw("Welcome to Sanatan Your OTP is: $otp", function ($message) use ($req) {
-            $message->to($req->email)
-                    ->subject('Sanatan - Verify email OTP');
+        Mail::send('emails.otp', ['otp' => $otp], function ($message) use ($req) {
+        $message->to($req->email)
+                ->subject('Sanatan - Verify Email OTP');
         });
+
+
+        // Mail::raw("Welcome to Sanatan Your OTP is: $otp", function ($message) use ($req) {
+        //     $message->to($req->email)
+        //             ->subject('Sanatan - Verify email OTP');
+        // });
         // ✅ Send OTP via email
         // Mail::raw("Your OTP is: $otp", function ($message) use ($req) {
         //     $message->to($req->email)
@@ -422,10 +428,15 @@ public function googleLogin(Request $request)
             ]);
             
              
-        Mail::raw("Welcome to Sanatan Your OTP is: $otp", function ($message) use ($request) {
-            $message->to($request->email)
-                    ->subject('Sanatan - Verify email OTP');
+            Mail::send('emails.otp', ['otp' => $otp], function ($message) use ($request) {
+        $message->to($request->email)
+                ->subject('Sanatan - Verify Email OTP');
         });
+
+        // Mail::raw("Welcome to Sanatan Your OTP is: $otp", function ($message) use ($request) {
+        //     $message->to($request->email)
+        //             ->subject('Sanatan - Verify email OTP');
+        // });
 
             $user->update();
             UserRole::create([

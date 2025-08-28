@@ -242,7 +242,7 @@ public function deleteAccount(Request $request)
             'otp' => $otp,
         ]);
 
-        Mail::raw("Your OTP is: $otp", function ($message) use ($req) {
+        Mail::raw("Welcome to Sanatan Your OTP is: $otp", function ($message) use ($req) {
             $message->to($req->email)
                     ->subject('Sanatan - Verify email OTP');
         });
@@ -422,7 +422,7 @@ public function googleLogin(Request $request)
             ]);
             
              
-        Mail::raw("Your OTP is: $otp", function ($message) use ($request) {
+        Mail::raw("Welcome to Sanatan Your OTP is: $otp", function ($message) use ($request) {
             $message->to($request->email)
                     ->subject('Sanatan - Verify email OTP');
         });

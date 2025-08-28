@@ -299,94 +299,7 @@ public function deleteAccount(Request $request)
     }
 
 
-    // public function googleLogin(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'uid' => 'required|string',
-    //         'email' => 'required|email',
-    //         'name' => 'required|string',
-    //         'photo_url' => 'nullable|string',
-    //     ]);
 
-    //     // Check if user already exists
-    //     $user = User::where('google_uid', $validated['uid'])
-    //                 ->orWhere('email', $validated['email'])
-    //                 ->first();
-
-    //     if (!$user) {
-    //         // Create new user
-    //         $user = User::create([
-    //             'name' => $validated['name'],
-    //             'email' => $validated['email'],
-    //             'google_uid' => $validated['uid'],
-    //             'profile' => $validated['photo_url'] ?? null,
-    //             'password' => bcrypt(\Illuminate\Support\Str::random(16)), // ✅ fix str() helper issue
-    //         ]);
-    //     } else {
-    //         // Update photo/name if changed
-    //         $user->update([
-    //             'google_uid' => $validated['uid'],
-    //             'name' => $validated['name'],
-    //             'profile' => $validated['photo_url'] ?? $user->profile, // ✅ fix: should be $user->profile not photo_url
-    //         ]);
-    //     }
-
-    //     // Generate token
-    //     $token = $user->createToken('authToken')->plainTextToken;
-
-    //     return response()->json([
-    //         'status' => true,
-    //         'message' => 'Login successful',
-    //         'user' => $user,
-    //         'token' => $token,
-    //     ]);
-    // }
-
-public function googleLogin(Request $request)
-{
-    $validated = $request->validate([
-        'google_uid' => 'required|string',
-        'email'      => 'required|email',
-        'name'       => 'required|string',
-        'profile'    => 'nullable|string',
-    ]);
-
-    // Check if user already exists
-    $user = User::where('google_uid', $validated['google_uid'])
-                ->orWhere('email', $validated['email'])
-                ->first();
-
-    if (!$user) {
-        // Create new user
-        $user = User::create([
-            'name'       => $validated['name'],
-            'email'      => $validated['email'],
-            'google_uid' => $validated['google_uid'],
-            'profile'    => $validated['profile'] ?? null,
-            'password'   => bcrypt(Str::random(16)), // dummy random password
-        ]);
-    } else {
-        // Update existing user
-        $user->update([
-            'google_uid' => $validated['google_uid'],
-            'name'       => $validated['name'],
-            'profile'    => $validated['profile'] ?? $user->profile,
-        ]);
-    }
-
-    // ✅ Generate JWT token from user (no password required)
-    $token = JWTAuth::fromUser($user);
-// $token = \PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth::fromUser($user);
-
-    return response()->json([
-        'success'  => true,
-        'message' => 'Login successful',
-        'user'    => $user,
-        'token'   => $token,
-        'token_type'  => 'Bearer',
-        'status'      => 200,
-    ]);
-}
 
 
     
@@ -893,6 +806,68 @@ public function loginUser(Request $req)
         ], 500);
     }
 }
+
+
+    public function googleLogin(Request $request)
+{
+    $validated = $request->validate([
+        'google_uid' => 'required|string',
+        'email' => 'required|email',
+        'name' => 'required|string',
+        'profile' => 'nullable|string',
+    ]);
+
+    // Check if user exists
+    $user = User::where('google_uid', $validated['google_uid'])
+                ->orWhere('email', $validated['email'])
+                ->first();
+
+    if (!$user) {
+        // Create new user
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'google_uid' => $validated['google_uid'],
+            'profile' => $validated['profile'] ?? null,
+            'password' => bcrypt($validated['google_uid']), // ✅ bcrypt
+        ]);
+    } else {
+        // Update if exists
+        $user->update([
+            'google_uid' => $validated['google_uid'],
+            'name' => $validated['name'],
+            'profile' => $validated['profile'] ?? $user->profile,
+            'password' => bcrypt($validated['google_uid']), // ✅ bcrypt
+        ]);
+    }
+
+    // Login credentials
+    $credentials = [
+        'email' => $validated['email'],
+        'password' => $validated['google_uid'], // plain password (bcrypt check karega)
+    ];
+
+   
+    if (!$token = Auth::guard('api')->attempt($credentials)) {
+        return response()->json([
+            'success' => false,
+            'status' => 401,
+            'message' => 'Unauthorized',
+        ], 401);
+    }
+
+    return response()->json([
+        'success'     => true,
+        'user' => $user,
+        'token' => $token,
+        'token_type'  => 'Bearer',
+        'status'      => 200,
+        'message' => 'Welcome to Sanatan.',
+    ]);
+}
+
+    
+
 
 
 //     public function loginUser(Request $req)

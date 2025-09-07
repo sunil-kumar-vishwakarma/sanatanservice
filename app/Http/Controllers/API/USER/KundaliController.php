@@ -1416,7 +1416,7 @@ EOT;
             ]);
             return response()->json([
                 'status' => 200,
-                "message" => "Add Personalize details successfully",
+                "message" => "Your details are saved! Astrological insights are now unlocked.",
                 "details" => $detail
             ], 200);
 

@@ -544,7 +544,7 @@ public function deleteAccount(Request $request)
                 $user['tz'] =$detail->tz;
                
 
-                return response()->json(['message' => 'User update sucessfully', 'status' => 200, 'data'=>$user], 200);
+                return response()->json(['message' => 'Details updated! Your astrological insights have been refreshed.', 'status' => 200, 'data'=>$user], 200);
             } else {
                 return response()->json(['message' => 'No user is found', 'status' => 404], 404);
             }

@@ -243,7 +243,7 @@ class CustomerController extends Controller
             $user->birthTime = $req->birth_time;
             $user->save();
     
-            return redirect()->route('admin.customers')->with('success', 'User updated successfully');
+            return redirect()->route('admin.customers')->with('success', 'Details updated! Your astrological insights have been refreshed.');
     
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Something went wrong: ' . $e->getMessage());

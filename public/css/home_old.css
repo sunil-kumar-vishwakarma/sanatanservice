@@ -1,13 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 body,
@@ -20,6 +16,7 @@ html {
 /* ---------------------------------------------------------
   ---------------------header start-----------------------
   --------------------------------------------------------- */
+
 
 header {
   background: linear-gradient(to top, rgb(34 0 59 / 90%), #24007a);
@@ -34,17 +31,15 @@ header {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+
 .header-container {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  margin-top: 7px;
 }
-.header-container a {
-  text-decoration: none;
-}
-
-.header-container .app-buttons img {
-  height: 45px;
+.header-container a{
+    text-decoration: none;
 }
 
 .logo-section {
@@ -196,12 +191,14 @@ header {
   color: white;
 }
 
+
 /* Show .toogle only on mobile */
 .toogle {
   cursor: pointer;
   font-size: 24px;
   color: white;
 }
+
 
 nav {
   background: linear-gradient(to top, rgb(34 0 59 / 90%), #24007a);
@@ -216,6 +213,7 @@ nav {
   flex-wrap: wrap;
   justify-content: center;
   text-align: justify;
+
 }
 
 nav .column {
@@ -260,6 +258,7 @@ header .hidden {
   display: none;
   /* Hide on desktop */
 }
+
 
 /* ---------------------------------------------------------
   ---------------------header End-----------------------
@@ -336,9 +335,12 @@ header .hidden {
   background-color: #333;
 }
 
+
 /* ---------------------------------------------------------
   ---------------------slider Start-----------------------
   --------------------------------------------------------- */
+
+
 
 .facts-section {
   background-color: rgb(34 0 59);
@@ -352,7 +354,7 @@ header .hidden {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1300px;
+  max-width: 1200px;
   padding: 0px 20px;
   margin: auto;
   flex-wrap: wrap;
@@ -368,7 +370,6 @@ header .hidden {
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 20px;
-  text-transform: uppercase;
 }
 
 .facts-text h2 span {
@@ -382,8 +383,7 @@ header .hidden {
   margin-bottom: 30px;
 }
 
-.facts-text li,
-.facts-text p {
+.facts-text li {
   margin-bottom: 10px;
   font-size: 16px;
   line-height: 1.6;
@@ -405,14 +405,11 @@ header .hidden {
   margin-left: 20px;
   color: white;
   background: linear-gradient(to top, rgb(34 0 59 / 90%), #24007a) !important;
+
 }
 
 .view-btn:hover {
   box-shadow: 0 3px 6px #51191fe6;
-}
-
-#banner {
-  scroll-margin-top: 80px;
 }
 
 .facts-image {
@@ -432,85 +429,6 @@ header .hidden {
   margin: 0px 50px;
 }
 
-.banner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 60px 10%;
-  background: linear-gradient(135deg, #211231, #aeb0e3);
-  min-height: 70vh;
-  box-sizing: border-box;
-}
-
-.banner-content {
-  flex: 1;
-  max-width: 50%;
-}
-
-.banner-content h1 {
-  font-size: 2.8rem;
-  color: #fff7f7;
-  margin-bottom: 20px;
-}
-
-.banner-content p {
-  font-size: 1.1rem;
-  margin-bottom: 30px;
-  line-height: 1.6;
-  color: rgb(255, 251, 251);
-}
-
-.app-buttons {
-  display: flex;
-  gap: 15px;
-}
-
-.app-buttons a img {
-  height: 55px;
-  transition: transform 0.3s ease;
-}
-
-.app-buttons a img:hover {
-  transform: scale(1.05);
-}
-
-.banner-image {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
-}
-
-.banner-image img {
-  width: 213px;
-  height: 400px;
-  max-width: 100%;
-  border-radius: 25px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .banner {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .banner-content {
-    max-width: 100%;
-    margin-bottom: 30px;
-  }
-
-  .banner-image img {
-    width: 220px;
-  }
-
-  .app-buttons {
-    justify-content: center;
-  }
-}
-
 /* Actions */
 .actions {
   display: flex;
@@ -519,8 +437,8 @@ header .hidden {
   padding: 30px 20px;
   background-color: #4b007a;
 }
-.actions a {
-  text-decoration: none;
+.actions a{
+text-decoration: none;
 }
 
 .action-btn {
@@ -535,6 +453,7 @@ header .hidden {
   font-size: 14px;
 }
 
+
 /* Features */
 .features {
   display: flex;
@@ -544,9 +463,8 @@ header .hidden {
   background-color: #4b007a;
   padding: 30px 20px;
 }
-.features a {
-  text-decoration: none;
-  color: white;
+.features a{
+    text-decoration: none;
 }
 
 .feature-item {
@@ -584,7 +502,7 @@ header .hidden {
   padding: 0 20px;
 }
 .astrologer-grid a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .astrologer-grid::-webkit-scrollbar {
@@ -619,10 +537,11 @@ header .hidden {
   overflow: hidden;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s;
-  border: 1px solid #65a9fd;
+  border: 1px solid #65A9FD;
   flex: 0 0 auto;
   /* prevents shrinking */
 }
+
 
 .astro-card img {
   width: 100%;
@@ -634,8 +553,8 @@ header .hidden {
   /* padding: 10px; */
   text-align: center;
 }
-.astro-info small {
-  color: #fff;
+.astro-info small{
+    color: #fff;
 }
 
 .astro-info h4 {
@@ -681,11 +600,13 @@ header .hidden {
   right: 143px;
 }
 
+
 .astro-section,
 .blog-section {
   padding: 40px 20px;
   text-align: center;
 }
+
 
 /* Astrology Videos */
 .videos-container {
@@ -695,8 +616,8 @@ header .hidden {
   flex-wrap: wrap;
   margin-top: 30px;
 }
-.videos-container a {
-  text-decoration: none;
+.videos-container a{
+    text-decoration: none;
 }
 
 .video-card {
@@ -789,6 +710,7 @@ header .hidden {
   font-size: 14px;
 }
 
+
 .news-section {
   padding: 50px 20px;
   text-align: center;
@@ -813,7 +735,7 @@ header .hidden {
   gap: 30px;
 }
 .news-cards a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .news-card {
@@ -863,6 +785,7 @@ header .hidden {
   list-style: disc;
 }
 
+
 .accordion-section {
   padding: 50px 20px;
   text-align: center;
@@ -889,6 +812,7 @@ header .hidden {
   max-width: 900px;
   margin: 0 auto;
   text-align: left;
+
 }
 
 .accordion-item {
@@ -898,6 +822,8 @@ header .hidden {
   margin-bottom: 20px;
   overflow: hidden;
   transition: all 0.3s ease;
+
+
 }
 
 .accordion-btn {
@@ -923,8 +849,8 @@ header .hidden {
   font-size: 15px;
   line-height: 1.6;
 }
-.accordion-content p {
-  color: #000;
+.accordion-content p{
+    color: #000;
 }
 
 .accordion-content.show {
@@ -940,9 +866,11 @@ header .hidden {
   transform: rotate(180deg);
 }
 
+
 /* ---------------------------------------------------------
   ---------------------footer start-----------------------
   --------------------------------------------------------- */
+
 
 .site-footer {
   background: linear-gradient(to bottom, #000000, #4b0073);
@@ -957,7 +885,7 @@ header .hidden {
   justify-content: center;
   max-width: 100%;
   margin: auto;
-  font-size: 15px;
+  font-size: 13px;
   padding: 20px;
 }
 
@@ -1027,6 +955,7 @@ header .hidden {
   width: 100%;
   max-width: 100%;
 }
+
 
 /* ---------------------------------------------------------
   ---------------------footer End-----------------------
@@ -1118,6 +1047,7 @@ header .hidden {
 
   .carousel {
     height: 300px;
+
   }
 
   .carousel .slides {
@@ -1125,6 +1055,7 @@ header .hidden {
     transition: transform 0.5s ease-in-out;
     width: 100%;
     height: 200px;
+
   }
 
   .carousel .slide img {
@@ -1249,6 +1180,8 @@ header .hidden {
   }
 }
 
+
+
 @media (min-width: 768px) and (max-width: 991.98px) {
   .logo-section img {
     width: 50px;
@@ -1313,7 +1246,7 @@ header .hidden {
   .video-thumbnail img:first-child {
     width: 100%;
     display: block;
-  }
+}
 
   .blog-cards {
     flex-direction: row;
@@ -1461,379 +1394,269 @@ header .hidden {
   }
 }
 
+
 /*
     -----------------------------------------------------------
     --------------------------register-login-----------------------------
     ----------------------------------------------------------------- */
 
-.auth-wrapper {
-  background-color: #fff;
-  border-radius: 30px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
-  overflow: hidden;
-  position: relative;
-  width: 768px;
-  max-width: 100%;
-  min-height: 480px;
-  display: flex;
-  margin: auto;
-  margin-top: 120px;
-  margin-bottom: 40px;
-}
 
-.auth-form {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  transition: all 0.6s ease-in-out;
-}
+    .auth-wrapper {
+      background-color: #fff;
+      border-radius: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      position: relative;
+      width: 768px;
+      max-width: 100%;
+      min-height: 480px;
+      display: flex;
+      margin: auto;
+      margin-top: 120px;
+      margin-bottom: 40px;
+    }
 
-.auth-form h1 {
-  color: black;
-}
+    .auth-form {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      transition: all 0.6s ease-in-out;
+    }
 
-.auth-form form {
-  background-color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 40px;
-  height: 100%;
-}
+    .auth-form h1{
+      color: black;
+    }
 
-.auth-form input {
-  background-color: #eee;
-  border: none;
-  margin: 8px 0;
-  padding: 10px 15px;
-  font-size: 13px;
-  border-radius: 8px;
-  width: 100%;
-  outline: none;
-}
+    .auth-form form {
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 0 40px;
+      height: 100%;
+    }
 
-.auth-form button {
-  background-color: orange;
-  color: #fff;
-  font-size: 12px;
-  padding: 10px 45px;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  margin-top: 10px;
-  cursor: pointer;
-}
+    .auth-form input {
+      background-color: #eee;
+      border: none;
+      margin: 8px 0;
+      padding: 10px 15px;
+      font-size: 13px;
+      border-radius: 8px;
+      width: 100%;
+      outline: none;
+    }
 
-.auth-form button:hover {
-  background-color: #00a1ff;
-}
+    .auth-form button {
+      background-color: orange;
+      color: #fff;
+      font-size: 12px;
+      padding: 10px 45px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-top: 10px;
+      cursor: pointer;
+    }
 
-.auth-hidden {
-  background-color: transparent;
-  border-color: #fff;
-  color: white;
-  margin-top: 30px;
-  font-size: 12px;
-  padding: 10px 45px;
-  border-radius: 8px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  cursor: pointer;
-}
+    .auth-form button:hover {
+      background-color: #00a1ff;
+    }
 
-.social-icons-auth {
-  margin: 20px 0;
-}
+    .auth-hidden {
+      background-color: transparent;
+      border-color: #fff;
+      color: white;
+      margin-top: 30px;
+      font-size: 12px;
+      padding: 10px 45px;
+      border-radius: 8px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
 
-.social-icons-auth a {
-  /* border: 1px solid #ccc; */
-  /* border-radius: 20%; */
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 3px;
-  /* width: 40px; */
-  height: 40px;
-}
-.social-icons-auth img {
-  width: 100%;
-}
+    .social-icons-auth {
+      margin: 20px 0;
+    }
 
-.auth-signin {
-  left: 0;
-  width: 50%;
-  z-index: 2;
-}
+    .social-icons-auth a {
+      /* border: 1px solid #ccc; */
+      /* border-radius: 20%; */
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 3px;
+      /* width: 40px; */
+      height: 40px;
+    }
+    .social-icons-auth img{
+        width: 100%;
+    }
 
-.auth-wrapper.active .auth-signin {
-  transform: translateX(100%);
-}
 
-.auth-signup {
-  left: 0;
-  width: 50%;
-  opacity: 0;
-  z-index: 1;
-}
+    .auth-signin {
+      left: 0;
+      width: 50%;
+      z-index: 2;
+    }
 
-.auth-wrapper.active .auth-signup {
-  transform: translateX(100%);
-  opacity: 1;
-  z-index: 5;
-  animation: fadeIn 0.6s;
-}
+    .auth-wrapper.active .auth-signin {
+      transform: translateX(100%);
+    }
 
-@keyframes fadeIn {
-  0%,
-  49.99% {
-    opacity: 0;
-    z-index: 1;
-  }
-  50%,
-  100% {
-    opacity: 1;
-    z-index: 5;
-  }
-}
+    .auth-signup {
+      left: 0;
+      width: 50%;
+      opacity: 0;
+      z-index: 1;
+    }
 
-.auth-toggle-container {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 50%;
-  height: 100%;
-  overflow: hidden;
-  transition: all 0.6s ease-in-out;
-  border-radius: 150px 0 0 100px;
-  z-index: 1000;
-}
+    .auth-wrapper.active .auth-signup {
+      transform: translateX(100%);
+      opacity: 1;
+      z-index: 5;
+      animation: fadeIn 0.6s;
+    }
 
-.auth-wrapper.active .auth-toggle-container {
-  transform: translateX(-100%);
-  border-radius: 0 150px 100px 0;
-}
+    @keyframes fadeIn {
+      0%, 49.99% {
+        opacity: 0;
+        z-index: 1;
+      }
+      50%, 100% {
+        opacity: 1;
+        z-index: 5;
+      }
+    }
 
-.auth-toggle {
-  background: linear-gradient(to right, #c33764, #1d2671);
-  color: #fff;
-  position: relative;
-  left: -100%;
-  width: 200%;
-  height: 100%;
-  display: flex;
-  transition: all 0.6s ease-in-out;
-}
+    .auth-toggle-container {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 50%;
+      height: 100%;
+      overflow: hidden;
+      transition: all 0.6s ease-in-out;
+      border-radius: 150px 0 0 100px;
+      z-index: 1000;
+    }
 
-.auth-wrapper.active .auth-toggle {
-  transform: translateX(50%);
-}
+    .auth-wrapper.active .auth-toggle-container {
+      transform: translateX(-100%);
+      border-radius: 0 150px 100px 0;
+    }
 
-.auth-panel {
-  width: 50%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 30px;
-  text-align: center;
-}
+    .auth-toggle {
+      background: linear-gradient(to right, #C33764, #1D2671);
+      color: #fff;
+      position: relative;
+      left: -100%;
+      width: 200%;
+      height: 100%;
+      display: flex;
+      transition: all 0.6s ease-in-out;
+    }
 
-.auth-panel-left {
-  transform: translateX(-200%);
-}
+    .auth-wrapper.active .auth-toggle {
+      transform: translateX(50%);
+    }
 
-.auth-wrapper.active .auth-panel-left {
-  transform: translateX(0);
-}
+    .auth-panel {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 0 30px;
+      text-align: center;
+    }
 
-.auth-panel-right {
-  transform: translateX(0);
-}
+    .auth-panel-left {
+      transform: translateX(-200%);
+    }
 
-.auth-wrapper.active .auth-panel-right {
-  transform: translateX(200%);
-}
+    .auth-wrapper.active .auth-panel-left {
+      transform: translateX(0);
+    }
 
-.auth-form span,
-.auth-wrapper a {
-  font-size: 12px;
-  color: #333;
-  text-decoration: none;
-  margin: 15px 0 10px;
-}
+    .auth-panel-right {
+      transform: translateX(0);
+    }
 
-.auth-form h1 {
-  font-weight: 700;
-}
+    .auth-wrapper.active .auth-panel-right {
+      transform: translateX(200%);
+    }
 
-@media (min-width: 992px) and (max-width: 1200px) {
-  /* Astrology Videos */
-  .videos-container {
-    flex-direction: row;
-    gap: 20px;
-  }
+    .auth-form span, .auth-wrapper a {
+      font-size: 12px;
+      color: #333;
+      text-decoration: none;
+      margin: 15px 0 10px;
+    }
 
-  .video-card {
-    width: calc(
-      50% - 10px
-    ); /* Adjust width to fit two cards per row with some gap */
-    height: auto;
-    margin-bottom: 20px;
-  }
+    .auth-form h1 {
+      font-weight: 700;
+    }
 
-  .video-thumbnail img:first-child {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
 
-  /* Our Blog */
-  .blog-cards {
-    flex-direction: row;
-    gap: 20px;
-  }
+    @media (min-width: 992px) and (max-width: 1200px) {
+      /* Astrology Videos */
+      .videos-container {
+        flex-direction: row;
+        gap: 20px;
+      }
 
-  .blog-card {
-    width: calc(
-      50% - 10px
-    ); /* Adjust width to fit two cards per row with some gap */
-    height: auto;
-    margin-bottom: 20px;
-  }
+      .video-card {
+        width: calc(50% - 10px); /* Adjust width to fit two cards per row with some gap */
+        height: auto;
+        margin-bottom: 20px;
+      }
 
-  .blog-card img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
+      .video-thumbnail img:first-child {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
 
-  /* Sanatan News */
-  .news-cards {
-    flex-direction: row;
-    gap: 20px;
-  }
+      /* Our Blog */
+      .blog-cards {
+        flex-direction: row;
+        gap: 20px;
+      }
 
-  .news-card {
-    width: calc(
-      50% - 10px
-    ); /* Adjust width to fit two cards per row with some gap */
-    height: auto;
-    margin-bottom: 20px;
-  }
+      .blog-card {
+        width: calc(50% - 10px); /* Adjust width to fit two cards per row with some gap */
+        height: auto;
+        margin-bottom: 20px;
+      }
 
-  .news-card img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-}
+      .blog-card img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
 
-.contact-section {
-  padding: 60px 20px;
-}
-.section-title {
-  text-align: center;
-  color: #ffffff;
-  font-size: 2rem;
-  padding-bottom: 10px;
-  margin: 0 auto;
-  border-bottom: 4px solid rgb(22, 141, 196);
-  text-align: center;
-  max-width: 400px;
-  margin-bottom: 40px;
-}
-.underline {
-  width: 80px;
-  height: 4px;
-  background-color: #ffbd59;
-  margin: 0 auto 40px;
-  border-radius: 2px;
-}
-.contact-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-  max-width: 1100px;
-  margin: auto;
-}
-.contact-info,
-.contact-form {
-  flex: 1 1 400px;
-  background-color: #1e0f3c;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-.contact-info h3,
-.contact-form h3 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  color: #ffbd59;
-}
-.contact-info p {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: #dddddd;
-}
-.contact-form p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #dddddd;
-}
-.contact-form form {
-  display: flex;
-  flex-direction: column;
-}
-.contact-form input,
-.contact-form textarea {
-  margin-bottom: 15px;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-}
-.contact-form textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-.contact-form button {
-  background-color: #cb5500;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.contact-form button:hover {
-  background-color: #ea7500;
-}
-/* Hide input initially */
-.delete-reason {
-  display: none;
-  animation: fadeIn 0.3s ease-in-out;
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@media (max-width: 768px) {
-  .contact-form,
-  .contact-info {
-    padding: 20px;
-  }
-}
+      /* Sanatan News */
+      .news-cards {
+        flex-direction: row;
+        gap: 20px;
+      }
+
+      .news-card {
+        width: calc(50% - 10px); /* Adjust width to fit two cards per row with some gap */
+        height: auto;
+        margin-bottom: 20px;
+      }
+
+      .news-card img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+    }

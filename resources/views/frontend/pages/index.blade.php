@@ -358,11 +358,11 @@
       </div>
     </section>
 
-    <section class="contact-section" id="contact">
+    <!-- <section class="contact-section" id="contact">
       <h1 class="section-title">CONTACT US</h1>
-      <!-- <div class="underline"></div> -->
+     
       <div class="contact-container">
-        <!-- Contact Info -->
+        
         <div class="contact-info">
           <h3>SANATAN</h3>
           <p>Personalized Wisdom for Modern Life</p>
@@ -371,7 +371,7 @@
           <p>&#9993; sanatanserviceinfo@gmail.com</p>
         </div>
 
-        <!-- Contact Form -->
+        
         <div class="contact-form">
           <h3>Have any questions?</h3>
           <p>
@@ -391,12 +391,12 @@
               placeholder="Write your message here"
               required></textarea>
 
-            <!-- Checkbox -->
+           
             <label style="color: #ddd; margin-bottom: 10px">
               <input type="checkbox" id="deleteCheck" /> Request Data Deletion
             </label>
 
-            <!-- Hidden Input -->
+            
             <input
               type="text"
               id="deleteReason"
@@ -407,7 +407,8 @@
           </form>
         </div>
       </div>
-    </section>
+    </section> -->
+    
 
     <!-- <footer class="site-footer">
       <div class="footer-content">

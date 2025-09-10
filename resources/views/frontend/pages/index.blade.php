@@ -1,19 +1,19 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sanatan</title>
-    <link rel="icon" href="images/sanatan-logo.png" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="/frontendcss/images/sanatan-logo.png" />
+    <link rel="stylesheet" href="/frontendcss/style.css" />
   </head>
 
   <body>
     <header>
       <div class="header-container">
         <div>
-          <a href="index.html" class="logo-section">
-            <img src="images/sanatan-logo.png" alt="Logo" />
+          <a href="#" class="logo-section">
+            <img src="/frontendcss/images/sanatan-logo.png" alt="Logo" />
             <div class="site-title">
               <h1>SANATAN</h1>
               <small>Personalized Wisdom for Modern Life</small>
@@ -24,51 +24,48 @@
         <div class="app-buttons">
           <a href="https://play.google.com" target="_blank">
             <img
-              src="images/playstore.png"
+              src="frontendcss/images/playstore.png"
               alt="Google Play"
               class="store-btn" />
           </a>
           <a href="https://apple.com/app-store/" target="_blank">
             <img
-              src="images/applestore.png"
+              src="frontendcss/images/applestore.png"
               alt="App Store"
               class="store-btn" />
           </a>
         </div>
       </div>
-    </header> -->
+    </header>
 
-    @extends('frontend.layout.app')
-@section('title', 'Sanatan | Home ')
-@section('content')
+    
 
-
-    <link rel="icon" href="assets/images/sanatan-logo.png" />
+    <link rel="icon" href="/frontendcss/images/sanatan-logo.png" />
     <link rel="stylesheet" href="css/home.css">
 
     <section class="hero">
       <div class="carousel">
         <div class="slides" id="slides">
           <div class="slide">
-            <img src="assets/images/slider1.jpg" alt="slider1" />
+            <img src="/frontendcss/images/slider1.jpg" alt="slider1" />
           </div>
           <div class="slide">
-            <img src="assets/images/zodiac-signs-1.jpg" alt="slider2" />
+            <img src="/frontendcss/images/zodiac-signs-1.jpg" alt="slider2" />
           </div>
           <div class="slide">
-            <img src="assets/images/slider.jpg" alt="slider3" />
+            <img src="frontendcss/images/slider.jpg" alt="slider3" />
           </div>
           <div class="slide">
-            <img src="assets/images/slider4.jpg" alt="slider4" />
+            <img src="/frontendcss/images/slider4.jpg" alt="slider4" />
           </div>
           <div class="slide">
-            <img src="assets/images/zodiac-signs-1.jpg" alt="slider2" />
+            <img src="/frontendcss/images/zodiac-signs-1.jpg" alt="slider2" />
           </div>
           <div class="slide">
-            <img src="assets/images/slider.jpg" alt="slider3" />
+            <img src="frontendcss/images/slider.jpg" alt="slider3" />
           </div>
           <div class="slide">
-            <img src="assets/images/slider4.jpg" alt="slider4" />
+            <img src="frontendcss/images/slider4.jpg" alt="slider4" />
           </div>
         </div>
 
@@ -111,7 +108,7 @@
         </div>
         <div class="facts-image">
           <img
-            src="assets/images/horoscope-astrology-collage_23-2150719040 (1).jpg"
+            src="frontendcss/images/horoscope-astrology-collage_23-2150719040 (1).jpg"
             alt="Astrology Wheel" />
         </div>
       </div>
@@ -139,7 +136,7 @@
         </div>
         <div class="facts-image">
           <img
-            src="assets/images/zodiac-circle-with-horoscope-signs-fish-pisces-scorpio-aquarius-zodiak-aries-virgo-vector-illustration_.jpg"
+            src="frontendcss/images/zodiac-circle-with-horoscope-signs-fish-pisces-scorpio-aquarius-zodiak-aries-virgo-vector-illustration_.jpg"
             alt="Astrology Wheel" />
         </div>
       </div>
@@ -168,7 +165,7 @@
         </div>
         <div class="facts-image">
           <img
-            src="assets/images/zodiac-wheel-space-background_52683-10930.jpg"
+            src="frontendcss/images/zodiac-wheel-space-background_52683-10930.jpg"
             alt="Astrology Wheel" />
         </div>
       </div>
@@ -196,7 +193,7 @@
           <a href="#banner" class="view-btn">View Panchang</a>
         </div>
         <div class="facts-image">
-          <img src="assets/images/panchang.jpg" alt="Astrology Wheel" />
+          <img src="frontendcss/images/panchang.jpg" alt="Astrology Wheel" />
         </div>
       </div>
     </section>
@@ -212,32 +209,32 @@
         <div class="app-buttons">
           <a href="https://play.google.com" target="_blank">
             <img
-              src="assets/images/playstore.png"
+              src="frontendcss/images/playstore.png"
               alt="Google Play"
               class="store-btn" />
           </a>
           <a href="https://apple.com/app-store/" target="_blank">
             <img
-              src="assets/images/applestore.png"
+              src="frontendcss/images/applestore.png"
               alt="App Store"
               class="store-btn" />
           </a>
         </div>
       </div>
       <div class="banner-image">
-        <img src="assets/images/mobile.jpg" alt="Mobile App" />
-        <img src="assets/images/mobile1.jpg" alt="Mobile App" />
+        <img src="frontendcss/images/mobile.jpg" alt="Mobile App" />
+        <img src="frontendcss/images/mobile1.jpg" alt="Mobile App" />
       </div>
     </section>
 
     <section class="features">
       <a href="" class="feature-item">
-        <img src="assets/images/TodayPanchang1740225241.png" alt="Panchang" />
+        <img src="frontendcss/images/TodayPanchang1740225241.png" alt="Panchang" />
         <p>Today's Panchang</p>
       </a>
 
       <a href="" class="feature-item">
-        <img src="assets/images/FreeKundali1707194841.png" alt="Kundli" />
+        <img src="frontendcss/images/FreeKundali1707194841.png" alt="Kundli" />
         <p>Janam Kundali</p>
       </a>
 
@@ -247,7 +244,7 @@
         </a> -->
 
       <a href="" class="feature-item">
-        <img src="assets/images/DailyHoroscope1711688425.png" alt="Horoscope" />
+        <img src="frontendcss/images/DailyHoroscope1711688425.png" alt="Horoscope" />
         <p>Free Daily Horoscope</p>
       </a>
 
@@ -358,7 +355,7 @@
       </div>
     </section>
 
-    <!-- <section class="contact-section" id="contact">
+    <section class="contact-section" id="contact">
       <h1 class="section-title">CONTACT US</h1>
      
       <div class="contact-container">
@@ -407,10 +404,10 @@
           </form>
         </div>
       </div>
-    </section> -->
+    </section>
     
 
-    <!-- <footer class="site-footer">
+    <footer class="site-footer">
       <div class="footer-content">
        
         <div class="footer-column">
@@ -452,20 +449,20 @@
           <h4>Download Our Apps</h4>
           <div class="dwnlod">
             <img
-              src="images/playstore.png"
+              src="frontendcss/images/playstore.png"
               alt="Google Play"
               class="store-btn" />
             <img
-              src="images/applestore.png"
+              src="frontendcss/images/applestore.png"
               alt="App Store"
               class="store-btn" />
           </div>
           <div class="social-icons">
-            <a href="#"><img src="images/facebook.png" alt="Facebook" /></a>
-            <a href="#"><img src="images/twitter.png" alt="Twitter" /></a>
-            <a href="#"><img src="images/linkedin.png" alt="LinkedIn" /></a>
-            <a href="#"><img src="images/instagram.png" alt="Instagram" /></a>
-            <a href="#"><img src="images/youtube.png" alt="YouTube" /></a>
+            <a href="#"><img src="frontendcss/images/facebook.png" alt="Facebook" /></a>
+            <a href="#"><img src="frontendcss/images/twitter.png" alt="Twitter" /></a>
+            <a href="#"><img src="frontendcss/images/linkedin.png" alt="LinkedIn" /></a>
+            <a href="#"><img src="frontendcss/images/instagram.png" alt="Instagram" /></a>
+            <a href="#"><img src="frontendcss/images/youtube.png" alt="YouTube" /></a>
           </div>
         </div>
       </div>
@@ -474,6 +471,6 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="frontendcss/script.js"></script>
   </body>
-</html> -->
+</html>

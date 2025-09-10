@@ -1,0 +1,102 @@
+const slides = document.querySelectorAll(".slide");
+const dotsContainer = document.getElementById("dots");
+let currentIndex = 0;
+
+function showSlide(index) {
+  const slidesEl = document.getElementById("slides");
+  slidesEl.style.transform = `translateX(-${index * 100}%)`;
+  updateDots(index);
+}
+
+function nextSlide() {
+  currentIndex = (currentIndex + 1) % slides.length;
+  showSlide(currentIndex);
+}
+
+function prevSlide() {
+  currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+  showSlide(currentIndex);
+}
+
+function updateDots(index) {
+  document.querySelectorAll(".dot").forEach((dot, i) => {
+    dot.classList.toggle("active", i === index);
+  });
+}
+
+// Create dots
+slides.forEach((_, i) => {
+  const dot = document.createElement("span");
+  dot.classList.add("dot");
+  dot.addEventListener("click", () => {
+    currentIndex = i;
+    showSlide(i);
+  });
+  dotsContainer.appendChild(dot);
+});
+
+showSlide(currentIndex);
+setInterval(nextSlide, 5000); // auto-slide every 5 seconds
+
+function slideAstrologers(direction) {
+  const slider = document.getElementById("astroSlider");
+  const scrollAmount = 240; // little more than card + gap
+
+  if (!slider) {
+    console.error("AstroSlider element not found!");
+    return;
+  }
+
+  if (direction === "left") {
+    slider.scrollLeft -= scrollAmount;
+  } else {
+    slider.scrollLeft += scrollAmount;
+  }
+
+  console.log("Slider position:", slider.scrollLeft);
+}
+
+function slidePandit(direction) {
+  const slider = document.getElementById("panditSlider");
+  const scrollAmount = 240; // little more than card + gap
+
+  if (!slider) {
+    console.error("PanditSlider element not found!");
+    return;
+  }
+
+  if (direction === "left") {
+    slider.scrollLeft -= scrollAmount;
+  } else {
+    slider.scrollLeft += scrollAmount;
+  }
+
+  console.log("Slider position:", slider.scrollLeft);
+}
+
+const accordionButtons = document.querySelectorAll(".accordion-btn");
+
+accordionButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const item = btn.parentElement;
+    item.classList.toggle("active");
+
+    // Collapse other items
+    document.querySelectorAll(".accordion-item").forEach((i) => {
+      if (i !== item) i.classList.remove("active");
+    });
+  });
+});
+
+const deleteCheck = document.getElementById("deleteCheck");
+const deleteReason = document.getElementById("deleteReason");
+
+deleteCheck.addEventListener("change", function () {
+  if (this.checked) {
+    deleteReason.style.display = "block";
+    deleteReason.setAttribute("required", "true");
+  } else {
+    deleteReason.style.display = "none";
+    deleteReason.removeAttribute("required");
+  }
+});

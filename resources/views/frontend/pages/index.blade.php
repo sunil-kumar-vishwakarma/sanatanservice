@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sanatan</title>
-    <link rel="icon" href="/frontendcss/images/sanatan-logo.png" />
-    <link rel="stylesheet" href="/frontendcss/style.css" />
+    <link rel="icon" href="frontendcss/images/sanatan-logo.png" />
+    <link rel="stylesheet" href="frontendcss/style.css" />
   </head>
 
   <body>
@@ -13,7 +13,7 @@
       <div class="header-container">
         <div>
           <a href="#" class="logo-section">
-            <img src="/frontendcss/images/sanatan-logo.png" alt="Logo" />
+            <img src="frontendcss/images/sanatan-logo.png" alt="Logo" />
             <div class="site-title">
               <h1>SANATAN</h1>
               <small>Personalized Wisdom for Modern Life</small>
@@ -40,26 +40,26 @@
 
     
 
-    <link rel="icon" href="/frontendcss/images/sanatan-logo.png" />
+    <link rel="icon" href="frontendcss/images/sanatan-logo.png" />
     <link rel="stylesheet" href="css/home.css">
 
     <section class="hero">
       <div class="carousel">
         <div class="slides" id="slides">
           <div class="slide">
-            <img src="/frontendcss/images/slider1.jpg" alt="slider1" />
+            <img src="frontendcss/images/slider1.jpg" alt="slider1" />
           </div>
           <div class="slide">
-            <img src="/frontendcss/images/zodiac-signs-1.jpg" alt="slider2" />
+            <img src="frontendcss/images/zodiac-signs-1.jpg" alt="slider2" />
           </div>
           <div class="slide">
             <img src="frontendcss/images/slider.jpg" alt="slider3" />
           </div>
           <div class="slide">
-            <img src="/frontendcss/images/slider4.jpg" alt="slider4" />
+            <img src="frontendcss/images/slider4.jpg" alt="slider4" />
           </div>
           <div class="slide">
-            <img src="/frontendcss/images/zodiac-signs-1.jpg" alt="slider2" />
+            <img src="frontendcss/images/zodiac-signs-1.jpg" alt="slider2" />
           </div>
           <div class="slide">
             <img src="frontendcss/images/slider.jpg" alt="slider3" />

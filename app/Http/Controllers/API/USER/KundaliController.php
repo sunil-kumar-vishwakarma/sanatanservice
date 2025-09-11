@@ -621,50 +621,50 @@ public function addKundali(Request $req)
                     $decoded = json_decode($kundaliResponse, true);
                     $pdfUrl = $decoded['response'] ?? null;
 
-                    // if ($pdfUrl) {
-                    //     $response = Http::timeout(10)->get($pdfUrl);
-                    //     if ($response->successful() && strpos($response->header('Content-Type'), 'application/pdf') !== false) {
-                    //         $filename = 'horoscope' . time() . '.pdf';
-                    //         Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
-                    //         $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
-                    //         $success = true;
-                    //     }
-                    // }
-
                     if ($pdfUrl) {
                         $response = Http::timeout(10)->get($pdfUrl);
                         if ($response->successful() && strpos($response->header('Content-Type'), 'application/pdf') !== false) {
-                            
-                            // original file
-                            $originalFilename = 'horoscope' . time() . '.pdf';
-                            $originalPath = storage_path('app/public/kundali_date/' . $originalFilename);
-                            Storage::disk('public')->put('kundali_date/' . $originalFilename, $response->body());
-
-                            // remove first page and regenerate
-                            $pdf = new Fpdi();
-
-                            // load the original PDF
-                            $pageCount = $pdf->setSourceFile($originalPath);
-
-                            // copy all pages except first
-                            for ($pageNo = 2; $pageNo <= $pageCount; $pageNo++) {
-                                $tplIdx = $pdf->importPage($pageNo);
-                                $size = $pdf->getTemplateSize($tplIdx);
-                                $pdf->AddPage($size['orientation'], [$size['width'], $size['height']]);
-                                $pdf->useTemplate($tplIdx);
-                            }
-
-                            // new file name
-                            $newFilename = 'horoscope_no_first_' . time() . '.pdf';
-                            $newPath = storage_path('app/public/kundali_date/' . $newFilename);
-
-                            // save regenerated PDF
-                            $pdf->Output($newPath, 'F');
-
-                            $pdfUrlssPdf = 'storage/kundali_date/' . $newFilename;
+                            $filename = 'horoscope' . time() . '.pdf';
+                            Storage::disk('public')->put('kundali_date/' . $filename, $response->body());
+                            $pdfUrlssPdf = 'storage/kundali_date/' . $filename;
                             $success = true;
                         }
                     }
+
+                    // if ($pdfUrl) {
+                    //     $response = Http::timeout(10)->get($pdfUrl);
+                    //     if ($response->successful() && strpos($response->header('Content-Type'), 'application/pdf') !== false) {
+                            
+                    //         // original file
+                    //         $originalFilename = 'horoscope' . time() . '.pdf';
+                    //         $originalPath = storage_path('app/public/kundali_date/' . $originalFilename);
+                    //         Storage::disk('public')->put('kundali_date/' . $originalFilename, $response->body());
+
+                    //         // remove first page and regenerate
+                    //         $pdf = new Fpdi();
+
+                    //         // load the original PDF
+                    //         $pageCount = $pdf->setSourceFile($originalPath);
+
+                    //         // copy all pages except first
+                    //         for ($pageNo = 2; $pageNo <= $pageCount; $pageNo++) {
+                    //             $tplIdx = $pdf->importPage($pageNo);
+                    //             $size = $pdf->getTemplateSize($tplIdx);
+                    //             $pdf->AddPage($size['orientation'], [$size['width'], $size['height']]);
+                    //             $pdf->useTemplate($tplIdx);
+                    //         }
+
+                    //         // new file name
+                    //         $newFilename = 'horoscope_no_first_' . time() . '.pdf';
+                    //         $newPath = storage_path('app/public/kundali_date/' . $newFilename);
+
+                    //         // save regenerated PDF
+                    //         $pdf->Output($newPath, 'F');
+
+                    //         $pdfUrlssPdf = 'storage/kundali_date/' . $newFilename;
+                    //         $success = true;
+                    //     }
+                    // }
 
 
                     $attempt++;
